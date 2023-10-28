@@ -1,15 +1,23 @@
-[gd_scene load_steps=28 format=3 uid="uid://ddawbfdgq2114"]
+[gd_scene load_steps=52 format=3 uid="uid://ddawbfdgq2114"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_bej2y"]
 [ext_resource type="Texture2D" uid="uid://bd70f8o62n7hn" path="res://scenes/entities/player/sprites/run_left/run_left_f1.png" id="1_q4w7q"]
 [ext_resource type="Texture2D" uid="uid://b3b20v13vtqet" path="res://scenes/entities/player/sprites/run_left/run_left_f2.png" id="2_3kkfy"]
+[ext_resource type="Texture2D" uid="uid://c3se5q5sbdehu" path="res://scenes/entities/player/sprites/duck_left/duck_left_f1.png" id="2_yj5xc"]
+[ext_resource type="Texture2D" uid="uid://bt13g5m7xsyxl" path="res://scenes/entities/player/sprites/duck_left/duck_left_f2.png" id="3_06oqx"]
 [ext_resource type="Texture2D" uid="uid://dheiewninnm8w" path="res://scenes/entities/player/sprites/run_left/run_left_f3.png" id="3_jb1wq"]
+[ext_resource type="Texture2D" uid="uid://c1c1sroql3eoe" path="res://scenes/entities/player/sprites/duck_left/duck_left_f3.png" id="4_g7776"]
 [ext_resource type="Texture2D" uid="uid://df5wqpmhfkwlo" path="res://scenes/entities/player/sprites/run_left/run_left_f4.png" id="4_sxs0h"]
 [ext_resource type="Texture2D" uid="uid://b4yy7fo7v63dm" path="res://scenes/entities/player/sprites/run_left/run_left_f5.png" id="5_4fslw"]
+[ext_resource type="Texture2D" uid="uid://ddtgfg3bgti44" path="res://scenes/entities/player/sprites/duck_left/duck_left_f4.png" id="5_gt8rc"]
+[ext_resource type="Texture2D" uid="uid://d3cavuldq3v1h" path="res://scenes/entities/player/sprites/duck_right/duck_right_f1.png" id="6_1u8oh"]
 [ext_resource type="Texture2D" uid="uid://dbdet4umufqq1" path="res://scenes/entities/player/sprites/run_left/run_left_f6.png" id="6_h31x6"]
+[ext_resource type="Texture2D" uid="uid://cdmnnmv3ffoaj" path="res://scenes/entities/player/sprites/duck_right/duck_right_f2.png" id="7_b7h8y"]
 [ext_resource type="Texture2D" uid="uid://lrc2tq5mgk8f" path="res://scenes/entities/player/sprites/run_left/run_left_f7.png" id="7_hkx3c"]
 [ext_resource type="Texture2D" uid="uid://bxlr3lyysabkn" path="res://scenes/entities/player/sprites/run_left/run_left_f8.png" id="8_4162n"]
+[ext_resource type="Texture2D" uid="uid://cenonx3baeatt" path="res://scenes/entities/player/sprites/duck_right/duck_right_f3.png" id="8_rhij6"]
 [ext_resource type="Texture2D" uid="uid://cgmbmmlie71kw" path="res://scenes/entities/player/sprites/run_right/run_right_f1.png" id="9_gexdb"]
+[ext_resource type="Texture2D" uid="uid://dw527jit8cr1l" path="res://scenes/entities/player/sprites/duck_right/duck_right_f4.png" id="9_w11up"]
 [ext_resource type="Texture2D" uid="uid://l446wy68k50x" path="res://scenes/entities/player/sprites/run_right/run_right_f2.png" id="10_6jt2p"]
 [ext_resource type="Texture2D" uid="uid://beh3vipshvmsy" path="res://scenes/entities/player/sprites/run_right/run_right_f3.png" id="11_gpgll"]
 [ext_resource type="Texture2D" uid="uid://qy4xvj7u0nx" path="res://scenes/entities/player/sprites/run_right/run_right_f4.png" id="12_tv3xh"]
@@ -25,6 +33,22 @@
 [ext_resource type="Texture2D" uid="uid://c3et34tjepqou" path="res://scenes/entities/player/sprites/stand_right/stand_right_f2.png" id="22_e71y4"]
 [ext_resource type="Texture2D" uid="uid://b5pif8a354aju" path="res://scenes/entities/player/sprites/stand_right/stand_right_f3.png" id="23_8riuh"]
 [ext_resource type="Texture2D" uid="uid://bjbyd1tekiyv" path="res://scenes/entities/player/sprites/stand_right/stand_right_f4.png" id="24_h8jpy"]
+[ext_resource type="Texture2D" uid="uid://2uv75rtm6rsx" path="res://scenes/entities/player/sprites/to_duck_left/to_duck_left_f1.png" id="34_a661l"]
+[ext_resource type="Texture2D" uid="uid://dlewsdhyt4pj2" path="res://scenes/entities/player/sprites/to_duck_left/to_duck_left_f2.png" id="35_nvy31"]
+[ext_resource type="Texture2D" uid="uid://dumtnjvomqbkt" path="res://scenes/entities/player/sprites/to_duck_left/to_duck_left_f3.png" id="36_flm0v"]
+[ext_resource type="Texture2D" uid="uid://c5ifoarmfbk8o" path="res://scenes/entities/player/sprites/to_duck_left/to_duck_left_f4.png" id="37_85u4o"]
+[ext_resource type="Texture2D" uid="uid://dnv8xc4pw5k6u" path="res://scenes/entities/player/sprites/to_duck_left/to_duck_left_f5.png" id="38_3i22h"]
+[ext_resource type="Texture2D" uid="uid://b8lokb2ypwoye" path="res://scenes/entities/player/sprites/to_duck_left/to_duck_left_f6.png" id="39_swwqt"]
+[ext_resource type="Texture2D" uid="uid://c3vqefv5pf72w" path="res://scenes/entities/player/sprites/to_duck_left/to_duck_left_f7.png" id="40_iewou"]
+[ext_resource type="Texture2D" uid="uid://dpqyopugdsd61" path="res://scenes/entities/player/sprites/to_duck_left/to_duck_left_f8.png" id="41_44tto"]
+[ext_resource type="Texture2D" uid="uid://2r3c5osoncf1" path="res://scenes/entities/player/sprites/to_duck_right/to_duck_right_f1.png" id="42_ae5dv"]
+[ext_resource type="Texture2D" uid="uid://bc74dtvsfp2w" path="res://scenes/entities/player/sprites/to_duck_right/to_duck_right_f2.png" id="43_sb8o2"]
+[ext_resource type="Texture2D" uid="uid://ug3a4x625uwu" path="res://scenes/entities/player/sprites/to_duck_right/to_duck_right_f3.png" id="44_is8yv"]
+[ext_resource type="Texture2D" uid="uid://cw20yxx57moll" path="res://scenes/entities/player/sprites/to_duck_right/to_duck_right_f4.png" id="45_bhhv2"]
+[ext_resource type="Texture2D" uid="uid://b6eprstpljwab" path="res://scenes/entities/player/sprites/to_duck_right/to_duck_right_f5.png" id="46_wpn63"]
+[ext_resource type="Texture2D" uid="uid://i15gyvtj0nry" path="res://scenes/entities/player/sprites/to_duck_right/to_duck_right_f6.png" id="47_uqivt"]
+[ext_resource type="Texture2D" uid="uid://cjwf4mcpvgmgj" path="res://scenes/entities/player/sprites/to_duck_right/to_duck_right_f7.png" id="48_n0flf"]
+[ext_resource type="Texture2D" uid="uid://br6ic7qgj41na" path="res://scenes/entities/player/sprites/to_duck_right/to_duck_right_f8.png" id="49_x4ema"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fxymx"]
 radius = 6.0
@@ -32,6 +56,40 @@ height = 84.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p6a38"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_yj5xc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_06oqx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_g7776")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gt8rc")
+}],
+"loop": false,
+"name": &"duck_left",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_1u8oh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_b7h8y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rhij6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_w11up")
+}],
+"loop": false,
+"name": &"duck_right",
+"speed": 7.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_q4w7q")
@@ -123,6 +181,64 @@ animations = [{
 "loop": false,
 "name": &"stand_right",
 "speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_a661l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_nvy31")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_flm0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_85u4o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_3i22h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_swwqt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_iewou")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_44tto")
+}],
+"loop": false,
+"name": &"to_duck_left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_ae5dv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_sb8o2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_is8yv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_bhhv2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_wpn63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_uqivt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_n0flf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_x4ema")
+}],
+"loop": false,
+"name": &"to_duck_right",
+"speed": 10.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
@@ -134,4 +250,4 @@ shape = SubResource("CapsuleShape2D_fxymx")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_p6a38")
-animation = &"run_left"
+animation = &"duck_left"
