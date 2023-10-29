@@ -22,6 +22,13 @@ var animation_to_change:bool = false
 var loop_animation:bool = false
 var animation_frames_forwards:bool = true
 
+# hitbox related properties
+@onready var hit_box:CollisionShape2D = $HitBox
+var hit_box_height_full:float = 76
+var hit_box_height_reduced:float = 58
+var hit_box_y_full:float = 4
+var hit_box_y_reduced:float = 12
+
 
 func _ready():
 	animations.animation_finished.connect(on_animation_finished)
@@ -48,6 +55,7 @@ func check_player_key_input_status():
 		if is_duck:
 			is_duck = false
 			to_duck = true
+			resize_hit_box(true, false)
 
 		elif to_duck:
 			# play remaining to-duck animation backwards
@@ -119,6 +127,15 @@ func move(delta):
 	move_and_slide()
 
 
+func resize_hit_box(to_full:bool=false, reduce:bool=false):
+	if to_full:
+		hit_box.position.y = hit_box_y_full
+		hit_box.shape.set_height(hit_box_height_full)
+	elif reduce:
+		hit_box.position.y = hit_box_y_reduced
+		hit_box.shape.set_height(hit_box_height_reduced)
+
+
 func select_animation() -> void:
 	animations.stop()
 	animations.play(current_animation)
@@ -144,6 +161,7 @@ func on_animation_finished():
 		if will_duck:
 			will_duck = false
 			is_duck = true
+			resize_hit_box(false, true)
 			if "left" in current_animation:
 				current_animation = "duck_left"
 			else:

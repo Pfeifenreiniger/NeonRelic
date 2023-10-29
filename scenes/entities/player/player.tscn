@@ -52,7 +52,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fxymx"]
 radius = 6.0
-height = 84.0
+height = 76.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p6a38"]
 animations = [{
@@ -245,9 +245,11 @@ animations = [{
 collision_mask = 60
 script = ExtResource("1_bej2y")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HitBox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_fxymx")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_p6a38")
-animation = &"duck_left"
+animation = &"stand_right"
+metadata/_edit_lock_ = true
