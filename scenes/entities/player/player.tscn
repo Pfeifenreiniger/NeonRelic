@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://ddawbfdgq2114"]
+[gd_scene load_steps=72 format=3 uid="uid://ddawbfdgq2114"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_bej2y"]
 [ext_resource type="Texture2D" uid="uid://bd70f8o62n7hn" path="res://scenes/entities/player/sprites/run_left/run_left_f1.png" id="1_q4w7q"]
@@ -19,20 +19,40 @@
 [ext_resource type="Texture2D" uid="uid://cgmbmmlie71kw" path="res://scenes/entities/player/sprites/run_right/run_right_f1.png" id="9_gexdb"]
 [ext_resource type="Texture2D" uid="uid://dw527jit8cr1l" path="res://scenes/entities/player/sprites/duck_right/duck_right_f4.png" id="9_w11up"]
 [ext_resource type="Texture2D" uid="uid://l446wy68k50x" path="res://scenes/entities/player/sprites/run_right/run_right_f2.png" id="10_6jt2p"]
+[ext_resource type="Texture2D" uid="uid://h2y0in31spdr" path="res://scenes/entities/player/sprites/fall_down_left/fall_down_left_f1.png" id="10_d6jqu"]
 [ext_resource type="Texture2D" uid="uid://beh3vipshvmsy" path="res://scenes/entities/player/sprites/run_right/run_right_f3.png" id="11_gpgll"]
+[ext_resource type="Texture2D" uid="uid://df0m76wcbxc4y" path="res://scenes/entities/player/sprites/fall_down_left/fall_down_left_f2.png" id="11_ik5xq"]
 [ext_resource type="Texture2D" uid="uid://qy4xvj7u0nx" path="res://scenes/entities/player/sprites/run_right/run_right_f4.png" id="12_tv3xh"]
+[ext_resource type="Texture2D" uid="uid://bvcmmje2mctcu" path="res://scenes/entities/player/sprites/fall_down_left/fall_down_left_f3.png" id="12_vhuse"]
+[ext_resource type="Texture2D" uid="uid://2436oichbdbq" path="res://scenes/entities/player/sprites/fall_down_left/fall_down_left_f4.png" id="13_88hgd"]
 [ext_resource type="Texture2D" uid="uid://von6tbu1rdf4" path="res://scenes/entities/player/sprites/run_right/run_right_f5.png" id="13_usghg"]
 [ext_resource type="Texture2D" uid="uid://dclnjtiqcwj4t" path="res://scenes/entities/player/sprites/run_right/run_right_f6.png" id="14_adtyn"]
+[ext_resource type="Texture2D" uid="uid://cws8740tfjmos" path="res://scenes/entities/player/sprites/fall_down_right/fall_down_right_f1.png" id="14_utbpl"]
+[ext_resource type="Texture2D" uid="uid://dx2hs0y16lmcx" path="res://scenes/entities/player/sprites/fall_down_right/fall_down_right_f2.png" id="15_3dodj"]
 [ext_resource type="Texture2D" uid="uid://7ue1vx7h7v4u" path="res://scenes/entities/player/sprites/run_right/run_right_f7.png" id="15_y4n0a"]
+[ext_resource type="Texture2D" uid="uid://dftrxg4xw25s0" path="res://scenes/entities/player/sprites/fall_down_right/fall_down_right_f3.png" id="16_u86bv"]
 [ext_resource type="Texture2D" uid="uid://ck7mnqpwf2oki" path="res://scenes/entities/player/sprites/run_right/run_right_f8.png" id="16_x4pai"]
+[ext_resource type="Texture2D" uid="uid://n6niuvami2pt" path="res://scenes/entities/player/sprites/fall_down_right/fall_down_right_f4.png" id="17_57c3g"]
 [ext_resource type="Texture2D" uid="uid://dmlfl88oultbh" path="res://scenes/entities/player/sprites/stand_left/stand_left_f1.png" id="17_p28ld"]
 [ext_resource type="Texture2D" uid="uid://bj8f21vyroq7g" path="res://scenes/entities/player/sprites/stand_left/stand_left_f2.png" id="18_5ei2h"]
+[ext_resource type="Texture2D" uid="uid://cjiflqw0p20s7" path="res://scenes/entities/player/sprites/jump_up_left/jump_up_left_f1.png" id="18_fjycl"]
 [ext_resource type="Texture2D" uid="uid://bvu6pyd5aq2qb" path="res://scenes/entities/player/sprites/stand_left/stand_left_f3.png" id="19_nvdw8"]
+[ext_resource type="Texture2D" uid="uid://d85blk15tph6" path="res://scenes/entities/player/sprites/jump_up_left/jump_up_left_f2.png" id="19_odo7y"]
 [ext_resource type="Texture2D" uid="uid://du8asiophaki" path="res://scenes/entities/player/sprites/stand_left/stand_left_f4.png" id="20_2emba"]
+[ext_resource type="Texture2D" uid="uid://to1c81tx1sgf" path="res://scenes/entities/player/sprites/jump_up_left/jump_up_left_f3.png" id="20_jx4s6"]
 [ext_resource type="Texture2D" uid="uid://wd2162qro0f4" path="res://scenes/entities/player/sprites/stand_right/stand_right_f1.png" id="21_4wp66"]
+[ext_resource type="Texture2D" uid="uid://bu4gehgder3n0" path="res://scenes/entities/player/sprites/jump_up_left/jump_up_left_f4.png" id="21_j8aq8"]
+[ext_resource type="Texture2D" uid="uid://bgdccm46s4o6p" path="res://scenes/entities/player/sprites/jump_up_left/jump_up_left_f5.png" id="22_5qqn7"]
 [ext_resource type="Texture2D" uid="uid://c3et34tjepqou" path="res://scenes/entities/player/sprites/stand_right/stand_right_f2.png" id="22_e71y4"]
 [ext_resource type="Texture2D" uid="uid://b5pif8a354aju" path="res://scenes/entities/player/sprites/stand_right/stand_right_f3.png" id="23_8riuh"]
+[ext_resource type="Texture2D" uid="uid://dyqmws3oydck4" path="res://scenes/entities/player/sprites/jump_up_left/jump_up_left_f6.png" id="23_qtwng"]
 [ext_resource type="Texture2D" uid="uid://bjbyd1tekiyv" path="res://scenes/entities/player/sprites/stand_right/stand_right_f4.png" id="24_h8jpy"]
+[ext_resource type="Texture2D" uid="uid://dvw1pxkjkjiqs" path="res://scenes/entities/player/sprites/jump_up_right/jump_up_right_f1.png" id="24_sl83f"]
+[ext_resource type="Texture2D" uid="uid://d25fufs047b2s" path="res://scenes/entities/player/sprites/jump_up_right/jump_up_right_f2.png" id="25_534mq"]
+[ext_resource type="Texture2D" uid="uid://bjba64han3wys" path="res://scenes/entities/player/sprites/jump_up_right/jump_up_right_f3.png" id="26_rhd31"]
+[ext_resource type="Texture2D" uid="uid://bys1am0mi71lb" path="res://scenes/entities/player/sprites/jump_up_right/jump_up_right_f4.png" id="27_p5yhx"]
+[ext_resource type="Texture2D" uid="uid://divum5qis8scb" path="res://scenes/entities/player/sprites/jump_up_right/jump_up_right_f5.png" id="28_va1rg"]
+[ext_resource type="Texture2D" uid="uid://ro6mimfx21xc" path="res://scenes/entities/player/sprites/jump_up_right/jump_up_right_f6.png" id="29_rtbss"]
 [ext_resource type="Texture2D" uid="uid://2uv75rtm6rsx" path="res://scenes/entities/player/sprites/to_duck_left/to_duck_left_f1.png" id="34_a661l"]
 [ext_resource type="Texture2D" uid="uid://dlewsdhyt4pj2" path="res://scenes/entities/player/sprites/to_duck_left/to_duck_left_f2.png" id="35_nvy31"]
 [ext_resource type="Texture2D" uid="uid://dumtnjvomqbkt" path="res://scenes/entities/player/sprites/to_duck_left/to_duck_left_f3.png" id="36_flm0v"]
@@ -89,6 +109,86 @@ animations = [{
 "loop": false,
 "name": &"duck_right",
 "speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_d6jqu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ik5xq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_vhuse")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_88hgd")
+}],
+"loop": false,
+"name": &"fall_down_left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_utbpl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_3dodj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_u86bv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_57c3g")
+}],
+"loop": false,
+"name": &"fall_down_right",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_fjycl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_odo7y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_jx4s6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_j8aq8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_5qqn7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_qtwng")
+}],
+"loop": false,
+"name": &"jump_up_left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_sl83f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_534mq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_rhd31")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_p5yhx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_va1rg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_rtbss")
+}],
+"loop": false,
+"name": &"jump_up_right",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -251,5 +351,5 @@ shape = SubResource("CapsuleShape2D_fxymx")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_p6a38")
-animation = &"stand_right"
+animation = &"fall_down_left"
 metadata/_edit_lock_ = true

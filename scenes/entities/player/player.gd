@@ -6,14 +6,19 @@ var direction:Vector2 = Vector2.ZERO
 const BASE_SPEED:int = 200
 var current_speed:int = BASE_SPEED
 
-const JUMP_VELOCITY:int = -200
+const BASE_JUMP_VELOCITY:int = -350
+var current_jump_velocity:int = BASE_JUMP_VELOCITY
 
 var BASE_GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 var current_gravity = BASE_GRAVITY
 
+# player y-movement properties
 var to_duck:bool = false
 var is_duck:bool = false
 var will_duck:bool = false
+var is_jumping:bool = false
+var is_falling:bool = false
+
 
 # animation related properties
 @onready var animations:AnimatedSprite2D = $Animations
@@ -51,7 +56,7 @@ func _physics_process(delta):
 
 func check_player_key_input_status():
 	# check if player does not want to duck anymore
-	if Input.is_action_just_released("ingame_duck"):
+	if direction.x == 0 and Input.is_action_just_released("ingame_duck"):
 		if is_duck:
 			is_duck = false
 			to_duck = true
@@ -75,7 +80,7 @@ func check_player_key_input_status():
 
 
 func move_x() -> void:
-	if not to_duck and not is_duck:
+	if not to_duck and not is_duck and not is_jumping and not is_falling:
 		if Input.is_action_pressed("ingame_move_right"):
 			direction.x = 1
 			if current_animation != "run_right":
@@ -90,8 +95,8 @@ func move_x() -> void:
 				loop_animation = true
 		else:
 			direction.x = 0
-			if current_animation != "stand_right" and current_animation != "stand_left" and (not to_duck or not is_duck):
-				if current_animation == "run_right":
+			if not "stand" in current_animation and not to_duck and not is_duck and not is_falling and not is_jumping:
+				if "right" in current_animation:
 					current_animation = "stand_right"
 					loop_animation = true
 				else:
@@ -104,21 +109,46 @@ func move_x() -> void:
 func move_y(delta):
 	# apply gravity
 	if not is_on_floor():
-		velocity.y += current_gravity * delta
-	
-	# player ducks
-	if direction.x == 0:
-		if Input.is_action_pressed("ingame_duck"):
-			if is_on_floor():
-				if not to_duck and not is_duck:
-					to_duck = true
-					will_duck = true
-					if "left" in current_animation:
-						current_animation = "to_duck_left"
-					else:
-						current_animation = "to_duck_right"
-					loop_animation = false
-					animation_to_change = true
+		if not is_duck and not to_duck:
+			velocity.y += current_gravity * delta
+		if velocity.y > 0:
+			if not is_falling:
+				is_jumping = false
+				is_falling = true
+				direction.y = 1
+				if "left" in current_animation:
+					current_animation = "fall_down_left"
+				else:
+					current_animation = "fall_down_right"
+				loop_animation = false
+				animation_to_change = true
+	else:
+		if is_falling:
+			is_falling = false
+			direction.y = 0
+		# player jumping
+		if Input.is_action_pressed("ingame_jump") and not is_duck and not to_duck:
+			if direction.y == 0 and not is_jumping and not is_falling:
+				direction.y = -1
+				is_jumping = true
+				if "left" in current_animation:
+					current_animation = "jump_up_left"
+				else:
+					current_animation = "jump_up_right"
+				loop_animation = false
+				animation_to_change = true
+				velocity.y += current_jump_velocity
+		# player ducking
+		elif Input.is_action_pressed("ingame_duck") and not is_jumping and not is_falling:
+			if direction.x == 0 and not to_duck and not is_duck:
+				to_duck = true
+				will_duck = true
+				if "left" in current_animation:
+					current_animation = "to_duck_left"
+				else:
+					current_animation = "to_duck_right"
+				loop_animation = false
+				animation_to_change = true
 
 
 func move(delta):
@@ -175,3 +205,6 @@ func on_animation_finished():
 		loop_animation = true
 		animation_to_change = true
 
+	elif is_jumping or is_falling:
+		var last_frame:int = animations.frame
+		print("Hallo")
