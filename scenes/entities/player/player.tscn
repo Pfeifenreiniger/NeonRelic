@@ -1,10 +1,12 @@
-[gd_scene load_steps=72 format=3 uid="uid://ddawbfdgq2114"]
+[gd_scene load_steps=74 format=3 uid="uid://ddawbfdgq2114"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_bej2y"]
 [ext_resource type="Texture2D" uid="uid://bd70f8o62n7hn" path="res://scenes/entities/player/sprites/run_left/run_left_f1.png" id="1_q4w7q"]
 [ext_resource type="Texture2D" uid="uid://b3b20v13vtqet" path="res://scenes/entities/player/sprites/run_left/run_left_f2.png" id="2_3kkfy"]
+[ext_resource type="PackedScene" uid="uid://ckuywxwyjps68" path="res://scenes/entities/player/player_controls_handler.tscn" id="2_lh736"]
 [ext_resource type="Texture2D" uid="uid://c3se5q5sbdehu" path="res://scenes/entities/player/sprites/duck_left/duck_left_f1.png" id="2_yj5xc"]
 [ext_resource type="Texture2D" uid="uid://bt13g5m7xsyxl" path="res://scenes/entities/player/sprites/duck_left/duck_left_f2.png" id="3_06oqx"]
+[ext_resource type="PackedScene" uid="uid://ckecmw1wq155q" path="res://scenes/entities/player/player_animations_handler.tscn" id="3_8ebf5"]
 [ext_resource type="Texture2D" uid="uid://dheiewninnm8w" path="res://scenes/entities/player/sprites/run_left/run_left_f3.png" id="3_jb1wq"]
 [ext_resource type="Texture2D" uid="uid://c1c1sroql3eoe" path="res://scenes/entities/player/sprites/duck_left/duck_left_f3.png" id="4_g7776"]
 [ext_resource type="Texture2D" uid="uid://df5wqpmhfkwlo" path="res://scenes/entities/player/sprites/run_left/run_left_f4.png" id="4_sxs0h"]
@@ -74,7 +76,7 @@
 radius = 6.0
 height = 76.0
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_p6a38"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_v81g4"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -341,15 +343,18 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 60
 script = ExtResource("1_bej2y")
+
+[node name="PlayerControlsHandler" parent="." instance=ExtResource("2_lh736")]
+
+[node name="PlayerAnimationsHandler" parent="." instance=ExtResource("3_8ebf5")]
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_fxymx")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_p6a38")
-animation = &"fall_down_left"
-metadata/_edit_lock_ = true
+sprite_frames = SubResource("SpriteFrames_v81g4")
+animation = &"stand_right"
