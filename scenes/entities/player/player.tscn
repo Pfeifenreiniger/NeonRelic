@@ -357,4 +357,4 @@ shape = SubResource("CapsuleShape2D_fxymx")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_v81g4")
-animation = &"stand_right"
+animation = &"run_right"

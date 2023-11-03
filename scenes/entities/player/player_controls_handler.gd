@@ -1,7 +1,7 @@
 extends Node
 
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
-
+@onready var ingame_camera:Camera2D = get_tree().get_first_node_in_group('ingame_camera')
 
 func check_player_duck_key_input_status():
 	# check if player does not want to duck anymore
@@ -19,6 +19,8 @@ func check_player_duck_key_input_status():
 		
 		player.will_duck = false
 		player.loop_animation = false
+		ingame_camera.desc_camera_y_axis = false
+		ingame_camera.asc_camera_y_axis = true
 		
 		if "left" in player.current_animation:
 			player.current_animation = "to_duck_left"
@@ -57,12 +59,14 @@ func move_x() -> void:
 				player.current_animation = "run_right"
 				player.animation_to_change = true
 				player.loop_animation = true
+				player.start_run_animation = true
 		elif Input.is_action_pressed("ingame_move_left"):
 			player.direction.x = -1
 			if player.current_animation != "run_left":
 				player.current_animation = "run_left"
 				player.animation_to_change = true
 				player.loop_animation = true
+				player.start_run_animation = true
 		else:
 			player.direction.x = 0
 			if not "stand" in player.current_animation and check_if_player_can_horizontally_move():
@@ -119,6 +123,8 @@ func move_y(delta):
 					player.current_animation = "to_duck_right"
 				player.loop_animation = false
 				player.animation_to_change = true
+				ingame_camera.asc_camera_y_axis = false
+				ingame_camera.desc_camera_y_axis = true
 
 
 func move(delta):

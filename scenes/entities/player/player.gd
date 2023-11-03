@@ -28,6 +28,7 @@ var is_falling:bool = false
 @onready var animations_handler:Node = $PlayerAnimationsHandler
 var current_animation:String
 var animation_to_change:bool = false
+var start_run_animation:bool = false
 var loop_animation:bool = false
 var animation_frames_forwards:bool = true
 
