@@ -9,7 +9,6 @@ func select_animation() -> void:
 	if player.start_run_animation:
 		player.animations.set_frame(4)
 		player.start_run_animation = false
-	print(player.animations.frame)
 	player.animation_to_change = false
 	if player.loop_animation:
 		player.animation_frames_forwards = true
