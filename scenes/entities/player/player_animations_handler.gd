@@ -14,6 +14,26 @@ func select_animation() -> void:
 		player.animation_frames_forwards = true
 
 
+func climb_up_ledge(direction:String):
+	# tween config
+	var tween = get_tree().create_tween()
+	var animation_duration:float = 0.9
+	
+	# player pos offset
+	var player_x_offset:int = 15
+	var player_y_offset:int = 36
+	
+	var to_pos_x:int
+	if direction == "left":
+		to_pos_x = player.global_position.x - player_x_offset
+	else:
+		to_pos_x = player.global_position.x + player_x_offset
+	
+	var to_pos_y:int = player.global_position.y - player_y_offset
+	
+	tween.tween_property(player, "global_position", Vector2(to_pos_x, to_pos_y), animation_duration)
+
+
 func on_animation_finished():
 	if player.loop_animation:
 		player.animations.stop()
@@ -43,4 +63,14 @@ func on_animation_finished():
 		
 		player.loop_animation = true
 		player.animation_to_change = true
+
+	elif player.is_climbing_ledge:
+		player.is_climbing_ledge = false
+		player.loop_animation = true
+		player.animation_to_change = true
+		if "left" in player.current_animation:
+			player.current_animation = "stand_left"
+		else:
+			player.current_animation = "stand_right"
+		
 

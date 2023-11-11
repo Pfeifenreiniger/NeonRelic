@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://drqk14s7frsib"]
+
+[ext_resource type="Script" path="res://scenes/levels/ledge_to_climb/ledge_to_climb.gd" id="1_uwp5b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_333lp"]
+size = Vector2(20, 10)
+
+[node name="LedgeToClimb" type="Area2D"]
+script = ExtResource("1_uwp5b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_333lp")

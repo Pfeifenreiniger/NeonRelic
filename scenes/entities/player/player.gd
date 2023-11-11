@@ -41,10 +41,21 @@ var hit_box_y_full:float = 4
 var hit_box_y_reduced:float = 12
 
 
+###------OTHER PROPERTIES------###
+@onready var ledge_climb_area:Area2D = $LedgeClimbArea
+var current_ledge_to_climb_area:Area2D = null
+var is_climbing_ledge:bool = false
+
 func _ready():
+	# set up animations
 	animations.animation_finished.connect(animations_handler.on_animation_finished)
 	current_animation = "run_right"
 	loop_animation = true
+	
+	# set up ledge climbing
+	ledge_climb_area.area_entered.connect(on_ledge_area_entered)
+	ledge_climb_area.area_exited.connect(on_ledge_area_exited)
+	
 
 
 func _process(_delta):
@@ -67,3 +78,13 @@ func resize_hit_box(to_full:bool=false, reduce:bool=false):
 	elif reduce:
 		hit_box.position.y = hit_box_y_reduced
 		hit_box.shape.set_height(hit_box_height_reduced)
+
+
+func on_ledge_area_entered(area):
+	if "ledge_to_climb" in area:
+		current_ledge_to_climb_area = area
+
+
+func on_ledge_area_exited(area):
+	if "ledge_to_climb" in area:
+		current_ledge_to_climb_area = null

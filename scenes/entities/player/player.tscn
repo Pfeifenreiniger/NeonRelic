@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://ddawbfdgq2114"]
+[gd_scene load_steps=87 format=3 uid="uid://ddawbfdgq2114"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_bej2y"]
 [ext_resource type="Texture2D" uid="uid://bd70f8o62n7hn" path="res://scenes/entities/player/sprites/run_left/run_left_f1.png" id="1_q4w7q"]
@@ -10,27 +10,39 @@
 [ext_resource type="Texture2D" uid="uid://dheiewninnm8w" path="res://scenes/entities/player/sprites/run_left/run_left_f3.png" id="3_jb1wq"]
 [ext_resource type="Texture2D" uid="uid://c1c1sroql3eoe" path="res://scenes/entities/player/sprites/duck_left/duck_left_f3.png" id="4_g7776"]
 [ext_resource type="Texture2D" uid="uid://df5wqpmhfkwlo" path="res://scenes/entities/player/sprites/run_left/run_left_f4.png" id="4_sxs0h"]
+[ext_resource type="Texture2D" uid="uid://dwfnrulsc6tqc" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f1.png" id="4_tyi1g"]
 [ext_resource type="Texture2D" uid="uid://b4yy7fo7v63dm" path="res://scenes/entities/player/sprites/run_left/run_left_f5.png" id="5_4fslw"]
 [ext_resource type="Texture2D" uid="uid://ddtgfg3bgti44" path="res://scenes/entities/player/sprites/duck_left/duck_left_f4.png" id="5_gt8rc"]
+[ext_resource type="Texture2D" uid="uid://b8jjd03gpgmtw" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f2.png" id="5_kt4qv"]
 [ext_resource type="Texture2D" uid="uid://d3cavuldq3v1h" path="res://scenes/entities/player/sprites/duck_right/duck_right_f1.png" id="6_1u8oh"]
 [ext_resource type="Texture2D" uid="uid://dbdet4umufqq1" path="res://scenes/entities/player/sprites/run_left/run_left_f6.png" id="6_h31x6"]
+[ext_resource type="Texture2D" uid="uid://d0m2mrtklbruo" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f3.png" id="6_uvpjq"]
 [ext_resource type="Texture2D" uid="uid://cdmnnmv3ffoaj" path="res://scenes/entities/player/sprites/duck_right/duck_right_f2.png" id="7_b7h8y"]
+[ext_resource type="Texture2D" uid="uid://cor08r3gavsxt" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f4.png" id="7_fotbf"]
 [ext_resource type="Texture2D" uid="uid://lrc2tq5mgk8f" path="res://scenes/entities/player/sprites/run_left/run_left_f7.png" id="7_hkx3c"]
+[ext_resource type="Texture2D" uid="uid://3w0lxc5bffxe" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f5.png" id="8_38p63"]
 [ext_resource type="Texture2D" uid="uid://bxlr3lyysabkn" path="res://scenes/entities/player/sprites/run_left/run_left_f8.png" id="8_4162n"]
 [ext_resource type="Texture2D" uid="uid://cenonx3baeatt" path="res://scenes/entities/player/sprites/duck_right/duck_right_f3.png" id="8_rhij6"]
+[ext_resource type="Texture2D" uid="uid://dt7k6mi4r7u2q" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f6.png" id="9_cvwcl"]
 [ext_resource type="Texture2D" uid="uid://cgmbmmlie71kw" path="res://scenes/entities/player/sprites/run_right/run_right_f1.png" id="9_gexdb"]
 [ext_resource type="Texture2D" uid="uid://dw527jit8cr1l" path="res://scenes/entities/player/sprites/duck_right/duck_right_f4.png" id="9_w11up"]
 [ext_resource type="Texture2D" uid="uid://l446wy68k50x" path="res://scenes/entities/player/sprites/run_right/run_right_f2.png" id="10_6jt2p"]
 [ext_resource type="Texture2D" uid="uid://h2y0in31spdr" path="res://scenes/entities/player/sprites/fall_down_left/fall_down_left_f1.png" id="10_d6jqu"]
+[ext_resource type="Texture2D" uid="uid://c1j3fml655bgt" path="res://scenes/entities/player/sprites/climb_up_ledge_right/climb_up_ledge_right_f1.png" id="10_rgffy"]
 [ext_resource type="Texture2D" uid="uid://beh3vipshvmsy" path="res://scenes/entities/player/sprites/run_right/run_right_f3.png" id="11_gpgll"]
 [ext_resource type="Texture2D" uid="uid://df0m76wcbxc4y" path="res://scenes/entities/player/sprites/fall_down_left/fall_down_left_f2.png" id="11_ik5xq"]
+[ext_resource type="Texture2D" uid="uid://ngwj483vdqe4" path="res://scenes/entities/player/sprites/climb_up_ledge_right/climb_up_ledge_right_f2.png" id="11_waiob"]
+[ext_resource type="Texture2D" uid="uid://cja0dlrrjaqi6" path="res://scenes/entities/player/sprites/climb_up_ledge_right/climb_up_ledge_right_f3.png" id="12_c75hp"]
 [ext_resource type="Texture2D" uid="uid://qy4xvj7u0nx" path="res://scenes/entities/player/sprites/run_right/run_right_f4.png" id="12_tv3xh"]
 [ext_resource type="Texture2D" uid="uid://bvcmmje2mctcu" path="res://scenes/entities/player/sprites/fall_down_left/fall_down_left_f3.png" id="12_vhuse"]
 [ext_resource type="Texture2D" uid="uid://2436oichbdbq" path="res://scenes/entities/player/sprites/fall_down_left/fall_down_left_f4.png" id="13_88hgd"]
+[ext_resource type="Texture2D" uid="uid://d1rs1yowac71f" path="res://scenes/entities/player/sprites/climb_up_ledge_right/climb_up_ledge_right_f4.png" id="13_t21iy"]
 [ext_resource type="Texture2D" uid="uid://von6tbu1rdf4" path="res://scenes/entities/player/sprites/run_right/run_right_f5.png" id="13_usghg"]
 [ext_resource type="Texture2D" uid="uid://dclnjtiqcwj4t" path="res://scenes/entities/player/sprites/run_right/run_right_f6.png" id="14_adtyn"]
 [ext_resource type="Texture2D" uid="uid://cws8740tfjmos" path="res://scenes/entities/player/sprites/fall_down_right/fall_down_right_f1.png" id="14_utbpl"]
+[ext_resource type="Texture2D" uid="uid://bbajp2geppji1" path="res://scenes/entities/player/sprites/climb_up_ledge_right/climb_up_ledge_right_f5.png" id="14_ymm6f"]
 [ext_resource type="Texture2D" uid="uid://dx2hs0y16lmcx" path="res://scenes/entities/player/sprites/fall_down_right/fall_down_right_f2.png" id="15_3dodj"]
+[ext_resource type="Texture2D" uid="uid://hyxrdoir1l0j" path="res://scenes/entities/player/sprites/climb_up_ledge_right/climb_up_ledge_right_f6.png" id="15_u0udf"]
 [ext_resource type="Texture2D" uid="uid://7ue1vx7h7v4u" path="res://scenes/entities/player/sprites/run_right/run_right_f7.png" id="15_y4n0a"]
 [ext_resource type="Texture2D" uid="uid://dftrxg4xw25s0" path="res://scenes/entities/player/sprites/fall_down_right/fall_down_right_f3.png" id="16_u86bv"]
 [ext_resource type="Texture2D" uid="uid://ck7mnqpwf2oki" path="res://scenes/entities/player/sprites/run_right/run_right_f8.png" id="16_x4pai"]
@@ -76,8 +88,57 @@
 radius = 6.0
 height = 76.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ol62l"]
+size = Vector2(20, 1)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_v81g4"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_tyi1g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kt4qv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_uvpjq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_fotbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_38p63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_cvwcl")
+}],
+"loop": false,
+"name": &"climb_up_ledge_left",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_rgffy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_waiob")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_c75hp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_t21iy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ymm6f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_u0udf")
+}],
+"loop": false,
+"name": &"climb_up_ledge_right",
+"speed": 6.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_yj5xc")
@@ -355,6 +416,12 @@ script = ExtResource("1_bej2y")
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_fxymx")
 
+[node name="LedgeClimbArea" type="Area2D" parent="."]
+
+[node name="LedgeGrapBox" type="CollisionShape2D" parent="LedgeClimbArea"]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_ol62l")
+
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_v81g4")
-animation = &"run_right"
+animation = &"climb_up_ledge_right"
