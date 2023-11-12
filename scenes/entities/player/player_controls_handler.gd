@@ -3,6 +3,12 @@ extends Node
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
 @onready var ingame_camera:Camera2D = get_tree().get_first_node_in_group('ingame_camera')
 
+# button press timers
+@onready var jump_button_press_timer:Timer = $ButtonPressTimers/JumpButtonPressTimer
+
+func _ready():
+	jump_button_press_timer.timeout.connect(on_jump_button_press_timer_timeout)
+
 
 func check_player_duck_key_input_status():
 	# check if player does not want to duck anymore
@@ -86,6 +92,12 @@ func move_y(delta):
 		# apply gravity when player is not ducking or climbing a ledge
 		if not check_if_player_is_ducking() and not player.is_climbing_ledge:
 			player.velocity.y += player.current_gravity * delta
+		
+		# checks if jump button was released (-> short jump)
+		if Input.is_action_just_released("ingame_jump") and player.is_jumping:
+			if not jump_button_press_timer.is_stopped():
+				jump_button_press_timer.stop()
+		
 		# if gravity influenced player's physic -> check if he is falling
 		if player.velocity.y > 0  and not player.is_climbing_ledge:
 			if not player.is_falling:
@@ -106,39 +118,48 @@ func move_y(delta):
 		if not player.is_climbing_ledge:
 			# player jumping
 			if Input.is_action_pressed("ingame_jump") and not check_if_player_is_ducking():
-				if player.direction.y == 0 and not check_if_player_is_vertically_moving():
-					player.direction.y = -1
-					player.is_jumping = true
-					if "left" in player.current_animation:
-						player.current_animation = "jump_up_left"
-					else:
-						player.current_animation = "jump_up_right"
-					player.loop_animation = false
-					player.animation_to_change = true
-					player.velocity.y += player.current_jump_velocity
+				action_input_jump()
 			# player ducking
 			elif Input.is_action_pressed("ingame_duck") and not check_if_player_is_vertically_moving():
-				if player.direction.x == 0 and not check_if_player_is_ducking():
-					player.to_duck = true
-					player.will_duck = true
-					if "left" in player.current_animation:
-						player.current_animation = "to_duck_left"
-					else:
-						player.current_animation = "to_duck_right"
-					player.loop_animation = false
-					player.animation_to_change = true
-					ingame_camera.asc_camera_y_axis = false
-					ingame_camera.desc_camera_y_axis = true
+				action_input_duck()
 
 
 func move(delta):
-	climb_up_ledge()
+	action_input_climb_up_ledge()
 	move_x()
 	move_y(delta)
 	player.move_and_slide()
 
 
-func climb_up_ledge():
+func action_input_jump():
+	if player.direction.y == 0 and not check_if_player_is_vertically_moving():
+		player.direction.y = -1
+		player.is_jumping = true
+		if "left" in player.current_animation:
+			player.current_animation = "jump_up_left"
+		else:
+			player.current_animation = "jump_up_right"
+		player.loop_animation = false
+		player.animation_to_change = true
+		player.velocity.y += player.current_jump_velocity
+		jump_button_press_timer.start()
+
+
+func action_input_duck():
+	if player.direction.x == 0 and not check_if_player_is_ducking():
+		player.to_duck = true
+		player.will_duck = true
+		if "left" in player.current_animation:
+			player.current_animation = "to_duck_left"
+		else:
+			player.current_animation = "to_duck_right"
+		player.loop_animation = false
+		player.animation_to_change = true
+		ingame_camera.asc_camera_y_axis = false
+		ingame_camera.desc_camera_y_axis = true
+
+
+func action_input_climb_up_ledge():
 	# if player is currently in an ledge area -> can climb up (if player is facing correct ledge side)
 	if player.current_ledge_to_climb_area != null:
 		if player.ledge_climb_area.overlaps_area(player.current_ledge_to_climb_area):
@@ -155,7 +176,6 @@ func climb_up_ledge():
 				else:
 					player.current_animation = "climb_up_ledge_left"
 					player.animations_handler.climb_up_ledge("left")
-				print("Ich klettere!")
 
 
 func check_if_ledge_side_fits(ledge_area:Area2D) -> bool:
@@ -163,3 +183,11 @@ func check_if_ledge_side_fits(ledge_area:Area2D) -> bool:
 		return true
 	else:
 		return false
+
+
+###----------CONNECTED SIGNALS----------###
+
+func on_jump_button_press_timer_timeout():
+	var current_large_jump_velocity_addition:int = int(abs(player.current_jump_velocity) * player.LARGE_JUMP_VELOCITY_ADDITION_MULTIPLIER)
+	player.velocity.y -= current_large_jump_velocity_addition
+

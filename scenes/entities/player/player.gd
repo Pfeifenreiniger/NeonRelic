@@ -9,8 +9,9 @@ var direction:Vector2 = Vector2.ZERO
 const BASE_SPEED:int = 200
 var current_speed:int = BASE_SPEED
 
-const BASE_JUMP_VELOCITY:int = -315
+const BASE_JUMP_VELOCITY:int = -275
 var current_jump_velocity:int = BASE_JUMP_VELOCITY
+const LARGE_JUMP_VELOCITY_ADDITION_MULTIPLIER:float = 0.3
 
 var BASE_GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 var current_gravity = BASE_GRAVITY

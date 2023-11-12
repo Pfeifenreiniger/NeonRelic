@@ -4,3 +4,9 @@
 
 [node name="PlayerControlsHandler" type="Node"]
 script = ExtResource("1_atn0h")
+
+[node name="ButtonPressTimers" type="Node" parent="."]
+
+[node name="JumpButtonPressTimer" type="Timer" parent="ButtonPressTimers"]
+wait_time = 0.095
+one_shot = true
