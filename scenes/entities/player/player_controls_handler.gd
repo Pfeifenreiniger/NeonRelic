@@ -168,6 +168,7 @@ func action_input_climb_up_ledge():
 				player.is_falling = false
 				player.is_climbing_ledge = true
 				player.direction.y = 0
+				player.velocity.y = 0
 				player.animation_to_change = true
 				player.loop_animation = false
 				if "right" in player.current_animation:

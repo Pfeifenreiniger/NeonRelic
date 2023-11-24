@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://ddawbfdgq2114"]
+[gd_scene load_steps=101 format=3 uid="uid://ddawbfdgq2114"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_bej2y"]
 [ext_resource type="Texture2D" uid="uid://bd70f8o62n7hn" path="res://scenes/entities/player/sprites/run_left/run_left_f1.png" id="1_q4w7q"]
@@ -83,6 +83,20 @@
 [ext_resource type="Texture2D" uid="uid://i15gyvtj0nry" path="res://scenes/entities/player/sprites/to_duck_right/to_duck_right_f6.png" id="47_uqivt"]
 [ext_resource type="Texture2D" uid="uid://cjwf4mcpvgmgj" path="res://scenes/entities/player/sprites/to_duck_right/to_duck_right_f7.png" id="48_n0flf"]
 [ext_resource type="Texture2D" uid="uid://br6ic7qgj41na" path="res://scenes/entities/player/sprites/to_duck_right/to_duck_right_f8.png" id="49_x4ema"]
+[ext_resource type="Texture2D" uid="uid://b1nq65rj02dk0" path="res://scenes/entities/player/sprites/stand_whip_attack_right_1/stand_whip_attack_right_1_f1.png" id="68_gvysq"]
+[ext_resource type="Texture2D" uid="uid://d1spiybtifvjv" path="res://scenes/entities/player/sprites/stand_whip_attack_right_1/stand_whip_attack_right_1_f2.png" id="69_oxnqf"]
+[ext_resource type="Texture2D" uid="uid://cnhuamgtrrra5" path="res://scenes/entities/player/sprites/stand_whip_attack_right_1/stand_whip_attack_right_1_f3.png" id="70_3ju2p"]
+[ext_resource type="Texture2D" uid="uid://uw7lo8episjm" path="res://scenes/entities/player/sprites/stand_whip_attack_right_1/stand_whip_attack_right_1_f4.png" id="71_wog12"]
+[ext_resource type="Texture2D" uid="uid://b37avvyhrmiaw" path="res://scenes/entities/player/sprites/stand_whip_attack_right_1/stand_whip_attack_right_1_f5.png" id="72_5rjf8"]
+[ext_resource type="Texture2D" uid="uid://brp21bw0aypba" path="res://scenes/entities/player/sprites/stand_whip_attack_right_1/stand_whip_attack_right_1_f6.png" id="73_w485v"]
+[ext_resource type="Texture2D" uid="uid://b8i6egdtqakgi" path="res://scenes/entities/player/sprites/stand_whip_attack_right_1/stand_whip_attack_right_1_f7.png" id="74_lqf5w"]
+[ext_resource type="Texture2D" uid="uid://caggxi5jb7org" path="res://scenes/entities/player/sprites/stand_whip_attack_right_1/stand_whip_attack_right_1_f8.png" id="75_3ohv5"]
+[ext_resource type="Texture2D" uid="uid://cgbjt61bjlfum" path="res://scenes/entities/player/sprites/stand_whip_attack_right_2/stand_whip_attack_right_2_f1.png" id="76_p3sag"]
+[ext_resource type="Texture2D" uid="uid://5vkyfqt2o2if" path="res://scenes/entities/player/sprites/stand_whip_attack_right_2/stand_whip_attack_right_2_f2.png" id="77_s57ts"]
+[ext_resource type="Texture2D" uid="uid://coxcgwjaf7ecg" path="res://scenes/entities/player/sprites/stand_whip_attack_right_2/stand_whip_attack_right_2_f3.png" id="78_xopym"]
+[ext_resource type="Texture2D" uid="uid://cr2g37w70rdef" path="res://scenes/entities/player/sprites/stand_whip_attack_right_2/stand_whip_attack_right_2_f4.png" id="79_ucb4u"]
+[ext_resource type="Texture2D" uid="uid://dx2ktp1f615yq" path="res://scenes/entities/player/sprites/stand_whip_attack_right_2/stand_whip_attack_right_2_f5.png" id="80_xcb84"]
+[ext_resource type="Texture2D" uid="uid://cvxhb7k2w6q1f" path="res://scenes/entities/player/sprites/stand_whip_attack_right_2/stand_whip_attack_right_2_f6.png" id="81_t3me0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fxymx"]
 radius = 6.0
@@ -347,6 +361,58 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("68_gvysq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_oxnqf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_3ju2p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_wog12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_5rjf8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_w485v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_lqf5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_3ohv5")
+}],
+"loop": false,
+"name": &"stand_whip_attack_right_1",
+"speed": 11.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("76_p3sag")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_s57ts")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_xopym")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_ucb4u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_xcb84")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_t3me0")
+}],
+"loop": false,
+"name": &"stand_whip_attack_right_2",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("34_a661l")
 }, {
 "duration": 1.0,
@@ -424,4 +490,6 @@ shape = SubResource("RectangleShape2D_ol62l")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_v81g4")
-animation = &"climb_up_ledge_right"
+animation = &"stand_whip_attack_right_2"
+frame = 5
+frame_progress = 1.0
