@@ -3,6 +3,10 @@ extends Node
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
 
 
+func _process(_delta):
+	check_player_whip_attack_charge()
+
+
 func select_animation() -> void:
 	player.animations.stop()
 	player.animations.play(player.current_animation)
@@ -14,7 +18,7 @@ func select_animation() -> void:
 		player.animation_frames_forwards = true
 
 
-func climb_up_ledge(direction:String):
+func climb_up_ledge(direction:String) -> void:
 	# tween config
 	var tween = get_tree().create_tween()
 	var animation_duration:float = 0.9
@@ -33,6 +37,15 @@ func climb_up_ledge(direction:String):
 	
 	tween.tween_property(player, "global_position", Vector2(to_pos_x, to_pos_y), animation_duration)
 
+
+func check_player_whip_attack_charge():
+	if "whip_attack" in player.current_animation:
+		if "1" in player.current_animation:
+			if not player.animations.is_playing():
+				on_animation_finished()
+
+
+###----------CONNECTED SIGNALS----------###
 
 func on_animation_finished():
 	if player.loop_animation:
@@ -73,4 +86,28 @@ func on_animation_finished():
 		else:
 			player.current_animation = "stand_right"
 		
+	elif player.is_attacking:
+		# whip attack
+		if "whip_attack" in player.current_animation:
+			var side = ""
+			if "right" in player.current_animation:
+				side = "right"
+			else:
+				side = "left"
+			if "1" in player.current_animation:
+				if not player.weapon_handler.current_weapon.charges_whip_attack:
+					# ToDo: if charge animation was played -> stop it
+					player.current_animation = "stand_whip_attack_%s_2" % side
+					player.animation_to_change = true
+					player.can_whip_attack_charge = false
+					player.weapon_handler.current_weapon.reset_whip_attack_damage()
+				else:
+					player.animations.pause()
+					# ToDo: display charge animation
+			else:
+				player.loop_animation = true
+				player.animation_to_change = true
+				player.current_animation = "stand_%s" % side
+				player.is_attacking = false
+				player.can_whip_attack_charge = true
 

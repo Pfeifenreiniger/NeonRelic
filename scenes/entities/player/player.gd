@@ -16,12 +16,18 @@ const LARGE_JUMP_VELOCITY_ADDITION_MULTIPLIER:float = 0.3
 var BASE_GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 var current_gravity = BASE_GRAVITY
 
-#---player y-movement properties---#
+# player movement properties
 var to_duck:bool = false
 var is_duck:bool = false
 var will_duck:bool = false
 var is_jumping:bool = false
 var is_falling:bool = false
+var is_attacking:bool = false
+
+# ledge climbing properties
+@onready var ledge_climb_area:Area2D = $LedgeClimbArea
+var current_ledge_to_climb_area:Area2D = null
+var is_climbing_ledge:bool = false
 
 
 ###------ANIMATION RELATED PROPERTIES------###
@@ -42,10 +48,10 @@ var hit_box_y_full:float = 4
 var hit_box_y_reduced:float = 12
 
 
-###------OTHER PROPERTIES------###
-@onready var ledge_climb_area:Area2D = $LedgeClimbArea
-var current_ledge_to_climb_area:Area2D = null
-var is_climbing_ledge:bool = false
+###------ATTACKING RELATED PROPERTIES------###
+@onready var weapon_handler:Node = $PlayerWeaponHandler
+var can_whip_attack_charge:bool = true
+
 
 func _ready():
 	# set up animations
@@ -58,7 +64,6 @@ func _ready():
 	ledge_climb_area.area_exited.connect(on_ledge_area_exited)
 	
 
-
 func _process(_delta):
 	# check if player released ducking key
 	controls_handler.check_player_duck_key_input_status()
@@ -68,8 +73,8 @@ func _process(_delta):
 
 
 func _physics_process(delta):
-	# move player
-	controls_handler.move(delta)
+	# check for player key inputs and move player
+	controls_handler.check_ingame_control_key_inputs(delta)
 
 
 func resize_hit_box(to_full:bool=false, reduce:bool=false):
@@ -80,6 +85,8 @@ func resize_hit_box(to_full:bool=false, reduce:bool=false):
 		hit_box.position.y = hit_box_y_reduced
 		hit_box.shape.set_height(hit_box_height_reduced)
 
+
+###----------CONNECTED SIGNALS----------###
 
 func on_ledge_area_entered(area):
 	if "ledge_to_climb" in area:

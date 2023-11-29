@@ -10,54 +10,6 @@ func _ready():
 	jump_button_press_timer.timeout.connect(on_jump_button_press_timer_timeout)
 
 
-func check_player_duck_key_input_status():
-	# check if player does not want to duck anymore
-	if player.direction.x == 0 and Input.is_action_just_released("ingame_duck"):
-		if player.is_duck:
-			player.is_duck = false
-			player.to_duck = true
-			player.resize_hit_box(true, false)
-
-		elif player.to_duck:
-			# play remaining to-duck animation backwards
-			var last_frame:int = player.animations.frame
-			player.animations.stop()
-			player.animations.set_frame(last_frame)
-		
-		player.will_duck = false
-		player.loop_animation = false
-		ingame_camera.desc_camera_y_axis = false
-		ingame_camera.asc_camera_y_axis = true
-		
-		if "left" in player.current_animation:
-			player.current_animation = "to_duck_left"
-			player.animations.play_backwards(player.current_animation)
-		else:
-			player.current_animation = "to_duck_right"
-			player.animations.play_backwards(player.current_animation)
-
-
-func check_if_player_can_horizontally_move() -> bool:
-	if not player.to_duck and not player.is_duck and not player.is_jumping and not player.is_falling and not player.is_climbing_ledge:
-		return true
-	else:
-		return false
-
-
-func check_if_player_is_vertically_moving() -> bool:
-	if player.is_falling or player.is_jumping:
-		return true
-	else:
-		return false
-
-
-func check_if_player_is_ducking() -> bool:
-	if player.to_duck or player.is_duck:
-		return true
-	else:
-		return false
-
-
 func move_x() -> void:
 	if check_if_player_can_horizontally_move():
 		if Input.is_action_pressed("ingame_move_right"):
@@ -114,8 +66,8 @@ func move_y(delta):
 		if player.is_falling:
 			player.is_falling = false
 			player.direction.y = 0
-		# ground-y-movement only possible when player's not currently climbing up a ledge
-		if not player.is_climbing_ledge:
+		# ground-y-movement only possible when player's not currently climbing up a ledge or is attacking
+		if not player.is_climbing_ledge and not player.is_attacking:
 			# player jumping
 			if Input.is_action_pressed("ingame_jump") and not check_if_player_is_ducking():
 				action_input_jump()
@@ -125,24 +77,63 @@ func move_y(delta):
 
 
 func move(delta):
-	action_input_climb_up_ledge()
-	move_x()
-	move_y(delta)
 	player.move_and_slide()
 
 
-func action_input_jump():
-	if player.direction.y == 0 and not check_if_player_is_vertically_moving():
-		player.direction.y = -1
-		player.is_jumping = true
-		if "left" in player.current_animation:
-			player.current_animation = "jump_up_left"
-		else:
-			player.current_animation = "jump_up_right"
+func check_ingame_control_key_inputs(delta):
+	check_input_climb_up_ledge()
+	check_input_whip_attack()
+	move_x()
+	move_y(delta)
+	move(delta)
+
+
+func check_if_player_can_horizontally_move() -> bool:
+	if not player.to_duck and not player.is_duck and not player.is_jumping and not player.is_falling and not player.is_climbing_ledge and not player.is_attacking:
+		return true
+	else:
+		return false
+
+
+func check_if_player_is_vertically_moving() -> bool:
+	if player.is_falling or player.is_jumping:
+		return true
+	else:
+		return false
+
+
+func check_if_player_is_ducking() -> bool:
+	if player.to_duck or player.is_duck:
+		return true
+	else:
+		return false
+
+
+func check_player_duck_key_input_status():
+	# check if player does not want to duck anymore
+	if player.direction.x == 0 and Input.is_action_just_released("ingame_duck"):
+		if player.is_duck:
+			player.is_duck = false
+			player.to_duck = true
+			player.resize_hit_box(true, false)
+
+		elif player.to_duck:
+			# play remaining to-duck animation backwards
+			var last_frame:int = player.animations.frame
+			player.animations.stop()
+			player.animations.set_frame(last_frame)
+		
+		player.will_duck = false
 		player.loop_animation = false
-		player.animation_to_change = true
-		player.velocity.y += player.current_jump_velocity
-		jump_button_press_timer.start()
+		ingame_camera.desc_camera_y_axis = false
+		ingame_camera.asc_camera_y_axis = true
+		
+		if "left" in player.current_animation:
+			player.current_animation = "to_duck_left"
+			player.animations.play_backwards(player.current_animation)
+		else:
+			player.current_animation = "to_duck_right"
+			player.animations.play_backwards(player.current_animation)
 
 
 func action_input_duck():
@@ -159,11 +150,30 @@ func action_input_duck():
 		ingame_camera.desc_camera_y_axis = true
 
 
+func action_input_jump():
+	if player.direction.y == 0 and not check_if_player_is_vertically_moving():
+		player.direction.y = -1
+		player.is_jumping = true
+		if "left" in player.current_animation:
+			player.current_animation = "jump_up_left"
+		else:
+			player.current_animation = "jump_up_right"
+		player.loop_animation = false
+		player.animation_to_change = true
+		player.velocity.y += player.current_jump_velocity
+		jump_button_press_timer.start()
+
+
+func check_input_climb_up_ledge():
+	if Input.is_action_pressed("ingame_climb_up_ledge"):
+		action_input_climb_up_ledge()
+
+
 func action_input_climb_up_ledge():
 	# if player is currently in an ledge area -> can climb up (if player is facing correct ledge side)
 	if player.current_ledge_to_climb_area != null:
 		if player.ledge_climb_area.overlaps_area(player.current_ledge_to_climb_area):
-			if Input.is_action_pressed("ingame_climb_up_ledge") and not player.is_climbing_ledge and check_if_ledge_side_fits(player.current_ledge_to_climb_area):
+			if not player.is_climbing_ledge and check_if_ledge_side_fits(player.current_ledge_to_climb_area):
 				player.is_jumping = false
 				player.is_falling = false
 				player.is_climbing_ledge = true
@@ -184,6 +194,43 @@ func check_if_ledge_side_fits(ledge_area:Area2D) -> bool:
 		return true
 	else:
 		return false
+
+
+func check_input_whip_attack():
+	if Input.is_action_pressed("ingame_whip_attack"):
+		if not player.is_attacking:
+			# initial input
+			action_input_init_whip_attack()
+			player.weapon_handler.select_current_weapon("whip")
+		else:
+			if not player.weapon_handler.current_weapon.charges_whip_attack and player.can_whip_attack_charge:
+				player.weapon_handler.current_weapon.charges_whip_attack = true
+				player.can_whip_attack_charge = false
+	else:
+		if player.weapon_handler.current_weapon != null and 'IS_WHIP' in player.weapon_handler.current_weapon:
+			if player.weapon_handler.current_weapon.charges_whip_attack:
+				player.weapon_handler.current_weapon.charges_whip_attack = false
+				player.can_whip_attack_charge = false
+
+
+func action_input_init_whip_attack():
+	if player.is_duck:
+		pass
+		# ToDo: implement player ducking whip attacks
+	else:
+		# do standing whip attack if player's on ground
+		if check_if_player_can_horizontally_move():
+			if not player.is_attacking:
+				player.can_whip_attack_charge = true
+				player.direction.x = 0
+				player.velocity.x = 0
+				player.is_attacking = true
+				player.loop_animation = false
+				player.animation_to_change = true
+				if "right" in player.current_animation:
+					player.current_animation = "stand_whip_attack_right_1"
+				else:
+					player.current_animation = "stand_whip_attack_left_1"
 
 
 ###----------CONNECTED SIGNALS----------###

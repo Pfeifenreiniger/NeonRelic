@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxdgx3ybjqixq"]
+
+[ext_resource type="Script" path="res://scenes/weapons/whip/whip.gd" id="1_74wq3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e6udn"]
+
+[node name="Whip" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_e6udn")
+script = ExtResource("1_74wq3")
+
+[node name="ChargeTimer" type="Timer" parent="."]
+wait_time = 0.25

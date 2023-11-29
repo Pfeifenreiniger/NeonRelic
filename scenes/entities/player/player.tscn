@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=3 uid="uid://ddawbfdgq2114"]
+[gd_scene load_steps=116 format=3 uid="uid://ddawbfdgq2114"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_bej2y"]
 [ext_resource type="Texture2D" uid="uid://bd70f8o62n7hn" path="res://scenes/entities/player/sprites/run_left/run_left_f1.png" id="1_q4w7q"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c1c1sroql3eoe" path="res://scenes/entities/player/sprites/duck_left/duck_left_f3.png" id="4_g7776"]
 [ext_resource type="Texture2D" uid="uid://df5wqpmhfkwlo" path="res://scenes/entities/player/sprites/run_left/run_left_f4.png" id="4_sxs0h"]
 [ext_resource type="Texture2D" uid="uid://dwfnrulsc6tqc" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f1.png" id="4_tyi1g"]
+[ext_resource type="PackedScene" uid="uid://db8f531m7stmm" path="res://scenes/entities/player/player_weapon_handler.tscn" id="4_x6e0m"]
 [ext_resource type="Texture2D" uid="uid://b4yy7fo7v63dm" path="res://scenes/entities/player/sprites/run_left/run_left_f5.png" id="5_4fslw"]
 [ext_resource type="Texture2D" uid="uid://ddtgfg3bgti44" path="res://scenes/entities/player/sprites/duck_left/duck_left_f4.png" id="5_gt8rc"]
 [ext_resource type="Texture2D" uid="uid://b8jjd03gpgmtw" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f2.png" id="5_kt4qv"]
@@ -544,6 +545,8 @@ script = ExtResource("1_bej2y")
 
 [node name="PlayerAnimationsHandler" parent="." instance=ExtResource("3_8ebf5")]
 
+[node name="PlayerWeaponHandler" parent="." instance=ExtResource("4_x6e0m")]
+
 [node name="HitBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_fxymx")
@@ -556,6 +559,4 @@ shape = SubResource("RectangleShape2D_ol62l")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_v81g4")
-animation = &"stand_whip_attack_left_2"
-frame = 5
-frame_progress = 1.0
+animation = &"stand_whip_attack_left_1"
