@@ -4,7 +4,7 @@ extends Node
 
 
 func _process(_delta):
-	check_player_whip_attack_charge()
+	check_player_whip_attack()
 
 
 func select_animation() -> void:
@@ -38,10 +38,14 @@ func climb_up_ledge(direction:String) -> void:
 	tween.tween_property(player, "global_position", Vector2(to_pos_x, to_pos_y), animation_duration)
 
 
-func check_player_whip_attack_charge():
+func check_player_whip_attack():
 	if "whip_attack" in player.current_animation:
 		if "1" in player.current_animation:
 			if not player.animations.is_playing():
+				on_animation_finished()
+		else:
+			# if player is in second whip attack animation and whip's attack animation is also done -> change to standing animation 
+			if player.weapon_handler.current_weapon.do_attack_animation and player.weapon_handler.current_weapon.done_attack_animation:
 				on_animation_finished()
 
 
@@ -104,10 +108,25 @@ func on_animation_finished():
 				else:
 					player.animations.pause()
 					# ToDo: display charge animation
-			else:
+			elif "2" in player.current_animation:
+				# play whip attack
+				if not player.weapon_handler.current_weapon.do_attack_animation:
+					player.weapon_handler.current_weapon.attack_side = side
+					player.weapon_handler.current_weapon.visible = true
+					player.weapon_handler.current_weapon.set_pos_to_player(side)
+					player.weapon_handler.current_weapon.reset_hitbox_size()
+					player.weapon_handler.current_weapon.play('attack_%s' % side)
+					player.weapon_handler.current_weapon.do_attack_animation = true
+					player.weapon_handler.current_weapon.done_attack_animation = false
+				# change to attack 3 animation
+				if player.weapon_handler.current_weapon.do_attack_animation and player.weapon_handler.current_weapon.done_attack_animation:
+					player.weapon_handler.current_weapon.do_attack_animation = false
+					player.animation_to_change = true
+					player.current_animation = "stand_whip_attack_%s_3" % side
+			elif "3" in player.current_animation:
+				# change to stand animation
 				player.loop_animation = true
 				player.animation_to_change = true
 				player.current_animation = "stand_%s" % side
 				player.is_attacking = false
 				player.can_whip_attack_charge = true
-

@@ -52,6 +52,9 @@ var hit_box_y_reduced:float = 12
 @onready var weapon_handler:Node = $PlayerWeaponHandler
 var can_whip_attack_charge:bool = true
 
+@onready var weapon_whip_attack_right_pos:Marker2D = $Markers/WeaponWhipAttackRight
+@onready var weapon_whip_attack_left_pos:Marker2D = $Markers/WeaponWhipAttackLeft
+
 
 func _ready():
 	# set up animations

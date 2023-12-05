@@ -1,12 +1,132 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxdgx3ybjqixq"]
+[gd_scene load_steps=28 format=3 uid="uid://cxdgx3ybjqixq"]
 
 [ext_resource type="Script" path="res://scenes/weapons/whip/whip.gd" id="1_74wq3"]
+[ext_resource type="Texture2D" uid="uid://dpyvu1sp4ngem" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f1.png" id="1_lqffe"]
+[ext_resource type="Texture2D" uid="uid://drumhyfqiaudf" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f2.png" id="2_g02wl"]
+[ext_resource type="Texture2D" uid="uid://ckr3u125q38rb" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f3.png" id="3_3j4xm"]
+[ext_resource type="Texture2D" uid="uid://cvli4hyqxlv35" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f4.png" id="4_jxjtk"]
+[ext_resource type="Texture2D" uid="uid://buvubihpqlx0a" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f5.png" id="5_mndrb"]
+[ext_resource type="Texture2D" uid="uid://bx42f8tyawcxk" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f6.png" id="6_f2mo0"]
+[ext_resource type="Texture2D" uid="uid://ch7pmwuk0u16f" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f7.png" id="7_1tl5t"]
+[ext_resource type="Texture2D" uid="uid://bkdtcj57jmru5" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f8.png" id="8_2v8ok"]
+[ext_resource type="Texture2D" uid="uid://ctpd15mgnws51" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f9.png" id="9_tfb2s"]
+[ext_resource type="Texture2D" uid="uid://vumibc6gm8ao" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f10.png" id="10_0plh8"]
+[ext_resource type="Texture2D" uid="uid://c0di0mntsi2py" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f11.png" id="11_me06q"]
+[ext_resource type="Texture2D" uid="uid://u7wk0k78ysos" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f12.png" id="12_twtqd"]
+[ext_resource type="Texture2D" uid="uid://diip77gvwp3nl" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f1.png" id="13_aminc"]
+[ext_resource type="Texture2D" uid="uid://dwauxrg4bmita" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f2.png" id="14_aye8k"]
+[ext_resource type="Texture2D" uid="uid://co82kautq3q8k" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f3.png" id="15_lwpta"]
+[ext_resource type="Texture2D" uid="uid://kk2wp2wnmk2j" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f4.png" id="16_qw8fq"]
+[ext_resource type="Texture2D" uid="uid://svlu61cpwt4g" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f5.png" id="17_1ktus"]
+[ext_resource type="Texture2D" uid="uid://b7r36tdwgqr2" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f6.png" id="18_73pq1"]
+[ext_resource type="Texture2D" uid="uid://bxd1p2bglahys" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f7.png" id="19_1lq7d"]
+[ext_resource type="Texture2D" uid="uid://bcbnarwo2eolj" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f8.png" id="20_tcqjn"]
+[ext_resource type="Texture2D" uid="uid://dyagjcuurr3sw" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f9.png" id="21_0n03o"]
+[ext_resource type="Texture2D" uid="uid://kdbloo7oirag" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f10.png" id="22_4j7ds"]
+[ext_resource type="Texture2D" uid="uid://c11rrst8d0usp" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f11.png" id="23_umnky"]
+[ext_resource type="Texture2D" uid="uid://ccdutbnskto1o" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f12.png" id="24_awyhj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e6udn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_lqffe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_g02wl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3j4xm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jxjtk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mndrb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f2mo0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_1tl5t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_2v8ok")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_tfb2s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0plh8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_me06q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_twtqd")
+}],
+"loop": false,
+"name": &"attack_left",
+"speed": 22.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_aminc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_aye8k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_lwpta")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_qw8fq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_1ktus")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_73pq1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_1lq7d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_tcqjn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_0n03o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_4j7ds")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_umnky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_awyhj")
+}],
+"loop": false,
+"name": &"attack_right",
+"speed": 22.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w8ro0"]
+size = Vector2(12, 15)
 
 [node name="Whip" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_e6udn")
+animation = &"attack_right"
 script = ExtResource("1_74wq3")
 
 [node name="ChargeTimer" type="Timer" parent="."]
 wait_time = 0.25
+
+[node name="HitboxZone" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 28
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxZone"]
+position = Vector2(-58, -1.5)
+shape = SubResource("RectangleShape2D_w8ro0")
+disabled = true
