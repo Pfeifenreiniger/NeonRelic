@@ -6,12 +6,19 @@ extends Node
 # button press timers
 @onready var jump_button_press_timer:Timer = $ButtonPressTimers/JumpButtonPressTimer
 
+var player_roll_action_inputs = {
+	"right" : 0,
+	"left" : 0
+}
+
+
 func _ready():
 	jump_button_press_timer.timeout.connect(on_jump_button_press_timer_timeout)
 
 
 func move_x() -> void:
 	if check_if_player_can_horizontally_move():
+		# run right / left or stand idle
 		if Input.is_action_pressed("ingame_move_right"):
 			player.direction.x = 1
 			if player.current_animation != "run_right":
@@ -36,6 +43,32 @@ func move_x() -> void:
 					player.current_animation = "stand_left"
 					player.loop_animation = true
 				player.animation_to_change = true
+
+		# check roll-action to right / left
+		if Input.is_action_just_released("ingame_move_right"):
+			var button_move_right_press_timestamp = Time.get_ticks_msec() / 10
+			if not player.is_rolling:
+				if button_move_right_press_timestamp - player_roll_action_inputs["right"] <= 50:
+					player.current_animation = "roll_right"
+					player.loop_animation = false
+					player.animation_to_change = true
+					player.is_rolling = true
+					player.animations_handler.do_side_roll("right")
+				else:
+					player_roll_action_inputs["right"] = button_move_right_press_timestamp
+		elif Input.is_action_just_released("ingame_move_left"):
+			var button_move_left_press_timestamp = Time.get_ticks_msec() / 10
+			if not player.is_rolling:
+				if button_move_left_press_timestamp - player_roll_action_inputs["left"] <= 50:
+					player.current_animation = "roll_left"
+					player.loop_animation = false
+					player.animation_to_change = true
+					player.is_rolling = true
+					player.is_rolling = true
+					player.animations_handler.do_side_roll("left")
+				else:
+					player_roll_action_inputs["left"] = button_move_left_press_timestamp
+
 		player.velocity.x = player.direction.x * player.current_speed
 
 
@@ -54,6 +87,9 @@ func move_y(delta):
 		if player.velocity.y > 0  and not player.is_climbing_ledge:
 			if not player.is_falling:
 				player.is_jumping = false
+				player.is_rolling = false
+				if player.animations_handler.side_roll_tween != null:
+					player.animations_handler.side_roll_tween.stop()
 				player.is_falling = true
 				player.direction.y = 1
 				if "left" in player.current_animation:
@@ -66,8 +102,8 @@ func move_y(delta):
 		if player.is_falling:
 			player.is_falling = false
 			player.direction.y = 0
-		# ground-y-movement only possible when player's not currently climbing up a ledge or is attacking
-		if not player.is_climbing_ledge and not player.is_attacking:
+		# ground-y-movement only possible when player's not currently climbing up a ledge, is attacking or is rolling
+		if not player.is_climbing_ledge and not player.is_attacking and not player.is_rolling:
 			# player jumping
 			if Input.is_action_pressed("ingame_jump") and not check_if_player_is_ducking():
 				action_input_jump()
@@ -89,7 +125,7 @@ func check_ingame_control_key_inputs(delta):
 
 
 func check_if_player_can_horizontally_move() -> bool:
-	if not player.to_duck and not player.is_duck and not player.is_jumping and not player.is_falling and not player.is_climbing_ledge and not player.is_attacking:
+	if not player.to_duck and not player.is_duck and not player.is_jumping and not player.is_falling and not player.is_climbing_ledge and not player.is_attacking and not player.is_rolling:
 		return true
 	else:
 		return false
@@ -238,4 +274,3 @@ func action_input_init_whip_attack():
 func on_jump_button_press_timer_timeout():
 	var current_large_jump_velocity_addition:int = int(abs(player.current_jump_velocity) * player.LARGE_JUMP_VELOCITY_ADDITION_MULTIPLIER)
 	player.velocity.y -= current_large_jump_velocity_addition
-

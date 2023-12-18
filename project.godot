@@ -66,6 +66,7 @@ ingame_whip_attack={
 2d_physics/layer_4="Environment"
 2d_physics/layer_5="Objects"
 2d_physics/layer_6="Zones"
+2d_physics/layer_7="PlayerCollisionSides"
 
 [rendering]
 

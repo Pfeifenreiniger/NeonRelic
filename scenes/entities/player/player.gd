@@ -23,6 +23,7 @@ var will_duck:bool = false
 var is_jumping:bool = false
 var is_falling:bool = false
 var is_attacking:bool = false
+var is_rolling:bool = false
 
 # ledge climbing properties
 @onready var ledge_climb_area:Area2D = $LedgeClimbArea
@@ -47,6 +48,11 @@ var hit_box_height_reduced:float = 58
 var hit_box_y_full:float = 4
 var hit_box_y_reduced:float = 12
 
+@onready var left_collision_detection_box:Area2D = $CollisionDetectionBoxes/LeftSideCollision
+@onready var right_collision_detection_box: Area2D = $CollisionDetectionBoxes/RightSideCollision
+var is_environment_collision_left:bool = false
+var is_environment_collision_right:bool = false
+
 
 ###------ATTACKING RELATED PROPERTIES------###
 @onready var weapon_handler:Node = $PlayerWeaponHandler
@@ -61,6 +67,12 @@ func _ready():
 	animations.animation_finished.connect(animations_handler.on_animation_finished)
 	current_animation = "run_right"
 	loop_animation = true
+	
+	# set up environment collision checking
+	left_collision_detection_box.body_entered.connect(on_left_collision_detection_box_body_entered)
+	left_collision_detection_box.body_exited.connect(on_left_collision_detection_box_body_exited)
+	right_collision_detection_box.body_entered.connect(on_right_collision_detection_box_body_entered)
+	right_collision_detection_box.body_exited.connect(on_right_collision_detection_box_body_exited)
 	
 	# set up ledge climbing
 	ledge_climb_area.area_entered.connect(on_ledge_area_entered)
@@ -99,3 +111,19 @@ func on_ledge_area_entered(area):
 func on_ledge_area_exited(area):
 	if "ledge_to_climb" in area:
 		current_ledge_to_climb_area = null
+
+
+func on_left_collision_detection_box_body_entered(body):
+	is_environment_collision_left = true
+
+
+func on_left_collision_detection_box_body_exited(body):
+	is_environment_collision_left = false
+
+
+func on_right_collision_detection_box_body_entered(body):
+	is_environment_collision_right = true
+
+
+func on_right_collision_detection_box_body_exited(body):
+	is_environment_collision_right = false

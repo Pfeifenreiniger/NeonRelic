@@ -67,7 +67,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_left",
-"speed": 22.0
+"speed": 25.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -108,7 +108,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_right",
-"speed": 22.0
+"speed": 25.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w8ro0"]
@@ -116,7 +116,7 @@ size = Vector2(12, 15)
 
 [node name="Whip" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_e6udn")
-animation = &"attack_right"
+animation = &"attack_left"
 script = ExtResource("1_74wq3")
 
 [node name="ChargeTimer" type="Timer" parent="."]
