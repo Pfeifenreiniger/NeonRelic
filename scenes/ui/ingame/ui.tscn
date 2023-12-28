@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://drfpdpqmnxnkm"]
+
+[ext_resource type="Texture2D" uid="uid://dsnrd4xu5df08" path="res://assets/graphics/ui/ingame/life_bar/heart/life_bar_heart_f1.png" id="1_pud58"]
+[ext_resource type="Script" path="res://scenes/ui/ingame/ui.gd" id="1_v22wa"]
+[ext_resource type="Texture2D" uid="uid://f24d73bx10el" path="res://assets/graphics/ui/ingame/life_bar/heart/life_bar_heart_f2.png" id="2_n4sm5"]
+[ext_resource type="Texture2D" uid="uid://fuwboimdgj5b" path="res://assets/graphics/ui/ingame/life_bar/background.png" id="3_dc47q"]
+[ext_resource type="Texture2D" uid="uid://lmc5cxgi5w60" path="res://assets/graphics/ui/ingame/life_bar/overlay.png" id="4_h38qw"]
+[ext_resource type="Texture2D" uid="uid://cilvvefiwlci8" path="res://assets/graphics/ui/ingame/life_bar/progress.png" id="5_jhepv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lu47u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pud58")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_n4sm5")
+}],
+"loop": true,
+"name": &"heartbeat",
+"speed": 2.0
+}]
+
+[node name="Ui" type="CanvasLayer"]
+script = ExtResource("1_v22wa")
+
+[node name="LifeBar" type="Node" parent="."]
+
+[node name="HeartAnimation" type="AnimatedSprite2D" parent="LifeBar"]
+position = Vector2(44, 54)
+sprite_frames = SubResource("SpriteFrames_lu47u")
+animation = &"heartbeat"
+frame_progress = 0.880293
+
+[node name="LifeProgressBar" type="TextureProgressBar" parent="LifeBar"]
+offset_left = 43.0
+offset_top = 35.0
+offset_right = 339.0
+offset_bottom = 75.0
+texture_under = ExtResource("3_dc47q")
+texture_over = ExtResource("4_h38qw")
+texture_progress = ExtResource("5_jhepv")

@@ -1,5 +1,13 @@
 extends CharacterBody2D
 
+###------BASIC STATS PROPERTIES------###
+## HEALTH ##
+var max_health:int = 100
+var current_health:int = max_health
+
+## STAMINA ##
+var max_stamina:int = 100
+var current_stamina:int = max_stamina
 
 ###------MOVEMENT RELATED PROPERTIES------###
 @onready var controls_handler:Node = $PlayerControlsHandler
