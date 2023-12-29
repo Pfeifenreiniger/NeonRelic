@@ -119,6 +119,9 @@ func on_animation_finished():
 	
 	elif player.is_rolling:
 		player.is_rolling = false
+		player.stamina_can_refresh = true
+		player.loop_animation = true
+		player.animation_to_change = true
 		player.animations_handler.side_roll_tween = null
 	
 	elif player.is_attacking:

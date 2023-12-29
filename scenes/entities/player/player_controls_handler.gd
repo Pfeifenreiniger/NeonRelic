@@ -48,23 +48,27 @@ func move_x() -> void:
 		if Input.is_action_just_released("ingame_move_right"):
 			var button_move_right_press_timestamp = Time.get_ticks_msec() / 10
 			if not player.is_rolling:
-				if button_move_right_press_timestamp - player_roll_action_inputs["right"] <= 50:
+				if button_move_right_press_timestamp - player_roll_action_inputs["right"] <= 50 and check_player_has_enough_stamina(player.side_roll_stamina_cost):
 					player.current_animation = "roll_right"
 					player.loop_animation = false
 					player.animation_to_change = true
 					player.is_rolling = true
+					player.stamina_can_refresh = false
+					player.current_stamina -= player.side_roll_stamina_cost
 					player.animations_handler.do_side_roll("right")
 				else:
 					player_roll_action_inputs["right"] = button_move_right_press_timestamp
 		elif Input.is_action_just_released("ingame_move_left"):
 			var button_move_left_press_timestamp = Time.get_ticks_msec() / 10
 			if not player.is_rolling:
-				if button_move_left_press_timestamp - player_roll_action_inputs["left"] <= 50:
+				if button_move_left_press_timestamp - player_roll_action_inputs["left"] <= 50 and check_player_has_enough_stamina(player.side_roll_stamina_cost):
 					player.current_animation = "roll_left"
 					player.loop_animation = false
 					player.animation_to_change = true
 					player.is_rolling = true
 					player.is_rolling = true
+					player.stamina_can_refresh = false
+					player.current_stamina -= player.side_roll_stamina_cost
 					player.animations_handler.do_side_roll("left")
 				else:
 					player_roll_action_inputs["left"] = button_move_left_press_timestamp
@@ -88,6 +92,7 @@ func move_y(delta):
 			if not player.is_falling:
 				player.is_jumping = false
 				player.is_rolling = false
+				player.stamina_can_refresh = true
 				if player.animations_handler.side_roll_tween != null:
 					player.animations_handler.side_roll_tween.stop()
 				player.is_falling = true
@@ -136,6 +141,10 @@ func check_if_player_is_vertically_moving() -> bool:
 		return true
 	else:
 		return false
+
+
+func check_player_has_enough_stamina(amount_stamina:int) -> bool:
+	return player.current_stamina >= amount_stamina
 
 
 func check_if_player_is_ducking() -> bool:
