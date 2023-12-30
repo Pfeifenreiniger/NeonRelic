@@ -6,11 +6,9 @@ var max_health:int = 100
 var current_health:int = max_health
 
 ## STAMINA ##
+@onready var stamina_handler:Node = $PlayerStaminaHandler
 var max_stamina:int = 100
 var current_stamina:float = max_stamina
-var stamina_can_refresh:bool = true
-var stamina_refreshment_rate:float = 0.1
-var side_roll_stamina_cost:int = 20
 
 
 ###------MOVEMENT RELATED PROPERTIES------###
@@ -98,9 +96,6 @@ func _process(_delta):
 	# select current animation
 	if animation_to_change:
 		animations_handler.select_animation()
-	
-	# refresh player's stamina
-	refresh_player_stamina()
 
 
 func _physics_process(delta):
@@ -115,16 +110,6 @@ func resize_hit_box(to_full:bool=false, reduce:bool=false):
 	elif reduce:
 		hit_box.position.y = hit_box_y_reduced
 		hit_box.shape.set_height(hit_box_height_reduced)
-
-
-func refresh_player_stamina():
-	if stamina_can_refresh:
-		if current_stamina < max_stamina:
-			if current_stamina + stamina_refreshment_rate <= max_stamina:
-				current_stamina += stamina_refreshment_rate
-			else:
-				current_stamina = max_stamina
-
 
 
 ###----------CONNECTED SIGNALS----------###

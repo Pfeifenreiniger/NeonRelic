@@ -1,4 +1,4 @@
-[gd_scene load_steps=142 format=3 uid="uid://ddawbfdgq2114"]
+[gd_scene load_steps=143 format=3 uid="uid://ddawbfdgq2114"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_bej2y"]
 [ext_resource type="Texture2D" uid="uid://bd70f8o62n7hn" path="res://scenes/entities/player/sprites/run_left/run_left_f1.png" id="1_q4w7q"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ckecmw1wq155q" path="res://scenes/entities/player/player_animations_handler.tscn" id="3_8ebf5"]
 [ext_resource type="Texture2D" uid="uid://dheiewninnm8w" path="res://scenes/entities/player/sprites/run_left/run_left_f3.png" id="3_jb1wq"]
 [ext_resource type="Texture2D" uid="uid://c1c1sroql3eoe" path="res://scenes/entities/player/sprites/duck_left/duck_left_f3.png" id="4_g7776"]
+[ext_resource type="PackedScene" uid="uid://ct7e2pfrwbqx4" path="res://scenes/entities/player/player_stamina_handler.tscn" id="4_r2cqb"]
 [ext_resource type="Texture2D" uid="uid://df5wqpmhfkwlo" path="res://scenes/entities/player/sprites/run_left/run_left_f4.png" id="4_sxs0h"]
 [ext_resource type="Texture2D" uid="uid://dwfnrulsc6tqc" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f1.png" id="4_tyi1g"]
 [ext_resource type="PackedScene" uid="uid://db8f531m7stmm" path="res://scenes/entities/player/player_weapon_handler.tscn" id="4_x6e0m"]
@@ -666,6 +667,8 @@ script = ExtResource("1_bej2y")
 [node name="PlayerControlsHandler" parent="." instance=ExtResource("2_lh736")]
 
 [node name="PlayerAnimationsHandler" parent="." instance=ExtResource("3_8ebf5")]
+
+[node name="PlayerStaminaHandler" parent="." instance=ExtResource("4_r2cqb")]
 
 [node name="PlayerWeaponHandler" parent="." instance=ExtResource("4_x6e0m")]
 
