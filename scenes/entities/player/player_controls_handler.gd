@@ -261,11 +261,13 @@ func action_input_init_whip_attack():
 	else:
 		# do standing whip attack if player's on ground
 		if check_if_player_can_horizontally_move():
-			if not player.is_attacking:
+			if not player.is_attacking and player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.whip_attack_stamina_cost):
 				player.can_whip_attack_charge = true
 				player.direction.x = 0
 				player.velocity.x = 0
 				player.is_attacking = true
+				player.stamina_handler.stamina_can_refresh = false
+				player.current_stamina -= player.stamina_handler.whip_attack_stamina_cost
 				player.loop_animation = false
 				player.animation_to_change = true
 				if "right" in player.current_animation:

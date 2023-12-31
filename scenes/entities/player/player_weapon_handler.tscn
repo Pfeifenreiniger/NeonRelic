@@ -9,3 +9,4 @@ script = ExtResource("1_x4kyb")
 [node name="Weapons" type="Node2D" parent="."]
 
 [node name="Whip" parent="Weapons" instance=ExtResource("1_1yalu")]
+animation = &"attack_right"

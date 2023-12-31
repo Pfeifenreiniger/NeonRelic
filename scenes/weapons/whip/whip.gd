@@ -30,6 +30,11 @@ var do_attack_animation:bool = false
 var done_attack_animation:bool = true
 var attack_side:String = ""
 
+# attack particles
+@onready var whip_attack_particles:GPUParticles2D = $WhipAttackParticles
+@onready var whip_attack_particles_left_markers:Node2D = $WhipAttackParticles/AttackLeftParticleMarkers
+@onready var whip_attack_particles_right_markers:Node2D = $WhipAttackParticles/AttackRightParticleMarkers
+var whip_attack_particles_right_markers_offset:int = 50
 
 func _ready():
 	charge_timer.timeout.connect(on_charge_timer_timeout)
@@ -51,17 +56,47 @@ func _process(delta):
 		charge_timer.stop()
 		started_charge_timer = false
 
-	# hitbox size adjustment while attack animation
+	# hitbox size adjustment and particles position while attack animation
 	if do_attack_animation and not done_attack_animation:
 		adjust_hitbox_size()
+		set_attack_particles_pos_to_whips_end()
 
 
-func increase_whip_attack_damage():
+func init_attack_animation(side:String) -> void:
+	do_attack_animation = true
+	done_attack_animation = false
+	init_particles_pos(side)
+	whip_attack_particles.emitting = true
+	whip_attack_particles.restart()
+
+
+func init_particles_pos(side:String) -> void:
+	var go_to_pos:Vector2
+	if side == "right":
+		go_to_pos = whip_attack_particles_right_markers.get_child(0).position
+		go_to_pos.x += whip_attack_particles_right_markers_offset
+		whip_attack_particles.position = go_to_pos
+		whip_attack_particles.process_material.gravity.x = -3
+		whip_attack_particles.process_material.initial_velocity_min = -6
+		whip_attack_particles.process_material.initial_velocity_max = -2
+	else:
+		go_to_pos = whip_attack_particles_left_markers.get_child(0).position
+		whip_attack_particles.position = go_to_pos
+		whip_attack_particles.process_material.gravity.x = 3
+		whip_attack_particles.process_material.initial_velocity_min = 2
+		whip_attack_particles.process_material.initial_velocity_max = 6
+
+
+func finish_attack_animation() -> void:
+	do_attack_animation = false
+
+
+func increase_whip_attack_damage() -> void:
 	current_whip_attack_damage += WHIP_ATTACK_DAMAGE_INCREASE
 	print("CHARGE! MEIN DAMAGE LAUTET %s" % current_whip_attack_damage)
 
 
-func reset_whip_attack_damage():
+func reset_whip_attack_damage() -> void:
 	current_whip_attack_damage = WHIP_ATTACK_INIT_DAMAGE
 
 
@@ -75,6 +110,20 @@ func set_pos_to_player(side:String) -> void:
 		whip_handle_pos.x -= 65
 	whip_handle_pos.y -= 4
 	global_position = whip_handle_pos
+
+
+func set_attack_particles_pos_to_whips_end() -> void:
+	var current_frame:int = self.get_frame()
+	var marker:Marker2D
+	var go_to_pos:Vector2
+	if attack_side == "left":
+		marker = whip_attack_particles_left_markers.get_child(current_frame - 1)
+		go_to_pos = marker.position
+	else:
+		marker = whip_attack_particles_right_markers.get_child(current_frame - 1)
+		go_to_pos = marker.position
+		go_to_pos.x += whip_attack_particles_right_markers_offset
+	whip_attack_particles.position = go_to_pos
 
 
 func reset_hitbox_size():
@@ -114,6 +163,7 @@ func on_charge_timer_timeout():
 func on_animation_finished():
 	visible = false
 	done_attack_animation = true
+	whip_attack_particles.emitting = false
 
 
 func on_hitbox_zone_body_entered(body:Node2D):

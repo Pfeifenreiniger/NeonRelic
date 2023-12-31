@@ -6,6 +6,7 @@ extends Node
 var stamina_can_refresh:bool = true
 var stamina_refreshment_rate:int = 1
 var side_roll_stamina_cost:int = 20
+var whip_attack_stamina_cost:int = 10
 
 
 func _ready():

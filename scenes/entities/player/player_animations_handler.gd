@@ -150,11 +150,10 @@ func on_animation_finished():
 					player.weapon_handler.current_weapon.set_pos_to_player(side)
 					player.weapon_handler.current_weapon.reset_hitbox_size()
 					player.weapon_handler.current_weapon.play('attack_%s' % side)
-					player.weapon_handler.current_weapon.do_attack_animation = true
-					player.weapon_handler.current_weapon.done_attack_animation = false
+					player.weapon_handler.current_weapon.init_attack_animation(side)
 				# change to attack 3 animation
 				if player.weapon_handler.current_weapon.do_attack_animation and player.weapon_handler.current_weapon.done_attack_animation:
-					player.weapon_handler.current_weapon.do_attack_animation = false
+					player.weapon_handler.current_weapon.finish_attack_animation()
 					player.animation_to_change = true
 					player.current_animation = "stand_whip_attack_%s_3" % side
 			elif "3" in player.current_animation:
@@ -164,3 +163,4 @@ func on_animation_finished():
 				player.current_animation = "stand_%s" % side
 				player.is_attacking = false
 				player.can_whip_attack_charge = true
+				player.stamina_handler.stamina_can_refresh = true
