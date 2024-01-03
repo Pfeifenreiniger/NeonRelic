@@ -17,12 +17,12 @@ func _process(_delta):
 
 func check_current_player_health():
 	# check for life progress bar
-	var max_player_health:float = player.max_health
+	var max_player_health:float = player.health_handler.max_health
 	var max_life_bar_value:int = life_progress_bar.max_value
 	if max_player_health != max_life_bar_value:
 		life_progress_bar.max_value = max_player_health
 	
-	var current_player_health:float = player.current_health
+	var current_player_health:float = player.health_handler.current_health
 	var current_life_bar_value:int = life_progress_bar.value
 	if current_player_health != current_life_bar_value:
 		life_progress_bar.value = current_player_health
@@ -53,13 +53,13 @@ func start_heart_animation():
 func check_current_player_stamina():
 	# check for stamina progress bar
 	# max value
-	var max_player_stamina:float = player.max_stamina
+	var max_player_stamina:float = player.stamina_handler.max_stamina
 	var max_stamina_bar_value:int = stamina_progress_bar.max_value
 	if max_player_stamina != max_stamina_bar_value:
 		stamina_progress_bar.max_value = max_player_stamina
 
 	# current value
-	var current_player_stamina:float = player.current_stamina
+	var current_player_stamina:float = player.stamina_handler.current_stamina
 	var current_stamina_bar_value:int = stamina_progress_bar.value
 	if current_player_stamina != current_stamina_bar_value:
 		stamina_progress_bar.value = current_player_stamina

@@ -94,7 +94,7 @@ func on_animation_finished():
 		if player.will_duck:
 			player.will_duck = false
 			player.is_duck = true
-			player.resize_hit_box(false, true)
+			player.hitbox_handler.resize_hitbox(false, true)
 			if "left" in player.current_animation:
 				player.current_animation = "duck_left"
 			else:

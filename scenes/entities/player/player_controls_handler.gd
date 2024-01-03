@@ -54,8 +54,9 @@ func move_x() -> void:
 					player.animation_to_change = true
 					player.is_rolling = true
 					player.stamina_handler.stamina_can_refresh = false
-					player.current_stamina -= player.stamina_handler.side_roll_stamina_cost
+					player.stamina_handler.cost_player_stamina(player.stamina_handler.side_roll_stamina_cost)
 					player.animations_handler.do_side_roll("right")
+					player.invulnerable_handler.become_invulnerable(0.5, false)
 				else:
 					player_roll_action_inputs["right"] = button_move_right_press_timestamp
 		elif Input.is_action_just_released("ingame_move_left"):
@@ -68,8 +69,9 @@ func move_x() -> void:
 					player.is_rolling = true
 					player.is_rolling = true
 					player.stamina_handler.stamina_can_refresh = false
-					player.current_stamina -= player.stamina_handler.side_roll_stamina_cost
+					player.stamina_handler.cost_player_stamina(player.stamina_handler.side_roll_stamina_cost)
 					player.animations_handler.do_side_roll("left")
+					player.invulnerable_handler.become_invulnerable(0.5, false)
 				else:
 					player_roll_action_inputs["left"] = button_move_left_press_timestamp
 
@@ -156,7 +158,7 @@ func check_player_duck_key_input_status():
 		if player.is_duck:
 			player.is_duck = false
 			player.to_duck = true
-			player.resize_hit_box(true, false)
+			player.hitbox_handler.resize_hitbox(true, false)
 
 		elif player.to_duck:
 			# play remaining to-duck animation backwards
@@ -267,7 +269,7 @@ func action_input_init_whip_attack():
 				player.velocity.x = 0
 				player.is_attacking = true
 				player.stamina_handler.stamina_can_refresh = false
-				player.current_stamina -= player.stamina_handler.whip_attack_stamina_cost
+				player.stamina_handler.cost_player_stamina(player.stamina_handler.whip_attack_stamina_cost)
 				player.loop_animation = false
 				player.animation_to_change = true
 				if "right" in player.current_animation:

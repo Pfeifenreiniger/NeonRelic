@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://qvaqmqgo70op"]
+
+[ext_resource type="Script" path="res://scenes/entities/player/player_hitbox_handler.gd" id="1_fxesb"]
+
+[node name="PlayerHitboxHandler" type="Node"]
+script = ExtResource("1_fxesb")

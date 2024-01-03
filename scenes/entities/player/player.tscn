@@ -1,9 +1,11 @@
-[gd_scene load_steps=143 format=3 uid="uid://ddawbfdgq2114"]
+[gd_scene load_steps=146 format=3 uid="uid://ddawbfdgq2114"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_bej2y"]
 [ext_resource type="Texture2D" uid="uid://bd70f8o62n7hn" path="res://scenes/entities/player/sprites/run_left/run_left_f1.png" id="1_q4w7q"]
 [ext_resource type="Texture2D" uid="uid://b3b20v13vtqet" path="res://scenes/entities/player/sprites/run_left/run_left_f2.png" id="2_3kkfy"]
+[ext_resource type="PackedScene" uid="uid://qvaqmqgo70op" path="res://scenes/entities/player/player_hitbox_handler.tscn" id="2_4gkyc"]
 [ext_resource type="PackedScene" uid="uid://ckuywxwyjps68" path="res://scenes/entities/player/player_controls_handler.tscn" id="2_lh736"]
+[ext_resource type="PackedScene" uid="uid://hfyboniu7sxr" path="res://scenes/entities/player/player_health_handler.tscn" id="2_voptv"]
 [ext_resource type="Texture2D" uid="uid://c3se5q5sbdehu" path="res://scenes/entities/player/sprites/duck_left/duck_left_f1.png" id="2_yj5xc"]
 [ext_resource type="Texture2D" uid="uid://bt13g5m7xsyxl" path="res://scenes/entities/player/sprites/duck_left/duck_left_f2.png" id="3_06oqx"]
 [ext_resource type="PackedScene" uid="uid://ckecmw1wq155q" path="res://scenes/entities/player/player_animations_handler.tscn" id="3_8ebf5"]
@@ -24,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://lrc2tq5mgk8f" path="res://scenes/entities/player/sprites/run_left/run_left_f7.png" id="7_hkx3c"]
 [ext_resource type="Texture2D" uid="uid://3w0lxc5bffxe" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f5.png" id="8_38p63"]
 [ext_resource type="Texture2D" uid="uid://bxlr3lyysabkn" path="res://scenes/entities/player/sprites/run_left/run_left_f8.png" id="8_4162n"]
+[ext_resource type="PackedScene" uid="uid://crm1ml21cib0l" path="res://scenes/entities/player/player_invulnerable_handler.tscn" id="8_chmwa"]
 [ext_resource type="Texture2D" uid="uid://cenonx3baeatt" path="res://scenes/entities/player/sprites/duck_right/duck_right_f3.png" id="8_rhij6"]
 [ext_resource type="Texture2D" uid="uid://dt7k6mi4r7u2q" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f6.png" id="9_cvwcl"]
 [ext_resource type="Texture2D" uid="uid://cgmbmmlie71kw" path="res://scenes/entities/player/sprites/run_right/run_right_f1.png" id="9_gexdb"]
@@ -664,6 +667,10 @@ animations = [{
 collision_mask = 60
 script = ExtResource("1_bej2y")
 
+[node name="PlayerHealthHandler" parent="." instance=ExtResource("2_voptv")]
+
+[node name="PlayerHitboxHandler" parent="." instance=ExtResource("2_4gkyc")]
+
 [node name="PlayerControlsHandler" parent="." instance=ExtResource("2_lh736")]
 
 [node name="PlayerAnimationsHandler" parent="." instance=ExtResource("3_8ebf5")]
@@ -671,6 +678,8 @@ script = ExtResource("1_bej2y")
 [node name="PlayerStaminaHandler" parent="." instance=ExtResource("4_r2cqb")]
 
 [node name="PlayerWeaponHandler" parent="." instance=ExtResource("4_x6e0m")]
+
+[node name="PlayerInvulnerableHandler" parent="." instance=ExtResource("8_chmwa")]
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)

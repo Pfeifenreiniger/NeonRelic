@@ -1,8 +1,10 @@
 extends Node
 
 @onready var stamina_refresh_timer:Timer = $StaminaRefreshTimer
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
 
+var stamina_cost_multiplier:float = 1 # mit Upgrades wird die Zahl kleiner, um die Ausdauerkosten zu senken
+var max_stamina:int = 100
+var current_stamina:float = max_stamina
 var stamina_can_refresh:bool = true
 var stamina_refreshment_rate:int = 1
 var side_roll_stamina_cost:int = 20
@@ -14,19 +16,32 @@ func _ready():
 
 
 func check_player_has_enough_stamina(amount_stamina:int) -> bool:
-	return player.current_stamina >= amount_stamina
+	"""
+	Checks if the current stamina amount is high enough to perform an action. 
+	"""
+	return current_stamina >= amount_stamina * stamina_cost_multiplier
 
 
-func refresh_player_stamina():
+func cost_player_stamina(amount_stamina:int) -> void:
+	"""
+	Reduce stamina with actions like attacks/rolls.
+	"""
+	current_stamina -= amount_stamina * stamina_cost_multiplier
+
+
+func refresh_player_stamina() -> void:
+	"""
+	Refreshes the current stamina by the stamina refreshment rate amount.
+	"""
 	if stamina_can_refresh:
-		if player.current_stamina < player.max_stamina:
-			if player.current_stamina + stamina_refreshment_rate <= player.max_stamina:
-				player.current_stamina += stamina_refreshment_rate
+		if current_stamina < max_stamina:
+			if current_stamina + stamina_refreshment_rate <= max_stamina:
+				current_stamina += stamina_refreshment_rate
 			else:
-				player.current_stamina = player.max_stamina
+				current_stamina = max_stamina
 
 
 ###----------CONNECTED SIGNALS----------###
 
-func on_stamina_refresh_timer_timeout():
+func on_stamina_refresh_timer_timeout() -> void:
 	refresh_player_stamina()

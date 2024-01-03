@@ -2,13 +2,13 @@ extends CharacterBody2D
 
 ###------BASIC STATS PROPERTIES------###
 ## HEALTH ##
-var max_health:int = 100
-var current_health:int = max_health
+@onready var health_handler:Node = $PlayerHealthHandler
+
+var is_invulnerable:bool = false
+@onready var invulnerable_handler:Node = $PlayerInvulnerableHandler
 
 ## STAMINA ##
 @onready var stamina_handler:Node = $PlayerStaminaHandler
-var max_stamina:int = 100
-var current_stamina:float = max_stamina
 
 
 ###------MOVEMENT RELATED PROPERTIES------###
@@ -52,12 +52,10 @@ var animation_frames_forwards:bool = true
 
 
 ###------HITBOX RELATED PROPERTIES------###
-@onready var hit_box:CollisionShape2D = $HitBox
-var hit_box_height_full:float = 76
-var hit_box_height_reduced:float = 58
-var hit_box_y_full:float = 4
-var hit_box_y_reduced:float = 12
+@onready var hitbox:CollisionShape2D = $HitBox
+@onready var hitbox_handler:Node = $PlayerHitboxHandler
 
+## side roll detection boxes ##
 @onready var left_collision_detection_box:Area2D = $CollisionDetectionBoxes/LeftSideCollision
 @onready var right_collision_detection_box: Area2D = $CollisionDetectionBoxes/RightSideCollision
 var is_environment_collision_left:bool = false
@@ -101,15 +99,6 @@ func _process(_delta):
 func _physics_process(delta):
 	# check for player key inputs and move player
 	controls_handler.check_ingame_control_key_inputs(delta)
-
-
-func resize_hit_box(to_full:bool=false, reduce:bool=false):
-	if to_full:
-		hit_box.position.y = hit_box_y_full
-		hit_box.shape.set_height(hit_box_height_full)
-	elif reduce:
-		hit_box.position.y = hit_box_y_reduced
-		hit_box.shape.set_height(hit_box_height_reduced)
 
 
 ###----------CONNECTED SIGNALS----------###
