@@ -148,6 +148,7 @@ disabled = true
 
 [node name="WhipAttackParticles" type="GPUParticles2D" parent="."]
 position = Vector2(52, -2)
+emitting = false
 amount = 12
 process_material = SubResource("ParticleProcessMaterial_1jo83")
 lifetime = 1.5

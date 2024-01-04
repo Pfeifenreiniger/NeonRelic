@@ -1,4 +1,4 @@
-[gd_scene load_steps=146 format=3 uid="uid://ddawbfdgq2114"]
+[gd_scene load_steps=148 format=3 uid="uid://ddawbfdgq2114"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_bej2y"]
 [ext_resource type="Texture2D" uid="uid://bd70f8o62n7hn" path="res://scenes/entities/player/sprites/run_left/run_left_f1.png" id="1_q4w7q"]
@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://bxlr3lyysabkn" path="res://scenes/entities/player/sprites/run_left/run_left_f8.png" id="8_4162n"]
 [ext_resource type="PackedScene" uid="uid://crm1ml21cib0l" path="res://scenes/entities/player/player_invulnerable_handler.tscn" id="8_chmwa"]
 [ext_resource type="Texture2D" uid="uid://cenonx3baeatt" path="res://scenes/entities/player/sprites/duck_right/duck_right_f3.png" id="8_rhij6"]
+[ext_resource type="Shader" path="res://scenes/entities/player/player.gdshader" id="9_0leun"]
 [ext_resource type="Texture2D" uid="uid://dt7k6mi4r7u2q" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f6.png" id="9_cvwcl"]
 [ext_resource type="Texture2D" uid="uid://cgmbmmlie71kw" path="res://scenes/entities/player/sprites/run_right/run_right_f1.png" id="9_gexdb"]
 [ext_resource type="Texture2D" uid="uid://dw527jit8cr1l" path="res://scenes/entities/player/sprites/duck_right/duck_right_f4.png" id="9_w11up"]
@@ -153,6 +154,10 @@ size = Vector2(13, 65.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ol62l"]
 size = Vector2(20, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sy6sw"]
+shader = ExtResource("9_0leun")
+shader_parameter/doBlink = false
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v81g4"]
 animations = [{
@@ -711,6 +716,7 @@ position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_ol62l")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_sy6sw")
 sprite_frames = SubResource("SpriteFrames_v81g4")
 animation = &"roll_left"
 frame = 9

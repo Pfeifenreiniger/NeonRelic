@@ -16,6 +16,15 @@ func _ready():
 	jump_button_press_timer.timeout.connect(on_jump_button_press_timer_timeout)
 
 
+func test_player_damage() -> void:
+	"""
+	Test function to inflict player damage. Will be deleted later in development process.
+	Keyboard K
+	"""
+	if Input.is_action_just_pressed("ingame_player_damage"):
+		player.health_handler.get_damage(5)
+
+
 func move_x() -> void:
 	if check_if_player_can_horizontally_move():
 		# run right / left or stand idle
@@ -129,6 +138,8 @@ func check_ingame_control_key_inputs(delta):
 	move_x()
 	move_y(delta)
 	move(delta)
+	# test function to inflict player damage via key press
+	test_player_damage()
 
 
 func check_if_player_can_horizontally_move() -> bool:

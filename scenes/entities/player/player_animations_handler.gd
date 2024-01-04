@@ -139,6 +139,7 @@ func on_animation_finished():
 					player.animation_to_change = true
 					player.can_whip_attack_charge = false
 					player.weapon_handler.current_weapon.reset_whip_attack_damage()
+					player.invulnerable_handler.become_invulnerable(0.5, false)
 				else:
 					player.animations.pause()
 					# ToDo: display charge animation
