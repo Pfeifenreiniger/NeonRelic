@@ -158,6 +158,9 @@ size = Vector2(20, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sy6sw"]
 shader = ExtResource("9_0leun")
 shader_parameter/doBlink = false
+shader_parameter/doStretch = false
+shader_parameter/widenX = false
+shader_parameter/stretchProgress = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v81g4"]
 animations = [{

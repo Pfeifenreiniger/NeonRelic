@@ -1,6 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://ckecmw1wq155q"]
+[gd_scene load_steps=6 format=3 uid="uid://ckecmw1wq155q"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player_animations_handler.gd" id="1_6sm3f"]
+[ext_resource type="Script" path="res://scenes/entities/player/ClimbUpLedgeAnimation.gd" id="2_0kqit"]
+[ext_resource type="Script" path="res://scenes/entities/player/WhipAttackChargeShaderAnimation.gd" id="2_7rtvv"]
+[ext_resource type="Script" path="res://scenes/entities/player/SideRollAnimation.gd" id="2_gctdn"]
+[ext_resource type="Script" path="res://scenes/entities/player/WhipAttackAnimation.gd" id="3_djpqa"]
 
 [node name="PlayerAnimationsHandler" type="Node"]
 script = ExtResource("1_6sm3f")
+
+[node name="ClimbUpLedgeAnimation" type="Node" parent="."]
+script = ExtResource("2_0kqit")
+
+[node name="SideRollAnimation" type="Node" parent="."]
+script = ExtResource("2_gctdn")
+
+[node name="WhipAttackAnimation" type="Node" parent="."]
+script = ExtResource("3_djpqa")
+
+[node name="WhipAttackChargeShaderAnimation" type="Node" parent="WhipAttackAnimation"]
+script = ExtResource("2_7rtvv")

@@ -15,9 +15,9 @@ var x_sizes:Array = [
 ]
 
 # attack damage
-const WHIP_ATTACK_INIT_DAMAGE:int = 10
+const WHIP_ATTACK_INIT_DAMAGE:int = 15
 const WHIP_ATTACK_MAX_DAMAGE:int = 60
-const WHIP_ATTACK_DAMAGE_INCREASE:int = 10
+const WHIP_ATTACK_DAMAGE_INCREASE:int = 4
 var current_whip_attack_damage:int = WHIP_ATTACK_INIT_DAMAGE
 
 # attack charge
@@ -93,6 +93,8 @@ func finish_attack_animation() -> void:
 
 func increase_whip_attack_damage() -> void:
 	current_whip_attack_damage += WHIP_ATTACK_DAMAGE_INCREASE
+	if current_whip_attack_damage > WHIP_ATTACK_MAX_DAMAGE:
+		current_whip_attack_damage = WHIP_ATTACK_MAX_DAMAGE
 	print("CHARGE! MEIN DAMAGE LAUTET %s" % current_whip_attack_damage)
 
 

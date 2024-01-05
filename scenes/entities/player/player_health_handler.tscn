@@ -4,3 +4,6 @@
 
 [node name="PlayerHealthHandler" type="Node"]
 script = ExtResource("1_1ipvs")
+
+[node name="HealthRefreshTimer" type="Timer" parent="."]
+wait_time = 4.0

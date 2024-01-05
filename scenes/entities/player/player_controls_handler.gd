@@ -64,7 +64,7 @@ func move_x() -> void:
 					player.is_rolling = true
 					player.stamina_handler.stamina_can_refresh = false
 					player.stamina_handler.cost_player_stamina(player.stamina_handler.side_roll_stamina_cost)
-					player.animations_handler.do_side_roll("right")
+					player.animations_handler.side_roll_animation.do_side_roll("right")
 					player.invulnerable_handler.become_invulnerable(0.5, false)
 				else:
 					player_roll_action_inputs["right"] = button_move_right_press_timestamp
@@ -79,7 +79,7 @@ func move_x() -> void:
 					player.is_rolling = true
 					player.stamina_handler.stamina_can_refresh = false
 					player.stamina_handler.cost_player_stamina(player.stamina_handler.side_roll_stamina_cost)
-					player.animations_handler.do_side_roll("left")
+					player.animations_handler.side_roll_animation.do_side_roll("left")
 					player.invulnerable_handler.become_invulnerable(0.5, false)
 				else:
 					player_roll_action_inputs["left"] = button_move_left_press_timestamp
@@ -104,7 +104,7 @@ func move_y(delta):
 				player.is_jumping = false
 				player.is_rolling = false
 				player.stamina_handler.stamina_can_refresh = true
-				if player.animations_handler.side_roll_tween != null:
+				if player.animations_handler.side_roll_animation.side_roll_tween != null:
 					player.animations_handler.side_roll_tween.stop()
 				player.is_falling = true
 				player.direction.y = 1
@@ -237,10 +237,10 @@ func action_input_climb_up_ledge():
 				player.loop_animation = false
 				if "right" in player.current_animation:
 					player.current_animation = "climb_up_ledge_right"
-					player.animations_handler.climb_up_ledge("right")
+					player.animations_handler.climb_up_ledge_animation.climb_up_ledge("right")
 				else:
 					player.current_animation = "climb_up_ledge_left"
-					player.animations_handler.climb_up_ledge("left")
+					player.animations_handler.climb_up_ledge_animation.climb_up_ledge("left")
 
 
 func check_if_ledge_side_fits(ledge_area:Area2D) -> bool:

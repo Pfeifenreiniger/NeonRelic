@@ -1,12 +1,9 @@
 extends Node
 
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
-@onready var side_roll_tween
-
-
-func _process(_delta):
-	check_side_roll_environment_collision()
-	check_player_whip_attack()
+@onready var climb_up_ledge_animation:Node = $ClimbUpLedgeAnimation
+@onready var side_roll_animation:Node = $SideRollAnimation
+@onready var whip_attack_charge_shader_animation:Node = $WhipAttackAnimation/WhipAttackChargeShaderAnimation
 
 
 func select_animation() -> void:
@@ -18,31 +15,6 @@ func select_animation() -> void:
 	player.animation_to_change = false
 	if player.loop_animation:
 		player.animation_frames_forwards = true
-
-
-func do_side_roll(direction:String) -> void:
-	# tween config
-	side_roll_tween = get_tree().create_tween()
-	var animation_duration:float = 0.9
-	
-	# player pos offset
-	var player_x_offset:int = 250
-	
-	var to_pos_x:int
-	if direction == "left":
-		to_pos_x = player.global_position.x - player_x_offset
-	else:
-		to_pos_x = player.global_position.x + player_x_offset
-
-	var to_pos_y:int = player.global_position.y
-	
-	side_roll_tween.tween_property(player, "global_position", Vector2(to_pos_x, to_pos_y), animation_duration)
-
-
-func check_side_roll_environment_collision() -> void:
-	if player.is_environment_collision_left or player.is_environment_collision_right:
-		if side_roll_tween != null:
-			side_roll_tween.stop()
 
 
 func climb_up_ledge(direction:String) -> void:
@@ -63,17 +35,6 @@ func climb_up_ledge(direction:String) -> void:
 	var to_pos_y:int = player.global_position.y - player_y_offset
 	
 	tween.tween_property(player, "global_position", Vector2(to_pos_x, to_pos_y), animation_duration)
-
-
-func check_player_whip_attack():
-	if "whip_attack" in player.current_animation:
-		if "1" in player.current_animation:
-			if not player.animations.is_playing():
-				on_animation_finished()
-		else:
-			# if player is in second whip attack animation and whip's attack animation is also done -> change to standing animation 
-			if player.weapon_handler.current_weapon.do_attack_animation and player.weapon_handler.current_weapon.done_attack_animation:
-				on_animation_finished()
 
 
 ###----------CONNECTED SIGNALS----------###
@@ -122,7 +83,7 @@ func on_animation_finished():
 		player.stamina_handler.stamina_can_refresh = true
 		player.loop_animation = true
 		player.animation_to_change = true
-		player.animations_handler.side_roll_tween = null
+		player.animations_handler.side_roll_animation.side_roll_tween = null
 	
 	elif player.is_attacking:
 		# whip attack
@@ -140,9 +101,11 @@ func on_animation_finished():
 					player.can_whip_attack_charge = false
 					player.weapon_handler.current_weapon.reset_whip_attack_damage()
 					player.invulnerable_handler.become_invulnerable(0.5, false)
+					whip_attack_charge_shader_animation.stop_whip_attack_shader_animation()
 				else:
-					player.animations.pause()
-					# ToDo: display charge animation
+					if not whip_attack_charge_shader_animation.do_whip_attack_shader_animation:
+						player.animations.pause()
+						whip_attack_charge_shader_animation.start_whip_attack_shader_animation()
 			elif "2" in player.current_animation:
 				# play whip attack
 				if not player.weapon_handler.current_weapon.do_attack_animation:
