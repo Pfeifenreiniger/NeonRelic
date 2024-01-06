@@ -2,6 +2,9 @@ extends Node
 
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
 
+## Speed how fast the progress of color changing and sprite-stretching goes.
+@export var progress_speed:float = 1
+
 var do_whip_attack_shader_animation:bool = false
 var is_currently_stretching:bool = false
 
@@ -14,10 +17,11 @@ func play_whip_attack_shader_animation(delta) -> void:
 
 	if do_whip_attack_shader_animation:
 		
+		
 		var shader_material:ShaderMaterial = player.animations.material
 		
 		var current_strech_progress = shader_material.get_shader_parameter("stretchProgress")
-		var progress_speed:float = 1
+		
 		var progress:float = progress_speed * delta
 		current_strech_progress += progress
 		

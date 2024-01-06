@@ -1,5 +1,13 @@
 shader_type canvas_item;
 
+/*
+Shader script for player sprites.
+Currently added blink animation after hits
+and color changing as well as sprite-stretching
+for whip-attack-charge animations.
+(January 2024)
+*/
+
 // uniform attribute to control blink status
 uniform bool doBlink = false;
 

@@ -4,12 +4,7 @@ extends Node
 
 @onready var side_roll_tween
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	check_side_roll_environment_collision()
 
