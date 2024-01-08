@@ -69,8 +69,8 @@ func on_animation_finished():
 		player.loop_animation = true
 		player.animation_to_change = true
 
-	elif player.is_climbing_ledge:
-		player.is_climbing_ledge = false
+	elif player.ledge_climb_handler.is_climbing_ledge:
+		player.ledge_climb_handler.is_climbing_ledge = false
 		player.loop_animation = true
 		player.animation_to_change = true
 		if "left" in player.current_animation:

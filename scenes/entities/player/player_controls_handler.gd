@@ -57,13 +57,13 @@ func move_x() -> void:
 		if Input.is_action_just_released("ingame_move_right"):
 			var button_move_right_press_timestamp = Time.get_ticks_msec() / 10
 			if not player.is_rolling:
-				if button_move_right_press_timestamp - player_roll_action_inputs["right"] <= 50 and player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.side_roll_stamina_cost):
+				if button_move_right_press_timestamp - player_roll_action_inputs["right"] <= 50 and player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
 					player.current_animation = "roll_right"
 					player.loop_animation = false
 					player.animation_to_change = true
 					player.is_rolling = true
 					player.stamina_handler.stamina_can_refresh = false
-					player.stamina_handler.cost_player_stamina(player.stamina_handler.side_roll_stamina_cost)
+					player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["side_roll"])
 					player.animations_handler.side_roll_animation.do_side_roll("right")
 					player.invulnerable_handler.become_invulnerable(0.5, false)
 				else:
@@ -71,14 +71,14 @@ func move_x() -> void:
 		elif Input.is_action_just_released("ingame_move_left"):
 			var button_move_left_press_timestamp = Time.get_ticks_msec() / 10
 			if not player.is_rolling:
-				if button_move_left_press_timestamp - player_roll_action_inputs["left"] <= 50 and player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.side_roll_stamina_cost):
+				if button_move_left_press_timestamp - player_roll_action_inputs["left"] <= 50 and player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
 					player.current_animation = "roll_left"
 					player.loop_animation = false
 					player.animation_to_change = true
 					player.is_rolling = true
 					player.is_rolling = true
 					player.stamina_handler.stamina_can_refresh = false
-					player.stamina_handler.cost_player_stamina(player.stamina_handler.side_roll_stamina_cost)
+					player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["side_roll"])
 					player.animations_handler.side_roll_animation.do_side_roll("left")
 					player.invulnerable_handler.become_invulnerable(0.5, false)
 				else:
@@ -90,7 +90,7 @@ func move_x() -> void:
 func move_y(delta):
 	if not player.is_on_floor(): # player not on ground
 		# apply gravity when player is not ducking or climbing a ledge
-		if not check_if_player_is_ducking() and not player.is_climbing_ledge:
+		if not check_if_player_is_ducking() and not player.ledge_climb_handler.is_climbing_ledge:
 			player.velocity.y += player.current_gravity * delta
 		
 		# checks if jump button was released (-> short jump)
@@ -99,13 +99,13 @@ func move_y(delta):
 				jump_button_press_timer.stop()
 		
 		# if gravity influenced player's physic -> check if he is falling
-		if player.velocity.y > 0  and not player.is_climbing_ledge:
+		if player.velocity.y > 0  and not player.ledge_climb_handler.is_climbing_ledge:
 			if not player.is_falling:
 				player.is_jumping = false
 				player.is_rolling = false
 				player.stamina_handler.stamina_can_refresh = true
 				if player.animations_handler.side_roll_animation.side_roll_tween != null:
-					player.animations_handler.side_roll_tween.stop()
+					player.animations_handler.side_roll_animation.side_roll_tween.stop()
 				player.is_falling = true
 				player.direction.y = 1
 				if "left" in player.current_animation:
@@ -119,7 +119,7 @@ func move_y(delta):
 			player.is_falling = false
 			player.direction.y = 0
 		# ground-y-movement only possible when player's not currently climbing up a ledge, is attacking or is rolling
-		if not player.is_climbing_ledge and not player.is_attacking and not player.is_rolling:
+		if not player.ledge_climb_handler.is_climbing_ledge and not player.is_attacking and not player.is_rolling:
 			# player jumping
 			if Input.is_action_pressed("ingame_jump") and not check_if_player_is_ducking():
 				action_input_jump()
@@ -143,7 +143,7 @@ func check_ingame_control_key_inputs(delta):
 
 
 func check_if_player_can_horizontally_move() -> bool:
-	if not player.to_duck and not player.is_duck and not player.is_jumping and not player.is_falling and not player.is_climbing_ledge and not player.is_attacking and not player.is_rolling:
+	if not player.to_duck and not player.is_duck and not player.is_jumping and not player.is_falling and not player.ledge_climb_handler.is_climbing_ledge and not player.is_attacking and not player.is_rolling:
 		return true
 	else:
 		return false
@@ -225,12 +225,12 @@ func check_input_climb_up_ledge():
 
 func action_input_climb_up_ledge():
 	# if player is currently in an ledge area -> can climb up (if player is facing correct ledge side)
-	if player.current_ledge_to_climb_area != null:
-		if player.ledge_climb_area.overlaps_area(player.current_ledge_to_climb_area):
-			if not player.is_climbing_ledge and check_if_ledge_side_fits(player.current_ledge_to_climb_area):
+	if player.ledge_climb_handler.current_ledge_to_climb_area != null:
+		if player.ledge_climb_handler.ledge_climb_area.overlaps_area(player.ledge_climb_handler.current_ledge_to_climb_area):
+			if not player.ledge_climb_handler.is_climbing_ledge and check_if_ledge_side_fits(player.ledge_climb_handler.current_ledge_to_climb_area):
 				player.is_jumping = false
 				player.is_falling = false
-				player.is_climbing_ledge = true
+				player.ledge_climb_handler.is_climbing_ledge = true
 				player.direction.y = 0
 				player.velocity.y = 0
 				player.animation_to_change = true
@@ -274,13 +274,13 @@ func action_input_init_whip_attack():
 	else:
 		# do standing whip attack if player's on ground
 		if check_if_player_can_horizontally_move():
-			if not player.is_attacking and player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.whip_attack_stamina_cost):
+			if not player.is_attacking and player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["whip_attack"]):
 				player.can_whip_attack_charge = true
 				player.direction.x = 0
 				player.velocity.x = 0
 				player.is_attacking = true
 				player.stamina_handler.stamina_can_refresh = false
-				player.stamina_handler.cost_player_stamina(player.stamina_handler.whip_attack_stamina_cost)
+				player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["whip_attack"])
 				player.loop_animation = false
 				player.animation_to_change = true
 				if "right" in player.current_animation:

@@ -7,8 +7,12 @@ var max_stamina:int = 100
 var current_stamina:float = max_stamina
 var stamina_can_refresh:bool = true
 var stamina_refreshment_rate:int = 1
-var side_roll_stamina_cost:int = 20
-var whip_attack_stamina_cost:int = 10
+
+var stamina_costs:Dictionary = {
+	"side_roll" : 20,
+	"whip_attack" : 10
+}
+
 
 
 func _ready():

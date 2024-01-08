@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://brcu1sumgeyw2"]
+
+[ext_resource type="Script" path="res://scenes/entities/player/player_side_collision_boxes_handler.gd" id="1_ihs15"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iatpy"]
+size = Vector2(13, 67.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bxbwd"]
+size = Vector2(13, 65.5)
+
+[node name="PlayerSideCollisionBoxesHandler" type="Node"]
+script = ExtResource("1_ihs15")
+
+[node name="CollisionDetectionBoxes" type="Node2D" parent="."]
+
+[node name="LeftSideCollision" type="Area2D" parent="CollisionDetectionBoxes"]
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDetectionBoxes/LeftSideCollision"]
+position = Vector2(-29, 0)
+shape = SubResource("RectangleShape2D_iatpy")
+
+[node name="RightSideCollision" type="Area2D" parent="CollisionDetectionBoxes"]
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDetectionBoxes/RightSideCollision"]
+position = Vector2(35, 0)
+shape = SubResource("RectangleShape2D_bxbwd")

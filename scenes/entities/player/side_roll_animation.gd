@@ -29,7 +29,7 @@ func do_side_roll(direction:String) -> void:
 
 
 func check_side_roll_environment_collision() -> void:
-	if player.is_environment_collision_left or player.is_environment_collision_right:
+	if player.side_collision_boxes_handler.is_environment_collision_left or player.side_collision_boxes_handler.is_environment_collision_right:
 		if side_roll_tween != null:
 			side_roll_tween.stop()
 

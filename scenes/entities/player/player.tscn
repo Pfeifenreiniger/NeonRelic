@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bt13g5m7xsyxl" path="res://scenes/entities/player/sprites/duck_left/duck_left_f2.png" id="3_06oqx"]
 [ext_resource type="PackedScene" uid="uid://ckecmw1wq155q" path="res://scenes/entities/player/player_animations_handler.tscn" id="3_8ebf5"]
 [ext_resource type="Texture2D" uid="uid://dheiewninnm8w" path="res://scenes/entities/player/sprites/run_left/run_left_f3.png" id="3_jb1wq"]
+[ext_resource type="PackedScene" uid="uid://brcu1sumgeyw2" path="res://scenes/entities/player/player_side_collision_boxes_handler.tscn" id="4_fie0f"]
 [ext_resource type="Texture2D" uid="uid://c1c1sroql3eoe" path="res://scenes/entities/player/sprites/duck_left/duck_left_f3.png" id="4_g7776"]
 [ext_resource type="PackedScene" uid="uid://ct7e2pfrwbqx4" path="res://scenes/entities/player/player_stamina_handler.tscn" id="4_r2cqb"]
 [ext_resource type="Texture2D" uid="uid://df5wqpmhfkwlo" path="res://scenes/entities/player/sprites/run_left/run_left_f4.png" id="4_sxs0h"]
@@ -22,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://dbdet4umufqq1" path="res://scenes/entities/player/sprites/run_left/run_left_f6.png" id="6_h31x6"]
 [ext_resource type="Texture2D" uid="uid://d0m2mrtklbruo" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f3.png" id="6_uvpjq"]
 [ext_resource type="Texture2D" uid="uid://cdmnnmv3ffoaj" path="res://scenes/entities/player/sprites/duck_right/duck_right_f2.png" id="7_b7h8y"]
+[ext_resource type="PackedScene" uid="uid://boastna5vjkwp" path="res://scenes/entities/player/player_ledge_climb_handler.tscn" id="7_dptn4"]
 [ext_resource type="Texture2D" uid="uid://cor08r3gavsxt" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f4.png" id="7_fotbf"]
 [ext_resource type="Texture2D" uid="uid://lrc2tq5mgk8f" path="res://scenes/entities/player/sprites/run_left/run_left_f7.png" id="7_hkx3c"]
 [ext_resource type="Texture2D" uid="uid://3w0lxc5bffxe" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f5.png" id="8_38p63"]
@@ -145,12 +147,6 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fxymx"]
 radius = 6.0
 height = 76.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3h2y3"]
-size = Vector2(13, 67.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e1lme"]
-size = Vector2(13, 65.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ol62l"]
 size = Vector2(20, 1)
@@ -679,9 +675,13 @@ script = ExtResource("1_bej2y")
 
 [node name="PlayerHitboxHandler" parent="." instance=ExtResource("2_4gkyc")]
 
+[node name="PlayerSideCollisionBoxesHandler" parent="." instance=ExtResource("4_fie0f")]
+
 [node name="PlayerControlsHandler" parent="." instance=ExtResource("2_lh736")]
 
 [node name="PlayerAnimationsHandler" parent="." instance=ExtResource("3_8ebf5")]
+
+[node name="PlayerLedgeClimbHandler" parent="." instance=ExtResource("7_dptn4")]
 
 [node name="PlayerStaminaHandler" parent="." instance=ExtResource("4_r2cqb")]
 
@@ -693,22 +693,6 @@ script = ExtResource("1_bej2y")
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_fxymx")
 metadata/_edit_lock_ = true
-
-[node name="CollisionDetectionBoxes" type="Node2D" parent="."]
-
-[node name="LeftSideCollision" type="Area2D" parent="CollisionDetectionBoxes"]
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDetectionBoxes/LeftSideCollision"]
-position = Vector2(-29, 0)
-shape = SubResource("RectangleShape2D_3h2y3")
-
-[node name="RightSideCollision" type="Area2D" parent="CollisionDetectionBoxes"]
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDetectionBoxes/RightSideCollision"]
-position = Vector2(35, 0)
-shape = SubResource("RectangleShape2D_e1lme")
 
 [node name="LedgeClimbArea" type="Area2D" parent="."]
 metadata/_edit_lock_ = true

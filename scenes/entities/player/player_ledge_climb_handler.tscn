@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://boastna5vjkwp"]
+
+[ext_resource type="Script" path="res://scenes/entities/player/player_ledge_climb_handler.gd" id="1_goj6u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uan7n"]
+size = Vector2(20, 1)
+
+[node name="PlayerLedgeClimbHandler" type="Node"]
+script = ExtResource("1_goj6u")
+
+[node name="LedgeClimbArea" type="Area2D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="LedgeGrapBox" type="CollisionShape2D" parent="LedgeClimbArea"]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_uan7n")
