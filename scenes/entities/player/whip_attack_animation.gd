@@ -1,18 +1,26 @@
 extends Node
 
+
+###----------SCENE REFERENCES----------###
+
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
-@onready var animation_handler:Node = $".."
+@onready var animations_handler:Node = $".."
 
 
-func _process(delta):
+###----------METHODS: PER FRAME CALLED----------###
+
+func _process(_delta) -> void:
 	check_player_whip_attack()
 
+
+###----------METHODS----------###
+
 func check_player_whip_attack():
-	if "whip_attack" in player.current_animation:
-		if "1" in player.current_animation:
-			if not player.animations.is_playing():
-				animation_handler.on_animation_finished()
+	if "whip_attack" in animations_handler.current_animation:
+		if "1" in animations_handler.current_animation:
+			if not animations_handler.animations.is_playing():
+				animations_handler.on_animation_finished()
 		else:
 			# if player is in second whip attack animation and whip's attack animation is also done -> change to standing animation 
 			if player.weapon_handler.current_weapon.do_attack_animation and player.weapon_handler.current_weapon.done_attack_animation:
-				animation_handler.on_animation_finished()
+				animations_handler.on_animation_finished()

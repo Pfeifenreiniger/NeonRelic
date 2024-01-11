@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cxdgx3ybjqixq"]
+[gd_scene load_steps=30 format=3 uid="uid://cxdgx3ybjqixq"]
 
 [ext_resource type="Script" path="res://scenes/weapons/whip/whip.gd" id="1_74wq3"]
 [ext_resource type="Texture2D" uid="uid://dpyvu1sp4ngem" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f1.png" id="1_lqffe"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://kdbloo7oirag" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f10.png" id="22_4j7ds"]
 [ext_resource type="Texture2D" uid="uid://c11rrst8d0usp" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f11.png" id="23_umnky"]
 [ext_resource type="Texture2D" uid="uid://ccdutbnskto1o" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f12.png" id="24_awyhj"]
+[ext_resource type="Script" path="res://scenes/weapons/whip/hitbox_zone.gd" id="26_tm7ji"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e6udn"]
 animations = [{
@@ -140,6 +141,7 @@ wait_time = 0.25
 [node name="HitboxZone" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 28
+script = ExtResource("26_tm7ji")
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxZone"]
 position = Vector2(-58, -1.5)

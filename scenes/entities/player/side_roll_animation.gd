@@ -1,13 +1,23 @@
 extends Node
 
+
+###----------SCENE REFERENCES----------###
+
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
+
+
+###----------PROPERTIES----------###
 
 @onready var side_roll_tween
 
 
-func _process(_delta):
+###----------METHODS: PER FRAME CALLED----------###
+
+func _process(_delta) -> void:
 	check_side_roll_environment_collision()
 
+
+###----------METHODS----------###
 
 func do_side_roll(direction:String) -> void:
 	# tween config

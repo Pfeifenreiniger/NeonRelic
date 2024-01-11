@@ -1,6 +1,12 @@
 extends Node
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
+
+###----------SCENE REFERENCES----------###
+
+@onready var animations_handler:Node = $"../.."
+
+
+###----------PROPERTIES----------###
 
 ## Speed how fast the progress of color changing and sprite-stretching goes.
 @export var progress_speed:float = 1
@@ -9,16 +15,20 @@ var do_whip_attack_shader_animation:bool = false
 var is_currently_stretching:bool = false
 
 
-func _process(delta):
+###----------METHODS: PER FRAME CALLED----------###
+
+func _process(delta) -> void:
 	play_whip_attack_shader_animation(delta)
 
+
+###----------METHODS----------###
 
 func play_whip_attack_shader_animation(delta) -> void:
 
 	if do_whip_attack_shader_animation:
 		
 		
-		var shader_material:ShaderMaterial = player.animations.material
+		var shader_material:ShaderMaterial = animations_handler.animations.material
 		
 		var current_strech_progress = shader_material.get_shader_parameter("stretchProgress")
 		
@@ -36,13 +46,13 @@ func play_whip_attack_shader_animation(delta) -> void:
 func start_whip_attack_shader_animation() -> void:
 	is_currently_stretching = true
 	do_whip_attack_shader_animation = true
-	player.animations.material.set_shader_parameter("doStretch", do_whip_attack_shader_animation)
-	player.animations.material.set_shader_parameter("widenX", is_currently_stretching)
+	animations_handler.animations.material.set_shader_parameter("doStretch", do_whip_attack_shader_animation)
+	animations_handler.animations.material.set_shader_parameter("widenX", is_currently_stretching)
 
 
 func stop_whip_attack_shader_animation() -> void:
 	is_currently_stretching = false
 	do_whip_attack_shader_animation = false
-	player.animations.material.set_shader_parameter("stretchProgress", 0)
-	player.animations.material.set_shader_parameter("doStretch", do_whip_attack_shader_animation)
-	player.animations.material.set_shader_parameter("widenX", is_currently_stretching)
+	animations_handler.animations.material.set_shader_parameter("stretchProgress", 0)
+	animations_handler.animations.material.set_shader_parameter("doStretch", do_whip_attack_shader_animation)
+	animations_handler.animations.material.set_shader_parameter("widenX", is_currently_stretching)

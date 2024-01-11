@@ -1,18 +1,30 @@
 extends Node
 
+
+###----------SCENE REFERENCES----------###
+
+@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
+
+
+###----------NODE REFERENCES----------###
+
+@onready var health_refresh_timer:Timer = $HealthRefreshTimer
+
+
+###----------PROPERTIES----------###
+
 var max_health:int = 100
 var current_health:int = max_health
 var health_refreshment_rate:int = 1
 
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
+###----------METHODS: AT INITIATION CALLED----------###
 
-@onready var health_refresh_timer:Timer = $HealthRefreshTimer
-
-
-func _ready():
+func _ready() -> void:
 	health_refresh_timer.timeout.connect(on_health_refresh_timer_timeout)
 
+
+###----------METHODS: CHANGE VALUE OF CURRENT HEALTH PROPERTY----------###
 
 func get_damage(amount:int) -> void:
 	"""

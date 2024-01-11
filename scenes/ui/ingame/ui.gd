@@ -1,19 +1,32 @@
 extends CanvasLayer
 
+
+###----------SCENE REFERENCES----------###
+
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
+
+
+###----------NODE REFERENCES----------###
+
 @onready var life_progress_bar:TextureProgressBar = $LifeBar/LifeProgressBar
 @onready var heart_animation:AnimatedSprite2D = $LifeBar/HeartAnimation
 @onready var stamina_progress_bar:TextureProgressBar = $StaminaBar/StaminaProgressBar
 
 
-func _ready():
+###----------METHODS: AT INITIATION CALLED----------###
+
+func _ready() -> void:
 	start_heart_animation()
 
 
-func _process(_delta):
+###----------METHODS: PER FRAME CALLED----------###
+
+func _process(_delta) -> void:
 	check_current_player_health()
 	check_current_player_stamina()
 
+
+###----------METHODS: CHECK CURRENT HEALTH AND STAMINA PROPERTY----------###
 
 func check_current_player_health():
 	# check for life progress bar
@@ -46,10 +59,6 @@ func check_current_player_health():
 		heart_animation.speed_scale = do_speed_scale
 
 
-func start_heart_animation():
-	heart_animation.play("heartbeat")
-
-
 func check_current_player_stamina():
 	# check for stamina progress bar
 	# max value
@@ -63,3 +72,10 @@ func check_current_player_stamina():
 	var current_stamina_bar_value:int = stamina_progress_bar.value
 	if current_player_stamina != current_stamina_bar_value:
 		stamina_progress_bar.value = current_player_stamina
+
+
+###----------METHODS: UI ANIMATIONS----------###
+
+func start_heart_animation():
+	heart_animation.play("heartbeat")
+

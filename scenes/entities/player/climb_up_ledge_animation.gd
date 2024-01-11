@@ -1,7 +1,12 @@
 extends Node
 
+
+###----------SCENE REFERENCES----------###
+
 @onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
 
+
+###----------METHODS: DO ANIMATION----------###
 
 func climb_up_ledge(direction:String) -> void:
 	# tween config

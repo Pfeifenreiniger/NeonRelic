@@ -1,16 +1,30 @@
 extends Node
 
+
+###----------SCENE REFERENCES----------###
+
+@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
+
+
+###----------NODE REFERENCES----------###
+
+@onready var invulnerable_timer:Timer = $InvulnerableTimer
+
+
+###----------PROPERTIES----------###
+
 var is_invulnerable:bool = false
 
 var invulnerability_shader:bool = false
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
 
-@onready var invulnerable_timer:Timer = $InvulnerableTimer
+###----------METHODS: AT INITIATION CALLED----------###
 
-func _ready():
+func _ready() -> void:
 	invulnerable_timer.timeout.connect(on_invulnerable_timer_timeout)
 
+
+###----------METHODS----------###
 
 func become_invulnerable(timer_value:float, with_shader:bool) -> void:
 	"""
@@ -22,7 +36,7 @@ func become_invulnerable(timer_value:float, with_shader:bool) -> void:
 	invulnerable_timer.wait_time = timer_value
 	invulnerable_timer.start()
 	if invulnerability_shader:
-		player.animations.material.set_shader_parameter("doBlink", true)
+		player.animations_handler.animations.material.set_shader_parameter("doBlink", true)
 
 
 ###----------CONNECTED SIGNALS----------###
@@ -33,5 +47,5 @@ func on_invulnerable_timer_timeout() -> void:
 	"""
 	is_invulnerable = false
 	if invulnerability_shader:
-		player.animations.material.set_shader_parameter("doBlink", false)
+		player.animations_handler.animations.material.set_shader_parameter("doBlink", false)
 		invulnerability_shader = false
