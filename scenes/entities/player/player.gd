@@ -18,5 +18,10 @@ extends CharacterBody2D
 ###------NODE REFERENCES------###
 
 @onready var hitbox:CollisionShape2D = $HitBox
-@onready var weapon_whip_attack_right_pos:Marker2D = $Markers/WeaponWhipAttackRight
-@onready var weapon_whip_attack_left_pos:Marker2D = $Markers/WeaponWhipAttackLeft
+
+# Markers
+@onready var weapon_stand_whip_attack_right_pos:Marker2D = $Markers/WeaponStandWhipAttackRight
+@onready var weapon_stand_whip_attack_left_pos:Marker2D = $Markers/WeaponStandWhipAttackLeft
+@onready var weapon_duck_whip_attack_right_pos:Marker2D = $Markers/WeaponDuckWhipAttackRight
+@onready var weapon_duck_whip_attack_left_pos:Marker2D = $Markers/WeaponDuckWhipAttackLeft
+@onready var secondary_weapon_start_pos:Marker2D = $Markers/SecondaryWeaponStart

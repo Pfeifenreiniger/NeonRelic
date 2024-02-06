@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://b11gpv72ljnf5"]
+
+[ext_resource type="PackedScene" uid="uid://b13yhpj515pd8" path="res://scenes/ui/ingame/player_status_bars/base_player_status_bar.tscn" id="1_xoe71"]
+[ext_resource type="Script" path="res://scenes/ui/ingame/player_status_bars/player_stamina_bar.gd" id="2_roy8b"]
+[ext_resource type="Texture2D" uid="uid://c1jthttjxrnjv" path="res://assets/graphics/ui/ingame/stamina_bar/background.png" id="3_w0k2p"]
+[ext_resource type="Texture2D" uid="uid://ypx2r1i3xvp1" path="res://assets/graphics/ui/ingame/stamina_bar/overlay.png" id="4_n8dbl"]
+[ext_resource type="Texture2D" uid="uid://bh7ubtk37b2mu" path="res://assets/graphics/ui/ingame/stamina_bar/progress.png" id="5_ajs2v"]
+
+[node name="PlayerStaminaBar" instance=ExtResource("1_xoe71")]
+script = ExtResource("2_roy8b")
+
+[node name="MarginContainer" parent="." index="0"]
+theme_override_constants/margin_left = 57
+theme_override_constants/margin_top = 84
+
+[node name="StaminaProgressBar" type="TextureProgressBar" parent="MarginContainer" index="0"]
+layout_mode = 2
+texture_under = ExtResource("3_w0k2p")
+texture_over = ExtResource("4_n8dbl")
+texture_progress = ExtResource("5_ajs2v")
+
+[node name="TimerTintProgressBarColors" parent="." index="1"]
+one_shot = true

@@ -32,7 +32,9 @@ var will_duck:bool = false
 var is_jumping:bool = false
 var is_falling:bool = false
 var is_attacking:bool = false
+var is_throwing:bool = false
 var is_rolling:bool = false
+var is_climbing_ledge:bool = false
 
 
 ###----------METHODS: PER FRAME CALLED----------###
@@ -57,17 +59,18 @@ func move_x() -> void:
 
 func move_y(delta) -> void:
 	if not player.is_on_floor(): # player not on ground
-		# apply gravity when player is not ducking or climbing a ledge
-		if not check_if_player_is_ducking() and not player.ledge_climb_handler.is_climbing_ledge:
+		# apply gravity when player is not ducking nor climbing a ledge
+		if not check_if_player_is_ducking() and not is_climbing_ledge:
 			player.velocity.y += current_gravity * delta
 		
 		# checks for short jump input (via jump-key release)
-		player.controls_handler.check_input_jump_key()
+		if not is_climbing_ledge:
+			player.controls_handler.check_input_jump_key()
 		
 		player.controls_handler.check_input_climb_up_ledge_key()
 		
 		# if gravity influenced player's physic -> check if he is falling
-		if player.velocity.y > 0  and not player.ledge_climb_handler.is_climbing_ledge:
+		if player.velocity.y > 0  and not is_climbing_ledge:
 			if not is_falling:
 				is_jumping = false
 				is_rolling = false
@@ -87,14 +90,14 @@ func move_y(delta) -> void:
 			is_falling = false
 			direction.y = 0
 		# ground-y-movement only possible when player's not currently climbing up a ledge, is attacking or is rolling
-		if not player.ledge_climb_handler.is_climbing_ledge and not is_attacking and not is_rolling:
+		if not is_climbing_ledge and not is_attacking and not is_rolling:
 			# player jumping
 			player.controls_handler.check_input_jump_key()
 			# or player ducking
 			player.controls_handler.check_input_duck_key()
 
 
-func move(delta) -> void:
+func move(_delta) -> void:
 	player.move_and_slide()
 
 
@@ -107,7 +110,14 @@ func apply_movement(delta) -> void:
 ###----------METHODS: MOVEMENT CONDITION CHECKS----------###
 
 func check_if_player_can_horizontally_move() -> bool:
-	if not to_duck and not is_duck and not is_jumping and not is_falling and not player.ledge_climb_handler.is_climbing_ledge and not is_attacking and not is_rolling:
+	if not to_duck and not is_duck and not is_jumping and not is_falling and not is_climbing_ledge and not is_attacking and not is_throwing and not is_rolling:
+		return true
+	else:
+		return false
+
+
+func check_if_player_can_vertically_move() -> bool:
+	if not to_duck and not will_duck and not is_duck and not is_climbing_ledge and not is_attacking and not is_throwing and not is_rolling:
 		return true
 	else:
 		return false
@@ -127,6 +137,20 @@ func check_if_player_is_ducking() -> bool:
 		return false
 
 
+func check_if_player_can_climb_up_ledge() -> bool:
+	var can_climb_up = false
+	
+	# doesn't player do any movements which do not allow to climb?
+	if player.ledge_climb_handler.check_movements_for_climbing():
+		# is player in front of a ledge?
+		if player.ledge_climb_handler.current_ledge_to_climb_area != null and player.ledge_climb_handler.ledge_climb_area.overlaps_area(player.ledge_climb_handler.current_ledge_to_climb_area):
+			# and finally, does player face in the correct direction?
+			if check_if_ledge_side_fits(player.ledge_climb_handler.current_ledge_to_climb_area):
+				can_climb_up = true	
+	
+	return can_climb_up
+
+
 func check_if_ledge_side_fits(ledge_area:Area2D) -> bool:
 	if ("right" in player.animations_handler.current_animation and ledge_area.ledge_side == "left") or ("left" in player.animations_handler.current_animation and ledge_area.ledge_side == "right"):
 		return true
@@ -134,7 +158,7 @@ func check_if_ledge_side_fits(ledge_area:Area2D) -> bool:
 		return false
 
 
-###----------METHODS: CONTROL KEY BASED MOVEMENTS----------###
+###----------METHODS: CONTROL INPUTS BASED MOVEMENT ACTIONS----------###
 
 func action_input_run_x_axis(side:String) -> void:
 	if side == 'right':
@@ -166,7 +190,7 @@ func action_input_run_x_axis(side:String) -> void:
 
 func action_input_side_roll_x_axis(side:String) -> void:
 	if side == 'right':
-		var button_move_right_press_timestamp = Time.get_ticks_msec() / 10
+		var button_move_right_press_timestamp:int = round(Time.get_ticks_msec() / 10.0)
 		if not is_rolling:
 			if button_move_right_press_timestamp - player.controls_handler.player_roll_action_inputs["right"] <= 50 and player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
 				player.animations_handler.current_animation = "roll_right"
@@ -181,7 +205,7 @@ func action_input_side_roll_x_axis(side:String) -> void:
 				player.controls_handler.player_roll_action_inputs["right"] = button_move_right_press_timestamp
 	else:
 		# left
-		var button_move_left_press_timestamp = Time.get_ticks_msec() / 10
+		var button_move_left_press_timestamp:int = round(Time.get_ticks_msec() / 10.0)
 		if not is_rolling:
 			if button_move_left_press_timestamp - player.controls_handler.player_roll_action_inputs["left"] <= 50 and player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
 				player.animations_handler.current_animation = "roll_left"
@@ -197,7 +221,7 @@ func action_input_side_roll_x_axis(side:String) -> void:
 
 
 func action_input_jump() -> void:
-	if direction.y == 0 and not check_if_player_is_vertically_moving():
+	if direction.y == 0 and not check_if_player_is_vertically_moving() and not (is_attacking or is_throwing):
 		direction.y = -1
 		is_jumping = true
 		if "left" in player.animations_handler.current_animation:
@@ -211,7 +235,7 @@ func action_input_jump() -> void:
 
 
 func action_input_duck() -> void:
-	if direction.x == 0 and not check_if_player_is_ducking():
+	if direction.x == 0 and not check_if_player_is_ducking() and not (is_attacking or is_throwing):
 		to_duck = true
 		will_duck = true
 		if "left" in player.animations_handler.current_animation:
@@ -225,6 +249,7 @@ func action_input_duck() -> void:
 
 
 func action_input_duck_release() -> void:
+	
 	if is_duck:
 		is_duck = false
 		to_duck = true
@@ -250,45 +275,71 @@ func action_input_duck_release() -> void:
 
 
 func action_input_climb_up_ledge() -> void:
-	# if player is currently in an ledge area -> can climb up (if player is facing correct ledge side)
-	if player.ledge_climb_handler.current_ledge_to_climb_area != null:
-		if player.ledge_climb_handler.ledge_climb_area.overlaps_area(player.ledge_climb_handler.current_ledge_to_climb_area):
-			if not player.ledge_climb_handler.is_climbing_ledge and check_if_ledge_side_fits(player.ledge_climb_handler.current_ledge_to_climb_area):
-				if is_jumping:
-					is_jumping = false
-				is_jumping = false
-				is_falling = false
-				player.ledge_climb_handler.is_climbing_ledge = true
-				direction.y = 0
-				player.velocity.y = 0
-				player.animations_handler.animation_to_change = true
-				player.animations_handler.loop_animation = false
-				if "right" in player.animations_handler.current_animation:
-					player.animations_handler.current_animation = "climb_up_ledge_right"
-					player.animations_handler.climb_up_ledge_animation.climb_up_ledge("right")
-				else:
-					player.animations_handler.current_animation = "climb_up_ledge_left"
-					player.animations_handler.climb_up_ledge_animation.climb_up_ledge("left")
+	
+	if check_if_player_can_climb_up_ledge():
+		if is_jumping:
+			is_jumping = false
+		is_jumping = false
+		is_falling = false
+		is_climbing_ledge = true
+		direction.y = 0
+		player.velocity.y = 0
+		player.animations_handler.animation_to_change = true
+		player.animations_handler.loop_animation = false
+		if "right" in player.animations_handler.current_animation:
+			player.animations_handler.current_animation = "climb_up_ledge_right"
+			player.animations_handler.climb_up_ledge_animation.climb_up_ledge("right")
+		else:
+			player.animations_handler.current_animation = "climb_up_ledge_left"
+			player.animations_handler.climb_up_ledge_animation.climb_up_ledge("left")
 
 
 func action_input_init_whip_attack() -> void:
+	
+	var position:String
+	
 	if is_duck:
-		pass
-		# ToDo: implement player ducking whip attacks
+		position = "duck"
 	else:
 		# do standing whip attack if player's on ground
 		if check_if_player_can_horizontally_move():
-			if not is_attacking and player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["whip_attack"]):
-				player.weapon_handler.current_weapon.can_whip_attack_charge = true
-				direction.x = 0
-				player.velocity.x = 0
-				is_attacking = true
-				player.stamina_handler.stamina_can_refresh = false
-				player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["whip_attack"])
-				player.animations_handler.loop_animation = false
-				player.animations_handler.animation_to_change = true
-				if "right" in player.animations_handler.current_animation:
-					player.animations_handler.current_animation = "stand_whip_attack_right_1"
-				else:
-					player.animations_handler.current_animation = "stand_whip_attack_left_1"
+			position = "stand"
+		else:
+			return
+	
+	player.weapon_handler.current_weapon.can_whip_attack_charge = true
+	direction.x = 0
+	player.velocity.x = 0
+	is_attacking = true
+	player.stamina_handler.stamina_can_refresh = false
+	player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["whip_attack"])
+	player.animations_handler.loop_animation = false
+	player.animations_handler.animation_to_change = true
+	if "right" in player.animations_handler.current_animation:
+		player.animations_handler.current_animation = "%s_whip_attack_right_1" % position
+	else:
+		player.animations_handler.current_animation = "%s_whip_attack_left_1" % position
 
+
+func action_input_use_secondary_weapon() -> void:
+	
+	# no use of secondary weapon if player is currently already throwing a secondary weapon or is in duck-transition movement states
+	# or is attacking with primary weapon, or is falling/jumping, or isn't in standing or ducking animation
+	if is_throwing or is_attacking or will_duck or to_duck or check_if_player_is_vertically_moving() or not ("stand" in player.animations_handler.current_animation or "duck" in player.animations_handler.current_animation):
+			return
+	
+	is_throwing = true
+	
+	# aim for secondary weapon throw
+	var start_pos
+	var offset_x = 10
+	var offset_y = 16
+	var side
+	if "left" in player.animations_handler.current_animation:
+		start_pos = Vector2(player.secondary_weapon_start_pos.global_position.x - offset_x, player.secondary_weapon_start_pos.global_position.y - offset_y)
+		side = "left"
+	else:
+		start_pos = Vector2(player.secondary_weapon_start_pos.global_position.x + offset_x, player.secondary_weapon_start_pos.global_position.y - offset_y)
+		side = "right"
+	
+	player.weapon_handler.aim_secondary_weapon(start_pos, side)

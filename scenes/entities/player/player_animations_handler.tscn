@@ -1,4 +1,4 @@
-[gd_scene load_steps=141 format=3 uid="uid://ckecmw1wq155q"]
+[gd_scene load_steps=173 format=3 uid="uid://ckecmw1wq155q"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player_animations_handler.gd" id="1_6sm3f"]
 [ext_resource type="Script" path="res://scenes/entities/player/climb_up_ledge_animation.gd" id="2_0vqk3"]
@@ -27,37 +27,69 @@
 [ext_resource type="Texture2D" uid="uid://cenonx3baeatt" path="res://scenes/entities/player/sprites/duck_right/duck_right_f3.png" id="25_h52f5"]
 [ext_resource type="Texture2D" uid="uid://dw527jit8cr1l" path="res://scenes/entities/player/sprites/duck_right/duck_right_f4.png" id="26_4gkr2"]
 [ext_resource type="Texture2D" uid="uid://h2y0in31spdr" path="res://scenes/entities/player/sprites/fall_down_left/fall_down_left_f1.png" id="27_5hctk"]
+[ext_resource type="Texture2D" uid="uid://bhuqmyd030pku" path="res://scenes/entities/player/sprites/duck_whip_attack_left_1/duck_whip_attack_left_1_f1.png" id="27_8t642"]
 [ext_resource type="Texture2D" uid="uid://df0m76wcbxc4y" path="res://scenes/entities/player/sprites/fall_down_left/fall_down_left_f2.png" id="28_2ix63"]
+[ext_resource type="Texture2D" uid="uid://counxoeki52oq" path="res://scenes/entities/player/sprites/duck_whip_attack_left_1/duck_whip_attack_left_1_f2.png" id="28_4oel3"]
 [ext_resource type="Texture2D" uid="uid://bvcmmje2mctcu" path="res://scenes/entities/player/sprites/fall_down_left/fall_down_left_f3.png" id="29_6vu58"]
+[ext_resource type="Texture2D" uid="uid://h8rmgw6xo5fd" path="res://scenes/entities/player/sprites/duck_whip_attack_left_1/duck_whip_attack_left_1_f3.png" id="29_onfmt"]
 [ext_resource type="Texture2D" uid="uid://2436oichbdbq" path="res://scenes/entities/player/sprites/fall_down_left/fall_down_left_f4.png" id="30_em5yp"]
+[ext_resource type="Texture2D" uid="uid://cbww7de3isumx" path="res://scenes/entities/player/sprites/duck_whip_attack_left_1/duck_whip_attack_left_1_f4.png" id="30_i28yi"]
 [ext_resource type="Texture2D" uid="uid://cws8740tfjmos" path="res://scenes/entities/player/sprites/fall_down_right/fall_down_right_f1.png" id="31_5s18v"]
+[ext_resource type="Texture2D" uid="uid://cjghcubay5bwx" path="res://scenes/entities/player/sprites/duck_whip_attack_left_1/duck_whip_attack_left_1_f5.png" id="31_sd5y0"]
 [ext_resource type="Texture2D" uid="uid://dx2hs0y16lmcx" path="res://scenes/entities/player/sprites/fall_down_right/fall_down_right_f2.png" id="32_72lws"]
+[ext_resource type="Texture2D" uid="uid://c2wxy5c0itvy6" path="res://scenes/entities/player/sprites/duck_whip_attack_left_1/duck_whip_attack_left_1_f6.png" id="32_hp6t0"]
 [ext_resource type="Texture2D" uid="uid://dftrxg4xw25s0" path="res://scenes/entities/player/sprites/fall_down_right/fall_down_right_f3.png" id="33_5h2p1"]
+[ext_resource type="Texture2D" uid="uid://cggqxvdmlmx4i" path="res://scenes/entities/player/sprites/duck_whip_attack_left_1/duck_whip_attack_left_1_f7.png" id="33_ea8n5"]
+[ext_resource type="Texture2D" uid="uid://cj2mddcadx0b1" path="res://scenes/entities/player/sprites/duck_whip_attack_left_1/duck_whip_attack_left_1_f8.png" id="34_dymg1"]
 [ext_resource type="Texture2D" uid="uid://n6niuvami2pt" path="res://scenes/entities/player/sprites/fall_down_right/fall_down_right_f4.png" id="34_hescn"]
 [ext_resource type="Texture2D" uid="uid://cjiflqw0p20s7" path="res://scenes/entities/player/sprites/jump_up_left/jump_up_left_f1.png" id="35_gtgig"]
+[ext_resource type="Texture2D" uid="uid://cmomunxdq677x" path="res://scenes/entities/player/sprites/duck_whip_attack_left_2/duck_whip_attack_left_2_f1.png" id="35_s57ba"]
 [ext_resource type="Texture2D" uid="uid://d85blk15tph6" path="res://scenes/entities/player/sprites/jump_up_left/jump_up_left_f2.png" id="36_6mjin"]
+[ext_resource type="Texture2D" uid="uid://cy8bt7y2bmub6" path="res://scenes/entities/player/sprites/duck_whip_attack_left_2/duck_whip_attack_left_2_f2.png" id="36_sgpw0"]
 [ext_resource type="Texture2D" uid="uid://to1c81tx1sgf" path="res://scenes/entities/player/sprites/jump_up_left/jump_up_left_f3.png" id="37_2l5yv"]
+[ext_resource type="Texture2D" uid="uid://n7yakohnpmro" path="res://scenes/entities/player/sprites/duck_whip_attack_left_2/duck_whip_attack_left_2_f3.png" id="37_frvjh"]
+[ext_resource type="Texture2D" uid="uid://caadh7yhp7d76" path="res://scenes/entities/player/sprites/duck_whip_attack_left_2/duck_whip_attack_left_2_f4.png" id="38_3c5rh"]
 [ext_resource type="Texture2D" uid="uid://bu4gehgder3n0" path="res://scenes/entities/player/sprites/jump_up_left/jump_up_left_f4.png" id="38_bduu1"]
 [ext_resource type="Texture2D" uid="uid://bgdccm46s4o6p" path="res://scenes/entities/player/sprites/jump_up_left/jump_up_left_f5.png" id="39_g3x78"]
+[ext_resource type="Texture2D" uid="uid://1r6a6a31iqs2" path="res://scenes/entities/player/sprites/duck_whip_attack_left_2/duck_whip_attack_left_2_f5.png" id="39_syc32"]
 [ext_resource type="Texture2D" uid="uid://dyqmws3oydck4" path="res://scenes/entities/player/sprites/jump_up_left/jump_up_left_f6.png" id="40_4cyld"]
+[ext_resource type="Texture2D" uid="uid://dtkh2h8xwuemr" path="res://scenes/entities/player/sprites/duck_whip_attack_left_2/duck_whip_attack_left_2_f6.png" id="40_vd7j3"]
 [ext_resource type="Texture2D" uid="uid://dvw1pxkjkjiqs" path="res://scenes/entities/player/sprites/jump_up_right/jump_up_right_f1.png" id="41_df6na"]
+[ext_resource type="Texture2D" uid="uid://bfj5rb1axfy5a" path="res://scenes/entities/player/sprites/duck_whip_attack_left_3/duck_whip_attack_left_3_f1.png" id="41_wly6b"]
+[ext_resource type="Texture2D" uid="uid://beiun1qrn5vyd" path="res://scenes/entities/player/sprites/duck_whip_attack_left_3/duck_whip_attack_left_3_f2.png" id="42_5spi5"]
 [ext_resource type="Texture2D" uid="uid://d25fufs047b2s" path="res://scenes/entities/player/sprites/jump_up_right/jump_up_right_f2.png" id="42_doa2s"]
+[ext_resource type="Texture2D" uid="uid://yxkit3ful68i" path="res://scenes/entities/player/sprites/duck_whip_attack_right_1/duck_whip_attack_right_1_f1.png" id="43_krrvo"]
 [ext_resource type="Texture2D" uid="uid://bjba64han3wys" path="res://scenes/entities/player/sprites/jump_up_right/jump_up_right_f3.png" id="43_svg5s"]
 [ext_resource type="Texture2D" uid="uid://bys1am0mi71lb" path="res://scenes/entities/player/sprites/jump_up_right/jump_up_right_f4.png" id="44_ro6a2"]
+[ext_resource type="Texture2D" uid="uid://bsmyttaot1x00" path="res://scenes/entities/player/sprites/duck_whip_attack_right_1/duck_whip_attack_right_1_f2.png" id="44_yggq1"]
 [ext_resource type="Texture2D" uid="uid://divum5qis8scb" path="res://scenes/entities/player/sprites/jump_up_right/jump_up_right_f5.png" id="45_kkqov"]
+[ext_resource type="Texture2D" uid="uid://cwbwa4y4un23p" path="res://scenes/entities/player/sprites/duck_whip_attack_right_1/duck_whip_attack_right_1_f3.png" id="45_nrui2"]
 [ext_resource type="Texture2D" uid="uid://ro6mimfx21xc" path="res://scenes/entities/player/sprites/jump_up_right/jump_up_right_f6.png" id="46_chem8"]
+[ext_resource type="Texture2D" uid="uid://phvxmuva65li" path="res://scenes/entities/player/sprites/duck_whip_attack_right_1/duck_whip_attack_right_1_f4.png" id="46_fjt7k"]
 [ext_resource type="Texture2D" uid="uid://jqh8wsequ8ty" path="res://scenes/entities/player/sprites/roll_left/roll_left_f1.png" id="47_360tm"]
+[ext_resource type="Texture2D" uid="uid://qucw7ohu0afo" path="res://scenes/entities/player/sprites/duck_whip_attack_right_1/duck_whip_attack_right_1_f5.png" id="47_qu00x"]
 [ext_resource type="Texture2D" uid="uid://b2j6c7sqpvvvv" path="res://scenes/entities/player/sprites/roll_left/roll_left_f2.png" id="48_o55yk"]
+[ext_resource type="Texture2D" uid="uid://c4hojnycxosmd" path="res://scenes/entities/player/sprites/duck_whip_attack_right_1/duck_whip_attack_right_1_f6.png" id="48_r0hu8"]
 [ext_resource type="Texture2D" uid="uid://b1um1feht4pxc" path="res://scenes/entities/player/sprites/roll_left/roll_left_f3.png" id="49_wjb6g"]
+[ext_resource type="Texture2D" uid="uid://42br32hxn2yu" path="res://scenes/entities/player/sprites/duck_whip_attack_right_1/duck_whip_attack_right_1_f7.png" id="49_yykgf"]
+[ext_resource type="Texture2D" uid="uid://bcwrtqmby1snj" path="res://scenes/entities/player/sprites/duck_whip_attack_right_1/duck_whip_attack_right_1_f8.png" id="50_8dstk"]
 [ext_resource type="Texture2D" uid="uid://doqsw1vmvhfkq" path="res://scenes/entities/player/sprites/roll_left/roll_left_f4.png" id="50_cmogq"]
 [ext_resource type="Texture2D" uid="uid://bfrqgg34ulm6j" path="res://scenes/entities/player/sprites/roll_left/roll_left_f5.png" id="51_5cmyf"]
+[ext_resource type="Texture2D" uid="uid://b1gwwcmsmf0rl" path="res://scenes/entities/player/sprites/duck_whip_attack_right_2/duck_whip_attack_right_2_f1.png" id="51_waxpl"]
 [ext_resource type="Texture2D" uid="uid://dugor7s5ri5pr" path="res://scenes/entities/player/sprites/roll_left/roll_left_f6.png" id="52_ve2cb"]
+[ext_resource type="Texture2D" uid="uid://dyxj4q5mweuhi" path="res://scenes/entities/player/sprites/duck_whip_attack_right_2/duck_whip_attack_right_2_f2.png" id="52_w5ua7"]
+[ext_resource type="Texture2D" uid="uid://cnyhhypwci7jv" path="res://scenes/entities/player/sprites/duck_whip_attack_right_2/duck_whip_attack_right_2_f3.png" id="53_ojsjb"]
 [ext_resource type="Texture2D" uid="uid://b7qh2ckyx3j3y" path="res://scenes/entities/player/sprites/roll_left/roll_left_f7.png" id="53_r4ptc"]
+[ext_resource type="Texture2D" uid="uid://dgn58x4inln7x" path="res://scenes/entities/player/sprites/duck_whip_attack_right_2/duck_whip_attack_right_2_f4.png" id="54_j8l2l"]
 [ext_resource type="Texture2D" uid="uid://gps8bbjb0aat" path="res://scenes/entities/player/sprites/roll_left/roll_left_f8.png" id="54_qw77q"]
+[ext_resource type="Texture2D" uid="uid://bck7gxwv6y5jo" path="res://scenes/entities/player/sprites/duck_whip_attack_right_2/duck_whip_attack_right_2_f5.png" id="55_6c8w1"]
 [ext_resource type="Texture2D" uid="uid://dqb3evs73jjkd" path="res://scenes/entities/player/sprites/roll_left/roll_left_f9.png" id="55_a0rwq"]
+[ext_resource type="Texture2D" uid="uid://bchas6fcj1m28" path="res://scenes/entities/player/sprites/duck_whip_attack_right_2/duck_whip_attack_right_2_f6.png" id="56_6pfb3"]
 [ext_resource type="Texture2D" uid="uid://bj1lk71djqend" path="res://scenes/entities/player/sprites/roll_left/roll_left_f10.png" id="56_ih1kd"]
+[ext_resource type="Texture2D" uid="uid://dob8ihekcm0r3" path="res://scenes/entities/player/sprites/duck_whip_attack_right_3/duck_whip_attack_right_3_f1.png" id="57_esvd1"]
 [ext_resource type="Texture2D" uid="uid://c7wqeodpu5ojr" path="res://scenes/entities/player/sprites/roll_right/roll_right_f1.png" id="57_uln1f"]
 [ext_resource type="Texture2D" uid="uid://j6wpk8fds5p7" path="res://scenes/entities/player/sprites/roll_right/roll_right_f2.png" id="58_3kegt"]
+[ext_resource type="Texture2D" uid="uid://dnmks823t5mro" path="res://scenes/entities/player/sprites/duck_whip_attack_right_3/duck_whip_attack_right_3_f2.png" id="58_lqmba"]
 [ext_resource type="Texture2D" uid="uid://du3vvr817cxag" path="res://scenes/entities/player/sprites/roll_right/roll_right_f3.png" id="59_q7w7l"]
 [ext_resource type="Texture2D" uid="uid://dd2ql7wwjcsbj" path="res://scenes/entities/player/sprites/roll_right/roll_right_f4.png" id="60_dqbhw"]
 [ext_resource type="Texture2D" uid="uid://c0c4u8g5sradq" path="res://scenes/entities/player/sprites/roll_right/roll_right_f5.png" id="61_a7buw"]
@@ -227,6 +259,132 @@ animations = [{
 "loop": false,
 "name": &"duck_right",
 "speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_8t642")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_4oel3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_onfmt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_i28yi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_sd5y0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_hp6t0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_ea8n5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_dymg1")
+}],
+"loop": false,
+"name": &"duck_whip_attack_left_1",
+"speed": 11.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("35_s57ba")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_sgpw0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_frvjh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_3c5rh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_syc32")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_vd7j3")
+}],
+"loop": false,
+"name": &"duck_whip_attack_left_2",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_wly6b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_5spi5")
+}],
+"loop": false,
+"name": &"duck_whip_attack_left_3",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("43_krrvo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_yggq1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_nrui2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_fjt7k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_qu00x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_r0hu8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_yykgf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_8dstk")
+}],
+"loop": false,
+"name": &"duck_whip_attack_right_1",
+"speed": 11.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("51_waxpl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_w5ua7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_ojsjb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_j8l2l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_6c8w1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_6pfb3")
+}],
+"loop": false,
+"name": &"duck_whip_attack_right_2",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("57_esvd1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_lqmba")
+}],
+"loop": false,
+"name": &"duck_whip_attack_right_3",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -674,5 +832,7 @@ progress_speed = 2.3
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_g2dfq")
 sprite_frames = SubResource("SpriteFrames_25tp4")
-animation = &"roll_left"
+animation = &"duck_whip_attack_left_2"
+frame = 5
+frame_progress = 1.0
 metadata/_edit_lock_ = true

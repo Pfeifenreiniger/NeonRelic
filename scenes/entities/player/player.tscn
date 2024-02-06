@@ -60,8 +60,16 @@ shape = SubResource("RectangleShape2D_ol62l")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="WeaponWhipAttackRight" type="Marker2D" parent="Markers"]
+[node name="WeaponStandWhipAttackRight" type="Marker2D" parent="Markers"]
 position = Vector2(38, -22)
 
-[node name="WeaponWhipAttackLeft" type="Marker2D" parent="Markers"]
+[node name="WeaponStandWhipAttackLeft" type="Marker2D" parent="Markers"]
 position = Vector2(-31, -23)
+
+[node name="WeaponDuckWhipAttackRight" type="Marker2D" parent="Markers"]
+position = Vector2(26, -12)
+
+[node name="WeaponDuckWhipAttackLeft" type="Marker2D" parent="Markers"]
+position = Vector2(-25, -9)
+
+[node name="SecondaryWeaponStart" type="Marker2D" parent="Markers"]

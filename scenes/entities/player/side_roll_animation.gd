@@ -25,15 +25,15 @@ func do_side_roll(direction:String) -> void:
 	var animation_duration:float = 0.9
 	
 	# player pos offset
-	var player_x_offset:int = 250
+	var player_x_offset:float = 250
 	
-	var to_pos_x:int
+	var to_pos_x:float
 	if direction == "left":
 		to_pos_x = player.global_position.x - player_x_offset
 	else:
 		to_pos_x = player.global_position.x + player_x_offset
 
-	var to_pos_y:int = player.global_position.y
+	var to_pos_y:float = player.global_position.y
 	
 	side_roll_tween.tween_property(player, "global_position", Vector2(to_pos_x, to_pos_y), animation_duration)
 

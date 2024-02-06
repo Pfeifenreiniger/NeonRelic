@@ -13,7 +13,7 @@ var current_ledge_to_climb_area:Area2D = null
 
 ###----------PROPERTIES----------###
 
-var is_climbing_ledge:bool = false
+#var is_climbing_ledge:bool = false
 
 
 ###----------METHODS: AT INITIATION CALLED----------###
@@ -29,6 +29,28 @@ func _ready() -> void:
 func _process(_delta) -> void:
 	# put ledge climb area at player's global position
 	ledge_climb_area.global_position = player.global_position
+
+
+###----------METHODS----------###
+
+func check_movements_for_climbing() -> bool:
+	"""
+	Checks player's movements which do not allow to climb up any ledge.
+	Returns true when player can climb, otherwise false.
+	"""
+	var not_allowed_movements = [
+		player.movement_handler.to_duck,
+		player.movement_handler.is_duck,
+		player.movement_handler.will_duck,
+		player.movement_handler.is_attacking,
+		player.movement_handler.is_throwing,
+		player.movement_handler.is_rolling,
+		player.movement_handler.is_climbing_ledge
+	]
+	if true in not_allowed_movements:
+		return false
+	else:
+		return true
 
 
 ###----------CONNECTED SIGNALS----------###

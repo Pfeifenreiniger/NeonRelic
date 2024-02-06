@@ -9,7 +9,7 @@ extends Node
 ###----------NODE REFERENCES----------###
 
 @onready var jump_button_press_timer:Timer = $ButtonPressTimers/JumpButtonPressTimer
-
+@onready var secondary_weapon_used_timer:Timer = $ButtonPressTimers/SecondaryWeaponUsedTimer
 
 ###----------PROPERTIES----------###
 
@@ -19,11 +19,13 @@ var player_roll_action_inputs:Dictionary = {
 	"left" : 0
 }
 
+var secondary_weapon_used = false
 
 ###----------METHODS: AT INITIATION CALLED----------###
 
 func _ready() -> void:
 	jump_button_press_timer.timeout.connect(on_jump_button_press_timer_timeout)
+	secondary_weapon_used_timer.timeout.connect(on_secondary_weapon_used_timer_timeout)
 
 
 ###----------METHODS: PER FRAME CALLED----------###
@@ -40,7 +42,7 @@ func test_player_damage() -> void:
 	Keyboard K
 	"""
 	if Input.is_action_just_pressed("ingame_player_damage"):
-		player.health_handler.get_damage(5)
+		player.health_handler.get_damage(20)
 
 
 ###----------METHODS: CONTROL KEY INPUT CHECKS----------###
@@ -49,6 +51,7 @@ func check_ingame_control_key_inputs() -> void:
 	check_input_duck_key_release()
 	check_input_climb_up_ledge_key()
 	check_input_whip_attack_key()
+	check_input_secondary_weapon_usage_key()
 	# test function to inflict player damage via key press
 	test_player_damage()
 
@@ -90,8 +93,10 @@ func check_input_duck_key() -> void:
 
 func check_input_duck_key_release() -> void:
 	# check if player does not want to duck anymore
-	if player.movement_handler.direction.x == 0 and Input.is_action_just_released("ingame_duck"):
-		player.movement_handler.action_input_duck_release()
+	if player.movement_handler.direction.x == 0 and not player.movement_handler.is_attacking and not player.movement_handler.is_throwing:
+		# player has released duck-button or player may have released duck-button in the middle of the duck-attack-animation
+		if Input.is_action_just_released("ingame_duck") or (player.movement_handler.is_duck and not Input.is_action_pressed("ingame_duck")):
+			player.movement_handler.action_input_duck_release()
 
 
 func check_input_climb_up_ledge_key() -> void:
@@ -118,8 +123,44 @@ func check_input_whip_attack_key() -> void:
 				player.weapon_handler.current_weapon.can_whip_attack_charge = false
 
 
+func check_input_secondary_weapon_usage_key() -> void:
+	if Input.is_action_pressed("ingame_secondary_weapon_usage") and not secondary_weapon_used:
+		print("Hallo")
+		player.movement_handler.action_input_use_secondary_weapon()
+	elif Input.is_action_just_released("ingame_secondary_weapon_usage") and not secondary_weapon_used and player.movement_handler.is_throwing:
+		print("Du")
+		
+		secondary_weapon_used = true
+		
+		# stop aim line animation and get velocity values
+		var extra_velocity_y:float = player.weapon_handler.stop_aim_secondary_weapon()
+		var extra_velocity_x:float = 200
+		
+		if extra_velocity_y < 0.75:
+			extra_velocity_x *= 1.4
+		
+		if "left" in player.animations_handler.current_animation:
+			extra_velocity_x = -1 * extra_velocity_x
+		
+		extra_velocity_y *= 600
+		
+		# ToDo: Wurfanimation starten --> wenn Animation fertig -> Timer starten
+		
+		# start timer
+		secondary_weapon_used_timer.start()
+		# ToDo: Weapon Name als Variable (wird in der UI vom Spieler ausgewaehlt)
+		# und Start Velocity ueber Aufladen oder Zielen oder so...
+		player.weapon_handler.use_secondary_weapon("fire_grenade", Vector2(extra_velocity_x, -extra_velocity_y))
+		
+		player.movement_handler.is_throwing = false
+
+
 ###----------CONNECTED SIGNALS----------###
 
 func on_jump_button_press_timer_timeout() -> void:
 	var current_large_jump_velocity_addition:int = int(abs(player.movement_handler.current_jump_velocity) * player.movement_handler.LARGE_JUMP_VELOCITY_ADDITION_MULTIPLIER)
 	player.velocity.y -= current_large_jump_velocity_addition
+
+
+func on_secondary_weapon_used_timer_timeout() -> void:
+	secondary_weapon_used = false

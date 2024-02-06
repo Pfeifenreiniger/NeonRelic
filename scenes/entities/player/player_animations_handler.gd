@@ -34,7 +34,7 @@ func _ready() -> void:
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(delta) -> void:
+func _process(_delta) -> void:
 	place_animations_sprites_at_players_position()
 	if animation_to_change:
 		select_animation()
@@ -89,8 +89,8 @@ func on_animation_finished() -> void:
 		loop_animation = true
 		animation_to_change = true
 
-	elif player.ledge_climb_handler.is_climbing_ledge:
-		player.ledge_climb_handler.is_climbing_ledge = false
+	elif player.movement_handler.is_climbing_ledge:
+		player.movement_handler.is_climbing_ledge = false
 		loop_animation = true
 		animation_to_change = true
 		if "left" in current_animation:
@@ -115,8 +115,11 @@ func on_animation_finished() -> void:
 				side = "left"
 			if "1" in current_animation:
 				if not player.weapon_handler.current_weapon.charges_whip_attack:
-					# ToDo: if charge animation was played -> stop it
-					current_animation = "stand_whip_attack_%s_2" % side
+					# if charge animation was played -> stop it
+					if "stand" in current_animation:
+						current_animation = "stand_whip_attack_%s_2" % side
+					else:
+						current_animation = "duck_whip_attack_%s_2" % side
 					animation_to_change = true
 					player.weapon_handler.current_weapon.can_whip_attack_charge = false
 					player.weapon_handler.current_weapon.reset_whip_attack_damage()
@@ -139,12 +142,24 @@ func on_animation_finished() -> void:
 				if player.weapon_handler.current_weapon.do_attack_animation and player.weapon_handler.current_weapon.done_attack_animation:
 					player.weapon_handler.current_weapon.finish_attack_animation()
 					animation_to_change = true
-					current_animation = "stand_whip_attack_%s_3" % side
+					if "stand" in current_animation:
+						current_animation = "stand_whip_attack_%s_3" % side
+					else:
+						current_animation = "duck_whip_attack_%s_3" % side
 			elif "3" in current_animation:
-				# change to stand animation
+				# change to idle animation
 				loop_animation = true
 				animation_to_change = true
-				current_animation = "stand_%s" % side
 				player.movement_handler.is_attacking = false
 				player.weapon_handler.current_weapon.can_whip_attack_charge = true
 				player.stamina_handler.stamina_can_refresh = true
+				if "stand" in current_animation:
+					current_animation = "stand_%s" % side
+				else:
+					current_animation = "duck_%s" % side
+					# simulate duck-input and key-release from player for proper animation
+					Input.action_press("ingame_duck")
+					await get_tree().create_timer(0.25).timeout
+					Input.action_release("ingame_duck")
+					
+

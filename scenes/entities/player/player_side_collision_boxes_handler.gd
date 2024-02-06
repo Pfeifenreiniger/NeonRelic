@@ -38,17 +38,17 @@ func _process(_delta) -> void:
 
 ###----------CONNECTED SIGNALS----------###
 
-func on_left_collision_detection_box_body_entered(body):
+func on_left_collision_detection_box_body_entered(_body):
 	is_environment_collision_left = true
 
 
-func on_left_collision_detection_box_body_exited(body):
+func on_left_collision_detection_box_body_exited(_body):
 	is_environment_collision_left = false
 
 
-func on_right_collision_detection_box_body_entered(body):
+func on_right_collision_detection_box_body_entered(_body):
 	is_environment_collision_right = true
 
 
-func on_right_collision_detection_box_body_exited(body):
+func on_right_collision_detection_box_body_exited(_body):
 	is_environment_collision_right = false

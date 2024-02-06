@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk3hncffpb0v2"]
+
+[ext_resource type="Texture2D" uid="uid://bgb772rdx31q" path="res://scenes/weapons/grenade/sprites/grenade_f1.png" id="1_fvjph"]
+[ext_resource type="Script" path="res://scenes/weapons/grenade/grenade.gd" id="1_xd7sd"]
+[ext_resource type="Texture2D" uid="uid://ct01kvy5su4ck" path="res://scenes/weapons/grenade/sprites/grenade_f2.png" id="2_gpm3w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q5s8y"]
+radius = 6.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w2mf6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_fvjph")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gpm3w")
+}],
+"loop": true,
+"name": &"blink",
+"speed": 3.0
+}]
+
+[node name="Grenade" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 12
+script = ExtResource("1_xd7sd")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_q5s8y")
+
+[node name="Animations" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_w2mf6")
+animation = &"blink"
+autoplay = "blink"

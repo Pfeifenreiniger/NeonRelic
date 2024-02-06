@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://ds5y6kivffnc5"]
+
+[ext_resource type="PackedScene" uid="uid://b13yhpj515pd8" path="res://scenes/ui/ingame/player_status_bars/base_player_status_bar.tscn" id="1_orthy"]
+[ext_resource type="Script" path="res://scenes/ui/ingame/player_status_bars/player_life_bar.gd" id="2_esd5x"]
+[ext_resource type="Texture2D" uid="uid://dsnrd4xu5df08" path="res://assets/graphics/ui/ingame/life_bar/heart/life_bar_heart_f1.png" id="3_7ly64"]
+[ext_resource type="Texture2D" uid="uid://f24d73bx10el" path="res://assets/graphics/ui/ingame/life_bar/heart/life_bar_heart_f2.png" id="4_mpf0v"]
+[ext_resource type="Texture2D" uid="uid://fuwboimdgj5b" path="res://assets/graphics/ui/ingame/life_bar/background.png" id="5_02y7r"]
+[ext_resource type="Texture2D" uid="uid://lmc5cxgi5w60" path="res://assets/graphics/ui/ingame/life_bar/overlay.png" id="6_hyepe"]
+[ext_resource type="Texture2D" uid="uid://cilvvefiwlci8" path="res://assets/graphics/ui/ingame/life_bar/progress.png" id="7_kf4md"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5urig"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7ly64")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mpf0v")
+}],
+"loop": true,
+"name": &"heartbeat",
+"speed": 1.5
+}]
+
+[node name="PlayerLifeBar" instance=ExtResource("1_orthy")]
+script = ExtResource("2_esd5x")
+
+[node name="MarginContainer" parent="." index="0"]
+theme_override_constants/margin_left = 45
+theme_override_constants/margin_top = 45
+
+[node name="HeartAnimation" type="AnimatedSprite2D" parent="MarginContainer" index="0"]
+position = Vector2(55, 61)
+sprite_frames = SubResource("SpriteFrames_5urig")
+animation = &"heartbeat"
+
+[node name="LifeProgressBar" type="TextureProgressBar" parent="MarginContainer" index="1"]
+layout_mode = 2
+texture_under = ExtResource("5_02y7r")
+texture_over = ExtResource("6_hyepe")
+texture_progress = ExtResource("7_kf4md")

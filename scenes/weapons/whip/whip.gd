@@ -56,7 +56,12 @@ func _ready() -> void:
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(_delta):
-	# charge attack
+	do_attack_charge()
+
+
+###----------METHODS: WHIP'S ATTACK CHARGE----------###
+
+func do_attack_charge():
 	if charges_whip_attack and not started_charge_timer:
 		charge_timer.start()
 		started_charge_timer = true
@@ -67,14 +72,25 @@ func _process(_delta):
 		started_charge_timer = false
 
 
+func increase_whip_attack_damage() -> void:
+	current_whip_attack_damage += WHIP_ATTACK_DAMAGE_INCREASE
+	if current_whip_attack_damage > WHIP_ATTACK_MAX_DAMAGE:
+		current_whip_attack_damage = WHIP_ATTACK_MAX_DAMAGE
+	print("CHARGE! MEIN DAMAGE LAUTET %s" % current_whip_attack_damage)
+
+
+func reset_whip_attack_damage() -> void:
+	current_whip_attack_damage = WHIP_ATTACK_INIT_DAMAGE
+
+
 ###----------METHODS: WHIP'S ANIMATIONS----------###
 
 func init_attack_animation(side:String) -> void:
+	init_particles_pos(side)
 	do_attack_animation = true
 	done_attack_animation = false
-	init_particles_pos(side)
-	whip_attack_particles.emitting = true
 	whip_attack_particles.restart()
+	whip_attack_particles.emitting = true
 
 
 func init_particles_pos(side:String) -> void:
@@ -98,28 +114,21 @@ func finish_attack_animation() -> void:
 	do_attack_animation = false
 
 
-###----------METHODS: WHIP'S DAMAGE PROPERTY----------###
-
-func increase_whip_attack_damage() -> void:
-	current_whip_attack_damage += WHIP_ATTACK_DAMAGE_INCREASE
-	if current_whip_attack_damage > WHIP_ATTACK_MAX_DAMAGE:
-		current_whip_attack_damage = WHIP_ATTACK_MAX_DAMAGE
-	print("CHARGE! MEIN DAMAGE LAUTET %s" % current_whip_attack_damage)
-
-
-func reset_whip_attack_damage() -> void:
-	current_whip_attack_damage = WHIP_ATTACK_INIT_DAMAGE
-
-
 ###----------METHODS: WHIP'S POSITION TO PLAYER'S POSITION----------###
 
 func set_pos_to_player(side:String) -> void:
 	var whip_handle_pos:Vector2 = Vector2.ZERO
 	if side == "right":
-		whip_handle_pos = player.weapon_whip_attack_right_pos.global_position
+		if player.movement_handler.is_duck:
+			whip_handle_pos = player.weapon_duck_whip_attack_right_pos.global_position
+		else:
+			whip_handle_pos = player.weapon_stand_whip_attack_right_pos.global_position
 		whip_handle_pos.x += 65
 	else:
-		whip_handle_pos = player.weapon_whip_attack_left_pos.global_position
+		if player.movement_handler.is_duck:
+			whip_handle_pos = player.weapon_duck_whip_attack_left_pos.global_position
+		else:
+			whip_handle_pos = player.weapon_stand_whip_attack_left_pos.global_position
 		whip_handle_pos.x -= 65
 	whip_handle_pos.y -= 4
 	global_position = whip_handle_pos
