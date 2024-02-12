@@ -48,7 +48,7 @@ func draw_aim_line(start_pos:Vector2, side:String) -> void:
 	
 	# calculate to_pos
 	var offset_x = 24
-	var offset_y = 60
+	var offset_y = 54
 	var pos_x:float
 	var pos_y:float = start_pos.y - offset_y
 	if side == "left":
@@ -62,7 +62,7 @@ func draw_aim_line(start_pos:Vector2, side:String) -> void:
 	
 	to_pos_x_angle_for_y_upper_end = to_pos.x
 	to_pos_y_angle_upper_end = to_pos.y
-	to_pos_y_angle_lower_end = to_pos.y + 60
+	to_pos_y_angle_lower_end = to_pos.y + offset_y
 	
 	start_angle_animation_aim_line("down")
 

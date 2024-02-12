@@ -125,11 +125,9 @@ func check_input_whip_attack_key() -> void:
 
 func check_input_secondary_weapon_usage_key() -> void:
 	if Input.is_action_pressed("ingame_secondary_weapon_usage") and not secondary_weapon_used:
-		print("Hallo")
 		player.movement_handler.action_input_use_secondary_weapon()
-	elif Input.is_action_just_released("ingame_secondary_weapon_usage") and not secondary_weapon_used and player.movement_handler.is_throwing:
-		print("Du")
 		
+	elif Input.is_action_just_released("ingame_secondary_weapon_usage") and not secondary_weapon_used and player.movement_handler.is_throwing:
 		secondary_weapon_used = true
 		
 		# stop aim line animation and get velocity values
@@ -145,14 +143,18 @@ func check_input_secondary_weapon_usage_key() -> void:
 		extra_velocity_y *= 600
 		
 		# ToDo: Wurfanimation starten --> wenn Animation fertig -> Timer starten
+		player.animations_handler.current_animation = player.animations_handler.current_animation.split('_')[0] + "_throw_" + player.animations_handler.current_animation.split('_')[-1]
+		player.animations_handler.loop_animation = false
+		player.animations_handler.animation_to_change = true
+		# connect throw signal
+		await player.animations_handler.throw_secondary_weapon_frame
 		
 		# start timer
 		secondary_weapon_used_timer.start()
 		# ToDo: Weapon Name als Variable (wird in der UI vom Spieler ausgewaehlt)
-		# und Start Velocity ueber Aufladen oder Zielen oder so...
-		player.weapon_handler.use_secondary_weapon("fire_grenade", Vector2(extra_velocity_x, -extra_velocity_y))
 		
-		player.movement_handler.is_throwing = false
+		player.weapon_handler.use_secondary_weapon("fire_grenade", Vector2(extra_velocity_x, -extra_velocity_y))
+
 
 
 ###----------CONNECTED SIGNALS----------###

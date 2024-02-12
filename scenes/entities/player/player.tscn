@@ -73,3 +73,4 @@ position = Vector2(26, -12)
 position = Vector2(-25, -9)
 
 [node name="SecondaryWeaponStart" type="Marker2D" parent="Markers"]
+position = Vector2(0, -26)

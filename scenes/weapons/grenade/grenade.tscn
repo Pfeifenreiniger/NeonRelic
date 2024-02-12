@@ -33,3 +33,8 @@ shape = SubResource("CircleShape2D_q5s8y")
 sprite_frames = SubResource("SpriteFrames_w2mf6")
 animation = &"blink"
 autoplay = "blink"
+
+[node name="ExplosionTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true

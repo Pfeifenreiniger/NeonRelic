@@ -23,11 +23,17 @@ var loop_animation:bool = false
 var animation_frames_forwards:bool = true
 
 
+###----------PROPERTIES: CUSTOM SIGNALS----------###
+
+signal throw_secondary_weapon_frame()
+
+
 ###----------METHODS: AT INITIATION CALLED----------###
 
 func _ready() -> void:
 	# set up animations
 	animations.animation_finished.connect(on_animation_finished)
+	animations.frame_changed.connect(on_frame_changed)
 	current_animation = "run_right"
 	loop_animation = true
 
@@ -76,11 +82,13 @@ func on_animation_finished() -> void:
 			player.movement_handler.will_duck = false
 			player.movement_handler.is_duck = true
 			player.hitbox_handler.resize_hitbox(false, true)
+			player.secondary_weapon_start_pos.position.y += 20
 			if "left" in current_animation:
 				current_animation = "duck_left"
 			else:
 				current_animation = "duck_right"
 		else:
+			player.secondary_weapon_start_pos.position.y -= 20
 			if "left" in current_animation:
 				current_animation = "stand_left"
 			else:
@@ -157,9 +165,26 @@ func on_animation_finished() -> void:
 					current_animation = "stand_%s" % side
 				else:
 					current_animation = "duck_%s" % side
-					# simulate duck-input and key-release from player for proper animation
-					Input.action_press("ingame_duck")
-					await get_tree().create_timer(0.25).timeout
-					Input.action_release("ingame_duck")
+					if not Input.is_action_pressed("ingame_duck"):
+						# simulate duck-input and key-release from player for proper animation
+						Input.action_press("ingame_duck")
+						await get_tree().create_timer(0.25).timeout
+						Input.action_release("ingame_duck")
 					
+	elif player.movement_handler.is_throwing:
+		player.movement_handler.is_throwing = false
+		current_animation = current_animation.split('_throw_')[0] + "_" + current_animation.split('_throw_')[1]
+		loop_animation = true
+		animation_to_change = true
+		if "duck" in current_animation and not Input.is_action_pressed("ingame_duck"):
+			# simulate duck-input and key-release from player for proper animation
+			Input.action_press("ingame_duck")
+			await get_tree().create_timer(0.25).timeout
+			Input.action_release("ingame_duck")
 
+func on_frame_changed() -> void:
+	# frame index 4 starts actually throw of secondary weapon (e.g. grenade)
+	if "throw" in current_animation:
+		if animations.frame == 4:
+			throw_secondary_weapon_frame.emit()
+			

@@ -39,7 +39,7 @@ var is_climbing_ledge:bool = false
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _physics_process(delta):
+func _process(delta):
 	apply_movement(delta)
 
 
@@ -235,7 +235,7 @@ func action_input_jump() -> void:
 
 
 func action_input_duck() -> void:
-	if direction.x == 0 and not check_if_player_is_ducking() and not (is_attacking or is_throwing):
+	if direction.x == 0 and not check_if_player_is_ducking() and not (is_attacking or is_throwing or is_rolling):
 		to_duck = true
 		will_duck = true
 		if "left" in player.animations_handler.current_animation:
@@ -331,10 +331,10 @@ func action_input_use_secondary_weapon() -> void:
 	is_throwing = true
 	
 	# aim for secondary weapon throw
-	var start_pos
-	var offset_x = 10
-	var offset_y = 16
-	var side
+	var start_pos:Vector2
+	var offset_x:int = 10
+	var offset_y:int = -12
+	var side:String
 	if "left" in player.animations_handler.current_animation:
 		start_pos = Vector2(player.secondary_weapon_start_pos.global_position.x - offset_x, player.secondary_weapon_start_pos.global_position.y - offset_y)
 		side = "left"
