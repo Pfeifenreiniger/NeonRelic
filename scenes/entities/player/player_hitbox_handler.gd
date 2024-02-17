@@ -16,7 +16,7 @@ var hitbox_y_reduced:float = 12
 
 ###----------METHODS: ADJUST HITBOX SIZE----------###
 
-func resize_hitbox(to_full:bool=false, reduce:bool=false):
+func resize_hitbox(to_full:bool=false, reduce:bool=false) -> void:
 	"""
 	Changes the hitbox-size between full (standing) and reduced (ducking).
 	"""

@@ -8,12 +8,12 @@ extends Node
 
 ###----------PROPERTIES----------###
 
-@onready var side_roll_tween
+@onready var side_roll_tween:Tween
 
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(_delta) -> void:
+func _process(_delta:float) -> void:
 	check_side_roll_environment_collision()
 
 

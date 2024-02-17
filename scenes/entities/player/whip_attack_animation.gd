@@ -9,13 +9,13 @@ extends Node
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(_delta) -> void:
+func _process(_delta:float) -> void:
 	check_player_whip_attack()
 
 
 ###----------METHODS----------###
 
-func check_player_whip_attack():
+func check_player_whip_attack() -> void:
 	if "whip_attack" in animations_handler.current_animation:
 		if "1" in animations_handler.current_animation:
 			if not animations_handler.animations.is_playing():

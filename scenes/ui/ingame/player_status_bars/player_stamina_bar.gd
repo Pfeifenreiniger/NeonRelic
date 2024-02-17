@@ -13,13 +13,13 @@ func _ready() -> void:
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(_delta):
+func _process(_delta:float) -> void:
 	check_current_player_stamina()
 
 
 ###----------METHODS: CHECK CURRENT STAMINA PROPERTY----------###
 
-func check_current_player_stamina():
+func check_current_player_stamina() -> void:
 	# check for stamina progress bar
 	# max value
 	var max_player_stamina:float = player.stamina_handler.max_stamina

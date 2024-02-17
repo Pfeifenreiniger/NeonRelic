@@ -10,7 +10,7 @@ extends Node
 
 func climb_up_ledge(direction:String) -> void:
 	# tween config
-	var tween = get_tree().create_tween()
+	var tween:Tween = get_tree().create_tween()
 	var animation_duration:float = 0.9
 	
 	# player pos offset

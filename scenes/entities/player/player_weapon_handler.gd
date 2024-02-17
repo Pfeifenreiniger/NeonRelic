@@ -13,7 +13,7 @@ extends Node
 	null, # ind 1 - other weapon
 	null # ind 2 - another weapon
 ]
-var current_weapon
+var current_weapon:Node2D
 
 @onready var available_secondary_weapons:Dictionary = {
 	"fire_grenade" : preload("res://scenes/weapons/grenade/grenade.tscn")

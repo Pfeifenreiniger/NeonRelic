@@ -9,7 +9,7 @@ class_name BasePlayerStatus
 ###------NODE REFERENCES------###
 
 @onready var progress_bar:TextureProgressBar
-@onready var timer_tint_progress_bar_colors = $TimerTintProgressBarColors
+@onready var timer_tint_progress_bar_colors:Timer = $TimerTintProgressBarColors
 
 ###----------PROPERTIES----------###
 
@@ -26,15 +26,15 @@ func _ready() -> void:
 
 ###----------METHODS----------###
 
-func apply_tint_colors_to_progress_bar():
+func apply_tint_colors_to_progress_bar() -> void:
 	progress_bar.tint_under = tint_under_color
 	progress_bar.tint_over = tint_over_color
 	progress_bar.tint_progress = tint_progress_color
 	timer_tint_progress_bar_colors.start()
 
 
-func reset_tint_colors_at_progress_bar():
-	var no_tint_color = Color(1, 1, 1, 1)
+func reset_tint_colors_at_progress_bar() -> void:
+	var no_tint_color:Color = Color(1, 1, 1, 1)
 	progress_bar.tint_under = no_tint_color
 	progress_bar.tint_over = no_tint_color
 	progress_bar.tint_progress = no_tint_color
@@ -42,5 +42,5 @@ func reset_tint_colors_at_progress_bar():
 
 ###----------CONNECTED SIGNALS----------###
 
-func on_timer_tint_progress_bar_colors_timeout():
+func on_timer_tint_progress_bar_colors_timeout() -> void:
 	reset_tint_colors_at_progress_bar()

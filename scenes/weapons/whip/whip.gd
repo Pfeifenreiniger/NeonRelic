@@ -22,7 +22,7 @@ extends AnimatedSprite2D
 
 ###----------PROPERTIES----------###
 
-const IS_WHIP = true
+const IS_WHIP:bool = true
 
 # attack damage
 const WHIP_ATTACK_INIT_DAMAGE:int = 15

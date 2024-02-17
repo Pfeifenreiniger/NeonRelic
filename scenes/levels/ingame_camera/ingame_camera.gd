@@ -25,7 +25,7 @@ func _ready() -> void:
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(delta) -> void:
+func _process(delta:float) -> void:
 	# check if game camera y axis position has to be modified for current frame.
 	do_desc_y_camera_axis()
 	do_asc_y_camera_axis()

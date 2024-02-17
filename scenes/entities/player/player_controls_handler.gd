@@ -19,7 +19,7 @@ var player_roll_action_inputs:Dictionary = {
 	"left" : 0
 }
 
-var secondary_weapon_used = false
+var secondary_weapon_used:bool = false
 
 ###----------METHODS: AT INITIATION CALLED----------###
 
@@ -30,7 +30,7 @@ func _ready() -> void:
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(_delta) -> void:
+func _process(_delta:float) -> void:
 	check_ingame_control_key_inputs()
 
 

@@ -7,7 +7,7 @@ extends Node2D
 
 ###----------PROPERTIES----------###
 
-var to_draw = false
+var to_draw:bool = false
 
 # positions
 var start_pos:Vector2 = Vector2.ZERO
@@ -29,7 +29,7 @@ var line_width:float = 1.4
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(delta) -> void:
+func _process(delta:float) -> void:
 	if to_draw:
 		queue_redraw()
 
@@ -47,8 +47,8 @@ func draw_aim_line(start_pos:Vector2, side:String) -> void:
 	self.start_pos = start_pos
 	
 	# calculate to_pos
-	var offset_x = 24
-	var offset_y = 54
+	var offset_x:int = 24
+	var offset_y:int = 54
 	var pos_x:float
 	var pos_y:float = start_pos.y - offset_y
 	if side == "left":
@@ -104,7 +104,7 @@ func stop_draw_aim_line() -> float:
 
 ###----------CONNECTED SIGNALS----------###
 
-func on_tween_angle_animation_finished():
+func on_tween_angle_animation_finished() -> void:
 	if to_draw:
 		if to_pos.y == to_pos_y_angle_lower_end:
 			start_angle_animation_aim_line("up")

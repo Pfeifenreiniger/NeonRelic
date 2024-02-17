@@ -50,7 +50,7 @@ func heal_health(amount:int) -> void:
 		current_health += amount
 
 
-func refresh_player_health():
+func refresh_player_health() -> void:
 	if current_health < max_health:
 		if current_health + health_refreshment_rate <= max_health:
 			current_health += health_refreshment_rate
@@ -62,5 +62,5 @@ func refresh_player_health():
 
 ###----------CONNECTED SIGNALS----------###
 
-func on_health_refresh_timer_timeout():
+func on_health_refresh_timer_timeout() -> void:
 	refresh_player_health()

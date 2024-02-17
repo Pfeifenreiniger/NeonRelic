@@ -3,7 +3,6 @@ extends BasePlayerStatus
 
 ###----------NODE REFERENCES----------###
 
-#@onready var life_progress_bar:TextureProgressBar = $MarginContainer/LifeProgressBar
 @onready var heart_animation:AnimatedSprite2D = $MarginContainer/HeartAnimation
 
 
@@ -22,13 +21,13 @@ func _ready() -> void:
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(_delta) -> void:
+func _process(_delta:float) -> void:
 	check_current_player_health()
 
 
 ###----------METHODS: CHECK CURRENT HEALTH PROPERTY----------###
 
-func check_current_player_health():
+func check_current_player_health() -> void:
 	# check for life progress bar
 	var max_player_health:float = player.health_handler.max_health
 	var max_life_bar_value:int = int(progress_bar.max_value)
@@ -58,11 +57,10 @@ func check_current_player_health():
 		do_speed_scale = 1
 
 	if heart_animation.speed_scale != do_speed_scale:
-		#heart_animation.speed_scale = do_speed_scale
 		heart_animation.set_speed_scale(do_speed_scale)
 
 
 ###----------METHODS: UI ANIMATIONS----------###
 
-func start_heart_animation():
+func start_heart_animation() -> void:
 	heart_animation.play("heartbeat")

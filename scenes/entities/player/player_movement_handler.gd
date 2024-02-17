@@ -22,8 +22,8 @@ var current_jump_velocity:int = BASE_JUMP_VELOCITY
 const LARGE_JUMP_VELOCITY_ADDITION_MULTIPLIER:float = 0.3
 
 # gravity
-var BASE_GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
-var current_gravity = BASE_GRAVITY
+var BASE_GRAVITY:int = int(ProjectSettings.get_setting("physics/2d/default_gravity"))
+var current_gravity:int = 980
 
 # movement states
 var to_duck:bool = false
@@ -39,7 +39,7 @@ var is_climbing_ledge:bool = false
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(delta):
+func _process(delta:float) -> void:
 	apply_movement(delta)
 
 
@@ -57,7 +57,7 @@ func move_x() -> void:
 		player.velocity.x = direction.x * current_speed
 
 
-func move_y(delta) -> void:
+func move_y(delta:float) -> void:
 	if not player.is_on_floor(): # player not on ground
 		# apply gravity when player is not ducking nor climbing a ledge
 		if not check_if_player_is_ducking() and not is_climbing_ledge:
@@ -97,11 +97,11 @@ func move_y(delta) -> void:
 			player.controls_handler.check_input_duck_key()
 
 
-func move(_delta) -> void:
+func move(_delta:float) -> void:
 	player.move_and_slide()
 
 
-func apply_movement(delta) -> void:
+func apply_movement(delta:float) -> void:
 	move_x()
 	move_y(delta)
 	move(delta)
@@ -138,7 +138,7 @@ func check_if_player_is_ducking() -> bool:
 
 
 func check_if_player_can_climb_up_ledge() -> bool:
-	var can_climb_up = false
+	var can_climb_up:bool = false
 	
 	# doesn't player do any movements which do not allow to climb?
 	if player.ledge_climb_handler.check_movements_for_climbing():
@@ -146,7 +146,7 @@ func check_if_player_can_climb_up_ledge() -> bool:
 		if player.ledge_climb_handler.current_ledge_to_climb_area != null and player.ledge_climb_handler.ledge_climb_area.overlaps_area(player.ledge_climb_handler.current_ledge_to_climb_area):
 			# and finally, does player face in the correct direction?
 			if check_if_ledge_side_fits(player.ledge_climb_handler.current_ledge_to_climb_area):
-				can_climb_up = true	
+				can_climb_up = true
 	
 	return can_climb_up
 

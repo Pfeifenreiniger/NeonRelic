@@ -16,7 +16,7 @@ extends Area2D
 # hitbox start pos and sizes
 var x_start_pos_right:int = -58
 var x_start_pos_left:int = 56
-var x_sizes:Array = [
+var x_sizes:Array[int] = [
 	12, 22, 34, 45, 56, 65, 76, 88, 100, 110, 120, 129
 ]
 
@@ -29,7 +29,7 @@ func _ready() -> void:
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(_delta) -> void:
+func _process(_delta:float) -> void:
 	if whip.do_attack_animation and not whip.done_attack_animation:
 		adjust_hitbox_size()
 		whip.set_attack_particles_pos_to_whips_end()
@@ -50,10 +50,10 @@ func adjust_hitbox_size() -> void:
 	if hitbox.disabled:
 		hitbox.disabled = false
 	var current_frame:int = whip.get_frame()
-	var current_size_x = x_sizes[current_frame]
+	var current_size_x:int = x_sizes[current_frame]
 	if current_size_x != hitbox.shape.size.x:
 		hitbox.shape.size.x = current_size_x
-		var size_x_diff = (current_size_x - x_sizes[0]) / 2
+		var size_x_diff:int = round((current_size_x - x_sizes[0]) / 2)
 		if whip.attack_side == "right":
 			hitbox.position.x = -(abs(x_start_pos_right) - size_x_diff)
 		else:
@@ -62,12 +62,12 @@ func adjust_hitbox_size() -> void:
 
 ###----------CONNECTED SIGNALS----------###
 
-func on_hitbox_zone_body_entered(body:Node2D):
+func on_hitbox_zone_body_entered(body:Node2D) -> void:
 	if whip.do_attack_animation:
 		if "IS_ENEMY" in body:
 			pass
-			# do damage to enemy
+			# ToDo: do damage to enemy
 		elif "IS_OBJECT" in body:
 			pass
-			# give object to player
+			# ToDo: give object to player
 		whip.on_animation_finished()

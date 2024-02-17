@@ -17,20 +17,20 @@ var is_currently_stretching:bool = false
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(delta) -> void:
+func _process(delta:float) -> void:
 	play_whip_attack_shader_animation(delta)
 
 
 ###----------METHODS----------###
 
-func play_whip_attack_shader_animation(delta) -> void:
+func play_whip_attack_shader_animation(delta:float) -> void:
 
 	if do_whip_attack_shader_animation:
 		
 		
 		var shader_material:ShaderMaterial = animations_handler.animations.material
 		
-		var current_strech_progress = shader_material.get_shader_parameter("stretchProgress")
+		var current_strech_progress:float = shader_material.get_shader_parameter("stretchProgress")
 		
 		var progress:float = progress_speed * delta
 		current_strech_progress += progress

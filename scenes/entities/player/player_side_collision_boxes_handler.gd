@@ -30,7 +30,7 @@ func _ready() -> void:
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(_delta) -> void:
+func _process(_delta:float) -> void:
 	# put detection boxes at player's global position
 	left_collision_detection_box.global_position = player.global_position
 	right_collision_detection_box.global_position = player.global_position
@@ -38,17 +38,17 @@ func _process(_delta) -> void:
 
 ###----------CONNECTED SIGNALS----------###
 
-func on_left_collision_detection_box_body_entered(_body):
+func on_left_collision_detection_box_body_entered(_body:Node2D):
 	is_environment_collision_left = true
 
 
-func on_left_collision_detection_box_body_exited(_body):
+func on_left_collision_detection_box_body_exited(_body:Node2D):
 	is_environment_collision_left = false
 
 
-func on_right_collision_detection_box_body_entered(_body):
+func on_right_collision_detection_box_body_entered(_body:Node2D):
 	is_environment_collision_right = true
 
 
-func on_right_collision_detection_box_body_exited(_body):
+func on_right_collision_detection_box_body_exited(_body:Node2D):
 	is_environment_collision_right = false

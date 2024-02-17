@@ -11,11 +11,6 @@ extends Node
 var current_ledge_to_climb_area:Area2D = null
 
 
-###----------PROPERTIES----------###
-
-#var is_climbing_ledge:bool = false
-
-
 ###----------METHODS: AT INITIATION CALLED----------###
 
 func _ready() -> void:
@@ -26,7 +21,7 @@ func _ready() -> void:
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(_delta) -> void:
+func _process(_delta:float) -> void:
 	# put ledge climb area at player's global position
 	ledge_climb_area.global_position = player.global_position
 
@@ -38,7 +33,7 @@ func check_movements_for_climbing() -> bool:
 	Checks player's movements which do not allow to climb up any ledge.
 	Returns true when player can climb, otherwise false.
 	"""
-	var not_allowed_movements = [
+	var not_allowed_movements:Array[bool] = [
 		player.movement_handler.to_duck,
 		player.movement_handler.is_duck,
 		player.movement_handler.will_duck,
@@ -55,11 +50,11 @@ func check_movements_for_climbing() -> bool:
 
 ###----------CONNECTED SIGNALS----------###
 
-func on_ledge_area_entered(area):
+func on_ledge_area_entered(area:Area2D) -> void:
 	if "ledge_to_climb" in area:
 		current_ledge_to_climb_area = area
 
 
-func on_ledge_area_exited(area):
+func on_ledge_area_exited(area:Area2D) -> void:
 	if "ledge_to_climb" in area:
 		current_ledge_to_climb_area = null

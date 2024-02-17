@@ -40,7 +40,7 @@ func _ready() -> void:
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(_delta) -> void:
+func _process(_delta:float) -> void:
 	place_animations_sprites_at_players_position()
 	if animation_to_change:
 		select_animation()
@@ -116,7 +116,7 @@ func on_animation_finished() -> void:
 	elif player.movement_handler.is_attacking:
 		# whip attack
 		if "whip_attack" in current_animation:
-			var side = ""
+			var side:String = ""
 			if "right" in current_animation:
 				side = "right"
 			else:
@@ -181,6 +181,7 @@ func on_animation_finished() -> void:
 			Input.action_press("ingame_duck")
 			await get_tree().create_timer(0.25).timeout
 			Input.action_release("ingame_duck")
+
 
 func on_frame_changed() -> void:
 	# frame index 4 starts actually throw of secondary weapon (e.g. grenade)
