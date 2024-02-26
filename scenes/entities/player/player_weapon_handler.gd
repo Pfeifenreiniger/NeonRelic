@@ -3,16 +3,19 @@ extends Node
 
 ###----------NODE REFERENCES----------###
 
-@onready var whip_weapon:AnimatedSprite2D = $Weapons/Whip
+@onready var primary_weapons:Node2D = $PrimaryWeapons
 @onready var secondary_weapons:Node2D = $SecondaryWeapons
 
 ###----------PROPERTIES----------###
 
-@onready var weapons:Array = [
-	whip_weapon, # ind 0 - laser whip (standard weapon)
-	null, # ind 1 - other weapon
-	null # ind 2 - another weapon
+@onready var available_primary_weapons:Dictionary = {
+	"whip" : preload("res://scenes/weapons/whip/whip.tscn")
+}
+
+const valid_primary_weapon_names:Array[String] = [
+	"whip", "sword"
 ]
+
 var current_weapon:Node2D
 
 @onready var available_secondary_weapons:Dictionary = {
@@ -20,13 +23,30 @@ var current_weapon:Node2D
 }
 
 
+func _ready() -> void:
+	# at start -> select a primary weapon
+	select_current_weapon(Globals.currently_used_primary_weapon)
+
 ###----------METHODS----------###
 
 func select_current_weapon(weapon_name:String) -> void:
-	if weapon_name == "whip":
-		current_weapon = weapons[0]
-	else:
+	"""
+	Selects primary weapon of player
+	"""
+	
+	if weapon_name not in valid_primary_weapon_names:
 		return
+
+	var primary_weapon:Node2D = available_primary_weapons[weapon_name].instantiate() as Node2D
+	
+	# add loaded primary weapon to Node2D (and remove any older Nodes)
+	if primary_weapons.get_children().size() > 0:
+		for primary_weapon_child in primary_weapons.get_children():
+			primary_weapons.remove_child(primary_weapon_child)
+			primary_weapon_child.queue_free()
+	primary_weapons.add_child(primary_weapon)
+	
+	current_weapon = primary_weapon
 
 
 func aim_secondary_weapon(start_pos:Vector2, side:String) -> void:
@@ -42,7 +62,7 @@ func use_secondary_weapon(secondary_weapon_name:String, start_velocity:Vector2) 
 		var fire_grenade:RigidBody2D = available_secondary_weapons[secondary_weapon_name].instantiate()
 		fire_grenade.GRENADE_TYPE = secondary_weapon_name
 		fire_grenade.linear_velocity = start_velocity
-		$"SecondaryWeapons".add_child(fire_grenade)
+		secondary_weapons.add_child(fire_grenade)
 	else:
 		return
 

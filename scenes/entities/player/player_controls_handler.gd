@@ -11,6 +11,11 @@ extends Node
 @onready var jump_button_press_timer:Timer = $ButtonPressTimers/JumpButtonPressTimer
 @onready var secondary_weapon_used_timer:Timer = $ButtonPressTimers/SecondaryWeaponUsedTimer
 
+###----------CUSTOM SIGNALS----------###
+
+signal select_primary_weapon(dir:String)
+
+
 ###----------PROPERTIES----------###
 
 # dictionary map for side-roll action input timestamps (for checking double key presses for left/right)
@@ -20,6 +25,10 @@ var player_roll_action_inputs:Dictionary = {
 }
 
 var secondary_weapon_used:bool = false
+
+var can_select_primary_weapon:bool = true
+var can_select_secondary_weapon:bool = true
+
 
 ###----------METHODS: AT INITIATION CALLED----------###
 
@@ -49,11 +58,13 @@ func test_player_damage() -> void:
 
 func check_ingame_control_key_inputs() -> void:
 	check_input_duck_key_release()
-	check_input_climb_up_ledge_key()
-	check_input_whip_attack_key()
+	check_input_environment_action_key()
+	check_input_primary_weapon_usage_key()
 	check_input_secondary_weapon_usage_key()
+	check_input_primary_weapon_selection_keys()
+	check_input_secondary_weapon_selection_keys()
 	
-	Globals.toggle_full_screen()
+	Globals.input_toggle_full_screen()
 	
 	# Temp: test function to inflict player damage via key press
 	test_player_damage()
@@ -63,9 +74,9 @@ func check_input_run_x_axis_key() -> void:
 	"""
 	Checks if either key for movement to right or left was pressed.
 	"""
-	if Input.is_action_pressed("ingame_move_right"):
+	if Input.is_action_pressed("right") and not Input.is_action_pressed("ingame_weapon_select"):
 		player.movement_handler.action_input_run_x_axis('right')
-	elif Input.is_action_pressed("ingame_move_left"):
+	elif Input.is_action_pressed("left") and not Input.is_action_pressed("ingame_weapon_select"):
 		player.movement_handler.action_input_run_x_axis('left')
 	else:
 		player.movement_handler.action_input_run_x_axis('idle')
@@ -73,57 +84,82 @@ func check_input_run_x_axis_key() -> void:
 
 func check_input_side_roll_x_axis_key() -> void:
 	# check roll-action to right / left
-	if Input.is_action_just_released("ingame_move_right"):
+	if Input.is_action_just_released("right") and not Input.is_action_pressed("ingame_weapon_select"):
 		player.movement_handler.action_input_side_roll_x_axis('right')
-	elif Input.is_action_just_released("ingame_move_left"):
+	elif Input.is_action_just_released("left") and not Input.is_action_pressed("ingame_weapon_select"):
 		player.movement_handler.action_input_side_roll_x_axis('left')
 
 
 func check_input_jump_key() -> void:
-	if Input.is_action_pressed("ingame_jump") and not player.movement_handler.check_if_player_is_ducking():
-		player.movement_handler.action_input_jump()
-	
-	# checks if jump button was just released (-> short jump)
-	if Input.is_action_just_released("ingame_jump") and player.movement_handler.is_jumping:
-		if not jump_button_press_timer.is_stopped():
-			jump_button_press_timer.stop()
+	# Temp: Jumps nur, wenn nicht gerade eine primary weapon in der ui ausgewaehlt wird. Muss spaeter besser geloest werden
+	if not Input.is_action_pressed("ingame_weapon_select"):
+		
+		if Input.is_action_pressed("up") and not player.movement_handler.check_if_player_is_ducking():
+			player.movement_handler.action_input_jump()
+		
+		# checks if jump button was just released (-> short jump)
+		if Input.is_action_just_released("up") and player.movement_handler.is_jumping:
+			if not jump_button_press_timer.is_stopped():
+				jump_button_press_timer.stop()
 
 
 func check_input_duck_key() -> void:
-	if Input.is_action_pressed("ingame_duck") and not player.movement_handler.check_if_player_is_vertically_moving():
-		player.movement_handler.action_input_duck()
+	# Temp: Ducks nur, wenn nicht gerade eine primary weapon in der ui ausgewaehlt wird. Muss spaeter besser geloest werden
+	if not Input.is_action_pressed("ingame_weapon_select"):
+		if Input.is_action_pressed("down") and not player.movement_handler.check_if_player_is_vertically_moving():
+			player.movement_handler.action_input_duck()
 
 
 func check_input_duck_key_release() -> void:
-	# check if player does not want to duck anymore
-	if player.movement_handler.direction.x == 0 and not player.movement_handler.is_attacking and not player.movement_handler.is_throwing:
-		# player has released duck-button or player may have released duck-button in the middle of the duck-attack-animation
-		if Input.is_action_just_released("ingame_duck") or (player.movement_handler.is_duck and not Input.is_action_pressed("ingame_duck")):
-			player.movement_handler.action_input_duck_release()
+	"""
+	Check if player does not want to duck anymore -> go back to stand idle animation
+	"""
+	
+	# Temp: Duck releases nur, wenn nicht gerade eine primary weapon in der ui ausgewaehlt wird. Muss spaeter besser geloest werden
+	if not Input.is_action_pressed("ingame_weapon_select"):
+		if player.movement_handler.direction.x == 0 and not player.movement_handler.is_attacking and not player.movement_handler.is_throwing:
+			# player has released duck-button or player may have released duck-button in the middle of the duck-attack-animation
+			if Input.is_action_just_released("down") or (player.movement_handler.is_duck and not Input.is_action_pressed("down")):
+				player.movement_handler.action_input_duck_release()
 
 
-func check_input_climb_up_ledge_key() -> void:
-	if Input.is_action_pressed("ingame_climb_up_ledge"):
-		player.movement_handler.action_input_climb_up_ledge()
+func check_input_environment_action_key() -> void:
+	if Input.is_action_pressed("ingame_environment_action"):
+		# climb up ledges
+		if player.movement_handler.check_if_player_can_climb_up_ledge():
+			player.movement_handler.action_input_climb_up_ledge()
+		# ToDo: noch andere environment actions via elifs einfuegen (wie Automaten benutzen oder sowas)
 
 
-func check_input_whip_attack_key() -> void:
-	if Input.is_action_pressed("ingame_whip_attack"):
-		# checks if whip is equiped
-		if player.weapon_handler.current_weapon == null or not 'IS_WHIP' in player.weapon_handler.current_weapon:
-			player.weapon_handler.select_current_weapon("whip")
-		if not player.movement_handler.is_attacking:
-			# initial input
-			player.movement_handler.action_input_init_whip_attack()
-		else:
-			if not player.weapon_handler.current_weapon.charges_whip_attack and player.weapon_handler.current_weapon.can_whip_attack_charge:
-				player.weapon_handler.current_weapon.charges_whip_attack = true
-				player.weapon_handler.current_weapon.can_whip_attack_charge = false
+func check_input_primary_weapon_usage_key() -> void:
+	if Input.is_action_pressed("ingame_primary_weapon_usage"):
+		# checks if primary weapon is equiped
+		if player.weapon_handler.current_weapon == null:
+			# no weapon equipted
+			return
+			#player.weapon_handler.select_current_weapon("whip")
+		# primary weapon is whip
+		if 'IS_WHIP' in player.weapon_handler.current_weapon:
+			if not player.movement_handler.is_attacking:
+				# initial input
+				player.movement_handler.action_input_init_whip_attack()
+			else:
+				if not player.weapon_handler.current_weapon.charges_whip_attack and player.weapon_handler.current_weapon.can_whip_attack_charge:
+					player.weapon_handler.current_weapon.charges_whip_attack = true
+					player.weapon_handler.current_weapon.can_whip_attack_charge = false
+		
+		elif 'IS_SWORD' in player.weapon_handler.current_weapon:
+			# ToDo: Schwert als primary weapon implementieren
+			pass
 	else:
-		if player.weapon_handler.current_weapon != null and 'IS_WHIP' in player.weapon_handler.current_weapon:
-			if player.weapon_handler.current_weapon.charges_whip_attack:
-				player.weapon_handler.current_weapon.charges_whip_attack = false
-				player.weapon_handler.current_weapon.can_whip_attack_charge = false
+		if player.weapon_handler.current_weapon != null:
+			if 'IS_WHIP' in player.weapon_handler.current_weapon:
+				if player.weapon_handler.current_weapon.charges_whip_attack:
+					player.weapon_handler.current_weapon.charges_whip_attack = false
+					player.weapon_handler.current_weapon.can_whip_attack_charge = false
+			elif 'IS_SWORD' in player.weapon_handler.current_weapon:
+				# ToDo: was passiert, wenn der Spieler das Schwert als prim weapon equipted hat, und die Attack Taste los laesst?
+				pass
 
 
 func check_input_secondary_weapon_usage_key() -> void:
@@ -158,8 +194,36 @@ func check_input_secondary_weapon_usage_key() -> void:
 		player.weapon_handler.use_secondary_weapon("fire_grenade", Vector2(extra_velocity_x, -extra_velocity_y))
 
 
+func check_input_primary_weapon_selection_keys() -> void:
+	"""
+	emits signal to primary weapon selection ui scene if up or down and prim-weapon-select key (currently shift) is pressed
+	"""
 
-###----------CONNECTED SIGNALS----------###
+	if not player.movement_handler.is_attacking:
+		if Input.is_action_just_pressed("up") and Input.is_action_pressed("ingame_weapon_select") and can_select_primary_weapon:
+			select_primary_weapon.emit("up")
+			can_select_primary_weapon = false
+			await get_tree().create_timer(0.5).timeout
+			can_select_primary_weapon = true
+		
+		elif Input.is_action_just_pressed("down") and Input.is_action_pressed("ingame_weapon_select"):
+			select_primary_weapon.emit("down")
+			can_select_primary_weapon = false
+			await get_tree().create_timer(0.5).timeout
+			can_select_primary_weapon = true
+
+
+func check_input_secondary_weapon_selection_keys() -> void:
+	# NEXT: Auswahlmoeglichkeiten fuer secondary weapons schaffen (ui, etc)
+	if not player.movement_handler.is_throwing:
+		if Input.is_action_just_pressed("left") and Input.is_action_pressed("ingame_weapon_select") and can_select_secondary_weapon:
+			print("Waehle eine secondary weapon nach links aus...")
+		
+		elif Input.is_action_just_pressed("right") and Input.is_action_pressed("ingame_weapon_select") and can_select_secondary_weapon:
+			print("Waehle eine secondary weapon nach rechts aus...")
+
+
+###----------METHODS: CONNECTED SIGNALS----------###
 
 func on_jump_button_press_timer_timeout() -> void:
 	var current_large_jump_velocity_addition:int = int(abs(player.movement_handler.current_jump_velocity) * player.movement_handler.LARGE_JUMP_VELOCITY_ADDITION_MULTIPLIER)

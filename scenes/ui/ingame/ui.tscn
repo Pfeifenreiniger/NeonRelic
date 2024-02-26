@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://drfpdpqmnxnkm"]
+[gd_scene load_steps=5 format=3 uid="uid://drfpdpqmnxnkm"]
 
 [ext_resource type="Script" path="res://scenes/ui/ingame/ui.gd" id="1_v22wa"]
 [ext_resource type="PackedScene" uid="uid://ds5y6kivffnc5" path="res://scenes/ui/ingame/player_status_bars/player_life_bar.tscn" id="2_awgxc"]
 [ext_resource type="PackedScene" uid="uid://b11gpv72ljnf5" path="res://scenes/ui/ingame/player_status_bars/player_stamina_bar.tscn" id="3_71ivn"]
+[ext_resource type="PackedScene" uid="uid://dva4pnw3pleeg" path="res://scenes/ui/ingame/weapon_selections/player_primary_weapon_selection.tscn" id="4_c37ms"]
 
 [node name="Ui" type="CanvasLayer"]
 script = ExtResource("1_v22wa")
@@ -10,3 +11,5 @@ script = ExtResource("1_v22wa")
 [node name="PlayerLifeBar" parent="." instance=ExtResource("2_awgxc")]
 
 [node name="PlayerStaminaBar" parent="." instance=ExtResource("3_71ivn")]
+
+[node name="PlayerPrimaryWeaponSelection" parent="." instance=ExtResource("4_c37ms")]

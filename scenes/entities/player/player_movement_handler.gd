@@ -67,7 +67,8 @@ func move_y(delta:float) -> void:
 		if not is_climbing_ledge:
 			player.controls_handler.check_input_jump_key()
 		
-		player.controls_handler.check_input_climb_up_ledge_key()
+		# Bug: Warum ist das hier drin???
+		#player.controls_handler.check_input_environment_action_key()
 		
 		# if gravity influenced player's physic -> check if he is falling
 		if player.velocity.y > 0  and not is_climbing_ledge:
@@ -276,22 +277,21 @@ func action_input_duck_release() -> void:
 
 func action_input_climb_up_ledge() -> void:
 	
-	if check_if_player_can_climb_up_ledge():
-		if is_jumping:
-			is_jumping = false
+	if is_jumping:
 		is_jumping = false
-		is_falling = false
-		is_climbing_ledge = true
-		direction.y = 0
-		player.velocity.y = 0
-		player.animations_handler.animation_to_change = true
-		player.animations_handler.loop_animation = false
-		if "right" in player.animations_handler.current_animation:
-			player.animations_handler.current_animation = "climb_up_ledge_right"
-			player.animations_handler.climb_up_ledge_animation.climb_up_ledge("right")
-		else:
-			player.animations_handler.current_animation = "climb_up_ledge_left"
-			player.animations_handler.climb_up_ledge_animation.climb_up_ledge("left")
+	is_jumping = false
+	is_falling = false
+	is_climbing_ledge = true
+	direction.y = 0
+	player.velocity.y = 0
+	player.animations_handler.animation_to_change = true
+	player.animations_handler.loop_animation = false
+	if "right" in player.animations_handler.current_animation:
+		player.animations_handler.current_animation = "climb_up_ledge_right"
+		player.animations_handler.climb_up_ledge_animation.climb_up_ledge("right")
+	else:
+		player.animations_handler.current_animation = "climb_up_ledge_left"
+		player.animations_handler.climb_up_ledge_animation.climb_up_ledge("left")
 
 
 func action_input_init_whip_attack() -> void:

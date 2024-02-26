@@ -5,12 +5,15 @@ extends Node
 
 ###----------PROPERTIES----------###
 
+# game settings
 var is_full_screen:bool = false
 
+# ingame values
+var currently_used_primary_weapon:String = "whip" # at first start-up -> use whip as primary weapon
 
 ###----------METHODS: SCREEN PROPERTIES----------###
 
-func toggle_full_screen() -> void:
+func input_toggle_full_screen() -> void:
 	"""
 	Keyboard button press to switch between full-screen and windowed game window
 	"""
