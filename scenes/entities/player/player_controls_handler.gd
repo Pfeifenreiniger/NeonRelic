@@ -52,7 +52,10 @@ func check_ingame_control_key_inputs() -> void:
 	check_input_climb_up_ledge_key()
 	check_input_whip_attack_key()
 	check_input_secondary_weapon_usage_key()
-	# test function to inflict player damage via key press
+	
+	Globals.toggle_full_screen()
+	
+	# Temp: test function to inflict player damage via key press
 	test_player_damage()
 
 
@@ -142,7 +145,6 @@ func check_input_secondary_weapon_usage_key() -> void:
 		
 		extra_velocity_y *= 600
 		
-		# ToDo: Wurfanimation starten --> wenn Animation fertig -> Timer starten
 		player.animations_handler.current_animation = player.animations_handler.current_animation.split('_')[0] + "_throw_" + player.animations_handler.current_animation.split('_')[-1]
 		player.animations_handler.loop_animation = false
 		player.animations_handler.animation_to_change = true
@@ -151,8 +153,8 @@ func check_input_secondary_weapon_usage_key() -> void:
 		
 		# start timer
 		secondary_weapon_used_timer.start()
-		# ToDo: Weapon Name als Variable (wird in der UI vom Spieler ausgewaehlt)
 		
+		# Temp: Weapon Name als Variable (wird in der UI vom Spieler ausgewaehlt). zZt hard-coded als "fire_grenade"
 		player.weapon_handler.use_secondary_weapon("fire_grenade", Vector2(extra_velocity_x, -extra_velocity_y))
 
 

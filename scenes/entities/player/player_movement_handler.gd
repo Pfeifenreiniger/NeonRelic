@@ -335,6 +335,7 @@ func action_input_use_secondary_weapon() -> void:
 	var offset_x:int = 10
 	var offset_y:int = -12
 	var side:String
+	# OPT: manchmal liegt die Aim Line etwas zu hoch. Liegt vllt am Wechsel zwischen Full-Screen und Windowed -> pruefen und ggnf. fixen!
 	if "left" in player.animations_handler.current_animation:
 		start_pos = Vector2(player.secondary_weapon_start_pos.global_position.x - offset_x, player.secondary_weapon_start_pos.global_position.y - offset_y)
 		side = "left"
