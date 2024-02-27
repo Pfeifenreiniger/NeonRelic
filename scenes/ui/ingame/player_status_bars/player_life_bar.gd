@@ -3,7 +3,7 @@ extends BasePlayerStatus
 
 ###----------NODE REFERENCES----------###
 
-@onready var heart_animation:AnimatedSprite2D = $MarginContainer/HeartAnimation
+@onready var heart_animation:AnimatedSprite2D = $MarginContainer/HeartAnimation as AnimatedSprite2D
 
 
 ###----------METHODS: AT INITIATION CALLED----------###
@@ -14,7 +14,7 @@ func _ready() -> void:
 	tint_under_color = Color(0.871, 0.267, 0, 1)
 	tint_over_color = Color(1, 0, 0, 1)
 	tint_progress_color = Color(1, 0, 0, 1)
-	progress_bar = $MarginContainer/LifeProgressBar
+	progress_bar = $MarginContainer/LifeProgressBar as TextureProgressBar
 	
 	start_heart_animation()
 

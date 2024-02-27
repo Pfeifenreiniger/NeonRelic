@@ -3,7 +3,7 @@ extends Node
 
 ###----------NODE REFERENCES----------###
 
-@onready var stamina_refresh_timer:Timer = $StaminaRefreshTimer
+@onready var stamina_refresh_timer:Timer = $StaminaRefreshTimer as Timer
 
 
 ###----------PROPERTIES----------###
@@ -14,8 +14,8 @@ var current_stamina:float = max_stamina
 var stamina_can_refresh:bool = true
 var stamina_refreshment_rate:int = 1
 var stamina_costs:Dictionary = {
-	"side_roll" : 20,
-	"whip_attack" : 10
+	"side_roll" as String : 20 as int,
+	"whip_attack" as String : 10 as int
 }
 
 

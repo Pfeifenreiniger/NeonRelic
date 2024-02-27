@@ -3,8 +3,8 @@ extends Node
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
-@onready var ingame_camera:Camera2D = get_tree().get_first_node_in_group('ingame_camera')
+@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
+@onready var ingame_camera:Camera2D = get_tree().get_first_node_in_group('ingame_camera') as Camera2D
 
 
 ###----------PROPERTIES----------###

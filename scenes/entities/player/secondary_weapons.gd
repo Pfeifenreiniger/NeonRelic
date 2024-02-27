@@ -29,7 +29,7 @@ var line_width:float = 1.4
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(delta:float) -> void:
+func _process(_delta:float) -> void:
 	if to_draw:
 		queue_redraw()
 

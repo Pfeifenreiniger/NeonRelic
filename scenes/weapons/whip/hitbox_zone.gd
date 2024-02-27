@@ -3,12 +3,12 @@ extends Area2D
 
 ###----------SCENE REFERENCES----------###
 
-@onready var whip:AnimatedSprite2D = $".."
+@onready var whip:AnimatedSprite2D = $".." as AnimatedSprite2D
 
 
 ###----------NODE REFERENCES----------###
 
-@onready var hitbox:CollisionShape2D = $Hitbox
+@onready var hitbox:CollisionShape2D = $Hitbox as CollisionShape2D
 
 
 ###----------PROPERTIES----------###

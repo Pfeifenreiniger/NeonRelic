@@ -3,7 +3,7 @@ extends Node
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
+@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
 
 
 ###----------PROPERTIES----------###

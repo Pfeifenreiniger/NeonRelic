@@ -20,8 +20,14 @@ func input_toggle_full_screen() -> void:
 	
 	if Input.is_action_just_pressed("toggle_full_screen"):
 		if not is_full_screen:
+			# set mode to full screen
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 			is_full_screen = true
+			# hide mouse cursor
+			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_HIDDEN)
 		else:
+			# set mode to windowed
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			is_full_screen = false
+			# make mouse cursor visible
+			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)

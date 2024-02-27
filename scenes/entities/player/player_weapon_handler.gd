@@ -3,29 +3,33 @@ extends Node
 
 ###----------NODE REFERENCES----------###
 
-@onready var primary_weapons:Node2D = $PrimaryWeapons
-@onready var secondary_weapons:Node2D = $SecondaryWeapons
+@onready var primary_weapons:Node2D = $PrimaryWeapons as Node2D
+@onready var secondary_weapons:Node2D = $SecondaryWeapons as Node2D
+
 
 ###----------PROPERTIES----------###
 
 @onready var available_primary_weapons:Dictionary = {
-	"whip" : preload("res://scenes/weapons/whip/whip.tscn")
+	"whip" as String : preload("res://scenes/weapons/whip/whip.tscn") as PackedScene
 }
 
 const valid_primary_weapon_names:Array[String] = [
-	"whip", "sword"
+	"whip" as String, "sword" as String
 ]
 
 var current_weapon:Node2D
 
 @onready var available_secondary_weapons:Dictionary = {
-	"fire_grenade" : preload("res://scenes/weapons/grenade/grenade.tscn")
+	"fire_grenade" as String : preload("res://scenes/weapons/grenade/grenade.tscn") as PackedScene
 }
 
+
+###----------METHODS: AT INITIATION CALLED----------###
 
 func _ready() -> void:
 	# at start -> select a primary weapon
 	select_current_weapon(Globals.currently_used_primary_weapon)
+
 
 ###----------METHODS----------###
 

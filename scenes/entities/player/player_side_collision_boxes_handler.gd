@@ -3,13 +3,13 @@ extends Node
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
+@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
 
 
 ###----------NODE REFERENCES----------###
 
-@onready var left_collision_detection_box:Area2D = $CollisionDetectionBoxes/LeftSideCollision
-@onready var right_collision_detection_box: Area2D = $CollisionDetectionBoxes/RightSideCollision
+@onready var left_collision_detection_box:Area2D = $CollisionDetectionBoxes/LeftSideCollision as Area2D
+@onready var right_collision_detection_box: Area2D = $CollisionDetectionBoxes/RightSideCollision as Area2D
 
 
 ###----------PROPERTIES----------###

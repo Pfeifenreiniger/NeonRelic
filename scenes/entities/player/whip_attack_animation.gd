@@ -3,8 +3,8 @@ extends Node
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
-@onready var animations_handler:Node = $".."
+@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
+@onready var animations_handler:Node = $".." as Node
 
 
 ###----------METHODS: PER FRAME CALLED----------###

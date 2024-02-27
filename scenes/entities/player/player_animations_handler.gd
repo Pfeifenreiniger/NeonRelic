@@ -3,15 +3,15 @@ extends Node
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
+@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
 
 
 ###----------NODE REFERENCES----------###
 
-@onready var climb_up_ledge_animation:Node = $ClimbUpLedgeAnimation
-@onready var side_roll_animation:Node = $SideRollAnimation
-@onready var whip_attack_charge_shader_animation:Node = $WhipAttackAnimation/WhipAttackChargeShaderAnimation
-@onready var animations:AnimatedSprite2D = $Animations
+@onready var climb_up_ledge_animation:Node = $ClimbUpLedgeAnimation as Node
+@onready var side_roll_animation:Node = $SideRollAnimation as Node
+@onready var whip_attack_charge_shader_animation:Node = $WhipAttackAnimation/WhipAttackChargeShaderAnimation as Node
+@onready var animations:AnimatedSprite2D = $Animations as AnimatedSprite2D
 
 
 ###----------PROPERTIES----------###

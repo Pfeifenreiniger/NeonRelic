@@ -3,13 +3,13 @@ extends Node
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
+@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
 
 
 ###----------NODE REFERENCES----------###
 
-@onready var jump_button_press_timer:Timer = $ButtonPressTimers/JumpButtonPressTimer
-@onready var secondary_weapon_used_timer:Timer = $ButtonPressTimers/SecondaryWeaponUsedTimer
+@onready var jump_button_press_timer:Timer = $ButtonPressTimers/JumpButtonPressTimer as Timer
+@onready var secondary_weapon_used_timer:Timer = $ButtonPressTimers/SecondaryWeaponUsedTimer as Timer
 
 ###----------CUSTOM SIGNALS----------###
 
@@ -20,8 +20,8 @@ signal select_primary_weapon(dir:String)
 
 # dictionary map for side-roll action input timestamps (for checking double key presses for left/right)
 var player_roll_action_inputs:Dictionary = {
-	"right" : 0,
-	"left" : 0
+	"right" as String : 0 as int,
+	"left" as String : 0 as int
 }
 
 var secondary_weapon_used:bool = false

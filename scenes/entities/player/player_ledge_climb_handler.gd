@@ -3,11 +3,11 @@ extends Node
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
+@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
 
 ###----------NODE REFERENCES----------###
 
-@onready var ledge_climb_area:Area2D = $LedgeClimbArea
+@onready var ledge_climb_area:Area2D = $LedgeClimbArea as Area2D
 var current_ledge_to_climb_area:Area2D = null
 
 

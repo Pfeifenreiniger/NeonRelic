@@ -3,7 +3,7 @@ extends Node
 
 ###----------SCENE REFERENCES----------###
 
-@onready var animations_handler:Node = $"../.."
+@onready var animations_handler:Node = $"../.." as Node
 
 
 ###----------PROPERTIES----------###
@@ -28,9 +28,9 @@ func play_whip_attack_shader_animation(delta:float) -> void:
 	if do_whip_attack_shader_animation:
 		
 		
-		var shader_material:ShaderMaterial = animations_handler.animations.material
+		var shader_material:ShaderMaterial = animations_handler.animations.material as ShaderMaterial
 		
-		var current_strech_progress:float = shader_material.get_shader_parameter("stretchProgress")
+		var current_strech_progress:float = shader_material.get_shader_parameter("stretchProgress") as float
 		
 		var progress:float = progress_speed * delta
 		current_strech_progress += progress

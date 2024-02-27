@@ -9,7 +9,8 @@ func _ready() -> void:
 	tint_under_color = Color(0.427, 0.565, 0.276, 1)
 	tint_over_color = Color(0, 0.902, 0, 1)
 	tint_progress_color = Color(0.736, 1, 0.626, 1)
-	progress_bar = $MarginContainer/StaminaProgressBar
+	progress_bar = $MarginContainer/StaminaProgressBar as TextureProgressBar
+
 
 ###----------METHODS: PER FRAME CALLED----------###
 

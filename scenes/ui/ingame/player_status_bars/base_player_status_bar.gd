@@ -3,13 +3,13 @@ class_name BasePlayerStatus
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player')
+@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
 
 
 ###------NODE REFERENCES------###
 
 @onready var progress_bar:TextureProgressBar
-@onready var timer_tint_progress_bar_colors:Timer = $TimerTintProgressBarColors
+@onready var timer_tint_progress_bar_colors:Timer = $TimerTintProgressBarColors as Timer
 
 ###----------PROPERTIES----------###
 
