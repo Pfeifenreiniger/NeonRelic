@@ -949,4 +949,3 @@ progress_speed = 2.3
 material = SubResource("ShaderMaterial_g2dfq")
 sprite_frames = SubResource("SpriteFrames_25tp4")
 animation = &"stand_throw_right"
-metadata/_edit_lock_ = true

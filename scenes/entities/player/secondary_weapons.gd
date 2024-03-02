@@ -4,6 +4,10 @@ Aim-line for throwing secondary weapon (such as grenades)
 
 extends Node2D
 
+###----------SCENE REFERENCES----------###
+
+@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
+
 
 ###----------PROPERTIES----------###
 
@@ -41,10 +45,10 @@ func _draw() -> void:
 
 ###----------METHODS----------###
 
-func draw_aim_line(start_pos:Vector2, side:String) -> void:
+func draw_aim_line(start_posi:Vector2, side:String) -> void:
 	to_draw = true
 	
-	self.start_pos = start_pos
+	start_pos = start_posi
 	
 	# calculate to_pos
 	var offset_x:int = 24

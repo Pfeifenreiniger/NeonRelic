@@ -49,16 +49,12 @@ shape = SubResource("CapsuleShape2D_fxymx")
 metadata/_edit_lock_ = true
 
 [node name="LedgeClimbArea" type="Area2D" parent="."]
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="LedgeGrapBox" type="CollisionShape2D" parent="LedgeClimbArea"]
 position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_ol62l")
 
 [node name="Markers" type="Node2D" parent="."]
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="WeaponStandWhipAttackRight" type="Marker2D" parent="Markers"]
 position = Vector2(38, -22)

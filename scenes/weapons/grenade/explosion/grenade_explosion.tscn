@@ -1,0 +1,58 @@
+[gd_scene load_steps=13 format=3 uid="uid://dhrrvdcok0mnq"]
+
+[ext_resource type="Texture2D" uid="uid://cxbuw58yf2q3u" path="res://scenes/weapons/grenade/explosion/sprites/grenade_explosion_f1.png" id="1_6asrq"]
+[ext_resource type="Texture2D" uid="uid://bj3vfblovn4kt" path="res://scenes/weapons/grenade/explosion/sprites/grenade_explosion_f2.png" id="2_u7x4i"]
+[ext_resource type="Texture2D" uid="uid://bs0uuusq4jw2a" path="res://scenes/weapons/grenade/explosion/sprites/grenade_explosion_f3.png" id="3_psbsv"]
+[ext_resource type="Texture2D" uid="uid://bq6cstv3u8gf0" path="res://scenes/weapons/grenade/explosion/sprites/grenade_explosion_f4.png" id="4_xuiie"]
+[ext_resource type="Texture2D" uid="uid://df1blx1indpuu" path="res://scenes/weapons/grenade/explosion/sprites/grenade_explosion_f5.png" id="5_uqqun"]
+[ext_resource type="Texture2D" uid="uid://cgm0vra2476f3" path="res://scenes/weapons/grenade/explosion/sprites/grenade_explosion_f6.png" id="6_fpee2"]
+[ext_resource type="Texture2D" uid="uid://dl5d7mywwubw6" path="res://scenes/weapons/grenade/explosion/sprites/grenade_explosion_f7.png" id="7_krhgy"]
+[ext_resource type="Texture2D" uid="uid://mpxhn3t7dgb6" path="res://scenes/weapons/grenade/explosion/sprites/grenade_explosion_f8.png" id="8_bulq7"]
+[ext_resource type="Texture2D" uid="uid://d33m1vvhlf87o" path="res://scenes/weapons/grenade/explosion/sprites/grenade_explosion_f9.png" id="9_c14t2"]
+[ext_resource type="Texture2D" uid="uid://coml7fjj8vw7g" path="res://scenes/weapons/grenade/explosion/sprites/grenade_explosion_f10.png" id="10_mfhb1"]
+[ext_resource type="Script" path="res://scenes/weapons/grenade/explosion/grenade_explosion.gd" id="11_nvnvr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t2gr5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6asrq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_u7x4i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_psbsv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xuiie")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_uqqun")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_fpee2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_krhgy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bulq7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_c14t2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_mfhb1")
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 18.0
+}]
+
+[node name="GrenadeExplosion" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_t2gr5")
+animation = &"explosion"
+frame = 9
+frame_progress = 1.0
+script = ExtResource("11_nvnvr")

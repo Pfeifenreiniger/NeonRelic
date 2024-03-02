@@ -261,6 +261,9 @@ func action_input_duck_release() -> void:
 		var last_frame:int = player.animations_handler.animations.frame
 		player.animations_handler.animations.stop()
 		player.animations_handler.animations.set_frame(last_frame)
+		
+		# TEMP - set secondary weapon start pos to fixed relative position. Somehow its buggy right now, so the y relative position moved up 20 px every canceled duck movement
+		player.secondary_weapon_start_pos.position = Vector2(0, -6)
 	
 	will_duck = false
 	player.animations_handler.loop_animation = false
@@ -335,7 +338,7 @@ func action_input_use_secondary_weapon() -> void:
 	var offset_x:int = 10
 	var offset_y:int = -12
 	var side:String
-	# OPT: manchmal liegt die Aim Line etwas zu hoch. Liegt vllt am Wechsel zwischen Full-Screen und Windowed -> pruefen und ggnf. fixen!
+
 	if "left" in player.animations_handler.current_animation:
 		start_pos = Vector2(player.secondary_weapon_start_pos.global_position.x - offset_x, player.secondary_weapon_start_pos.global_position.y - offset_y)
 		side = "left"
