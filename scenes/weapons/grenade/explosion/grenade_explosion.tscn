@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dhrrvdcok0mnq"]
+[gd_scene load_steps=14 format=3 uid="uid://dhrrvdcok0mnq"]
 
 [ext_resource type="Texture2D" uid="uid://cxbuw58yf2q3u" path="res://scenes/weapons/grenade/explosion/sprites/grenade_explosion_f1.png" id="1_6asrq"]
 [ext_resource type="Texture2D" uid="uid://bj3vfblovn4kt" path="res://scenes/weapons/grenade/explosion/sprites/grenade_explosion_f2.png" id="2_u7x4i"]
@@ -50,9 +50,15 @@ animations = [{
 "speed": 18.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_3snvh"]
+radius = 12.0
+
 [node name="GrenadeExplosion" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_t2gr5")
 animation = &"explosion"
-frame = 9
-frame_progress = 1.0
 script = ExtResource("11_nvnvr")
+
+[node name="HitArea" type="Area2D" parent="."]
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitArea"]
+shape = SubResource("CircleShape2D_3snvh")

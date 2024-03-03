@@ -120,4 +120,6 @@ ledge_side = "right"
 [node name="Player" parent="Entities" instance=ExtResource("3_p12wi")]
 position = Vector2(105, 511)
 
+[node name="FloorEffects" type="Node" parent="."]
+
 [node name="Ui" parent="." instance=ExtResource("8_ot175")]

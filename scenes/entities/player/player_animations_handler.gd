@@ -165,22 +165,22 @@ func on_animation_finished() -> void:
 					current_animation = "stand_%s" % side
 				else:
 					current_animation = "duck_%s" % side
-					if not Input.is_action_pressed("ingame_duck"):
+					if not Input.is_action_pressed("down"):
 						# simulate duck-input and key-release from player for proper animation
-						Input.action_press("ingame_duck")
+						Input.action_press("down")
 						await get_tree().create_timer(0.25).timeout
-						Input.action_release("ingame_duck")
+						Input.action_release("down")
 					
 	elif player.movement_handler.is_throwing:
 		player.movement_handler.is_throwing = false
 		current_animation = current_animation.split('_throw_')[0] + "_" + current_animation.split('_throw_')[1]
 		loop_animation = true
 		animation_to_change = true
-		if "duck" in current_animation and not Input.is_action_pressed("ingame_duck"):
+		if "duck" in current_animation and not Input.is_action_pressed("down"):
 			# simulate duck-input and key-release from player for proper animation
-			Input.action_press("ingame_duck")
+			Input.action_press("down")
 			await get_tree().create_timer(0.25).timeout
-			Input.action_release("ingame_duck")
+			Input.action_release("down")
 
 
 func on_frame_changed() -> void:

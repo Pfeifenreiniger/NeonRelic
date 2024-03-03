@@ -55,13 +55,13 @@ func _ready() -> void:
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(_delta:float):
+func _process(_delta:float) -> void:
 	do_attack_charge()
 
 
 ###----------METHODS: WHIP'S ATTACK CHARGE----------###
 
-func do_attack_charge():
+func do_attack_charge() -> void:
 	if charges_whip_attack and not started_charge_timer:
 		charge_timer.start()
 		started_charge_timer = true

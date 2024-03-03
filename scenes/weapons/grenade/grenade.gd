@@ -23,7 +23,6 @@ var grenade_explosion_scene:PackedScene = preload("res://scenes/weapons/grenade/
 func _ready() -> void:
 	# set position to player's position
 	global_position = player.secondary_weapon_start_pos.global_position
-	
 	# connect timer timeout signal
 	explosion_timer.timeout.connect(_on_explosion_timer_timeout)
 
@@ -33,6 +32,7 @@ func _ready() -> void:
 func _on_explosion_timer_timeout() -> void:
 	# instantiate explosion scene
 	var grenade_explosion:AnimatedSprite2D = grenade_explosion_scene.instantiate()
+	grenade_explosion.grenade_type = GRENADE_TYPE
 	add_child(grenade_explosion)
 	# connect explosion scene signals
 	grenade_explosion.hide_grenade.connect(_on_hide_grenade)

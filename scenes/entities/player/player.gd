@@ -1,6 +1,11 @@
 extends CharacterBody2D
 
 
+###----------PROPERTIES----------###
+
+const IS_PLAYER:bool = true
+
+
 ###----------SCENE REFERENCES----------###
 
 @onready var movement_handler:Node = $PlayerMovementHandler as Node

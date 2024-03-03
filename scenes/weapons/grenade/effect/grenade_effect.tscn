@@ -1,0 +1,195 @@
+[gd_scene load_steps=11 format=3 uid="uid://w4uoyxivhx33"]
+
+[ext_resource type="Script" path="res://scenes/weapons/grenade/effect/grenade_effect.gd" id="1_btl8c"]
+[ext_resource type="Texture2D" uid="uid://b427cm4ta62tg" path="res://assets/graphics/brushes/brush_20x20px.png" id="2_nesck"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssnud"]
+size = Vector2(20, 60)
+
+[sub_resource type="CurveTexture" id="CurveTexture_hl7ev"]
+
+[sub_resource type="Gradient" id="Gradient_fvqri"]
+offsets = PackedFloat32Array(0.497326, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gnjqq"]
+gradient = SubResource("Gradient_fvqri")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yb5bd"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(6, 1, 1)
+spread = 40.0
+gravity = Vector3(0, -98, 0)
+linear_accel_min = 18.0
+linear_accel_max = 46.0
+radial_accel_min = 3.31
+radial_accel_max = 21.49
+tangential_accel_min = 4.96
+tangential_accel_max = 41.32
+scale_min = 0.2
+scale_max = 0.8
+color_ramp = SubResource("GradientTexture1D_gnjqq")
+alpha_curve = SubResource("CurveTexture_hl7ev")
+hue_variation_max = 0.13
+turbulence_noise_strength = 1.01
+turbulence_noise_scale = 10.0
+turbulence_influence_min = 0.045
+turbulence_influence_max = 0.242
+
+[sub_resource type="Animation" id="Animation_suyow"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox:shape:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(20, 60)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Particles:amount_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Particles:process_material:emission_box_extents")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(6, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Particles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hitbox:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_rvq2w"]
+resource_name = "spreading"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox:shape:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.6, 2.4, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(20, 60), Vector2(30, 60), Vector2(40, 60), Vector2(50, 60), Vector2(60, 60)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Particles:amount_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.6, 2.4, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.4, 0.6, 0.8, 0.9, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Particles:process_material:emission_box_extents")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.6, 2.4, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(6, 1, 1), Vector3(12, 1, 1), Vector3(18, 1, 1), Vector3(24, 1, 1), Vector3(30, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Particles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hitbox:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s81hk"]
+_data = {
+"RESET": SubResource("Animation_suyow"),
+"spreading": SubResource("Animation_rvq2w")
+}
+
+[node name="GrenadeEffect" type="Area2D"]
+script = ExtResource("1_btl8c")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -30)
+shape = SubResource("RectangleShape2D_ssnud")
+
+[node name="LifeTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="Particles" type="GPUParticles2D" parent="."]
+amount = 62
+amount_ratio = 0.4
+process_material = SubResource("ParticleProcessMaterial_yb5bd")
+texture = ExtResource("2_nesck")
+lifetime = 1.2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_s81hk")
+}
