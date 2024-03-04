@@ -75,7 +75,6 @@ func _arrow_back_to_normal_color_timer(arrow:Sprite2D) -> void:
 
 
 func _disable_particle_emission(particles_node:GPUParticles2D) -> void:
-	print(particles_node)
 	particles_node.emitting = false
 	particles_node.visible = false
 

@@ -20,6 +20,7 @@ var current_speed:int = BASE_SPEED
 const BASE_JUMP_VELOCITY:int = -275
 var current_jump_velocity:int = BASE_JUMP_VELOCITY
 const LARGE_JUMP_VELOCITY_ADDITION_MULTIPLIER:float = 0.3
+var can_coyote_jump:bool = false
 
 # gravity
 var BASE_GRAVITY:int = int(ProjectSettings.get_setting("physics/2d/default_gravity"))
@@ -35,7 +36,6 @@ var is_attacking:bool = false
 var is_throwing:bool = false
 var is_rolling:bool = false
 var is_climbing_ledge:bool = false
-
 
 ###----------METHODS: PER FRAME CALLED----------###
 
@@ -73,6 +73,8 @@ func move_y(delta:float) -> void:
 		# if gravity influenced player's physic -> check if he is falling
 		if player.velocity.y > 0  and not is_climbing_ledge:
 			if not is_falling:
+				if not is_jumping: # coyote jump only when player falls from platform
+					check_coyote_jump()
 				is_jumping = false
 				is_rolling = false
 				player.stamina_handler.stamina_can_refresh = true
@@ -129,6 +131,18 @@ func check_if_player_is_vertically_moving() -> bool:
 		return true
 	else:
 		return false
+
+
+func check_coyote_jump() -> void:
+	"""
+	Player gains ability of coyote-jump for a very short amount of time after he loses touch to the level's floor.
+	"""
+	
+	if not can_coyote_jump:
+		can_coyote_jump = true
+		# OPT - Zeitraum fuer den Coyote-Jump spaeter noch verbessern. Sind 0.2 Sekunden vom Spielgefuehl her gut?
+		await get_tree().create_timer(0.2).timeout
+		can_coyote_jump = false
 
 
 func check_if_player_is_ducking() -> bool:
@@ -222,9 +236,13 @@ func action_input_side_roll_x_axis(side:String) -> void:
 
 
 func action_input_jump() -> void:
-	if direction.y == 0 and not check_if_player_is_vertically_moving() and not (is_attacking or is_throwing):
+	if (direction.y == 0 and not check_if_player_is_vertically_moving() or can_coyote_jump) and not (is_attacking or is_throwing):
 		direction.y = -1
 		is_jumping = true
+		if can_coyote_jump:
+			is_falling = false
+			player.velocity.y = 0
+			can_coyote_jump = false
 		if "left" in player.animations_handler.current_animation:
 			player.animations_handler.current_animation = "jump_up_left"
 		else:

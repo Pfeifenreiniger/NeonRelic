@@ -28,6 +28,7 @@ var secondary_weapon_used:bool = false
 
 var can_select_primary_weapon:bool = true
 var can_select_secondary_weapon:bool = true
+var is_selecting_primary_weapon:bool = false
 
 
 ###----------METHODS: AT INITIATION CALLED----------###
@@ -91,8 +92,8 @@ func check_input_side_roll_x_axis_key() -> void:
 
 
 func check_input_jump_key() -> void:
-	# Temp: Jumps nur, wenn nicht gerade eine primary weapon in der ui ausgewaehlt wird. Muss spaeter besser geloest werden
-	if not Input.is_action_pressed("ingame_weapon_select"):
+	# Jumps nur, wenn nicht gerade eine primary weapon in der ui ausgewaehlt wird. Muss spaeter besser geloest werden
+	if not is_selecting_primary_weapon:
 		
 		if Input.is_action_pressed("up") and not player.movement_handler.check_if_player_is_ducking():
 			player.movement_handler.action_input_jump()
@@ -104,8 +105,8 @@ func check_input_jump_key() -> void:
 
 
 func check_input_duck_key() -> void:
-	# Temp: Ducks nur, wenn nicht gerade eine primary weapon in der ui ausgewaehlt wird. Muss spaeter besser geloest werden
-	if not Input.is_action_pressed("ingame_weapon_select"):
+	# Ducks nur, wenn nicht gerade eine primary weapon in der ui ausgewaehlt wird. Muss spaeter besser geloest werden
+	if not is_selecting_primary_weapon:
 		if Input.is_action_pressed("down") and not player.movement_handler.check_if_player_is_vertically_moving():
 			player.movement_handler.action_input_duck()
 
@@ -115,8 +116,8 @@ func check_input_duck_key_release() -> void:
 	Check if player does not want to duck anymore -> go back to stand idle animation
 	"""
 	
-	# Temp: Duck releases nur, wenn nicht gerade eine primary weapon in der ui ausgewaehlt wird. Muss spaeter besser geloest werden
-	if not Input.is_action_pressed("ingame_weapon_select"):
+	# Duck releases nur, wenn nicht gerade eine primary weapon in der ui ausgewaehlt wird. Muss spaeter besser geloest werden
+	if not is_selecting_primary_weapon:
 		if player.movement_handler.direction.x == 0 and not player.movement_handler.is_attacking and not player.movement_handler.is_throwing:
 			# player has released duck-button or player may have released duck-button in the middle of the duck-attack-animation
 			if Input.is_action_just_released("down") or (player.movement_handler.is_duck and not Input.is_action_pressed("down")):
@@ -137,7 +138,6 @@ func check_input_primary_weapon_usage_key() -> void:
 		if player.weapon_handler.current_weapon == null:
 			# no weapon equipted
 			return
-			#player.weapon_handler.select_current_weapon("whip")
 		# primary weapon is whip
 		if 'IS_WHIP' in player.weapon_handler.current_weapon:
 			if not player.movement_handler.is_attacking:
@@ -201,16 +201,24 @@ func check_input_primary_weapon_selection_keys() -> void:
 
 	if not player.movement_handler.is_attacking:
 		if Input.is_action_just_pressed("up") and Input.is_action_pressed("ingame_weapon_select") and can_select_primary_weapon:
+			is_selecting_primary_weapon = true
 			select_primary_weapon.emit("up")
 			can_select_primary_weapon = false
 			await get_tree().create_timer(0.5).timeout
 			can_select_primary_weapon = true
 		
 		elif Input.is_action_just_pressed("down") and Input.is_action_pressed("ingame_weapon_select"):
+			is_selecting_primary_weapon = true
 			select_primary_weapon.emit("down")
 			can_select_primary_weapon = false
 			await get_tree().create_timer(0.5).timeout
 			can_select_primary_weapon = true
+	
+	#  checks if ingame_weapon_select key (currently shift) is pressed or not 
+	if Input.is_action_just_pressed("ingame_weapon_select"):
+		is_selecting_primary_weapon = true	
+	if Input.is_action_just_released("ingame_weapon_select"):
+		is_selecting_primary_weapon = false
 
 
 func check_input_secondary_weapon_selection_keys() -> void:
