@@ -69,6 +69,11 @@ func _on_body_entered(body:Node2D) -> void:
 	if can_do_damage and ("IS_ENEMY" in body or "IS_PLAYER" in body):
 		# ToDo - auch Enemies benoetigen einen health_handler
 		body.health_handler.get_damage(damage)
+		
+		if grenade_type == "freeze_grenade":
+			# ToDo - auch Enemies benoetigfen einen movement_handler
+			body.movement_handler.effect_get_slow_down(2)
+		
 		# damage only every 0.5 seconds
 		can_do_damage = false
 		await get_tree().create_timer(0.5).timeout

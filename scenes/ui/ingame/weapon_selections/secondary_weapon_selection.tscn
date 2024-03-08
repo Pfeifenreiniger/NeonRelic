@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgfj8r2flvql3"]
+
+[ext_resource type="PackedScene" uid="uid://cw2m0y1vhqw3o" path="res://scenes/ui/ingame/weapon_selections/base_player_weapon_selection.tscn" id="1_p4wd3"]
+[ext_resource type="Script" path="res://scenes/ui/ingame/weapon_selections/secondary_weapon_selection.gd" id="2_do3nc"]
+[ext_resource type="Texture2D" uid="uid://jja57uvup8o6" path="res://assets/graphics/ui/ingame/arrows/arrow_left.png" id="3_534p4"]
+[ext_resource type="Texture2D" uid="uid://3x3nw7i35cgr" path="res://assets/graphics/ui/ingame/arrows/arrow_right.png" id="4_kny68"]
+
+[node name="SecondaryWeaponSelection" instance=ExtResource("1_p4wd3")]
+script = ExtResource("2_do3nc")
+
+[node name="ColorRect" parent="." index="0"]
+offset_left = 1063.0
+offset_right = 1135.0
+
+[node name="Icon" parent="." index="1"]
+position = Vector2(1099, 654)
+
+[node name="Arrow1" parent="." index="2"]
+position = Vector2(1055, 655)
+texture = ExtResource("3_534p4")
+
+[node name="Arrow2" parent="." index="3"]
+position = Vector2(1143, 656)
+texture = ExtResource("4_kny68")

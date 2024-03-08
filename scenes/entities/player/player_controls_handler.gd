@@ -14,6 +14,7 @@ extends Node
 ###----------CUSTOM SIGNALS----------###
 
 signal select_primary_weapon(dir:String)
+signal select_secondary_weapon(dir:String)
 
 
 ###----------PROPERTIES----------###
@@ -190,8 +191,8 @@ func check_input_secondary_weapon_usage_key() -> void:
 		# start timer
 		secondary_weapon_used_timer.start()
 		
-		# Temp: Weapon Name als Variable (wird in der UI vom Spieler ausgewaehlt). zZt hard-coded als "fire_grenade"
-		player.weapon_handler.use_secondary_weapon("fire_grenade", Vector2(extra_velocity_x, -extra_velocity_y))
+		# OPT: noch pruefen, ob ueberhaupt eine Secondary Weapon zur Verfuegung steht
+		player.weapon_handler.use_secondary_weapon(Globals.currently_used_secondary_weapon, Vector2(extra_velocity_x, -extra_velocity_y))
 
 
 func check_input_primary_weapon_selection_keys() -> void:
@@ -222,13 +223,18 @@ func check_input_primary_weapon_selection_keys() -> void:
 
 
 func check_input_secondary_weapon_selection_keys() -> void:
-	# NEXT: Auswahlmoeglichkeiten fuer secondary weapons schaffen (ui, etc)
 	if not player.movement_handler.is_throwing:
 		if Input.is_action_just_pressed("left") and Input.is_action_pressed("ingame_weapon_select") and can_select_secondary_weapon:
-			print("Waehle eine secondary weapon nach links aus...")
+			can_select_secondary_weapon = false
+			select_secondary_weapon.emit("left")
+			await get_tree().create_timer(0.25).timeout
+			can_select_secondary_weapon = true
 		
 		elif Input.is_action_just_pressed("right") and Input.is_action_pressed("ingame_weapon_select") and can_select_secondary_weapon:
-			print("Waehle eine secondary weapon nach rechts aus...")
+			can_select_secondary_weapon = false
+			select_secondary_weapon.emit("right")
+			await get_tree().create_timer(0.25).timeout
+			can_select_secondary_weapon = true
 
 
 ###----------METHODS: CONNECTED SIGNALS----------###

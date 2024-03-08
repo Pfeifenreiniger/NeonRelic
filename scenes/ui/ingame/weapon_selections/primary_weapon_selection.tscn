@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://cj67s3kdnlkko"]
+
+[ext_resource type="PackedScene" uid="uid://cw2m0y1vhqw3o" path="res://scenes/ui/ingame/weapon_selections/base_player_weapon_selection.tscn" id="1_0jj7u"]
+[ext_resource type="Script" path="res://scenes/ui/ingame/weapon_selections/primary_weapon_selection.gd" id="2_dfej2"]
+[ext_resource type="Texture2D" uid="uid://do80swid6sj4j" path="res://assets/graphics/ui/ingame/primary_weapon_icons/whip_icon.png" id="3_rocuy"]
+[ext_resource type="Texture2D" uid="uid://cxlvicdpnmjn1" path="res://assets/graphics/ui/ingame/arrows/arrow_up.png" id="4_3nut7"]
+[ext_resource type="Texture2D" uid="uid://c6rp2w2yy4mif" path="res://assets/graphics/ui/ingame/arrows/arrow_down.png" id="5_17wih"]
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_0salo"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y4bby"]
+lifetime_randomness = 0.33
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.41
+angular_velocity_min = 23.81
+angular_velocity_max = 119.01
+directional_velocity_min = -10.9
+directional_velocity_max = 12.91
+directional_velocity_curve = SubResource("CurveXYZTexture_0salo")
+orbit_velocity_min = -0.397
+orbit_velocity_max = 0.33
+gravity = Vector3(55, 85, 0)
+radial_accel_min = 13.22
+radial_accel_max = 33.06
+scale_max = 3.0
+color = Color(0.815686, 0, 0.819608, 0.501961)
+
+[node name="PrimaryWeaponSelection" instance=ExtResource("1_0jj7u")]
+script = ExtResource("2_dfej2")
+
+[node name="Icon" parent="." index="1"]
+texture = ExtResource("3_rocuy")
+
+[node name="Arrow1" parent="." index="2"]
+texture = ExtResource("4_3nut7")
+
+[node name="Arrow2" parent="." index="3"]
+texture = ExtResource("5_17wih")
+
+[node name="WhipParticles" type="GPUParticles2D" parent="." index="4"]
+position = Vector2(1230, 630)
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_y4bby")
+lifetime = 1.4

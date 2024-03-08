@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw2m0y1vhqw3o"]
+
+[ext_resource type="Script" path="res://scenes/ui/ingame/weapon_selections/base_player_weapon_selection.gd" id="1_8osqy"]
+
+[node name="BasePlayerWeaponSelection" type="Node"]
+script = ExtResource("1_8osqy")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 1184.0
+offset_top = 617.0
+offset_right = 1256.0
+offset_bottom = 692.0
+color = Color(0.34902, 0.34902, 0.34902, 0.411765)
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(1220, 654)
+
+[node name="Arrow1" type="Sprite2D" parent="."]
+modulate = Color(0.0509804, 0.0509804, 0.0509804, 1)
+position = Vector2(1220, 610)
+
+[node name="Arrow2" type="Sprite2D" parent="."]
+modulate = Color(0.0509804, 0.0509804, 0.0509804, 1)
+position = Vector2(1220, 699)

@@ -10,6 +10,8 @@ var is_full_screen:bool = false
 
 # ingame values
 var currently_used_primary_weapon:String = "whip" # at first start-up -> use whip as primary weapon
+var currently_used_secondary_weapon:String = "fire_grenade" # at first start-up -> use fire grenade as secondary weapon
+
 
 ###----------METHODS: SCREEN PROPERTIES----------###
 

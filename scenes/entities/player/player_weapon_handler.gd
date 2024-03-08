@@ -20,7 +20,7 @@ const valid_primary_weapon_names:Array[String] = [
 var current_weapon:Node2D
 
 @onready var available_secondary_weapons:Dictionary = {
-	"fire_grenade" as String : preload("res://scenes/weapons/grenade/grenade.tscn") as PackedScene
+	"grenade" as String : preload("res://scenes/weapons/grenade/grenade.tscn") as PackedScene
 }
 
 
@@ -62,11 +62,11 @@ func stop_aim_secondary_weapon() -> float:
 
 
 func use_secondary_weapon(secondary_weapon_name:String, start_velocity:Vector2) -> void:
-	if secondary_weapon_name == "fire_grenade":
-		var fire_grenade:RigidBody2D = available_secondary_weapons[secondary_weapon_name].instantiate()
-		fire_grenade.GRENADE_TYPE = secondary_weapon_name
-		fire_grenade.linear_velocity = start_velocity
-		secondary_weapons.add_child(fire_grenade)
+	if secondary_weapon_name.contains("grenade"):
+		var grenade:RigidBody2D = available_secondary_weapons["grenade"].instantiate()
+		grenade.GRENADE_TYPE = secondary_weapon_name
+		grenade.linear_velocity = start_velocity
+		secondary_weapons.add_child(grenade)
 	else:
 		return
 

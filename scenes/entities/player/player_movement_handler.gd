@@ -365,3 +365,13 @@ func action_input_use_secondary_weapon() -> void:
 		side = "right"
 	
 	player.weapon_handler.aim_secondary_weapon(start_pos, side)
+
+
+###----------METHODS: MOVEMENT EFFECTS (CAUSED BY OTHER SCENES)----------###
+
+func effect_get_slow_down(time:float) -> void:
+	current_speed = int(BASE_SPEED / 2)
+	player.animations_handler.animations.speed_scale = 0.5
+	await get_tree().create_timer(time).timeout
+	current_speed = BASE_SPEED
+	player.animations_handler.animations.speed_scale = 1
