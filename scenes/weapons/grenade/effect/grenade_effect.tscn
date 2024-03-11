@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b427cm4ta62tg" path="res://assets/graphics/brushes/brush_20x20px.png" id="2_nesck"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssnud"]
+resource_local_to_scene = true
 size = Vector2(20, 60)
 
 [sub_resource type="CurveTexture" id="CurveTexture_hl7ev"]
@@ -16,6 +17,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 gradient = SubResource("Gradient_fvqri")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yb5bd"]
+resource_local_to_scene = true
 lifetime_randomness = 0.2
 particle_flag_disable_z = true
 emission_shape = 3

@@ -198,6 +198,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g2dfq"]
 shader = ExtResource("6_p0nm4")
 shader_parameter/doBlink = false
+shader_parameter/doFrozenSlowedDown = false
 shader_parameter/doStretch = false
 shader_parameter/widenX = false
 shader_parameter/stretchProgress = 0.0

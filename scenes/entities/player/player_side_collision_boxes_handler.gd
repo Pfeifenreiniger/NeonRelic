@@ -22,33 +22,33 @@ var is_environment_collision_right:bool = false
 
 func _ready() -> void:
 	# set up environment collision checking
-	left_collision_detection_box.body_entered.connect(on_left_collision_detection_box_body_entered)
-	left_collision_detection_box.body_exited.connect(on_left_collision_detection_box_body_exited)
-	right_collision_detection_box.body_entered.connect(on_right_collision_detection_box_body_entered)
-	right_collision_detection_box.body_exited.connect(on_right_collision_detection_box_body_exited)
+	self.left_collision_detection_box.body_entered.connect(self._on_left_collision_detection_box_body_entered)
+	self.left_collision_detection_box.body_exited.connect(self._on_left_collision_detection_box_body_exited)
+	self.right_collision_detection_box.body_entered.connect(self._on_right_collision_detection_box_body_entered)
+	self.right_collision_detection_box.body_exited.connect(self._on_right_collision_detection_box_body_exited)
 
 
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(_delta:float) -> void:
 	# put detection boxes at player's global position
-	left_collision_detection_box.global_position = player.global_position
-	right_collision_detection_box.global_position = player.global_position
+	self.left_collision_detection_box.global_position = player.global_position
+	self.right_collision_detection_box.global_position = player.global_position
 
 
 ###----------CONNECTED SIGNALS----------###
 
-func on_left_collision_detection_box_body_entered(_body:Node2D):
-	is_environment_collision_left = true
+func _on_left_collision_detection_box_body_entered(_body:Node2D):
+	self.is_environment_collision_left = true
 
 
-func on_left_collision_detection_box_body_exited(_body:Node2D):
-	is_environment_collision_left = false
+func _on_left_collision_detection_box_body_exited(_body:Node2D):
+	self.is_environment_collision_left = false
 
 
-func on_right_collision_detection_box_body_entered(_body:Node2D):
-	is_environment_collision_right = true
+func _on_right_collision_detection_box_body_entered(_body:Node2D):
+	self.is_environment_collision_right = true
 
 
-func on_right_collision_detection_box_body_exited(_body:Node2D):
-	is_environment_collision_right = false
+func _on_right_collision_detection_box_body_exited(_body:Node2D):
+	self.is_environment_collision_right = false

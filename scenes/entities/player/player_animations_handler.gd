@@ -25,158 +25,159 @@ var animation_frames_forwards:bool = true
 
 ###----------PROPERTIES: CUSTOM SIGNALS----------###
 
-signal throw_secondary_weapon_frame()
+signal from_to_duck_to_is_duck
+signal from_to_duck_to_stand
+signal throw_secondary_weapon_frame
 
 
 ###----------METHODS: AT INITIATION CALLED----------###
 
 func _ready() -> void:
 	# set up animations
-	animations.animation_finished.connect(on_animation_finished)
-	animations.frame_changed.connect(on_frame_changed)
-	current_animation = "run_right"
-	loop_animation = true
+	self.animations.animation_finished.connect(on_animation_finished)
+	self.animations.frame_changed.connect(on_frame_changed)
+	self.current_animation = "run_right"
+	self.loop_animation = true
 
 
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(_delta:float) -> void:
-	place_animations_sprites_at_players_position()
-	if animation_to_change:
-		select_animation()
+	self.place_animations_sprites_at_players_position()
+	if self.animation_to_change:
+		self.select_animation()
 
 
 ###----------METHODS----------###
 
 func place_animations_sprites_at_players_position() -> void:
-	animations.global_position = player.global_position
+	self.animations.global_position = player.global_position
 
 
 func select_animation() -> void:
-	animations.stop()
-	animations.play(current_animation)
-	if start_run_animation:
-		animations.set_frame(4)
-		start_run_animation = false
-	animation_to_change = false
-	if loop_animation:
-		animation_frames_forwards = true
+	self.animations.stop()
+	self.animations.play(current_animation)
+	if self.start_run_animation:
+		self.animations.set_frame(4)
+		self.start_run_animation = false
+	self.animation_to_change = false
+	if self.loop_animation:
+		self.animation_frames_forwards = true
 
 
 ###----------CONNECTED SIGNALS----------###
 
 func on_animation_finished() -> void:
-	if loop_animation:
-		animations.stop()
-		if animation_frames_forwards:
-			animations.play_backwards(current_animation)
-			animation_frames_forwards = false
+	if self.loop_animation:
+		self.animations.stop()
+		if self.animation_frames_forwards:
+			self.animations.play_backwards(self.current_animation)
+			self.animation_frames_forwards = false
 		else:
-			animations.play(current_animation)
-			animation_frames_forwards = true
+			self.animations.play(self.current_animation)
+			self.animation_frames_forwards = true
 	
 	# to-duck animation is a one-way animation (to ducking-animation or to stand-animation)
-	elif player.movement_handler.to_duck:
-		player.movement_handler.to_duck = false
-		if player.movement_handler.will_duck:
-			player.movement_handler.will_duck = false
-			player.movement_handler.is_duck = true
-			player.hitbox_handler.resize_hitbox(false, true)
-			player.secondary_weapon_start_pos.position.y += 20
-			if "left" in current_animation:
-				current_animation = "duck_left"
+	elif self.player.movement_handler.to_duck:
+		self.player.movement_handler.to_duck = false
+		if self.player.movement_handler.will_duck:
+			self.player.movement_handler.will_duck = false
+			self.player.movement_handler.is_duck = true
+			self.player.hitbox_handler.resize_hitbox(false, true)
+			self.player.weapon_handler.secondary_weapons.adjust_secondary_weapon_start_position('duck')
+			if "left" in self.current_animation:
+				self.current_animation = "duck_left"
 			else:
-				current_animation = "duck_right"
+				self.current_animation = "duck_right"
 		else:
-			player.secondary_weapon_start_pos.position.y -= 20
-			if "left" in current_animation:
-				current_animation = "stand_left"
+			if "left" in self.current_animation:
+				self.current_animation = "stand_left"
 			else:
-				current_animation = "stand_right"
+				self.current_animation = "stand_right"
 		
-		loop_animation = true
-		animation_to_change = true
+		self.loop_animation = true
+		self.animation_to_change = true
 
-	elif player.movement_handler.is_climbing_ledge:
-		player.movement_handler.is_climbing_ledge = false
-		loop_animation = true
-		animation_to_change = true
-		if "left" in current_animation:
-			current_animation = "stand_left"
+	elif self.player.movement_handler.is_climbing_ledge:
+		self.player.movement_handler.is_climbing_ledge = false
+		self.loop_animation = true
+		self.animation_to_change = true
+		if "left" in self.current_animation:
+			self.current_animation = "stand_left"
 		else:
-			current_animation = "stand_right"
+			self.current_animation = "stand_right"
 	
-	elif player.movement_handler.is_rolling:
-		player.movement_handler.is_rolling = false
-		player.stamina_handler.stamina_can_refresh = true
-		loop_animation = true
-		animation_to_change = true
-		side_roll_animation.side_roll_tween = null
+	elif self.player.movement_handler.is_rolling:
+		self.player.movement_handler.is_rolling = false
+		self.player.stamina_handler.stamina_can_refresh = true
+		self.loop_animation = true
+		self.animation_to_change = true
+		self.side_roll_animation.side_roll_tween = null
 	
-	elif player.movement_handler.is_attacking:
+	elif self.player.movement_handler.is_attacking:
 		# whip attack
-		if "whip_attack" in current_animation:
+		if "whip_attack" in self.current_animation:
 			var side:String = ""
-			if "right" in current_animation:
+			if "right" in self.current_animation:
 				side = "right"
 			else:
 				side = "left"
-			if "1" in current_animation:
-				if not player.weapon_handler.current_weapon.charges_whip_attack:
+			if "1" in self.current_animation:
+				if not self.player.weapon_handler.current_weapon.charges_whip_attack:
 					# if charge animation was played -> stop it
-					if "stand" in current_animation:
-						current_animation = "stand_whip_attack_%s_2" % side
+					if "stand" in self.current_animation:
+						self.current_animation = "stand_whip_attack_%s_2" % side
 					else:
-						current_animation = "duck_whip_attack_%s_2" % side
-					animation_to_change = true
-					player.weapon_handler.current_weapon.can_whip_attack_charge = false
-					player.weapon_handler.current_weapon.reset_whip_attack_damage()
-					player.invulnerable_handler.become_invulnerable(0.5, false)
-					whip_attack_charge_shader_animation.stop_whip_attack_shader_animation()
+						self.current_animation = "duck_whip_attack_%s_2" % side
+					self.animation_to_change = true
+					self.player.weapon_handler.current_weapon.can_whip_attack_charge = false
+					self.player.weapon_handler.current_weapon.reset_whip_attack_damage()
+					self.player.invulnerable_handler.become_invulnerable(0.5, false)
+					self.whip_attack_charge_shader_animation.stop_whip_attack_shader_animation()
 				else:
-					if not whip_attack_charge_shader_animation.do_whip_attack_shader_animation:
-						animations.pause()
-						whip_attack_charge_shader_animation.start_whip_attack_shader_animation()
-			elif "2" in current_animation:
+					if not self.whip_attack_charge_shader_animation.do_whip_attack_shader_animation:
+						self.animations.pause()
+						self.whip_attack_charge_shader_animation.start_whip_attack_shader_animation()
+			elif "2" in self.current_animation:
 				# play whip attack
-				if not player.weapon_handler.current_weapon.do_attack_animation:
-					player.weapon_handler.current_weapon.attack_side = side
-					player.weapon_handler.current_weapon.visible = true
-					player.weapon_handler.current_weapon.set_pos_to_player(side)
-					player.weapon_handler.current_weapon.hitbox_zone.reset_hitbox_size()
-					player.weapon_handler.current_weapon.play('attack_%s' % side)
-					player.weapon_handler.current_weapon.init_attack_animation(side)
+				if not self.player.weapon_handler.current_weapon.do_attack_animation:
+					self.player.weapon_handler.current_weapon.attack_side = side
+					self.player.weapon_handler.current_weapon.visible = true
+					self.player.weapon_handler.current_weapon.set_pos_to_player(side)
+					self.player.weapon_handler.current_weapon.hitbox_zone.reset_hitbox_size()
+					self.player.weapon_handler.current_weapon.play('attack_%s' % side)
+					self.player.weapon_handler.current_weapon.init_attack_animation(side)
 				# change to attack 3 animation
-				if player.weapon_handler.current_weapon.do_attack_animation and player.weapon_handler.current_weapon.done_attack_animation:
-					player.weapon_handler.current_weapon.finish_attack_animation()
-					animation_to_change = true
+				if self.player.weapon_handler.current_weapon.do_attack_animation and self.player.weapon_handler.current_weapon.done_attack_animation:
+					self.player.weapon_handler.current_weapon.finish_attack_animation()
+					self.animation_to_change = true
 					if "stand" in current_animation:
-						current_animation = "stand_whip_attack_%s_3" % side
+						self.current_animation = "stand_whip_attack_%s_3" % side
 					else:
-						current_animation = "duck_whip_attack_%s_3" % side
-			elif "3" in current_animation:
+						self.current_animation = "duck_whip_attack_%s_3" % side
+			elif "3" in self.current_animation:
 				# change to idle animation
-				loop_animation = true
-				animation_to_change = true
-				player.movement_handler.is_attacking = false
-				player.weapon_handler.current_weapon.can_whip_attack_charge = true
-				player.stamina_handler.stamina_can_refresh = true
-				if "stand" in current_animation:
-					current_animation = "stand_%s" % side
+				self.loop_animation = true
+				self.animation_to_change = true
+				self.player.movement_handler.is_attacking = false
+				self.player.weapon_handler.current_weapon.can_whip_attack_charge = true
+				self.player.stamina_handler.stamina_can_refresh = true
+				if "stand" in self.current_animation:
+					self.current_animation = "stand_%s" % side
 				else:
-					current_animation = "duck_%s" % side
+					self.current_animation = "duck_%s" % side
 					if not Input.is_action_pressed("down"):
 						# simulate duck-input and key-release from player for proper animation
 						Input.action_press("down")
 						await get_tree().create_timer(0.25).timeout
 						Input.action_release("down")
 					
-	elif player.movement_handler.is_throwing:
-		player.movement_handler.is_throwing = false
-		current_animation = current_animation.split('_throw_')[0] + "_" + current_animation.split('_throw_')[1]
-		loop_animation = true
-		animation_to_change = true
-		if "duck" in current_animation and not Input.is_action_pressed("down"):
+	elif self.player.movement_handler.is_throwing:
+		self.player.movement_handler.is_throwing = false
+		self.current_animation = self.current_animation.split('_throw_')[0] + "_" + self.current_animation.split('_throw_')[1]
+		self.loop_animation = true
+		self.animation_to_change = true
+		if "duck" in self.current_animation and not Input.is_action_pressed("down"):
 			# simulate duck-input and key-release from player for proper animation
 			Input.action_press("down")
 			await get_tree().create_timer(0.25).timeout
@@ -185,7 +186,7 @@ func on_animation_finished() -> void:
 
 func on_frame_changed() -> void:
 	# frame index 4 starts actually throw of secondary weapon (e.g. grenade)
-	if "throw" in current_animation:
-		if animations.frame == 4:
-			throw_secondary_weapon_frame.emit()
+	if "throw" in self.current_animation:
+		if self.animations.frame == 4:
+			self.throw_secondary_weapon_frame.emit()
 			

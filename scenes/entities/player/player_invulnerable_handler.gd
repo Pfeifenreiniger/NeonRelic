@@ -21,7 +21,7 @@ var invulnerability_shader:bool = false
 ###----------METHODS: AT INITIATION CALLED----------###
 
 func _ready() -> void:
-	invulnerable_timer.timeout.connect(on_invulnerable_timer_timeout)
+	self.invulnerable_timer.timeout.connect(self._on_invulnerable_timer_timeout)
 
 
 ###----------METHODS----------###
@@ -31,21 +31,21 @@ func become_invulnerable(timer_value:float, with_shader:bool) -> void:
 	Player gets invulnerable to damage for a short time period (defined in argument for parameter timer_value).
 	Invulnerability-shader-animation starts only with true-argument of with_shader.
 	"""
-	invulnerability_shader = with_shader
-	is_invulnerable = true
-	invulnerable_timer.wait_time = timer_value
-	invulnerable_timer.start()
-	if invulnerability_shader:
-		player.animations_handler.animations.material.set_shader_parameter("doBlink", true)
+	self.invulnerability_shader = with_shader
+	self.is_invulnerable = true
+	self.invulnerable_timer.wait_time = timer_value
+	self.invulnerable_timer.start()
+	if self.invulnerability_shader:
+		self.player.animations_handler.animations.material.set_shader_parameter("doBlink", true)
 
 
 ###----------CONNECTED SIGNALS----------###
 
-func on_invulnerable_timer_timeout() -> void:
+func _on_invulnerable_timer_timeout() -> void:
 	"""
 	Time period of invulnerability is over -> player gets vulnerable again.
 	"""
-	is_invulnerable = false
-	if invulnerability_shader:
-		player.animations_handler.animations.material.set_shader_parameter("doBlink", false)
-		invulnerability_shader = false
+	self.is_invulnerable = false
+	if self.invulnerability_shader:
+		self.player.animations_handler.animations.material.set_shader_parameter("doBlink", false)
+		self.invulnerability_shader = false

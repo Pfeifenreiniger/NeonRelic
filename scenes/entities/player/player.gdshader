@@ -11,6 +11,9 @@ for whip-attack-charge animations.
 // uniform attribute to control blink status
 uniform bool doBlink = false;
 
+// uniform attribute to control frozen status
+uniform bool doFrozenSlowedDown = false;
+
 // uniform attribute to control stretch/shrink status
 uniform bool doStretch = false;
 uniform bool widenX = false;
@@ -18,6 +21,7 @@ uniform float stretchProgress = 0.0;
 
 // 3-dimensional color values for white (blink) and purple (charge attack)
 const vec3 whiteColor = vec3(1.0, 1.0, 1.0);
+const vec3 iceBlueColor = vec3(0.498039, 1, 0.831373);
 const vec3 purpleColor = vec3(0.3, 0.0, 0.4);
 
 
@@ -35,8 +39,14 @@ void fragment() {
 		if (currentAlpha >= 0.5) {
 			currentAlpha -= 0.3;
 		}
-		targetColor = vec4(whiteColor, currentAlpha);
+		targetColor = mix(originalColor, vec4(whiteColor, currentAlpha), 0.6);
+		
+	} else if (doFrozenSlowedDown) {
+		
+		targetColor = mix(originalColor, vec4(iceBlueColor, currentAlpha), 0.4);
+		
 	} else if (doStretch) {
+		
 		float purpleColorOverlay = 0.0;
 		if (stretchProgress > 0.4) {
 			purpleColorOverlay = 0.4;

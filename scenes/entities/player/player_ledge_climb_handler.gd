@@ -15,15 +15,15 @@ var current_ledge_to_climb_area:Area2D = null
 
 func _ready() -> void:
 	# set up ledge climbing
-	ledge_climb_area.area_entered.connect(on_ledge_area_entered)
-	ledge_climb_area.area_exited.connect(on_ledge_area_exited)
+	self.ledge_climb_area.area_entered.connect(self._on_ledge_area_entered)
+	self.ledge_climb_area.area_exited.connect(self._on_ledge_area_exited)
 
 
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(_delta:float) -> void:
 	# put ledge climb area at player's global position
-	ledge_climb_area.global_position = player.global_position
+	self.ledge_climb_area.global_position = self.player.global_position
 
 
 ###----------METHODS----------###
@@ -34,13 +34,13 @@ func check_movements_for_climbing() -> bool:
 	Returns true when player can climb, otherwise false.
 	"""
 	var not_allowed_movements:Array[bool] = [
-		player.movement_handler.to_duck,
-		player.movement_handler.is_duck,
-		player.movement_handler.will_duck,
-		player.movement_handler.is_attacking,
-		player.movement_handler.is_throwing,
-		player.movement_handler.is_rolling,
-		player.movement_handler.is_climbing_ledge
+		self.player.movement_handler.to_duck,
+		self.player.movement_handler.is_duck,
+		self.player.movement_handler.will_duck,
+		self.player.movement_handler.is_attacking,
+		self.player.movement_handler.is_throwing,
+		self.player.movement_handler.is_rolling,
+		self.player.movement_handler.is_climbing_ledge
 	]
 	if true in not_allowed_movements:
 		return false
@@ -50,11 +50,11 @@ func check_movements_for_climbing() -> bool:
 
 ###----------CONNECTED SIGNALS----------###
 
-func on_ledge_area_entered(area:Area2D) -> void:
+func _on_ledge_area_entered(area:Area2D) -> void:
 	if "ledge_to_climb" in area:
-		current_ledge_to_climb_area = area
+		self.current_ledge_to_climb_area = area
 
 
-func on_ledge_area_exited(area:Area2D) -> void:
+func _on_ledge_area_exited(area:Area2D) -> void:
 	if "ledge_to_climb" in area:
-		current_ledge_to_climb_area = null
+		self.current_ledge_to_climb_area = null

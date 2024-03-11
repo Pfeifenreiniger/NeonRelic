@@ -19,10 +19,10 @@ func climb_up_ledge(direction:String) -> void:
 	
 	var to_pos_x:float
 	if direction == "left":
-		to_pos_x = player.global_position.x - player_x_offset
+		to_pos_x = self.player.global_position.x - player_x_offset
 	else:
-		to_pos_x = player.global_position.x + player_x_offset
+		to_pos_x = self.player.global_position.x + player_x_offset
 	
-	var to_pos_y:float = player.global_position.y - player_y_offset
+	var to_pos_y:float = self.player.global_position.y - player_y_offset
 	
-	tween.tween_property(player, "global_position", Vector2(to_pos_x, to_pos_y), animation_duration)
+	tween.tween_property(self.player, "global_position", Vector2(to_pos_x, to_pos_y), animation_duration)

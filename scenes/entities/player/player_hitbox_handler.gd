@@ -21,8 +21,8 @@ func resize_hitbox(to_full:bool=false, reduce:bool=false) -> void:
 	Changes the hitbox-size between full (standing) and reduced (ducking).
 	"""
 	if to_full:
-		player.hitbox.position.y = hitbox_y_full
-		player.hitbox.shape.set_height(hitbox_height_full)
+		self.player.hitbox.position.y = self.hitbox_y_full
+		self.player.hitbox.shape.set_height(self.hitbox_height_full)
 	elif reduce:
-		player.hitbox.position.y = hitbox_y_reduced
-		player.hitbox.shape.set_height(hitbox_height_reduced)
+		self.player.hitbox.position.y = self.hitbox_y_reduced
+		self.player.hitbox.shape.set_height(self.hitbox_height_reduced)
