@@ -29,50 +29,50 @@ var x_sizes:Array[int] = [
 ###----------METHODS: AT INITIATION CALLED----------###
 
 func _ready() -> void:
-	self.body_entered.connect(self._on_hitbox_zone_body_entered)
+	body_entered.connect(_on_hitbox_zone_body_entered)
 
 
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(_delta:float) -> void:
-	if self.whip.do_attack_animation and not self.whip.done_attack_animation:
-		self.adjust_hitbox_size()
-		self.whip.set_attack_particles_pos_to_whips_end()
+	if whip.do_attack_animation and not whip.done_attack_animation:
+		adjust_hitbox_size()
+		whip.set_attack_particles_pos_to_whips_end()
 
 
 ###----------METHODS----------###
 
 func reset_hitbox_size() -> void:
-	self.hitbox.shape.size.x = self.x_sizes[0]
-	if self.whip.attack_side == "right":
-		self.hitbox.position.x = self.x_start_pos_right
+	hitbox.shape.size.x = x_sizes[0]
+	if whip.attack_side == "right":
+		hitbox.position.x = x_start_pos_right
 	else:
-		self.hitbox.position.x = self.x_start_pos_left
-	self.hitbox.disabled = true
+		hitbox.position.x = x_start_pos_left
+	hitbox.disabled = true
 
 
 func adjust_hitbox_size() -> void:
-	if self.hitbox.disabled:
-		self.hitbox.disabled = false
-	var current_frame:int = self.whip.get_frame()
-	var current_size_x:int = self.x_sizes[current_frame]
-	if current_size_x != self.hitbox.shape.size.x:
-		self.hitbox.shape.size.x = current_size_x
-		var size_x_diff:int = round((current_size_x - self.x_sizes[0]) / 2)
-		if self.whip.attack_side == "right":
-			self.hitbox.position.x = -(abs(self.x_start_pos_right) - size_x_diff)
+	if hitbox.disabled:
+		hitbox.disabled = false
+	var current_frame:int = whip.get_frame()
+	var current_size_x:int = x_sizes[current_frame]
+	if current_size_x != hitbox.shape.size.x:
+		hitbox.shape.size.x = current_size_x
+		var size_x_diff:int = round((current_size_x - x_sizes[0]) / 2)
+		if whip.attack_side == "right":
+			hitbox.position.x = -(abs(x_start_pos_right) - size_x_diff)
 		else:
-			self.hitbox.position.x = abs(self.x_start_pos_left) - size_x_diff
+			hitbox.position.x = abs(x_start_pos_left) - size_x_diff
 
 
 ###----------CONNECTED SIGNALS----------###
 
 func _on_hitbox_zone_body_entered(body:Node2D) -> void:
-	if self.whip.do_attack_animation:
+	if whip.do_attack_animation:
 		if "IS_ENEMY" in body:
 			pass
 			# ToDo: do damage to enemy
 		elif "IS_OBJECT" in body:
 			pass
 			# ToDo: give object to player
-		self.hitbox_zone_gone_entered.emit()
+		hitbox_zone_gone_entered.emit()

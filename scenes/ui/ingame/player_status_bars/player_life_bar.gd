@@ -11,18 +11,18 @@ extends BasePlayerStatus
 func _ready() -> void:
 	super._ready()
 	# overrides properties of base scene
-	self.tint_under_color = Color(0.871, 0.267, 0, 1)
-	self.tint_over_color = Color(1, 0, 0, 1)
-	self.tint_progress_color = Color(1, 0, 0, 1)
-	self.progress_bar = $MarginContainer/LifeProgressBar as TextureProgressBar
+	tint_under_color = Color(0.871, 0.267, 0, 1)
+	tint_over_color = Color(1, 0, 0, 1)
+	tint_progress_color = Color(1, 0, 0, 1)
+	progress_bar = $MarginContainer/LifeProgressBar as TextureProgressBar
 	
-	self.start_heart_animation()
+	start_heart_animation()
 
 
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(_delta:float) -> void:
-	self.check_current_player_health()
+	check_current_player_health()
 
 
 ###----------METHODS: CHECK CURRENT HEALTH PROPERTY----------###
@@ -30,16 +30,16 @@ func _process(_delta:float) -> void:
 func check_current_player_health() -> void:
 	# check for life progress bar
 	var max_player_health:float = Globals.player_max_health
-	var max_life_bar_value:int = int(self.progress_bar.max_value)
+	var max_life_bar_value:int = int(progress_bar.max_value)
 	if max_player_health != max_life_bar_value:
-		self.progress_bar.max_value = int(max_player_health)
+		progress_bar.max_value = int(max_player_health)
 	
 	var current_player_health:float = Globals.player_current_health
 	var current_life_bar_value:int = int(progress_bar.value)
 	if current_player_health != current_life_bar_value:
 		if current_life_bar_value > current_player_health: # -> player lost health
-			self.apply_tint_colors_to_progress_bar()
-		self.progress_bar.value = current_player_health
+			apply_tint_colors_to_progress_bar()
+		progress_bar.value = current_player_health
 
 	# check for heart beat animation
 	var do_speed_scale:int
@@ -56,11 +56,11 @@ func check_current_player_health() -> void:
 	else:
 		do_speed_scale = 1
 
-	if self.heart_animation.speed_scale != do_speed_scale:
-		self.heart_animation.set_speed_scale(do_speed_scale)
+	if heart_animation.speed_scale != do_speed_scale:
+		heart_animation.set_speed_scale(do_speed_scale)
 
 
 ###----------METHODS: UI ANIMATIONS----------###
 
 func start_heart_animation() -> void:
-	self.heart_animation.play("heartbeat")
+	heart_animation.play("heartbeat")

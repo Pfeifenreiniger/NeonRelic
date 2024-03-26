@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://cub4na0tyicv2"]
+
+[ext_resource type="Script" path="res://scenes/weapons/sword/sword.gd" id="1_bap7n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t6gcs"]
+size = Vector2(58, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ag2wl"]
+size = Vector2(71.5, 70)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8al67"]
+size = Vector2(70.5, 31)
+
+[node name="Sword" type="Node2D"]
+script = ExtResource("1_bap7n")
+
+[node name="HitboxZoneCombo1" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxZoneCombo1"]
+position = Vector2(-17, -21)
+shape = SubResource("RectangleShape2D_t6gcs")
+disabled = true
+
+[node name="HitboxZoneCombo2" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxZoneCombo2"]
+position = Vector2(-14, -11)
+shape = SubResource("RectangleShape2D_ag2wl")
+disabled = true
+
+[node name="HitboxZoneCombo3" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxZoneCombo3"]
+position = Vector2(-35, 6)
+shape = SubResource("RectangleShape2D_8al67")
+disabled = true

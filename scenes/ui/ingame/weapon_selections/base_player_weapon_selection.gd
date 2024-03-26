@@ -22,4 +22,4 @@ var red_color:Color = Color('#c10019')
 
 func _arrow_back_to_normal_color_timer(arrow:Sprite2D, time:float) -> void:
 	await get_tree().create_timer(time).timeout
-	arrow.modulate = self.normal_color
+	arrow.modulate = normal_color

@@ -17,7 +17,7 @@ var max_stamina:int = Globals.player_max_stamina:
 		max_stamina = value
 		Globals.player_max_stamina = value
 
-var current_stamina:float = self.max_stamina:
+var current_stamina:float = max_stamina:
 	get:
 		return current_stamina
 	set(value):
@@ -29,6 +29,7 @@ var stamina_refreshment_rate:int = 1
 var stamina_costs:Dictionary = {
 	"side_roll" as String : 20 as int,
 	"whip_attack" as String : 10 as int,
+	"sword_attack" as String: 5 as int,
 	"use_secondary_weapon" as String : 5 as int
 }
 
@@ -36,7 +37,7 @@ var stamina_costs:Dictionary = {
 ###----------METHODS: AT INITIATION CALLED----------###
 
 func _ready() -> void:
-	self.stamina_refresh_timer.timeout.connect(self._on_stamina_refresh_timer_timeout)
+	stamina_refresh_timer.timeout.connect(_on_stamina_refresh_timer_timeout)
 
 
 ###----------METHODS----------###
@@ -45,29 +46,29 @@ func check_player_has_enough_stamina(amount_stamina:int) -> bool:
 	"""
 	Checks if the current stamina amount is high enough to perform an action. 
 	"""
-	return self.current_stamina >= amount_stamina * self.stamina_cost_multiplier
+	return current_stamina >= amount_stamina * stamina_cost_multiplier
 
 
 func cost_player_stamina(amount_stamina:int) -> void:
 	"""
 	Reduce stamina with actions like attacks/rolls.
 	"""
-	self.current_stamina -= amount_stamina * self.stamina_cost_multiplier
+	current_stamina -= amount_stamina * stamina_cost_multiplier
 
 
 func refresh_player_stamina() -> void:
 	"""
 	Refreshes the current stamina by the stamina refreshment rate amount.
 	"""
-	if self.stamina_can_refresh:
-		if self.current_stamina < self.max_stamina:
-			if self.current_stamina + self.stamina_refreshment_rate <= self.max_stamina:
-				self.current_stamina += self.stamina_refreshment_rate
+	if stamina_can_refresh:
+		if current_stamina < max_stamina:
+			if current_stamina + stamina_refreshment_rate <= max_stamina:
+				current_stamina += stamina_refreshment_rate
 			else:
-				self.current_stamina = self.max_stamina
+				current_stamina = max_stamina
 
 
 ###----------CONNECTED SIGNALS----------###
 
 func _on_stamina_refresh_timer_timeout() -> void:
-	self.refresh_player_stamina()
+	refresh_player_stamina()

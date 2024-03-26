@@ -22,9 +22,9 @@ var grenade_explosion_scene:PackedScene = preload("res://scenes/weapons/grenade/
 
 func _ready() -> void:
 	# set position to player's position
-	self.global_position = self.player.secondary_weapon_start_pos.global_position
+	global_position = player.secondary_weapon_start_pos.global_position
 	# connect timer timeout signal
-	self.explosion_timer.timeout.connect(self._on_explosion_timer_timeout)
+	explosion_timer.timeout.connect(_on_explosion_timer_timeout)
 
 
 ###----------CONNECTED SIGNALS----------###
@@ -35,17 +35,17 @@ func _on_explosion_timer_timeout() -> void:
 	grenade_explosion.grenade_type = GRENADE_TYPE
 	add_child(grenade_explosion)
 	# connect explosion scene signals
-	grenade_explosion.hide_grenade.connect(self._on_hide_grenade)
-	grenade_explosion.destroy_grenade.connect(self._on_destroy_grenade)
+	grenade_explosion.hide_grenade.connect(_on_hide_grenade)
+	grenade_explosion.destroy_grenade.connect(_on_destroy_grenade)
 	# start animation and stop grenade from moving
 	grenade_explosion.play()
-	self.linear_velocity = Vector2.ZERO
-	self.lock_rotation = true
+	linear_velocity = Vector2.ZERO
+	lock_rotation = true
 
 
 func _on_hide_grenade() -> void:
-	self.animations.visible = false
+	animations.visible = false
 
 
 func _on_destroy_grenade() -> void:
-	self.queue_free()
+	queue_free()

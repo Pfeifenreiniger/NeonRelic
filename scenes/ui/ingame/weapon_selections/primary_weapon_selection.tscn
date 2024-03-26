@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cj67s3kdnlkko"]
+[gd_scene load_steps=9 format=3 uid="uid://cj67s3kdnlkko"]
 
 [ext_resource type="PackedScene" uid="uid://cw2m0y1vhqw3o" path="res://scenes/ui/ingame/weapon_selections/base_player_weapon_selection.tscn" id="1_0jj7u"]
 [ext_resource type="Script" path="res://scenes/ui/ingame/weapon_selections/primary_weapon_selection.gd" id="2_dfej2"]
@@ -26,6 +26,21 @@ radial_accel_max = 33.06
 scale_max = 3.0
 color = Color(0.815686, 0, 0.819608, 0.501961)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rjjov"]
+lifetime_randomness = 0.33
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+inherit_velocity_ratio = 0.083
+spread = 27.149
+angular_velocity_min = 23.8
+angular_velocity_max = 83.31
+orbit_velocity_min = -0.695
+orbit_velocity_max = -0.066
+gravity = Vector3(0, 98, 0)
+scale_max = 3.0
+color = Color(0.815686, 0, 0.819608, 0.501961)
+
 [node name="PrimaryWeaponSelection" instance=ExtResource("1_0jj7u")]
 script = ExtResource("2_dfej2")
 
@@ -40,6 +55,13 @@ texture = ExtResource("5_17wih")
 
 [node name="WhipParticles" type="GPUParticles2D" parent="." index="4"]
 position = Vector2(1230, 630)
+emitting = false
 amount = 12
 process_material = SubResource("ParticleProcessMaterial_y4bby")
+lifetime = 1.4
+
+[node name="SwordParticles" type="GPUParticles2D" parent="." index="5"]
+position = Vector2(1235, 624)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_rjjov")
 lifetime = 1.4

@@ -1,18 +1,6 @@
 extends CharacterBody2D
 
 
-###------NODE REFERENCES------###
-
-@onready var hitbox:CollisionShape2D = $HitBox as CollisionShape2D
-
-# Markers
-@onready var weapon_stand_whip_attack_right_pos:Marker2D = $Markers/WeaponStandWhipAttackRight as Marker2D
-@onready var weapon_stand_whip_attack_left_pos:Marker2D = $Markers/WeaponStandWhipAttackLeft as Marker2D
-@onready var weapon_duck_whip_attack_right_pos:Marker2D = $Markers/WeaponDuckWhipAttackRight as Marker2D
-@onready var weapon_duck_whip_attack_left_pos:Marker2D = $Markers/WeaponDuckWhipAttackLeft as Marker2D
-@onready var secondary_weapon_start_pos:Marker2D = $Markers/SecondaryWeaponStart as Marker2D
-
-
 ###----------SCENE REFERENCES----------###
 
 @onready var movement_handler:Node = $PlayerMovementHandler as Node
@@ -27,7 +15,18 @@ extends CharacterBody2D
 @onready var weapon_handler:Node = $PlayerWeaponHandler as Node
 
 
+###------NODE REFERENCES------###
+
+@onready var hitbox:CollisionShape2D = $HitBox as CollisionShape2D
+
+# Markers
+@onready var weapon_stand_whip_attack_right_pos:Marker2D = $Markers/WeaponStandWhipAttackRight as Marker2D
+@onready var weapon_stand_whip_attack_left_pos:Marker2D = $Markers/WeaponStandWhipAttackLeft as Marker2D
+@onready var weapon_duck_whip_attack_right_pos:Marker2D = $Markers/WeaponDuckWhipAttackRight as Marker2D
+@onready var weapon_duck_whip_attack_left_pos:Marker2D = $Markers/WeaponDuckWhipAttackLeft as Marker2D
+@onready var secondary_weapon_start_pos:Marker2D = $Markers/SecondaryWeaponStart as Marker2D
+
+
 ###----------PROPERTIES----------###
 
 const IS_PLAYER:bool = true
-
