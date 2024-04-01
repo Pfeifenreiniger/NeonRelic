@@ -24,7 +24,7 @@ var can_coyote_jump:bool = false
 
 # gravity
 var BASE_GRAVITY:int = int(ProjectSettings.get_setting("physics/2d/default_gravity"))
-var current_gravity:int = 980
+var current_gravity:int = BASE_GRAVITY
 
 # movement states
 var to_duck:bool = false
@@ -41,12 +41,12 @@ var is_climbing_ledge:bool = false
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(delta:float) -> void:
-	apply_movement(delta)
+	_apply_movement(delta)
 
 
 ###----------METHODS: 2-DIMENSIONAL MOVEMENT----------###
 
-func move_x() -> void:
+func _move_x() -> void:
 	if check_if_player_can_horizontally_move():
 		# run right / left or stand idle
 		player.controls_handler.check_input_run_x_axis_key()
@@ -58,57 +58,74 @@ func move_x() -> void:
 		player.velocity.x = direction.x * current_speed
 
 
-func move_y(delta:float) -> void:
+func _move_y(delta:float) -> void:
 	if not player.is_on_floor(): # player not on ground
-		# apply gravity when player is not ducking nor climbing a ledge
-		if not check_if_player_is_ducking() and not is_climbing_ledge:
-			player.velocity.y += current_gravity * delta
-		
-		# checks for short jump input (via jump-key release)
-		if not is_climbing_ledge:
-			player.controls_handler.check_input_jump_key()
-		
-		# if gravity influenced player's physic -> check if he is falling
-		if player.velocity.y > 0  and not is_climbing_ledge:
-			if not is_falling:
-				if not is_jumping: # coyote jump only when player falls from platform
-					check_coyote_jump()
-				is_jumping = false
-				is_rolling = false
-				player.stamina_handler.stamina_can_refresh = true
-				if player.animations_handler.side_roll_animation.side_roll_tween != null:
-					player.animations_handler.side_roll_animation.side_roll_tween.stop()
-				if player.animations_handler.sword_attack_animation.x_movement_tween != null:
-					player.animations_handler.sword_attack_animation.x_movement_tween.stop()
-					player.movement_handler.is_attacking = false
-				is_falling = true
-				direction.y = 1
-				if "left" in player.animations_handler.current_animation:
-					player.animations_handler.current_animation = "fall_down_left"
-				else:
-					player.animations_handler.current_animation = "fall_down_right"
-				player.animations_handler.loop_animation = false
-				player.animations_handler.animation_to_change = true
+		_move_y_player_not_on_floor(delta)
 	else: # player on ground
-		if is_falling:
-			is_falling = false
-			direction.y = 0
-		# ground-y-movement only possible when player's not currently climbing up a ledge, is attacking or is rolling
-		if not is_climbing_ledge and not is_attacking and not is_rolling:
-			# player jumping
-			player.controls_handler.check_input_jump_key()
-			# or player ducking
-			player.controls_handler.check_input_duck_key()
+		_move_y_player_on_floor()
 
 
-func move() -> void:
+func _move_y_player_not_on_floor(delta:float) -> void:
+	"""
+	Player's y-axis movement when he's not on the floor.
+	"""
+	
+	# apply gravity when player is not ducking nor climbing a ledge
+	if not check_if_player_is_ducking() and not is_climbing_ledge:
+		player.velocity.y += current_gravity * delta
+	
+	# checks for short jump input (via jump-key release)
+	if not is_climbing_ledge:
+		player.controls_handler.check_input_jump_key()
+	
+	# if gravity influenced player's physic -> check if he is falling
+	if player.velocity.y > 0  and not is_climbing_ledge:
+		if not is_falling:
+			if not is_jumping: # coyote jump only when player falls from platform
+				check_coyote_jump()
+			is_jumping = false
+			is_rolling = false
+			player.stamina_handler.stamina_can_refresh = true
+			if player.animations_handler.side_roll_animation.side_roll_tween != null:
+				player.animations_handler.side_roll_animation.side_roll_tween.stop()
+			if player.animations_handler.sword_attack_animation.x_movement_tween != null:
+				player.animations_handler.sword_attack_animation.x_movement_tween.stop()
+				player.movement_handler.is_attacking = false
+				player.animations_handler.sword_attack_animation.sword_attack_combo_time_window_rectangle.rect_to_draw = false
+			is_falling = true
+			direction.y = 1
+			if "left" in player.animations_handler.current_animation:
+				player.animations_handler.current_animation = "fall_down_left"
+			else:
+				player.animations_handler.current_animation = "fall_down_right"
+			player.animations_handler.loop_animation = false
+			player.animations_handler.animation_to_change = true
+
+
+func _move_y_player_on_floor() -> void:
+	"""
+	Player's y-axis movement when he's on the floor.
+	"""
+	# player got onto the floor last frame from a falling movement state -> he's not falling anymore
+	if is_falling:
+		is_falling = false
+		direction.y = 0
+	# ground-y-movement only possible when player's not currently climbing up a ledge, is attacking or is rolling
+	if not is_climbing_ledge and not is_attacking and not is_rolling:
+		# player jumping
+		player.controls_handler.check_input_jump_key()
+		# or player ducking
+		player.controls_handler.check_input_duck_key()
+
+
+func _move() -> void:
 	player.move_and_slide()
 
 
-func apply_movement(delta:float) -> void:
-	move_x()
-	move_y(delta)
-	move()
+func _apply_movement(delta:float) -> void:
+	_move_x()
+	_move_y(delta)
+	_move()
 
 
 ###----------METHODS: MOVEMENT CONDITION CHECKS----------###
@@ -215,7 +232,8 @@ func action_input_side_roll_x_axis(side:String) -> void:
 				player.stamina_handler.stamina_can_refresh = false
 				player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["side_roll"])
 				player.animations_handler.side_roll_animation.do_side_roll("right")
-				player.invulnerable_handler.become_invulnerable(0.5, false)
+				if not player.invulnerable_handler.is_invulnerable:
+					player.invulnerable_handler.become_invulnerable(0.5, false)
 			else:
 				player.controls_handler.player_roll_action_inputs["right"] = button_move_right_press_timestamp
 	else:
@@ -230,7 +248,8 @@ func action_input_side_roll_x_axis(side:String) -> void:
 				player.stamina_handler.stamina_can_refresh = false
 				player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["side_roll"])
 				player.animations_handler.side_roll_animation.do_side_roll("left")
-				player.invulnerable_handler.become_invulnerable(0.5, false)
+				if not player.invulnerable_handler.is_invulnerable:
+					player.invulnerable_handler.become_invulnerable(0.5, false)
 			else:
 				player.controls_handler.player_roll_action_inputs["left"] = button_move_left_press_timestamp
 
@@ -423,10 +442,14 @@ func effect_get_slow_down(time:float) -> void:
 	Movement (and animation) speed of player get reduced by half for the amount
 	of time passed as argument.
 	"""
-	current_speed = int(BASE_SPEED / 2)
+	current_speed = int(round(BASE_SPEED / 2))
 	player.animations_handler.animations.speed_scale = 0.5
 	player.animations_handler.animations.material.set_shader_parameter("doFrozenSlowedDown", true)
+	player.animations_handler.side_roll_animation.current_player_x_offset = int(player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET / 2)
+	player.animations_handler.side_roll_animation.current_animation_duration = int(player.animations_handler.side_roll_animation.BASE_ANIMATION_DURATION * 2)
 	await get_tree().create_timer(time).timeout
 	current_speed = BASE_SPEED
 	player.animations_handler.animations.speed_scale = 1
 	player.animations_handler.animations.material.set_shader_parameter("doFrozenSlowedDown", false)
+	player.animations_handler.side_roll_animation.current_player_x_offset = player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET
+	player.animations_handler.side_roll_animation.current_animation_duration = player.animations_handler.side_roll_animation.BASE_ANIMATION_DURATION

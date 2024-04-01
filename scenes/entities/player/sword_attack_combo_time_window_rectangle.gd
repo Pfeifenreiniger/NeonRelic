@@ -31,9 +31,9 @@ func _draw() -> void:
 		
 		position = player.position + Vector2(0, 60)
 		
-		var rect_pos = Vector2.ZERO
-		var rect_size = Vector2(150 - (current_animation_frame * 10), 150 - (current_animation_frame * 10))
-		var rect = Rect2(rect_pos, rect_size)
+		var rect_pos:Vector2 = Vector2.ZERO
+		var rect_size:Vector2 = Vector2(150 - (current_animation_frame * 10), 150 - (current_animation_frame * 10))
+		var rect:Rect2 = Rect2(rect_pos, rect_size)
 		
 		draw_set_transform(rect_pos, 3.12)
 		draw_rect(rect, current_rect_color, false, 1.4)

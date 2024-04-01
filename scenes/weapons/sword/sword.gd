@@ -37,6 +37,15 @@ const hitbox_positions:Dictionary = {
 	}
 }
 
+
+###----------METHODS: AT INITIATION CALLED----------###
+
+func _ready() -> void:
+	hitbox_zone_combo_1.body_entered.connect(_on_hitbox_zone_combo_1_body_entered)
+	hitbox_zone_combo_2.body_entered.connect(_on_hitbox_zone_combo_2_body_entered)
+	hitbox_zone_combo_3.body_entered.connect(_on_hitbox_zone_combo_3_body_entered)
+
+
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(_delta:float) -> void:
@@ -66,13 +75,13 @@ func adjust_hitbox_position(combo_phase:int) -> void:
 
 func activate_hitbox(combo_phase:int, current_frame:int) -> void:
 	if combo_phase == 1:
-		if current_frame >= 5 or current_frame <= 7:
+		if current_frame >= 5 and current_frame <= 7:
 			hitbox_combo_1.disabled = false
 	elif combo_phase == 2:
-		if current_frame >= 3 or current_frame <= 7:
+		if current_frame >= 3 and current_frame <= 7:
 			hitbox_combo_2.disabled = false
 	else:
-		if current_frame >= 3 or current_frame <= 4:
+		if current_frame >= 3 and current_frame <= 4:
 			hitbox_combo_3.disabled = false
 
 
@@ -91,4 +100,27 @@ func check_current_hitbox_state() -> void:
 	activate_hitbox(current_combo_phase, current_animation_frame)
 
 
-# ToDo - Signals schreiben, die beim Eintritt in die HitboxZones getriggert werden, um Gegner Schaden zuzufuegen und zurueckzustossen
+###----------METHODS: CONNECTED SIGNALS----------###
+
+func _on_hitbox_zone_combo_1_body_entered(body:Node2D) -> void:
+	# Due to collision layer body is always an enemy.
+	
+	# ToDo - Gegner zurueckstossen (wenig zurueckstossen)
+	if 'IS_ENEMY' in body:
+		body.health_handler.get_damage(10)
+
+
+func _on_hitbox_zone_combo_2_body_entered(body:Node2D) -> void:
+	# Due to collision layer body is always an enemy.
+	
+	# ToDo - Gegner Schaden zurueckstossen (maessig zurueckstossen)
+	if 'IS_ENEMY' in body:
+		body.health_handler.get_damage(20)
+
+
+func _on_hitbox_zone_combo_3_body_entered(body:Node2D) -> void:
+	# Due to collision layer body is always an enemy.
+	
+	# ToDo - Gegner Schaden zurueckstossen (hier am weitesten zurueckstossen)
+	if 'IS_ENEMY' in body:
+		body.health_handler.get_damage(5)

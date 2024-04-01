@@ -14,7 +14,6 @@ extends Node
 ###----------PROPERTIES----------###
 
 var is_invulnerable:bool = false
-
 var invulnerability_shader:bool = false
 
 

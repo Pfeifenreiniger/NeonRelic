@@ -75,4 +75,5 @@ func _on_animation_finished():
 func _on_hit_area_body_entered(body:Node2D) -> void:
 	if not done_damage_to_enemy and "IS_ENEMY" in body:
 		done_damage_to_enemy = true
-		# ToDo - do actual damage to enemy
+		# TEMP - Schaden der Explosion noch balancen
+		body.health_handler.get_damage(10)

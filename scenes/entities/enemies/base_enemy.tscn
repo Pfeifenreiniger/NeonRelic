@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://buxj1tjw810ml"]
+
+[ext_resource type="Script" path="res://scenes/entities/enemies/base_enemy.gd" id="1_adxmx"]
+[ext_resource type="Script" path="res://scenes/entities/enemies/base_enemy_movement_handler.gd" id="2_56gro"]
+[ext_resource type="Script" path="res://scenes/entities/enemies/base_enemy_health_handler.gd" id="3_avrhj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uyr0c"]
+resource_local_to_scene = true
+
+[sub_resource type="GDScript" id="GDScript_nau0q"]
+script/source = "extends Area2D
+
+
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nfx6h"]
+resource_local_to_scene = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i4kv4"]
+resource_local_to_scene = true
+
+[node name="BaseEnemy" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_adxmx")
+
+[node name="MovementHandler" type="Node" parent="."]
+script = ExtResource("2_56gro")
+
+[node name="HealthHandler" type="Node" parent="."]
+script = ExtResource("3_avrhj")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_uyr0c")
+
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+script = SubResource("GDScript_nau0q")
+
+[node name="HitBox" type="CollisionShape2D" parent="HitArea"]
+shape = SubResource("RectangleShape2D_nfx6h")
+
+[node name="AggroArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="AggroCircle" type="CollisionShape2D" parent="AggroArea"]
+shape = SubResource("CircleShape2D_i4kv4")

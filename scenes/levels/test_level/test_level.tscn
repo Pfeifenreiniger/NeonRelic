@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bh14raqiukbli"]
+[gd_scene load_steps=10 format=3 uid="uid://bh14raqiukbli"]
 
 [ext_resource type="Texture2D" uid="uid://dda8fl86os1gc" path="res://assets/graphics/backgrounds/test_level/bg.png" id="1_5khsy"]
 [ext_resource type="TileSet" uid="uid://doa8hk636pn7x" path="res://tilesets/base_grounds/concrete_ground.tres" id="2_51ah8"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ddawbfdgq2114" path="res://scenes/entities/player/player.tscn" id="3_p12wi"]
 [ext_resource type="PackedScene" uid="uid://drqk14s7frsib" path="res://scenes/levels/ledge_to_climb/ledge_to_climb.tscn" id="4_2c15l"]
 [ext_resource type="TileSet" uid="uid://bo8g5h58b3055" path="res://tilesets/base_grounds/desert_ground.tres" id="4_dnr8s"]
+[ext_resource type="PackedScene" uid="uid://gv0yr3oidbtn" path="res://scenes/entities/enemies/enemy_drone.tscn" id="7_ja5a7"]
 [ext_resource type="PackedScene" uid="uid://drfpdpqmnxnkm" path="res://scenes/ui/ingame/ui.tscn" id="8_ot175"]
 
 [node name="TestLevel" type="Node2D"]
@@ -116,6 +117,10 @@ ledge_side = "right"
 [node name="Entities" type="Node" parent="."]
 
 [node name="Enemies" type="Node" parent="Entities"]
+
+[node name="EnemyDrone" parent="Entities/Enemies" instance=ExtResource("7_ja5a7")]
+position = Vector2(653, 464)
+collision_layer = 4
 
 [node name="Player" parent="Entities" instance=ExtResource("3_p12wi")]
 position = Vector2(105, 511)

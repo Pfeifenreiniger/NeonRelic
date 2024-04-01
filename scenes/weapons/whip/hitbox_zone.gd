@@ -70,8 +70,8 @@ func adjust_hitbox_size() -> void:
 func _on_hitbox_zone_body_entered(body:Node2D) -> void:
 	if whip.do_attack_animation:
 		if "IS_ENEMY" in body:
-			pass
-			# ToDo: do damage to enemy
+			# TEMP - Schaden spaeter noch balancen
+			body.health_handler.get_damage(15)
 		elif "IS_OBJECT" in body:
 			pass
 			# ToDo: give object to player

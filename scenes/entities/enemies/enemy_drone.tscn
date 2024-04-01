@@ -1,0 +1,94 @@
+[gd_scene load_steps=18 format=3 uid="uid://gv0yr3oidbtn"]
+
+[ext_resource type="PackedScene" uid="uid://buxj1tjw810ml" path="res://scenes/entities/enemies/base_enemy.tscn" id="1_fbaba"]
+[ext_resource type="Script" path="res://scenes/entities/enemies/enemy_drone.gd" id="2_hitk0"]
+[ext_resource type="Texture2D" uid="uid://qdryjsau005m" path="res://scenes/entities/enemies/sprites/enemy_drone/alarm_right/drone_alarm_right_f1.png" id="3_6piof"]
+[ext_resource type="Shader" path="res://scenes/entities/enemies/base_enemy_shaders.gdshader" id="3_rkx8b"]
+[ext_resource type="Texture2D" uid="uid://bdwygeskx7hn1" path="res://scenes/entities/enemies/sprites/enemy_drone/alarm_right/drone_alarm_right_f2.png" id="4_rcbch"]
+[ext_resource type="Texture2D" uid="uid://bvh4xrva6vkun" path="res://scenes/entities/enemies/sprites/enemy_drone/alarm_right/drone_alarm_right_f3.png" id="5_sfvcd"]
+[ext_resource type="Texture2D" uid="uid://cwep7ibrfe8s5" path="res://scenes/entities/enemies/sprites/enemy_drone/alarm_right/drone_alarm_right_f4.png" id="6_0h3co"]
+[ext_resource type="Texture2D" uid="uid://bugfh1nrtqove" path="res://scenes/entities/enemies/sprites/enemy_drone/alarm_right/drone_alarm_right_f5.png" id="7_vfi3r"]
+[ext_resource type="Texture2D" uid="uid://bk78yd18ck76" path="res://scenes/entities/enemies/sprites/enemy_drone/alarm_right/drone_alarm_right_f6.png" id="8_ppxp8"]
+[ext_resource type="Texture2D" uid="uid://b076termou20g" path="res://scenes/entities/enemies/sprites/enemy_drone/alarm_right/drone_alarm_right_f7.png" id="9_gnoj1"]
+[ext_resource type="Texture2D" uid="uid://dhbwtqlytm5hd" path="res://scenes/entities/enemies/sprites/enemy_drone/alarm_right/drone_alarm_right_f8.png" id="10_8205d"]
+[ext_resource type="Texture2D" uid="uid://c5q6joke57tjj" path="res://scenes/entities/enemies/sprites/enemy_drone/right/drone_right.png" id="11_pcrg2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rcdfj"]
+shader = ExtResource("3_rkx8b")
+shader_parameter/doBlink = false
+shader_parameter/doFrozenSlowedDown = false
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ba4bt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6piof")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rcbch")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_sfvcd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0h3co")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_vfi3r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ppxp8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_gnoj1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_8205d")
+}],
+"loop": false,
+"name": &"alarm_right",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_pcrg2")
+}],
+"loop": false,
+"name": &"right",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kerse"]
+resource_local_to_scene = true
+size = Vector2(28, 79)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2t1sg"]
+resource_local_to_scene = true
+size = Vector2(28, 38)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rhu8j"]
+resource_local_to_scene = true
+radius = 474.15
+
+[node name="EnemyDrone" instance=ExtResource("1_fbaba")]
+script = ExtResource("2_hitk0")
+
+[node name="Animations" type="AnimatedSprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_rcdfj")
+sprite_frames = SubResource("SpriteFrames_ba4bt")
+animation = &"right"
+autoplay = "right"
+
+[node name="CollisionBox" parent="." index="3"]
+position = Vector2(0, 22.5)
+shape = SubResource("RectangleShape2D_kerse")
+
+[node name="HitArea" parent="." index="4"]
+script = null
+
+[node name="HitBox" parent="HitArea" index="0"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_2t1sg")
+
+[node name="AggroCircle" parent="AggroArea" index="0"]
+shape = SubResource("CircleShape2D_rhu8j")
