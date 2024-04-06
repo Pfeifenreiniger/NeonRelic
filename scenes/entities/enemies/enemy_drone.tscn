@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://gv0yr3oidbtn"]
+[gd_scene load_steps=27 format=3 uid="uid://gv0yr3oidbtn"]
 
 [ext_resource type="PackedScene" uid="uid://buxj1tjw810ml" path="res://scenes/entities/enemies/base_enemy.tscn" id="1_fbaba"]
 [ext_resource type="Script" path="res://scenes/entities/enemies/enemy_drone.gd" id="2_hitk0"]
@@ -12,6 +12,11 @@
 [ext_resource type="Texture2D" uid="uid://b076termou20g" path="res://scenes/entities/enemies/sprites/enemy_drone/alarm_right/drone_alarm_right_f7.png" id="9_gnoj1"]
 [ext_resource type="Texture2D" uid="uid://dhbwtqlytm5hd" path="res://scenes/entities/enemies/sprites/enemy_drone/alarm_right/drone_alarm_right_f8.png" id="10_8205d"]
 [ext_resource type="Texture2D" uid="uid://c5q6joke57tjj" path="res://scenes/entities/enemies/sprites/enemy_drone/right/drone_right.png" id="11_pcrg2"]
+[ext_resource type="Texture2D" uid="uid://crd6nd4pi3ebe" path="res://assets/graphics/brushes/brush_10x10_px.png" id="13_2b7gj"]
+[ext_resource type="Texture2D" uid="uid://cqg3sfgexlk3x" path="res://scenes/entities/enemies/sprites/enemy_drone/damage/drone_damage_f1.png" id="14_rcx4p"]
+[ext_resource type="Texture2D" uid="uid://bx1671w5qd64k" path="res://scenes/entities/enemies/sprites/enemy_drone/damage/drone_damage_f2.png" id="15_7w333"]
+[ext_resource type="Texture2D" uid="uid://c6obwtr0tt5jf" path="res://scenes/entities/enemies/sprites/enemy_drone/damage/drone_damage_f3.png" id="16_bhlki"]
+[ext_resource type="Texture2D" uid="uid://cxdi0q5lpjq3u" path="res://scenes/entities/enemies/sprites/enemy_drone/damage/drone_damage_f4.png" id="17_paof6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rcdfj"]
 shader = ExtResource("3_rkx8b")
@@ -68,7 +73,48 @@ size = Vector2(28, 38)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rhu8j"]
 resource_local_to_scene = true
-radius = 474.15
+radius = 204.414
+
+[sub_resource type="Gradient" id="Gradient_tysvj"]
+offsets = PackedFloat32Array(0.363636, 1)
+colors = PackedColorArray(0.882353, 0.882353, 0.882353, 0.713726, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_boe2s"]
+gradient = SubResource("Gradient_tysvj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ng8wq"]
+lifetime_randomness = 0.12
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1.2, 1.5, 1)
+direction = Vector3(0, 1, 0)
+spread = 13.76
+initial_velocity_min = 24.8
+initial_velocity_max = 57.86
+gravity = Vector3(0, 98, 0)
+scale_min = 0.8
+scale_max = 1.2
+color_ramp = SubResource("GradientTexture1D_boe2s")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qswui"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_rcx4p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_7w333")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_bhlki")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_paof6")
+}],
+"loop": false,
+"name": &"damage",
+"speed": 10.0
+}]
 
 [node name="EnemyDrone" instance=ExtResource("1_fbaba")]
 script = ExtResource("2_hitk0")
@@ -92,3 +138,20 @@ shape = SubResource("RectangleShape2D_2t1sg")
 
 [node name="AggroCircle" parent="AggroArea" index="0"]
 shape = SubResource("CircleShape2D_rhu8j")
+
+[node name="LiftParticles" type="GPUParticles2D" parent="." index="6"]
+position = Vector2(2, 15)
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_ng8wq")
+texture = ExtResource("13_2b7gj")
+lifetime = 0.6
+
+[node name="AttackArea" parent="." index="7"]
+collision_layer = 0
+
+[node name="DamageAnimation" type="AnimatedSprite2D" parent="." index="8"]
+position = Vector2(0, 4)
+sprite_frames = SubResource("SpriteFrames_qswui")
+animation = &"damage"
+frame = 3
+frame_progress = 1.0

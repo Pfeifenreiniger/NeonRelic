@@ -100,6 +100,16 @@ func check_current_hitbox_state() -> void:
 	activate_hitbox(current_combo_phase, current_animation_frame)
 
 
+func _calculate_enemy_x_axis_recoil_side(enemy_scene:Node2D, pixels_amount:int) -> int:
+	"""
+	Calculates if the enemy push-back (recoil) is happening to the right or to the left (positiv or negativ on the x-axis)
+	"""
+	if enemy_scene.global_position.x > player.global_position.x:
+		return pixels_amount
+	else:
+		return -pixels_amount
+
+
 ###----------METHODS: CONNECTED SIGNALS----------###
 
 func _on_hitbox_zone_combo_1_body_entered(body:Node2D) -> void:
@@ -108,6 +118,9 @@ func _on_hitbox_zone_combo_1_body_entered(body:Node2D) -> void:
 	# ToDo - Gegner zurueckstossen (wenig zurueckstossen)
 	if 'IS_ENEMY' in body:
 		body.health_handler.get_damage(10)
+		body.movement_handler.recoil_on_x_axis(
+			_calculate_enemy_x_axis_recoil_side(body, 10)
+		)
 
 
 func _on_hitbox_zone_combo_2_body_entered(body:Node2D) -> void:
@@ -116,6 +129,9 @@ func _on_hitbox_zone_combo_2_body_entered(body:Node2D) -> void:
 	# ToDo - Gegner Schaden zurueckstossen (maessig zurueckstossen)
 	if 'IS_ENEMY' in body:
 		body.health_handler.get_damage(20)
+		body.movement_handler.recoil_on_x_axis(
+			_calculate_enemy_x_axis_recoil_side(body, 20)
+		)
 
 
 func _on_hitbox_zone_combo_3_body_entered(body:Node2D) -> void:
@@ -124,3 +140,6 @@ func _on_hitbox_zone_combo_3_body_entered(body:Node2D) -> void:
 	# ToDo - Gegner Schaden zurueckstossen (hier am weitesten zurueckstossen)
 	if 'IS_ENEMY' in body:
 		body.health_handler.get_damage(5)
+		body.movement_handler.recoil_on_x_axis(
+			_calculate_enemy_x_axis_recoil_side(body, 30)
+		)

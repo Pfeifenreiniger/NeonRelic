@@ -9,7 +9,7 @@ extends BasePlayerWeaponSelection
 
 ###----------PROPERTIES----------###
 
-# NEXT: Spaeter hier noch weitere hinzufuegen
+# ToDo: Spaeter hier noch weitere hinzufuegen
 var secondary_weapons_available:Array[String] = [
 	"fire_grenade", "freeze_grenade"
 ]

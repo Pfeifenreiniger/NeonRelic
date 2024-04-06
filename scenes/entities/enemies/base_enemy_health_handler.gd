@@ -15,8 +15,15 @@ var is_invulnerable:bool = false
 func get_damage(amount:int) -> void:
 	if not is_invulnerable:
 		enemy_scene.health -= amount
+		
+		# some enemies do have an extra damage_animation AnimatedSprite2D node for damage animations
+		if "damage_animation" in enemy_scene:
+			enemy_scene.damage_animation.visible = true
+			enemy_scene.damage_animation.play("damage")
+			enemy_scene.damage_animation.animation_finished.connect(func(): enemy_scene.damage_animation.visible = false)
+		
 		if enemy_scene.health <= 0:
-			print("Gegner tot :(")
+			# NEXT - der damage_animation Node eine Sterbeanimation hinzufuegen und hier abspielen
 			enemy_scene.queue_free()
 		else:
 			_become_invulnerable(0.5)

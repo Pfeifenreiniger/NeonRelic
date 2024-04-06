@@ -4,11 +4,8 @@ extends BaseEnemy
 ###----------NODE REFERENCES----------###
 
 @onready var animations:AnimatedSprite2D = $Animations as AnimatedSprite2D
-
-
-###----------SCENE REFERENCES----------###
-
-@onready var player:CharacterBody2D = null
+@onready var lift_particles:GPUParticles2D = $LiftParticles as GPUParticles2D
+@onready var damage_animation:AnimatedSprite2D = $DamageAnimation as AnimatedSprite2D
 
 
 ###----------PROPERTIES----------###
@@ -21,34 +18,52 @@ var face_player_to_side:String = ""
 func _ready() -> void:
 	super._ready()
 	animations.animation_finished.connect(_on_animations_animation_finished)
-	health = 20
+	health = 2000
+	movement_handler.base_speed = 30
+	movement_handler.current_speed = movement_handler.base_speed
+	damage_animation.visible = false
 
 
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(delta:float) -> void:
 	super._process(delta)
-	_face_player()
+	_face_drone_on_x_axis()
 
 
-###----------METHODS----------###
+###----------METHODS: FACE DRONE ON X AXIS TO LEFT OR RIGHT----------###
+
+func _face_drone_on_x_axis() -> void:
+	if player != null:
+		_face_player()
+	else:
+		_face_to_patrol_direction()
 
 func _face_player() -> void:
-	if player != null:
-		if face_player_to_side == "":
-			if player.global_position.x < global_position.x:
-				animations.flip_h = true
-				face_player_to_side = "left"
-			else:
-				face_player_to_side = "right"
-		elif face_player_to_side == "left":
-			if player.global_position.x > global_position.x:
-				animations.flip_h = false
-				face_player_to_side = "right"
+	if face_player_to_side == "":
+		if player.global_position.x < global_position.x:
+			animations.flip_h = true
+			lift_particles.position.x = -1
+			face_player_to_side = "left"
 		else:
-			if player.global_position.x < global_position.x:
-				animations.flip_h = true
-				face_player_to_side = "left"
+			face_player_to_side = "right"
+	elif face_player_to_side == "left":
+		if player.global_position.x > global_position.x:
+			animations.flip_h = false
+			lift_particles.position.x = 2
+			face_player_to_side = "right"
+	else:
+		if player.global_position.x < global_position.x:
+			animations.flip_h = true
+			lift_particles.position.x = -1
+			face_player_to_side = "left"
+
+
+func _face_to_patrol_direction() -> void:
+	if x_axis_direction == "left":
+		animations.flip_h = true
+	else:
+		animations.flip_h = false
 
 
 ###----------METHODS: CONNECTED SIGNALS----------###
@@ -58,7 +73,6 @@ func _on_aggro_area_body_entered(body:Node2D) -> void:
 		animations.stop()
 		animations.play("alarm_right")
 	super._on_aggro_area_body_entered(body)
-	player = body
 
 
 func _on_aggro_area_body_exited(body:Node2D) -> void:
@@ -66,7 +80,6 @@ func _on_aggro_area_body_exited(body:Node2D) -> void:
 		animations.stop()
 		animations.play("right")
 	super._on_aggro_area_body_exited(body)
-	player = null
 	face_player_to_side = ""
 
 
