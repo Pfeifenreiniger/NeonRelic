@@ -84,7 +84,7 @@ func recoil_on_x_axis(pixels:int) -> void:
 		x_axis_recoil_tween.stop()
 	x_axis_recoil_tween = get_tree().create_tween()
 	var to_pos:Vector2 = Vector2(enemy_scene.global_position.x + pixels, enemy_scene.global_position.y)
-	await x_axis_recoil_tween.tween_property(enemy_scene, "global_position", to_pos, 0.3)
+	await x_axis_recoil_tween.tween_property(enemy_scene, "global_position", to_pos, 0.3).finished
 	x_axis_recoil_tween = null
 
 

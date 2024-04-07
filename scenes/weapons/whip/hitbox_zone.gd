@@ -58,7 +58,7 @@ func adjust_hitbox_size() -> void:
 	var current_size_x:int = x_sizes[current_frame]
 	if current_size_x != hitbox.shape.size.x:
 		hitbox.shape.size.x = current_size_x
-		var size_x_diff:int = round((current_size_x - x_sizes[0]) / 2)
+		var size_x_diff:int = int(round((current_size_x - x_sizes[0]) / 2))
 		if whip.attack_side == "right":
 			hitbox.position.x = -(abs(x_start_pos_right) - size_x_diff)
 		else:
