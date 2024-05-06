@@ -21,12 +21,12 @@ func get_damage(amount:int) -> void:
 			enemy_scene.damage_animation.visible = true
 			enemy_scene.damage_animation.play("damage")
 			enemy_scene.damage_animation.animation_finished.connect(func(): enemy_scene.damage_animation.visible = false)
+			await enemy_scene.damage_animation.animation_finished
 		
 		if enemy_scene.health <= 0:
-			# NEXT - der damage_animation Node eine Sterbeanimation hinzufuegen und hier abspielen
-			enemy_scene.queue_free()
+			enemy_scene.death_animation()
 		else:
-			_become_invulnerable(0.5)
+			_become_invulnerable(0.3)
 
 
 func _become_invulnerable(timer_value:float) -> void:

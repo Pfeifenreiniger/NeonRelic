@@ -11,6 +11,7 @@ var drone_laser_beam_scene:PackedScene = preload("res://scenes/projectiles/laser
 @onready var animations:AnimatedSprite2D = $Animations as AnimatedSprite2D
 @onready var lift_particles:GPUParticles2D = $LiftParticles as GPUParticles2D
 @onready var damage_animation:AnimatedSprite2D = $DamageAnimation as AnimatedSprite2D
+@onready var explosion_animation_player:AnimationPlayer = $ExplosionAnimationPlayer as AnimationPlayer
 @onready var laser_beams:Node2D = $LaserBeams as Node2D
 @onready var laser_beam_start_position:Marker2D = $LaserBeamStartPosition as Marker2D
 
@@ -99,6 +100,13 @@ func _shot_laser_beam(from_position:Vector2, to_position:Vector2) -> void:
 		await get_tree().create_timer(3).timeout
 		laser_shot = false
 
+
+func death_animation() -> void:
+	IS_ENEMY = false
+	movement_handler.current_speed = 0
+	is_aggro = false
+	is_attacking = false
+	explosion_animation_player.play('explosion')
 
 ###----------METHODS: CONNECTED SIGNALS----------###
 

@@ -116,7 +116,7 @@ func _on_hitbox_zone_combo_1_body_entered(body:Node2D) -> void:
 	# Due to collision layer body is always an enemy.
 	
 	# ToDo - Gegner zurueckstossen (wenig zurueckstossen)
-	if 'IS_ENEMY' in body:
+	if 'IS_ENEMY' in body and body.IS_ENEMY:
 		body.health_handler.get_damage(10)
 		body.movement_handler.recoil_on_x_axis(
 			_calculate_enemy_x_axis_recoil_side(body, 10)
@@ -127,7 +127,7 @@ func _on_hitbox_zone_combo_2_body_entered(body:Node2D) -> void:
 	# Due to collision layer body is always an enemy.
 	
 	# ToDo - Gegner Schaden zurueckstossen (maessig zurueckstossen)
-	if 'IS_ENEMY' in body:
+	if 'IS_ENEMY' in body and body.IS_ENEMY:
 		body.health_handler.get_damage(20)
 		body.movement_handler.recoil_on_x_axis(
 			_calculate_enemy_x_axis_recoil_side(body, 20)
@@ -138,7 +138,7 @@ func _on_hitbox_zone_combo_3_body_entered(body:Node2D) -> void:
 	# Due to collision layer body is always an enemy.
 	
 	# ToDo - Gegner Schaden zurueckstossen (hier am weitesten zurueckstossen)
-	if 'IS_ENEMY' in body:
+	if 'IS_ENEMY' in body and body.IS_ENEMY:
 		body.health_handler.get_damage(5)
 		body.movement_handler.recoil_on_x_axis(
 			_calculate_enemy_x_axis_recoil_side(body, 30)
