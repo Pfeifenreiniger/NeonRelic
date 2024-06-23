@@ -1,10 +1,10 @@
 extends Node
-
+class_name PlayerMovementHandler
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
-@onready var ingame_camera:Camera2D = get_tree().get_first_node_in_group('ingame_camera') as Camera2D
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
+@onready var ingame_camera:IngameCamera = get_tree().get_first_node_in_group('ingame_camera') as IngameCamera
 
 
 ###----------PROPERTIES----------###
@@ -14,17 +14,19 @@ var direction:Vector2 = Vector2.ZERO
 
 # run speed
 const BASE_SPEED:int = 200
-var current_speed:int = BASE_SPEED
+var current_speed:int
+const BASE_ACCELERATION_SMOOTHING:int = 35
+var current_acceleration_smoothing:int
 
 # jumping
 const BASE_JUMP_VELOCITY:int = -275
-var current_jump_velocity:int = BASE_JUMP_VELOCITY
+var current_jump_velocity:int
 const LARGE_JUMP_VELOCITY_ADDITION_MULTIPLIER:float = 0.3
 var can_coyote_jump:bool = false
 
 # gravity
 var BASE_GRAVITY:int = int(ProjectSettings.get_setting("physics/2d/default_gravity"))
-var current_gravity:int = BASE_GRAVITY
+var current_gravity:int
 
 # movement states
 var to_duck:bool = false
@@ -36,6 +38,16 @@ var is_attacking:bool = false
 var is_throwing:bool = false
 var is_rolling:bool = false
 var is_climbing_ledge:bool = false
+var is_blocking:bool = false
+
+
+###----------METHODS: AT INITIATION CALLED----------###
+
+func _ready() -> void:
+	current_speed = BASE_SPEED
+	current_acceleration_smoothing = BASE_ACCELERATION_SMOOTHING
+	current_jump_velocity = BASE_JUMP_VELOCITY
+	current_gravity = BASE_GRAVITY
 
 
 ###----------METHODS: PER FRAME CALLED----------###
@@ -46,7 +58,7 @@ func _process(delta:float) -> void:
 
 ###----------METHODS: 2-DIMENSIONAL MOVEMENT----------###
 
-func _move_x() -> void:
+func _move_x(delta:float) -> void:
 	if check_if_player_can_horizontally_move():
 		# run right / left or stand idle
 		player.controls_handler.check_input_run_x_axis_key()
@@ -54,34 +66,37 @@ func _move_x() -> void:
 		# check roll-action to right / left
 		player.controls_handler.check_input_side_roll_x_axis_key()
 
-		# apply movement to player's velocity
-		player.velocity.x = direction.x * current_speed
+		# apply movement to player's velocity (and apply current acceleration smoothing to x-axis movement)
+		var target_velocity:Vector2 = direction * current_speed
+		target_velocity = player.velocity.lerp(target_velocity, 1 - exp(-delta * current_acceleration_smoothing))
+		
+		player.velocity.x = target_velocity.x
 
 
 func _move_y(delta:float) -> void:
-	if not player.is_on_floor(): # player not on ground
+	if !player.is_on_floor(): # player not on ground
 		_move_y_player_not_on_floor(delta)
 	else: # player on ground
 		_move_y_player_on_floor()
 
 
 func _move_y_player_not_on_floor(delta:float) -> void:
-	"""
-	Player's y-axis movement when he's not on the floor.
-	"""
+	# Player's y-axis movement when he's not on the floor.
 	
 	# apply gravity when player is not ducking nor climbing a ledge
-	if not check_if_player_is_ducking() and not is_climbing_ledge:
+	if !check_if_player_is_ducking()\
+	&& !is_climbing_ledge:
 		player.velocity.y += current_gravity * delta
 	
 	# checks for short jump input (via jump-key release)
-	if not is_climbing_ledge:
+	if !is_climbing_ledge:
 		player.controls_handler.check_input_jump_key()
 	
 	# if gravity influenced player's physic -> check if he is falling
-	if player.velocity.y > 0  and not is_climbing_ledge:
-		if not is_falling:
-			if not is_jumping: # coyote jump only when player falls from platform
+	if player.velocity.y > 0\
+	&& !is_climbing_ledge:
+		if !is_falling:
+			if !is_jumping: # coyote jump only when player falls from platform
 				check_coyote_jump()
 			is_jumping = false
 			is_rolling = false
@@ -103,15 +118,16 @@ func _move_y_player_not_on_floor(delta:float) -> void:
 
 
 func _move_y_player_on_floor() -> void:
-	"""
-	Player's y-axis movement when he's on the floor.
-	"""
+	# Player's y-axis movement when he's on the floor.
+	
 	# player got onto the floor last frame from a falling movement state -> he's not falling anymore
 	if is_falling:
 		is_falling = false
 		direction.y = 0
 	# ground-y-movement only possible when player's not currently climbing up a ledge, is attacking or is rolling
-	if not is_climbing_ledge and not is_attacking and not is_rolling:
+	if !is_climbing_ledge\
+	&& !is_attacking\
+	&& !is_rolling:
 		# player jumping
 		player.controls_handler.check_input_jump_key()
 		# or player ducking
@@ -123,7 +139,7 @@ func _move() -> void:
 
 
 func _apply_movement(delta:float) -> void:
-	_move_x()
+	_move_x(delta)
 	_move_y(delta)
 	_move()
 
@@ -131,14 +147,29 @@ func _apply_movement(delta:float) -> void:
 ###----------METHODS: MOVEMENT CONDITION CHECKS----------###
 
 func check_if_player_can_horizontally_move() -> bool:
-	if not to_duck and not is_duck and not is_jumping and not is_falling and not is_climbing_ledge and not is_attacking and not is_throwing and not is_rolling:
+	if !to_duck\
+	&& !is_duck\
+	&& !is_jumping\
+	&& !is_falling\
+	&& !is_climbing_ledge\
+	&& !is_attacking\
+	&& !is_throwing\
+	&& !is_rolling\
+	&& !is_blocking:
 		return true
 	else:
 		return false
 
 
 func check_if_player_can_vertically_move() -> bool:
-	if not to_duck and not will_duck and not is_duck and not is_climbing_ledge and not is_attacking and not is_throwing and not is_rolling:
+	if !to_duck\
+	&& !will_duck\
+	&& !is_duck\
+	&& !is_climbing_ledge\
+	&& !is_attacking\
+	&& !is_throwing\
+	&& !is_rolling\
+	&& !is_blocking:
 		return true
 	else:
 		return false
@@ -152,9 +183,8 @@ func check_if_player_is_vertically_moving() -> bool:
 
 
 func check_coyote_jump() -> void:
-	"""
-	Player gains ability of coyote-jump for a very short amount of time after he loses touch to the level's floor.
-	"""
+	# Player gains ability of coyote-jump for a very short amount of time after he loses touch to the level's floor.
+	
 	if not can_coyote_jump:
 		can_coyote_jump = true
 		# OPT - Zeitraum fuer den Coyote-Jump spaeter noch verbessern. Sind 0.2 Sekunden vom Spielgefuehl her gut?
@@ -163,7 +193,7 @@ func check_coyote_jump() -> void:
 
 
 func check_if_player_is_ducking() -> bool:
-	if to_duck or is_duck:
+	if to_duck || is_duck:
 		return true
 	else:
 		return false
@@ -175,7 +205,8 @@ func check_if_player_can_climb_up_ledge() -> bool:
 	# doesn't player do any movements which do not allow to climb?
 	if player.ledge_climb_handler.check_movements_for_climbing():
 		# is player in front of a ledge?
-		if player.ledge_climb_handler.current_ledge_to_climb_area != null and player.ledge_climb_handler.ledge_climb_area.overlaps_area(player.ledge_climb_handler.current_ledge_to_climb_area):
+		if player.ledge_climb_handler.current_ledge_to_climb_area != null\
+		&& player.ledge_climb_handler.ledge_climb_area.overlaps_area(player.ledge_climb_handler.current_ledge_to_climb_area):
 			# and finally, does player face in the correct direction?
 			if check_if_ledge_side_fits(player.ledge_climb_handler.current_ledge_to_climb_area):
 				can_climb_up = true
@@ -184,8 +215,29 @@ func check_if_player_can_climb_up_ledge() -> bool:
 
 
 func check_if_ledge_side_fits(ledge_area:Area2D) -> bool:
-	if ("right" in player.animations_handler.current_animation and ledge_area.ledge_side == "left") or ("left" in player.animations_handler.current_animation and ledge_area.ledge_side == "right"):
+	if ("right" in player.animations_handler.current_animation && ledge_area.ledge_side == "left")\
+	|| ("left" in player.animations_handler.current_animation && ledge_area.ledge_side == "right"):
 		return true
+	else:
+		return false
+
+
+func check_if_player_can_block() -> bool:
+	if !is_blocking:
+		if player.velocity.y == 0\
+		&& !to_duck\
+		&& !will_duck\
+		&& !is_jumping\
+		&& !is_falling\
+		&& !is_attacking\
+		&& !is_throwing\
+		&& !is_rolling\
+		&& !is_climbing_ledge:
+			return true
+		
+		else:
+			return false
+	
 	else:
 		return false
 
@@ -210,7 +262,8 @@ func action_input_run_x_axis(side:String) -> void:
 	else:
 		# idle
 		direction.x = 0
-		if not "stand" in player.animations_handler.current_animation and check_if_player_can_horizontally_move():
+		if !"stand" in player.animations_handler.current_animation\
+		&& check_if_player_can_horizontally_move():
 			if "right" in player.animations_handler.current_animation:
 				player.animations_handler.current_animation = "stand_right"
 				player.animations_handler.loop_animation = true
@@ -223,8 +276,9 @@ func action_input_run_x_axis(side:String) -> void:
 func action_input_side_roll_x_axis(side:String) -> void:
 	if side == 'right':
 		var button_move_right_press_timestamp:int = round(Time.get_ticks_msec() / 10.0)
-		if not is_rolling:
-			if button_move_right_press_timestamp - player.controls_handler.player_roll_action_inputs["right"] <= 50 and player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
+		if !is_rolling:
+			if button_move_right_press_timestamp - player.controls_handler.player_roll_action_inputs["right"] <= 50\
+			&& player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
 				player.animations_handler.current_animation = "roll_right"
 				player.animations_handler.loop_animation = false
 				player.animations_handler.animation_to_change = true
@@ -232,15 +286,16 @@ func action_input_side_roll_x_axis(side:String) -> void:
 				player.stamina_handler.stamina_can_refresh = false
 				player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["side_roll"])
 				player.animations_handler.side_roll_animation.do_side_roll("right")
-				if not player.invulnerable_handler.is_invulnerable:
+				if !player.invulnerable_handler.is_invulnerable:
 					player.invulnerable_handler.become_invulnerable(0.5, false)
 			else:
 				player.controls_handler.player_roll_action_inputs["right"] = button_move_right_press_timestamp
 	else:
 		# left
 		var button_move_left_press_timestamp:int = round(Time.get_ticks_msec() / 10.0)
-		if not is_rolling:
-			if button_move_left_press_timestamp - player.controls_handler.player_roll_action_inputs["left"] <= 50 and player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
+		if !is_rolling:
+			if button_move_left_press_timestamp - player.controls_handler.player_roll_action_inputs["left"] <= 50\
+			&& player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
 				player.animations_handler.current_animation = "roll_left"
 				player.animations_handler.loop_animation = false
 				player.animations_handler.animation_to_change = true
@@ -248,14 +303,15 @@ func action_input_side_roll_x_axis(side:String) -> void:
 				player.stamina_handler.stamina_can_refresh = false
 				player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["side_roll"])
 				player.animations_handler.side_roll_animation.do_side_roll("left")
-				if not player.invulnerable_handler.is_invulnerable:
+				if !player.invulnerable_handler.is_invulnerable:
 					player.invulnerable_handler.become_invulnerable(0.5, false)
 			else:
 				player.controls_handler.player_roll_action_inputs["left"] = button_move_left_press_timestamp
 
 
 func action_input_jump() -> void:
-	if (direction.y == 0 and not check_if_player_is_vertically_moving() or can_coyote_jump) and not (is_attacking or is_throwing):
+	if (direction.y == 0 && !check_if_player_is_vertically_moving() || can_coyote_jump)\
+	&& !(is_attacking || is_throwing || is_blocking):
 		direction.y = -1
 		is_jumping = true
 		if can_coyote_jump:
@@ -273,9 +329,13 @@ func action_input_jump() -> void:
 
 
 func action_input_duck() -> void:
-	if direction.x == 0 and not check_if_player_is_ducking() and not (is_attacking or is_throwing or is_rolling):
+	if direction.x == 0\
+	&& abs(int(player.velocity.x)) == 0\
+	&& !check_if_player_is_ducking()\
+	&& !(is_attacking || is_throwing || is_rolling || is_blocking):
 		to_duck = true
 		will_duck = true
+		player.velocity.x = 0
 		if "left" in player.animations_handler.current_animation:
 			player.animations_handler.current_animation = "to_duck_left"
 		else:
@@ -313,7 +373,6 @@ func action_input_duck_release() -> void:
 
 
 func action_input_climb_up_ledge() -> void:
-	
 	if is_jumping:
 		is_jumping = false
 	is_jumping = false
@@ -334,7 +393,9 @@ func action_input_climb_up_ledge() -> void:
 func action_input_init_whip_attack() -> void:
 	
 	# check if player has enough stamina to perform whip-attack. if not -> cancel action
-	if not player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["whip_attack"]):
+	if !player.stamina_handler.check_player_has_enough_stamina(
+			player.stamina_handler.stamina_costs["whip_attack"]
+		):
 		return
 	
 	var position:String
@@ -342,7 +403,11 @@ func action_input_init_whip_attack() -> void:
 	if is_duck:
 		position = "duck"
 	else:
-		# do standing whip attack if player's on ground
+		# do standing whip attack if player's on ground and is not acceleration sliding
+		
+		if abs(int(player.velocity.x)) != 0:
+			return
+		
 		if check_if_player_can_horizontally_move():
 			position = "stand"
 		else:
@@ -353,7 +418,9 @@ func action_input_init_whip_attack() -> void:
 	player.velocity.x = 0
 	is_attacking = true
 	player.stamina_handler.stamina_can_refresh = false
-	player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["whip_attack"])
+	player.stamina_handler.cost_player_stamina(
+		player.stamina_handler.stamina_costs["whip_attack"]
+	)
 	player.animations_handler.loop_animation = false
 	player.animations_handler.animation_to_change = true
 	if "right" in player.animations_handler.current_animation:
@@ -365,17 +432,22 @@ func action_input_init_whip_attack() -> void:
 func action_input_init_sword_attack() -> void:
 	
 	# check if player has enough stamina to perform sword-attack. if not -> cancel action
-	if not player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["sword_attack"]):
+	if !player.stamina_handler.check_player_has_enough_stamina(
+			player.stamina_handler.stamina_costs["sword_attack"]
+		):
 		return
 	
 	var position:String
 	
 	if is_duck:
-		# ToDo - duck sword attack animation sprites zeichnen. Solange die nicht vorliegen, wird hier abgebrochen
+		# no sword attack while player's ducking
 		return
-		#position = "duck"
 	else:
-		# do standing sword attack if player's on ground
+		# do standing sword attack if player's on ground and is not acceleration sliding
+		
+		if abs(int(player.velocity.x)) != 0:
+			return
+		
 		if check_if_player_can_horizontally_move():
 			position = "stand"
 		else:
@@ -385,18 +457,25 @@ func action_input_init_sword_attack() -> void:
 	direction.x = 0
 	player.velocity.x = 0
 	player.stamina_handler.stamina_can_refresh = false
-	player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["sword_attack"])
+	player.stamina_handler.cost_player_stamina(
+		player.stamina_handler.stamina_costs["sword_attack"]
+	)
 	player.weapon_handler.current_weapon.adjust_hitbox_position(1)
 	player.animations_handler.sword_attack_animation.attack_combo(1, position)
 	player.animations_handler.sword_attack_animation.sword_attack_combo_time_window_rectangle.rect_to_draw = true
 
 
 func action_input_combo_sword_attack(last_combo_phase:int) -> void:
+	
 	# check if player has enough stamina to perform sword-attack. if not -> cancel action
-	if not player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["sword_attack"]):
+	if !player.stamina_handler.check_player_has_enough_stamina(
+			player.stamina_handler.stamina_costs["sword_attack"]
+		):
 		return
 	else:
-		player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["sword_attack"])
+		player.stamina_handler.cost_player_stamina(
+			player.stamina_handler.stamina_costs["sword_attack"]
+		)
 	
 	var position:String = player.animations_handler.current_animation.split('_')[0]
 	var next_combo_phase:int = last_combo_phase + 1
@@ -408,13 +487,25 @@ func action_input_combo_sword_attack(last_combo_phase:int) -> void:
 
 
 func action_input_use_secondary_weapon() -> void:
+	
 	# no use of secondary weapon if player is currently already throwing a secondary weapon or is in duck-transition movement states
 	# or is attacking with primary weapon, or is falling/jumping, or isn't in standing or ducking animation
-	if is_throwing or is_attacking or will_duck or to_duck or check_if_player_is_vertically_moving() or not ("stand" in player.animations_handler.current_animation or "duck" in player.animations_handler.current_animation):
+	if is_throwing\
+	|| is_attacking\
+	|| will_duck\
+	|| to_duck\
+	|| check_if_player_is_vertically_moving()\
+	|| !("stand" in player.animations_handler.current_animation || "duck" in player.animations_handler.current_animation):
 			return
 	
 	# check if player has enough stamina to perform use of secondary weapon. if not -> cancel action
-	if not player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["use_secondary_weapon"]):
+	if !player.stamina_handler.check_player_has_enough_stamina(
+			player.stamina_handler.stamina_costs["use_secondary_weapon"]
+		):
+		return
+	
+	# if player is currently still x-axis-sliding (from acceleration) -> cancel action
+	if abs(int(player.velocity.x)) != 0:
 		return
 	
 	is_throwing = true
@@ -435,20 +526,67 @@ func action_input_use_secondary_weapon() -> void:
 	player.weapon_handler.aim_secondary_weapon(start_pos, side)
 
 
+func action_input_block() -> void:
+	if !check_if_player_can_block():
+		return
+	
+	is_blocking = true
+	player.velocity.x = 0
+	
+	# change animation to go_block animation
+	var start_animation_name:String = ""
+	
+	if "stand" in player.animations_handler.current_animation:
+		start_animation_name += "stand_go_block_"
+	else:
+		start_animation_name += "duck_go_block_"
+	
+	if "left" in player.animations_handler.current_animation:
+		start_animation_name += "left"
+	else:
+		start_animation_name += "right"
+	
+	player.animations_handler.current_animation = start_animation_name
+	player.animations_handler.loop_animation = false
+	player.animations_handler.animation_to_change = true
+	
+	# activate shield hitbox
+	var shield_hitbox_name:String = start_animation_name.split("_")[0] + "_" + start_animation_name.split("_")[-1]
+	player.animations_handler.block_animation.activate_hitbox(shield_hitbox_name)
+
+
+func action_input_block_release() -> void:
+	if is_blocking:
+		
+		var end_animation_name:String = ""
+		
+		if "stand" in player.animations_handler.current_animation:
+			end_animation_name += "stand_done_block_"
+		else:
+			end_animation_name += "duck_done_block_"
+		
+		end_animation_name += player.animations_handler.current_animation.split("_")[-1]
+		
+		player.animations_handler.current_animation = end_animation_name
+		player.animations_handler.loop_animation = false
+		player.animations_handler.animation_to_change = true
+
+
 ###----------METHODS: MOVEMENT EFFECTS (CAUSED BY OTHER SCENES)----------###
 
 func effect_get_slow_down(time:float) -> void:
-	"""
-	Movement (and animation) speed of player get reduced by half for the amount
-	of time passed as argument.
-	"""
+	# Movement (and animation) speed of player get reduced by half for the amount
+	# of time passed as argument.
+	
 	current_speed = int(round(BASE_SPEED / 2))
+	current_acceleration_smoothing = int(round(BASE_ACCELERATION_SMOOTHING / 10)) # for slippery movement on floor
 	player.animations_handler.animations.speed_scale = 0.5
 	player.animations_handler.animations.material.set_shader_parameter("doFrozenSlowedDown", true)
 	player.animations_handler.side_roll_animation.current_player_x_offset = int(player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET / 2)
 	player.animations_handler.side_roll_animation.current_animation_duration = int(player.animations_handler.side_roll_animation.BASE_ANIMATION_DURATION * 2)
 	await get_tree().create_timer(time).timeout
 	current_speed = BASE_SPEED
+	current_acceleration_smoothing = BASE_ACCELERATION_SMOOTHING
 	player.animations_handler.animations.speed_scale = 1
 	player.animations_handler.animations.material.set_shader_parameter("doFrozenSlowedDown", false)
 	player.animations_handler.side_roll_animation.current_player_x_offset = player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET

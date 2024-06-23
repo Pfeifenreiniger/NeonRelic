@@ -27,8 +27,6 @@ var laser_shot:bool = false
 func _ready() -> void:
 	super._ready()
 	animations.animation_finished.connect(_on_animations_animation_finished)
-	health = 20
-	movement_handler.base_speed = 30
 	movement_handler.current_speed = movement_handler.base_speed
 	damage_animation.visible = false
 
@@ -92,7 +90,7 @@ func _face_to_right() -> void:
 ###----------METHODS----------###
 
 func _shot_laser_beam(from_position:Vector2, to_position:Vector2) -> void:
-	if not laser_shot:
+	if !laser_shot:
 		var drone_laser_beam:Sprite2D = drone_laser_beam_scene.instantiate() as Sprite2D
 		laser_beams.add_child(drone_laser_beam)
 		drone_laser_beam.shot(from_position, to_position)
@@ -111,7 +109,7 @@ func death_animation() -> void:
 ###----------METHODS: CONNECTED SIGNALS----------###
 
 func _on_aggro_area_body_entered(body:Node2D) -> void:
-	if not is_aggro:
+	if !is_aggro:
 		animations.stop()
 		animations.play("alarm_right")
 	super._on_aggro_area_body_entered(body)

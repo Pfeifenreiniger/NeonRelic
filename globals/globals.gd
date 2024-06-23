@@ -28,12 +28,10 @@ var currently_used_secondary_weapon:String = "fire_grenade" # at first start-up 
 ###----------METHODS: SCREEN PROPERTIES----------###
 
 func input_toggle_full_screen() -> void:
-	"""
-	Keyboard button press to switch between full-screen and windowed game window
-	"""
+	# Keyboard button press to switch between full-screen and windowed game window
 	
 	if Input.is_action_just_pressed("toggle_full_screen"):
-		if not is_full_screen:
+		if !is_full_screen:
 			# set mode to full screen
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 			is_full_screen = true
@@ -41,6 +39,7 @@ func input_toggle_full_screen() -> void:
 			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_HIDDEN)
 		else:
 			# set mode to windowed
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			is_full_screen = false
 			# make mouse cursor visible

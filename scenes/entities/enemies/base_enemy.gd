@@ -4,13 +4,13 @@ class_name BaseEnemy
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = null
+@onready var player:Player = null
 
 
 ###----------NODE REFERENCES----------###
 
-@onready var movement_handler:Node = $MovementHandler as Node
-@onready var health_handler:Node = $HealthHandler as Node
+@onready var movement_handler:BaseEnemyMovementHandler = $MovementHandler as BaseEnemyMovementHandler
+@onready var health_handler:BaseEnemyHealthHandler = $HealthHandler as BaseEnemyHealthHandler
 @onready var aggro_area:Area2D = $AggroArea as Area2D
 @onready var attack_area:Area2D = $AttackArea as Area2D
 
@@ -28,8 +28,6 @@ var is_attacking:bool = false
 # state if enemy is at platform border -> if yes and enemy is aggro, he will not go further to player as border
 var is_at_platform_border:bool = false
 
-# health
-var health:int = 100
 
 # x-axis movement direction
 @export_enum("left", "right") var x_axis_direction:String = "left"

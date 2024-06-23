@@ -32,9 +32,8 @@ func _ready() -> void:
 ###----------METHODS----------###
 
 func _calculate_damage_over_time() -> void:
-	"""
-	Based on the grenade type, damage of area will be calculated.
-	"""
+	# Based on the grenade type, damage of area will be calculated.
+	
 	# TEMP - den Schaden spaeter noch balancen
 	if grenade_type == "fire_grenade":
 		damage  = 15
@@ -45,9 +44,8 @@ func _calculate_damage_over_time() -> void:
 
 
 func _set_color_based_on_grenade_type() -> void:
-	"""
-	Change particle process material's color based on the grenade type
-	"""
+	# Change particle process material's color based on the grenade type
+	
 	if grenade_type == "fire_grenade":
 		color = Color('#e96343c5')
 	elif grenade_type == "freeze_grenade":
@@ -64,7 +62,7 @@ func _on_life_timer_timeout() -> void:
 
 
 func _on_body_entered(body:Node2D) -> void:
-	if can_do_damage and ("IS_ENEMY" in body or "IS_PLAYER" in body):
+	if can_do_damage && ("IS_ENEMY" in body || "IS_PLAYER" in body):
 		
 		body.health_handler.get_damage(damage)
 		

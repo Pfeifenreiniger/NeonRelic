@@ -3,12 +3,13 @@ extends Node
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
 
 
 ###----------METHODS: DO ANIMATION----------###
 
 func climb_up_ledge(direction:String) -> void:
+	
 	# tween config
 	var tween:Tween = get_tree().create_tween()
 	var animation_duration:float = 0.9
@@ -25,4 +26,6 @@ func climb_up_ledge(direction:String) -> void:
 	
 	var to_pos_y:float = player.global_position.y - player_y_offset
 	
-	tween.tween_property(player, "global_position", Vector2(to_pos_x, to_pos_y), animation_duration)
+	tween.tween_property(player, "global_position", Vector2(to_pos_x, to_pos_y), animation_duration)\
+	.set_ease(Tween.EASE_IN_OUT)\
+	.set_trans(Tween.TRANS_CUBIC)

@@ -1,12 +1,12 @@
-"""
-Aim-line for throwing secondary weapon (such as grenades)
-"""
+
+# Aim-line for throwing secondary weapon (such as grenades)
 
 extends Node2D
 
+
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
 
 
 ###----------PROPERTIES----------###
@@ -86,11 +86,10 @@ func start_angle_animation_aim_line(direction:String) -> void:
  
 
 func stop_draw_aim_line() -> float:
-	"""
-	Stops the aim line animation and returns a value between 0.0 and 1.0.
-	0.0 = no extra (negative) velocity for y of thrown secondary weapon.
-	1.0 = 100% extra (negative) velocity for y of thrown secondary weapon.
-	"""
+	## Stops the aim line animation and returns a value between 0.0 and 1.0.
+	## 0.0 = no extra (negative) velocity for y of thrown secondary weapon.
+	## 1.0 = 100% extra (negative) velocity for y of thrown secondary weapon.
+	
 	tween_angle_animation.stop()
 	to_draw = false
 	queue_redraw()
@@ -106,9 +105,8 @@ func stop_draw_aim_line() -> float:
 
 
 func adjust_secondary_weapon_start_position(to_player_position:String) -> void:
-	"""
-	Depending on to_player_position ('duck' or 'stand') the Player's Marker2D Node's y-position will be updated.
-	"""
+	## Depending on to_player_position ('duck' or 'stand') the Player's Marker2D Node's y-position will be updated.
+	
 	if to_player_position == "stand":
 		player.secondary_weapon_start_pos.position.y -= 20
 	else:

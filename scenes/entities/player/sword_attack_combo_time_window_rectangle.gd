@@ -3,7 +3,7 @@ extends Node2D
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
 
 
 ###----------PROPERTIES----------###
@@ -14,7 +14,13 @@ var rect_colors:Dictionary = {
 	"white" as String: Color('F9F9F9') as Color,
 	"red" as String: Color('B30E0E') as Color
 }
-var current_rect_color:Color = rect_colors["white"]
+var current_rect_color:Color
+
+
+###----------METHODS: AT INITIATION CALLED----------###
+
+func _ready() -> void:
+	reset_rect_color()
 
 
 ###----------METHODS: PER FRAME CALLED----------###
@@ -26,7 +32,6 @@ func _process(_delta:float) -> void:
 ###----------METHODS----------###
 
 func _draw() -> void:
-	
 	if rect_to_draw:
 		
 		position = player.position + Vector2(0, 60)

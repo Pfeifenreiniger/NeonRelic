@@ -1,9 +1,9 @@
 extends Node
-
+class_name PlayerWeaponHandler
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
 
 
 ###----------NODE REFERENCES----------###
@@ -40,13 +40,11 @@ func _ready() -> void:
 ###----------METHODS----------###
 
 func select_current_weapon(weapon_name:String) -> void:
-	"""
-	Selects primary weapon of player
-	"""
+	# Selects primary weapon of player
 	
 	if weapon_name not in valid_primary_weapon_names:
 		return
-
+	
 	var primary_weapon:Node = available_primary_weapons[weapon_name].instantiate() as Node
 	
 	# add loaded primary weapon to Node2D (and remove any older Nodes)

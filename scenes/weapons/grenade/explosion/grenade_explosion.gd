@@ -48,7 +48,7 @@ func _process(_delta: float) -> void:
 ###----------METHODS----------###
 
 func _check_to_hide_grenade() -> void:
-	if not grenade_hidden and frame >= 2:
+	if !grenade_hidden && frame >= 2:
 		# hide parent scene (grenade sprite)
 		hide_grenade.emit()
 		grenade_hidden = true
@@ -66,14 +66,14 @@ func _add_grenade_effect_to_level_scene() -> void:
 
 ###----------CONNECTED SIGNALS----------###
 
-func _on_animation_finished():	
+func _on_animation_finished() -> void:
 	# emits destroy_grenade signal to get rid of parent scene (grenade scene)
 	destroy_grenade.emit()
 	queue_free()
 
 
 func _on_hit_area_body_entered(body:Node2D) -> void:
-	if not done_damage_to_enemy and "IS_ENEMY" in body:
+	if !done_damage_to_enemy and "IS_ENEMY" in body:
 		done_damage_to_enemy = true
 		# TEMP - Schaden der Explosion noch balancen
 		body.health_handler.get_damage(10)

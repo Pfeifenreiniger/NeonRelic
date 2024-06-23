@@ -3,7 +3,7 @@ extends Area2D
 
 ###----------SCENE REFERENCES----------###
 
-@onready var whip:AnimatedSprite2D = $".." as AnimatedSprite2D
+@onready var whip:Whip = $".." as Whip
 
 
 ###----------NODE REFERENCES----------###
@@ -35,7 +35,7 @@ func _ready() -> void:
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(_delta:float) -> void:
-	if whip.do_attack_animation and not whip.done_attack_animation:
+	if whip.do_attack_animation && !whip.done_attack_animation:
 		adjust_hitbox_size()
 		whip.set_attack_particles_pos_to_whips_end()
 

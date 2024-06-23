@@ -36,6 +36,7 @@ animation = &"heartbeat"
 
 [node name="LifeProgressBar" type="TextureProgressBar" parent="MarginContainer" index="1"]
 layout_mode = 2
+mouse_filter = 2
 texture_under = ExtResource("5_02y7r")
 texture_over = ExtResource("6_hyepe")
 texture_progress = ExtResource("7_kf4md")

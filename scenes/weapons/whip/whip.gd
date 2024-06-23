@@ -1,9 +1,9 @@
 extends AnimatedSprite2D
-
+class_name Whip
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
 
 
 ###----------NODE REFERENCES----------###
@@ -25,10 +25,11 @@ extends AnimatedSprite2D
 const IS_WHIP:bool = true
 
 # attack damage
+# OPT: Spaeter im Entwicklungsprozess schauen, wie die Stats der Schadenserhoehung sein sollen
 const WHIP_ATTACK_INIT_DAMAGE:int = 15
 const WHIP_ATTACK_MAX_DAMAGE:int = 60
 const WHIP_ATTACK_DAMAGE_INCREASE:int = 4
-var current_whip_attack_damage:int = WHIP_ATTACK_INIT_DAMAGE
+var current_whip_attack_damage:int
 
 # attack charge
 var can_whip_attack_charge:bool = true
@@ -51,6 +52,7 @@ const WHIP_HANDLE_POS_Y_OFFSET:int = 4
 ###----------METHODS: AT INITIATION CALLED----------###
 
 func _ready() -> void:
+	reset_whip_attack_damage()
 	charge_timer.timeout.connect(_on_charge_timer_timeout)
 	
 	animation_finished.connect(_on_animation_finished)
@@ -68,10 +70,10 @@ func _process(_delta:float) -> void:
 ###----------METHODS: WHIP'S ATTACK CHARGE----------###
 
 func do_attack_charge() -> void:
-	if charges_whip_attack and not started_charge_timer:
+	if charges_whip_attack && !started_charge_timer:
 		charge_timer.start()
 		started_charge_timer = true
-	elif not charges_whip_attack and started_charge_timer:
+	elif !charges_whip_attack && started_charge_timer:
 		charge_timer.stop()
 		started_charge_timer = false
 
@@ -80,7 +82,7 @@ func increase_whip_attack_damage() -> void:
 	current_whip_attack_damage += WHIP_ATTACK_DAMAGE_INCREASE
 	if current_whip_attack_damage > WHIP_ATTACK_MAX_DAMAGE:
 		current_whip_attack_damage = WHIP_ATTACK_MAX_DAMAGE
-	# OPT: Spaeter im Entwicklungsprozess schauen, wie die Stats der Schadenserhoehung sein sollen
+	# TEMP: Den print() kann man spaeter hier rausnehmen, sobald die Stats finalisiert werden (game balance)
 	print("CHARGE! MEIN DAMAGE LAUTET %s" % current_whip_attack_damage)
 
 

@@ -1,9 +1,9 @@
 extends Camera2D
-
+class_name IngameCamera
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group("player") as CharacterBody2D
+@onready var player:Player = get_tree().get_first_node_in_group("player") as Player
 
 
 ###----------PROPERTIES----------###
@@ -12,7 +12,7 @@ var target_position = Vector2.ZERO
 const BASE_CAMERA_Y_POS_PADDING:int = 200
 const MAX_CAMERA_Y_POS_PADDING:int = 140
 const CAMERA_Y_POS_PADDING_INCREMENT_STEP:int = 2
-var current_camera_y_pos_padding:int = BASE_CAMERA_Y_POS_PADDING
+var current_camera_y_pos_padding:int
 var desc_camera_y_axis:bool = false
 var asc_camera_y_axis:bool = false
 
@@ -20,8 +20,11 @@ var asc_camera_y_axis:bool = false
 ###----------METHODS: AT INITIATION CALLED----------###
 
 func _ready() -> void:
+	current_camera_y_pos_padding = BASE_CAMERA_Y_POS_PADDING
+
 	# set this camera as the current game camera when instantiated
 	make_current()
+
 
 ###----------METHODS: PER FRAME CALLED----------###
 

@@ -1,9 +1,9 @@
 extends Node
-
+class_name PlayerInvulnerableHandler
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
 
 
 ###----------NODE REFERENCES----------###
@@ -26,10 +26,9 @@ func _ready() -> void:
 ###----------METHODS----------###
 
 func become_invulnerable(timer_value:float, invulnerability_shader:bool) -> void:
-	"""
-	Player gets invulnerable to damage for a short time period (defined in argument for parameter timer_value).
-	Invulnerability-shader-animation starts only with true-argument of invulnerability_shader.
-	"""
+	# Player gets invulnerable to damage for a short time period (defined in argument for parameter timer_value).
+	# Invulnerability-shader-animation starts only with true-argument of invulnerability_shader.
+	
 	self.invulnerability_shader = invulnerability_shader
 	is_invulnerable = true
 	invulnerable_timer.wait_time = timer_value
@@ -41,9 +40,8 @@ func become_invulnerable(timer_value:float, invulnerability_shader:bool) -> void
 ###----------CONNECTED SIGNALS----------###
 
 func _on_invulnerable_timer_timeout() -> void:
-	"""
-	Time period of invulnerability is over -> player gets vulnerable again.
-	"""
+	# Time period of invulnerability is over -> player gets vulnerable again.
+	
 	is_invulnerable = false
 	if invulnerability_shader:
 		player.animations_handler.animations.material.set_shader_parameter("doBlink", false)

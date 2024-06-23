@@ -243,6 +243,12 @@ sprite_frames = SubResource("SpriteFrames_ba4bt")
 animation = &"right"
 autoplay = "right"
 
+[node name="MovementHandler" parent="." index="1"]
+base_speed = 20
+
+[node name="HealthHandler" parent="." index="2"]
+health = 40
+
 [node name="CollisionBox" parent="." index="3"]
 position = Vector2(0, 22.5)
 shape = SubResource("RectangleShape2D_kerse")

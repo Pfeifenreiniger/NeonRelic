@@ -1,9 +1,9 @@
 extends Node
-
+class_name PlayerSideCollisionBoxesHandler
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
 
 
 ###----------NODE REFERENCES----------###
@@ -31,6 +31,7 @@ func _ready() -> void:
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(_delta:float) -> void:
+	
 	# put detection boxes at player's global position
 	left_collision_detection_box.global_position = player.global_position
 	right_collision_detection_box.global_position = player.global_position

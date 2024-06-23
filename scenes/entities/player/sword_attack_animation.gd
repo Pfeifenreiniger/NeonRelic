@@ -3,8 +3,8 @@ extends Node
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
-@onready var animations_handler:Node = $".." as Node
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
+@onready var animations_handler:PlayerAnimationsHandler = $".." as PlayerAnimationsHandler
 
 
 ###----------NODE REFERENCES----------###
@@ -22,14 +22,13 @@ var is_combo_time_window:bool = false
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(_delta:float) -> void:
-	if player.movement_handler.is_attacking and 'IS_SWORD' in player.weapon_handler.current_weapon:
+	if player.movement_handler.is_attacking && 'IS_SWORD' in player.weapon_handler.current_weapon:
 		_check_if_combo_time_window()
 
 
 ###----------METHODS----------###
 
 func attack_combo(combo_phase:int, player_position:String) -> void:
-	
 	if player.animations_handler.loop_animation:
 		player.animations_handler.loop_animation = false
 	player.animations_handler.animation_to_change = true
@@ -61,14 +60,15 @@ func attack_combo(combo_phase:int, player_position:String) -> void:
 		else:
 			to_pos_x = player.global_position.x - player_x_offset
 		
-		x_movement_tween.tween_property(player, "global_position", Vector2(to_pos_x, player.global_position.y), animation_duration).set_ease(Tween.EASE_IN)
+		x_movement_tween.tween_property(player, "global_position", Vector2(to_pos_x, player.global_position.y), animation_duration)\
+		.set_ease(Tween.EASE_IN)\
+		.set_trans(Tween.TRANS_SINE)
 
 
 func _check_if_combo_time_window() -> void:
-	
 	var current_animation_frame:int = player.animations_handler.animations.get_frame()
 	
-	if current_animation_frame > 6 and current_animation_frame <= 8:
+	if current_animation_frame > 6 && current_animation_frame <= 8:
 		is_combo_time_window = true
 		sword_attack_combo_time_window_rectangle.current_rect_color = sword_attack_combo_time_window_rectangle.rect_colors["red"]
 	else:

@@ -3,7 +3,7 @@ extends Node2D
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
 
 
 ###----------NODE REFERENCES----------###
@@ -50,7 +50,7 @@ func _ready() -> void:
 
 func _process(_delta:float) -> void:
 	global_position = player.global_position
-	if player.movement_handler.is_attacking and 'IS_SWORD' in player.weapon_handler.current_weapon:
+	if player.movement_handler.is_attacking && 'IS_SWORD' in player.weapon_handler.current_weapon:
 		check_current_hitbox_state()
 
 
@@ -75,13 +75,13 @@ func adjust_hitbox_position(combo_phase:int) -> void:
 
 func activate_hitbox(combo_phase:int, current_frame:int) -> void:
 	if combo_phase == 1:
-		if current_frame >= 5 and current_frame <= 7:
+		if current_frame >= 5 && current_frame <= 7:
 			hitbox_combo_1.disabled = false
 	elif combo_phase == 2:
-		if current_frame >= 3 and current_frame <= 7:
+		if current_frame >= 3 && current_frame <= 7:
 			hitbox_combo_2.disabled = false
 	else:
-		if current_frame >= 3 and current_frame <= 4:
+		if current_frame >= 3 && current_frame <= 4:
 			hitbox_combo_3.disabled = false
 
 
@@ -101,9 +101,8 @@ func check_current_hitbox_state() -> void:
 
 
 func _calculate_enemy_x_axis_recoil_side(enemy_scene:Node2D, pixels_amount:int) -> int:
-	"""
-	Calculates if the enemy push-back (recoil) is happening to the right or to the left (positiv or negativ on the x-axis)
-	"""
+	## Calculates if the enemy push-back (recoil) is happening to the right or to the left (positiv or negativ on the x-axis)
+	
 	if enemy_scene.global_position.x > player.global_position.x:
 		return pixels_amount
 	else:
@@ -113,33 +112,27 @@ func _calculate_enemy_x_axis_recoil_side(enemy_scene:Node2D, pixels_amount:int) 
 ###----------METHODS: CONNECTED SIGNALS----------###
 
 func _on_hitbox_zone_combo_1_body_entered(body:Node2D) -> void:
-	# Due to collision layer body is always an enemy.
-	
-	# ToDo - Gegner zurueckstossen (wenig zurueckstossen)
-	if 'IS_ENEMY' in body and body.IS_ENEMY:
+	if 'IS_ENEMY' in body && body.IS_ENEMY:
 		body.health_handler.get_damage(10)
+		# enemy knockback (lowest)
 		body.movement_handler.recoil_on_x_axis(
 			_calculate_enemy_x_axis_recoil_side(body, 10)
 		)
 
 
 func _on_hitbox_zone_combo_2_body_entered(body:Node2D) -> void:
-	# Due to collision layer body is always an enemy.
-	
-	# ToDo - Gegner Schaden zurueckstossen (maessig zurueckstossen)
-	if 'IS_ENEMY' in body and body.IS_ENEMY:
+	if 'IS_ENEMY' in body && body.IS_ENEMY:
 		body.health_handler.get_damage(20)
+		# enemy knockback (mid)
 		body.movement_handler.recoil_on_x_axis(
 			_calculate_enemy_x_axis_recoil_side(body, 20)
 		)
 
 
 func _on_hitbox_zone_combo_3_body_entered(body:Node2D) -> void:
-	# Due to collision layer body is always an enemy.
-	
-	# ToDo - Gegner Schaden zurueckstossen (hier am weitesten zurueckstossen)
-	if 'IS_ENEMY' in body and body.IS_ENEMY:
+	if 'IS_ENEMY' in body && body.IS_ENEMY:
 		body.health_handler.get_damage(5)
+		# enemy knockback (farest)
 		body.movement_handler.recoil_on_x_axis(
 			_calculate_enemy_x_axis_recoil_side(body, 30)
 		)

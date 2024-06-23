@@ -15,6 +15,7 @@ theme_override_constants/margin_top = 84
 
 [node name="StaminaProgressBar" type="TextureProgressBar" parent="MarginContainer" index="0"]
 layout_mode = 2
+mouse_filter = 2
 texture_under = ExtResource("3_w0k2p")
 texture_over = ExtResource("4_n8dbl")
 texture_progress = ExtResource("5_ajs2v")

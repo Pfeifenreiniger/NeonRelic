@@ -1,9 +1,9 @@
 extends Node
-
+class_name PlayerAnimationsHandler
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
 
 
 ###----------NODE REFERENCES----------###
@@ -12,6 +12,7 @@ extends Node
 @onready var side_roll_animation:Node = $SideRollAnimation as Node
 @onready var whip_attack_charge_shader_animation:Node = $WhipAttackAnimation/WhipAttackChargeShaderAnimation as Node
 @onready var sword_attack_animation:Node = $SwordAttackAnimation as Node
+@onready var block_animation:Node = $BlockAnimation as Node
 @onready var animations:AnimatedSprite2D = $Animations as AnimatedSprite2D
 
 
@@ -26,14 +27,13 @@ var animation_frames_forwards:bool = true
 
 ###----------PROPERTIES: CUSTOM SIGNALS----------###
 
-signal from_to_duck_to_is_duck
-signal from_to_duck_to_stand
 signal throw_secondary_weapon_frame
 
 
 ###----------METHODS: AT INITIATION CALLED----------###
 
 func _ready() -> void:
+	
 	# set up animations
 	animations.animation_finished.connect(on_animation_finished)
 	animations.frame_changed.connect(on_frame_changed)
@@ -75,8 +75,8 @@ func _after_attack_change_to_idle_animation(side:String) -> void:
 		current_animation = "stand_%s" % side
 	else:
 		current_animation = "duck_%s" % side
-		if not Input.is_action_pressed("down"):
-			# simulate duck-input and key-release from player for proper animation
+		if !Input.is_action_pressed("down"):
+			# BUG: (workaround) simulate duck-input and key-release from player for proper animation
 			Input.action_press("down")
 			await get_tree().create_timer(0.25).timeout
 			Input.action_release("down")
@@ -141,7 +141,7 @@ func on_animation_finished() -> void:
 		# whip attack
 		if "whip_attack" in current_animation:
 			if "1" in current_animation:
-				if not player.weapon_handler.current_weapon.charges_whip_attack:
+				if !player.weapon_handler.current_weapon.charges_whip_attack:
 					# if charge animation was played -> stop it
 					if "stand" in current_animation:
 						current_animation = "stand_whip_attack_%s_2" % side
@@ -153,12 +153,12 @@ func on_animation_finished() -> void:
 					player.invulnerable_handler.become_invulnerable(0.5, false)
 					whip_attack_charge_shader_animation.stop_whip_attack_shader_animation()
 				else:
-					if not whip_attack_charge_shader_animation.do_whip_attack_shader_animation:
+					if !whip_attack_charge_shader_animation.do_whip_attack_shader_animation:
 						animations.pause()
 						whip_attack_charge_shader_animation.start_whip_attack_shader_animation()
 			elif "2" in current_animation:
 				# play whip attack
-				if not player.weapon_handler.current_weapon.do_attack_animation:
+				if !player.weapon_handler.current_weapon.do_attack_animation:
 					player.weapon_handler.current_weapon.attack_side = side
 					player.weapon_handler.current_weapon.visible = true
 					player.weapon_handler.current_weapon.set_pos_to_player(side)
@@ -166,7 +166,8 @@ func on_animation_finished() -> void:
 					player.weapon_handler.current_weapon.play('attack_%s' % side)
 					player.weapon_handler.current_weapon.init_attack_animation(side)
 				# change to attack 3 animation
-				if player.weapon_handler.current_weapon.do_attack_animation and player.weapon_handler.current_weapon.done_attack_animation:
+				if player.weapon_handler.current_weapon.do_attack_animation\
+				&& player.weapon_handler.current_weapon.done_attack_animation:
 					player.weapon_handler.current_weapon.finish_attack_animation()
 					animation_to_change = true
 					if "stand" in current_animation:
@@ -177,14 +178,13 @@ func on_animation_finished() -> void:
 				# change to idle animation
 				player.weapon_handler.current_weapon.can_whip_attack_charge = true
 				_after_attack_change_to_idle_animation(side)
-					
+				
 		elif "sword_attack" in current_animation:
-			# ToDo - was passiert wenn die sword animation vorbei ist
 			player.animations_handler.sword_attack_animation.is_combo_time_window = false
 			player.animations_handler.sword_attack_animation.sword_attack_combo_time_window_rectangle.rect_to_draw = false
 			player.animations_handler.sword_attack_animation.sword_attack_combo_time_window_rectangle.reset_rect_color()
 			player.animations_handler.sword_attack_animation.x_movement_tween = null
-			for i in range(3):
+			for i in 3:
 				player.weapon_handler.current_weapon.deactivate_hitbox(i + 1)
 			_after_attack_change_to_idle_animation(side)
 			
@@ -193,11 +193,27 @@ func on_animation_finished() -> void:
 		current_animation = current_animation.split('_throw_')[0] + "_" + current_animation.split('_throw_')[1]
 		loop_animation = true
 		animation_to_change = true
-		if "duck" in current_animation and not Input.is_action_pressed("down"):
-			# simulate duck-input and key-release from player for proper animation
+		if "duck" in current_animation && !Input.is_action_pressed("down"):
+			# BUG: (workaround) simulate duck-input and key-release from player for proper animation
 			Input.action_press("down")
 			await get_tree().create_timer(0.25).timeout
 			Input.action_release("down")
+	
+	elif player.movement_handler.is_blocking:
+		if "go" in current_animation:
+			current_animation = current_animation.replace("go", "do")
+			loop_animation = true
+			animation_to_change = true
+		
+		elif "done" in current_animation:
+			current_animation = current_animation.replace("_done_block", "")
+			loop_animation = true
+			animation_to_change = true
+			
+			var shield_hitbox_name:String = current_animation
+			block_animation.deactivate_hitbox(shield_hitbox_name)
+			
+			player.movement_handler.is_blocking = false
 
 
 func on_frame_changed() -> void:

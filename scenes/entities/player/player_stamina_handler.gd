@@ -1,5 +1,5 @@
 extends Node
-
+class_name PlayerStaminaHandler
 
 ###----------NODE REFERENCES----------###
 
@@ -17,7 +17,7 @@ var max_stamina:int = Globals.player_max_stamina:
 		max_stamina = value
 		Globals.player_max_stamina = value
 
-var current_stamina:float = max_stamina:
+var current_stamina:float:
 	get:
 		return current_stamina
 	set(value):
@@ -37,29 +37,27 @@ var stamina_costs:Dictionary = {
 ###----------METHODS: AT INITIATION CALLED----------###
 
 func _ready() -> void:
+	current_stamina = max_stamina
 	stamina_refresh_timer.timeout.connect(_on_stamina_refresh_timer_timeout)
 
 
 ###----------METHODS----------###
 
 func check_player_has_enough_stamina(amount_stamina:int) -> bool:
-	"""
-	Checks if the current stamina amount is high enough to perform an action. 
-	"""
+	# Checks if the current stamina amount is high enough to perform an action.
+	
 	return current_stamina >= amount_stamina * stamina_cost_multiplier
 
 
 func cost_player_stamina(amount_stamina:int) -> void:
-	"""
-	Reduce stamina with actions like attacks/rolls.
-	"""
+	# Reduce stamina with actions like attacks/rolls.
+	
 	current_stamina -= amount_stamina * stamina_cost_multiplier
 
 
 func refresh_player_stamina() -> void:
-	"""
-	Refreshes the current stamina by the stamina refreshment rate amount.
-	"""
+	# Refreshes the current stamina by the stamina refreshment rate amount.
+	
 	if stamina_can_refresh:
 		if current_stamina < max_stamina:
 			if current_stamina + stamina_refreshment_rate <= max_stamina:

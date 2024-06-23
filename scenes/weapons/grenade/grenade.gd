@@ -2,7 +2,7 @@ extends RigidBody2D
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:CharacterBody2D = get_tree().get_first_node_in_group('player') as CharacterBody2D
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
 
 var grenade_explosion_scene:PackedScene = preload("res://scenes/weapons/grenade/explosion/grenade_explosion.tscn") as PackedScene
 
@@ -30,6 +30,7 @@ func _ready() -> void:
 ###----------CONNECTED SIGNALS----------###
 
 func _on_explosion_timer_timeout() -> void:
+	
 	# instantiate explosion scene
 	var grenade_explosion:AnimatedSprite2D = grenade_explosion_scene.instantiate() as AnimatedSprite2D
 	grenade_explosion.grenade_type = GRENADE_TYPE

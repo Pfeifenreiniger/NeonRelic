@@ -28,6 +28,7 @@ func _process(_delta:float) -> void:
 ###----------METHODS: CHECK CURRENT HEALTH PROPERTY----------###
 
 func check_current_player_health() -> void:
+	
 	# check for life progress bar
 	var max_player_health:float = Globals.player_max_health
 	var max_life_bar_value:int = int(progress_bar.max_value)

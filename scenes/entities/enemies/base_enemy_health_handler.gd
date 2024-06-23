@@ -1,11 +1,14 @@
 extends Node
+class_name BaseEnemyHealthHandler
 
 ###----------SCENE REFERENCES----------###
 
-@onready var enemy_scene:CharacterBody2D = $'../' as CharacterBody2D
+@onready var enemy_scene:BaseEnemy = $'../' as BaseEnemy
 
 
 ###----------PROPERTIES----------###
+
+@export var health:int = 100
 
 var is_invulnerable:bool = false
 
@@ -13,17 +16,19 @@ var is_invulnerable:bool = false
 ###----------METHODS----------###
 
 func get_damage(amount:int) -> void:
-	if not is_invulnerable:
-		enemy_scene.health -= amount
+	if !is_invulnerable:
+		health -= amount
 		
 		# some enemies do have an extra damage_animation AnimatedSprite2D node for damage animations
 		if "damage_animation" in enemy_scene:
 			enemy_scene.damage_animation.visible = true
 			enemy_scene.damage_animation.play("damage")
-			enemy_scene.damage_animation.animation_finished.connect(func(): enemy_scene.damage_animation.visible = false)
+			enemy_scene.damage_animation.animation_finished.connect(
+				func(): enemy_scene.damage_animation.visible = false
+			)
 			await enemy_scene.damage_animation.animation_finished
 		
-		if enemy_scene.health <= 0:
+		if health <= 0:
 			enemy_scene.death_animation()
 		else:
 			_become_invulnerable(0.3)
