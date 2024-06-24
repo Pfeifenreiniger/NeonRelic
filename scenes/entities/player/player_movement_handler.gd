@@ -15,7 +15,7 @@ var direction:Vector2 = Vector2.ZERO
 # run speed
 const BASE_SPEED:int = 200
 var current_speed:int
-const BASE_ACCELERATION_SMOOTHING:int = 35
+const BASE_ACCELERATION_SMOOTHING:int = 55
 var current_acceleration_smoothing:int
 
 # jumping
@@ -232,7 +232,10 @@ func check_if_player_can_block() -> bool:
 		&& !is_attacking\
 		&& !is_throwing\
 		&& !is_rolling\
-		&& !is_climbing_ledge:
+		&& !is_climbing_ledge\
+		&& player.stamina_handler.check_player_has_enough_stamina(
+			player.stamina_handler.stamina_costs["block_laser"]
+		):
 			return true
 		
 		else:
@@ -536,7 +539,8 @@ func action_input_block() -> void:
 	# change animation to go_block animation
 	var start_animation_name:String = ""
 	
-	if "stand" in player.animations_handler.current_animation:
+	if "stand" in player.animations_handler.current_animation\
+	|| "run" in player.animations_handler.current_animation:
 		start_animation_name += "stand_go_block_"
 	else:
 		start_animation_name += "duck_go_block_"

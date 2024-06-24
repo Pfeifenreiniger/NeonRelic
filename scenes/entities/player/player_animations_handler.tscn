@@ -1,4 +1,4 @@
-[gd_scene load_steps=302 format=3 uid="uid://ckecmw1wq155q"]
+[gd_scene load_steps=308 format=3 uid="uid://ckecmw1wq155q"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player_animations_handler.gd" id="1_6sm3f"]
 [ext_resource type="Script" path="res://scenes/entities/player/climb_up_ledge_animation.gd" id="2_0vqk3"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scenes/entities/player/sword_attack_combo_time_window_rectangle.gd" id="7_iu84p"]
 [ext_resource type="Texture2D" uid="uid://dwfnrulsc6tqc" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f1.png" id="7_vhije"]
 [ext_resource type="Texture2D" uid="uid://b8jjd03gpgmtw" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f2.png" id="8_cqstg"]
+[ext_resource type="Texture2D" uid="uid://crd6nd4pi3ebe" path="res://assets/graphics/brushes/brush_10x10_px.png" id="9_65trl"]
 [ext_resource type="Texture2D" uid="uid://d0m2mrtklbruo" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f3.png" id="9_r6emh"]
 [ext_resource type="Texture2D" uid="uid://cor08r3gavsxt" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f4.png" id="10_m7l2g"]
 [ext_resource type="Texture2D" uid="uid://3w0lxc5bffxe" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f5.png" id="11_ku6mu"]
@@ -307,6 +308,44 @@ size = Vector2(11, 65)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6pt23"]
 size = Vector2(11, 65)
+
+[sub_resource type="Gradient" id="Gradient_rd8pc"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.592145, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6nsk1"]
+gradient = SubResource("Gradient_rd8pc")
+
+[sub_resource type="Curve" id="Curve_1iq6p"]
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jivdp"]
+curve = SubResource("Curve_1iq6p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tko1u"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 4.97
+spread = 62.487
+flatness = 0.253
+initial_velocity_min = 5.18
+initial_velocity_max = 5.18
+angular_velocity_min = -82.07
+angular_velocity_max = 22.39
+radial_velocity_max = 10.36
+gravity = Vector3(45, -25, 0)
+scale_min = 0.5
+scale_max = 1.2
+scale_over_velocity_min = 155.44
+scale_over_velocity_max = 264.25
+scale_over_velocity_curve = SubResource("CurveTexture_jivdp")
+color = Color(0.929412, 0.67451, 0.847059, 0.588235)
+color_ramp = SubResource("GradientTexture1D_6nsk1")
+hue_variation_max = 0.02
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g2dfq"]
 shader = ExtResource("6_p0nm4")
@@ -1488,8 +1527,18 @@ position = Vector2(19.5, 8.5)
 shape = SubResource("RectangleShape2D_6pt23")
 disabled = true
 
+[node name="LaserBeamSteamParticles" type="GPUParticles2D" parent="BlockAnimation"]
+position = Vector2(20, -6)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_tko1u")
+texture = ExtResource("9_65trl")
+lifetime = 1.2
+one_shot = true
+randomness = 0.5
+
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_g2dfq")
 sprite_frames = SubResource("SpriteFrames_25tp4")
-animation = &"stand_do_block_left"
+animation = &"stand_do_block_right"
 metadata/_edit_lock_ = true

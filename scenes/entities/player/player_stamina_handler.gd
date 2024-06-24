@@ -30,7 +30,8 @@ var stamina_costs:Dictionary = {
 	"side_roll" as String : 20 as int,
 	"whip_attack" as String : 10 as int,
 	"sword_attack" as String: 5 as int,
-	"use_secondary_weapon" as String : 5 as int
+	"use_secondary_weapon" as String : 5 as int,
+	"block_laser" as String : 5 as int
 }
 
 
@@ -44,19 +45,19 @@ func _ready() -> void:
 ###----------METHODS----------###
 
 func check_player_has_enough_stamina(amount_stamina:int) -> bool:
-	# Checks if the current stamina amount is high enough to perform an action.
+	## Checks if the current stamina amount is high enough to perform an action.
 	
 	return current_stamina >= amount_stamina * stamina_cost_multiplier
 
 
 func cost_player_stamina(amount_stamina:int) -> void:
-	# Reduce stamina with actions like attacks/rolls.
+	## Reduce stamina with actions like attacks/rolls.
 	
 	current_stamina -= amount_stamina * stamina_cost_multiplier
 
 
 func refresh_player_stamina() -> void:
-	# Refreshes the current stamina by the stamina refreshment rate amount.
+	## Refreshes the current stamina by the stamina refreshment rate amount.
 	
 	if stamina_can_refresh:
 		if current_stamina < max_stamina:
