@@ -150,7 +150,7 @@ func on_animation_finished() -> void:
 					animation_to_change = true
 					player.weapon_handler.current_weapon.can_whip_attack_charge = false
 					player.weapon_handler.current_weapon.reset_whip_attack_damage()
-					player.invulnerable_handler.become_invulnerable(0.5, false)
+					player.invulnerable_handler.invulnerability_component.become_invulnerable(0.5, false)
 					whip_attack_charge_shader_animation.stop_whip_attack_shader_animation()
 				else:
 					if !whip_attack_charge_shader_animation.do_whip_attack_shader_animation:
@@ -211,7 +211,7 @@ func on_animation_finished() -> void:
 			animation_to_change = true
 			
 			var shield_hitbox_name:String = current_animation
-			block_animation.deactivate_hitbox(shield_hitbox_name)
+			player.block_shield_handler.deactivate_hitbox(shield_hitbox_name)
 			
 			player.movement_handler.is_blocking = false
 

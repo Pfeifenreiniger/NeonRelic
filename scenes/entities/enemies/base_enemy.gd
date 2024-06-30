@@ -11,6 +11,8 @@ class_name BaseEnemy
 
 @onready var movement_handler:BaseEnemyMovementHandler = $MovementHandler as BaseEnemyMovementHandler
 @onready var health_handler:BaseEnemyHealthHandler = $HealthHandler as BaseEnemyHealthHandler
+@onready var invulnerable_handler:BaseEnemyInvulnerableHandler = $InvulnerableHandler as BaseEnemyInvulnerableHandler
+@onready var animations_handler: BaseEnemyAnimationsHandler = $AnimationsHandler as BaseEnemyAnimationsHandler
 @onready var aggro_area:Area2D = $AggroArea as Area2D
 @onready var attack_area:Area2D = $AttackArea as Area2D
 

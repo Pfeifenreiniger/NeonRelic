@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://eh6c3ehxoqmc"]
+
+[ext_resource type="Script" path="res://scenes/components/shoot_laser_component/shoot_laser_component.gd" id="1_84y5r"]
+
+[node name="ShootLaserComponent" type="Node"]
+script = ExtResource("1_84y5r")
+
+[node name="LaserBeams" type="Node2D" parent="."]
+
+[node name="CannotShootTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true

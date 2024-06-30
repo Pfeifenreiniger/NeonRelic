@@ -64,7 +64,7 @@ func _on_life_timer_timeout() -> void:
 func _on_body_entered(body:Node2D) -> void:
 	if can_do_damage && ("IS_ENEMY" in body || "IS_PLAYER" in body):
 		
-		body.health_handler.get_damage(damage)
+		body.health_handler.health_component.get_damage(damage)
 		
 		if grenade_type == "freeze_grenade":
 			body.movement_handler.effect_get_slow_down(2)

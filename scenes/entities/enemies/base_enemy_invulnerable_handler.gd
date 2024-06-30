@@ -1,13 +1,18 @@
 extends Node
-class_name PlayerInvulnerableHandler
+class_name BaseEnemyInvulnerableHandler
+
 
 ###----------SCENE REFERENCES----------###
 
-@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
+@onready var base_enemy_root_node:BaseEnemy = $".." as BaseEnemy
+
+
+###----------NODE REFERENCES----------###
+
 @onready var invulnerability_component:InvulnerabilityComponent = $InvulnerabilityComponent as InvulnerabilityComponent
 
 
 ###----------METHODS: AT INITIATION CALLED----------###
 
 func _ready() -> void:
-	invulnerability_component.entity = player
+	invulnerability_component.entity = base_enemy_root_node

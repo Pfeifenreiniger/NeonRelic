@@ -1,25 +1,19 @@
 extends BaseEnemy
 
 
-###----------SCENE REFERENCES----------###
-
-var drone_laser_beam_scene:PackedScene = preload("res://scenes/projectiles/laser_beams/drone_laser_beam.tscn") as PackedScene
-
-
 ###----------NODE REFERENCES----------###
 
-@onready var animations:AnimatedSprite2D = $Animations as AnimatedSprite2D
+@onready var shoot_laser_component:ShootLaserComponent = $ShootLaserComponent as ShootLaserComponent
 @onready var lift_particles:GPUParticles2D = $LiftParticles as GPUParticles2D
 @onready var damage_animation:AnimatedSprite2D = $DamageAnimation as AnimatedSprite2D
 @onready var explosion_animation_player:AnimationPlayer = $ExplosionAnimationPlayer as AnimationPlayer
-@onready var laser_beams:Node2D = $LaserBeams as Node2D
 @onready var laser_beam_start_position:Marker2D = $LaserBeamStartPosition as Marker2D
+@onready var animations: AnimatedSprite2D = $AnimationsHandler/Animations
 
 
 ###----------PROPERTIES----------###
 
 var face_player_to_side:String = ""
-var laser_shot:bool = false
 
 
 ###----------METHODS: AT INITIATION CALLED----------###
@@ -27,6 +21,7 @@ var laser_shot:bool = false
 func _ready() -> void:
 	super._ready()
 	animations.animation_finished.connect(_on_animations_animation_finished)
+	health_handler.health_component.got_damage.connect(_on_got_damage)
 	movement_handler.current_speed = movement_handler.base_speed
 	damage_animation.visible = false
 
@@ -38,7 +33,7 @@ func _process(delta:float) -> void:
 	_face_drone_on_x_axis()
 	
 	if is_attacking:
-		_shot_laser_beam(laser_beam_start_position.global_position, player.global_position)
+		shoot_laser_component.shoot_laser_beam(player.global_position)
 
 
 ###----------METHODS: FACE DRONE ON X AXIS TO LEFT OR RIGHT----------###
@@ -89,22 +84,14 @@ func _face_to_right() -> void:
 
 ###----------METHODS----------###
 
-func _shot_laser_beam(from_position:Vector2, to_position:Vector2) -> void:
-	if !laser_shot:
-		var drone_laser_beam:Sprite2D = drone_laser_beam_scene.instantiate() as Sprite2D
-		laser_beams.add_child(drone_laser_beam)
-		drone_laser_beam.shot(from_position, to_position)
-		laser_shot = true
-		await get_tree().create_timer(3).timeout
-		laser_shot = false
 
-
-func death_animation() -> void:
+func do_die() -> void:
 	IS_ENEMY = false
 	movement_handler.current_speed = 0
 	is_aggro = false
 	is_attacking = false
 	explosion_animation_player.play('explosion')
+
 
 ###----------METHODS: CONNECTED SIGNALS----------###
 
@@ -133,3 +120,13 @@ func _on_animations_animation_finished() -> void:
 			animations.play("alarm_right")
 		else:
 			animations.play_backwards("alarm_right")
+
+
+func _on_got_damage() -> void:
+	damage_animation.visible = true
+	damage_animation.play("damage")
+	damage_animation.animation_finished.connect(
+		func(): damage_animation.visible = false
+	)
+	await damage_animation.animation_finished
+	

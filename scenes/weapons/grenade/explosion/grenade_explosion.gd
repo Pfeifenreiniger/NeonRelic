@@ -76,4 +76,4 @@ func _on_hit_area_body_entered(body:Node2D) -> void:
 	if !done_damage_to_enemy and "IS_ENEMY" in body:
 		done_damage_to_enemy = true
 		# TEMP - Schaden der Explosion noch balancen
-		body.health_handler.get_damage(10)
+		body.health_handler.health_component.get_damage(10)

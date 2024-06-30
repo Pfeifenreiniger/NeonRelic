@@ -1,9 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://hfyboniu7sxr"]
+[gd_scene load_steps=3 format=3 uid="uid://hfyboniu7sxr"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player_health_handler.gd" id="1_1ipvs"]
+[ext_resource type="PackedScene" uid="uid://r285wcnxtavl" path="res://scenes/components/health_component/health_component.tscn" id="2_hp3ja"]
 
 [node name="PlayerHealthHandler" type="Node"]
 script = ExtResource("1_1ipvs")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_refresh_timer") instance=ExtResource("2_hp3ja")]
+health_refresh_timer = NodePath("../HealthRefreshTimer")
+health_refreshment_rate = 1
 
 [node name="HealthRefreshTimer" type="Timer" parent="."]
 wait_time = 4.0

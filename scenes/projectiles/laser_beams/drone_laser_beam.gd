@@ -35,7 +35,7 @@ func _init_laser_timeout() -> void:
 	queue_free()
 
 
-func shot(drone_position:Vector2, player_position:Vector2) -> void:
+func shoot(drone_position:Vector2, player_position:Vector2) -> void:
 	start_position = drone_position
 	target_position = player_position
 	direction = (target_position - start_position).normalized()
@@ -52,5 +52,5 @@ func move(delta:float) -> void:
 
 func _on_hit_area_body_entered(body:Node2D) -> void:
 	if "IS_PLAYER" in body:
-		body.health_handler.get_damage(5)
+		body.health_handler.health_component.get_damage(5)
 		queue_free()

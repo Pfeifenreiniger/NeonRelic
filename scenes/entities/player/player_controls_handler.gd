@@ -51,7 +51,7 @@ func _process(_delta:float) -> void:
 func test_player_damage() -> void:
 	# TEMP - nur um sich per Knopfdruck Schaden (Keyboard K) zuzufuegen. Wird hinterher entfernt.
 	if Input.is_action_just_pressed("ingame_player_damage"):
-		player.health_handler.get_damage(20)
+		player.health_handler.health_component.get_damage(20)
 
 
 ###----------METHODS: CONTROL KEY INPUT CHECKS----------###

@@ -1,9 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://crm1ml21cib0l"]
+[gd_scene load_steps=3 format=3 uid="uid://crm1ml21cib0l"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player_invulnerable_handler.gd" id="1_bdtuu"]
+[ext_resource type="PackedScene" uid="uid://dt8ut7kl3bw7s" path="res://scenes/components/invulnerability_component/invulnerability_component.tscn" id="2_aofjb"]
 
 [node name="PlayerInvulnerableHandler" type="Node"]
 script = ExtResource("1_bdtuu")
+
+[node name="InvulnerabilityComponent" parent="." node_paths=PackedStringArray("invulnerable_timer") instance=ExtResource("2_aofjb")]
+invulnerable_timer = NodePath("../InvulnerableTimer")
 
 [node name="InvulnerableTimer" type="Timer" parent="."]
 one_shot = true

@@ -132,6 +132,7 @@ border_side = "right"
 [node name="EnemyDrone" parent="Entities/Enemies" instance=ExtResource("7_ja5a7")]
 position = Vector2(324, 500)
 collision_layer = 4
+x_axis_direction = "left"
 
 [node name="Player" parent="Entities" instance=ExtResource("3_p12wi")]
 position = Vector2(-207, 503)

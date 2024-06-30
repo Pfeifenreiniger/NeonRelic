@@ -1,4 +1,4 @@
-[gd_scene load_steps=308 format=3 uid="uid://ckecmw1wq155q"]
+[gd_scene load_steps=304 format=3 uid="uid://ckecmw1wq155q"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player_animations_handler.gd" id="1_6sm3f"]
 [ext_resource type="Script" path="res://scenes/entities/player/climb_up_ledge_animation.gd" id="2_0vqk3"]
@@ -297,24 +297,12 @@
 [ext_resource type="Texture2D" uid="uid://bqgodtp46xbnb" path="res://scenes/entities/player/sprites/stand_sword_attack_right_3/stand_sword_attack_right_3_f7.png" id="159_giemo"]
 [ext_resource type="Script" path="res://scenes/entities/player/block_animation.gd" id="292_shqg4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vfql"]
-size = Vector2(11, 58)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j7cr5"]
-size = Vector2(11, 58)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjymp"]
-size = Vector2(11, 65)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6pt23"]
-size = Vector2(11, 65)
-
 [sub_resource type="Gradient" id="Gradient_rd8pc"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0.592145, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_6nsk1"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_enci3"]
 gradient = SubResource("Gradient_rd8pc")
 
 [sub_resource type="Curve" id="Curve_1iq6p"]
@@ -322,7 +310,7 @@ max_value = 3.0
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_jivdp"]
+[sub_resource type="CurveTexture" id="CurveTexture_rruol"]
 curve = SubResource("Curve_1iq6p")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tko1u"]
@@ -342,9 +330,9 @@ scale_min = 0.5
 scale_max = 1.2
 scale_over_velocity_min = 155.44
 scale_over_velocity_max = 264.25
-scale_over_velocity_curve = SubResource("CurveTexture_jivdp")
+scale_over_velocity_curve = SubResource("CurveTexture_rruol")
 color = Color(0.929412, 0.67451, 0.847059, 0.588235)
-color_ramp = SubResource("GradientTexture1D_6nsk1")
+color_ramp = SubResource("GradientTexture1D_enci3")
 hue_variation_max = 0.02
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g2dfq"]
@@ -1491,41 +1479,6 @@ script = ExtResource("7_iu84p")
 
 [node name="BlockAnimation" type="Node" parent="."]
 script = ExtResource("292_shqg4")
-
-[node name="ShieldHitboxes" type="Node2D" parent="BlockAnimation"]
-
-[node name="StandLeftArea2D" type="Area2D" parent="BlockAnimation/ShieldHitboxes"]
-position = Vector2(-19, -26)
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockAnimation/ShieldHitboxes/StandLeftArea2D"]
-position = Vector2(-0.5, 16)
-shape = SubResource("RectangleShape2D_5vfql")
-disabled = true
-
-[node name="StandRightArea2D" type="Area2D" parent="BlockAnimation/ShieldHitboxes"]
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockAnimation/ShieldHitboxes/StandRightArea2D"]
-position = Vector2(19.5, -10)
-shape = SubResource("RectangleShape2D_j7cr5")
-disabled = true
-
-[node name="DuckLeftArea2D" type="Area2D" parent="BlockAnimation/ShieldHitboxes"]
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockAnimation/ShieldHitboxes/DuckLeftArea2D"]
-position = Vector2(-19.5, 8.5)
-shape = SubResource("RectangleShape2D_fjymp")
-disabled = true
-
-[node name="DuckRightArea2D" type="Area2D" parent="BlockAnimation/ShieldHitboxes"]
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockAnimation/ShieldHitboxes/DuckRightArea2D"]
-position = Vector2(19.5, 8.5)
-shape = SubResource("RectangleShape2D_6pt23")
-disabled = true
 
 [node name="LaserBeamSteamParticles" type="GPUParticles2D" parent="BlockAnimation"]
 position = Vector2(20, -6)

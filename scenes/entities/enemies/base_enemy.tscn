@@ -1,17 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://buxj1tjw810ml"]
+[gd_scene load_steps=12 format=3 uid="uid://buxj1tjw810ml"]
 
 [ext_resource type="Script" path="res://scenes/entities/enemies/base_enemy.gd" id="1_adxmx"]
 [ext_resource type="Script" path="res://scenes/entities/enemies/base_enemy_movement_handler.gd" id="2_56gro"]
 [ext_resource type="Script" path="res://scenes/entities/enemies/base_enemy_health_handler.gd" id="3_avrhj"]
+[ext_resource type="Script" path="res://scenes/entities/enemies/base_enemy_invulnerable_handler.gd" id="4_8tcmj"]
+[ext_resource type="PackedScene" uid="uid://r285wcnxtavl" path="res://scenes/components/health_component/health_component.tscn" id="4_fv0vu"]
+[ext_resource type="Script" path="res://scenes/entities/enemies/base_enemy_animations_handler.gd" id="4_m4jp3"]
+[ext_resource type="PackedScene" uid="uid://dt8ut7kl3bw7s" path="res://scenes/components/invulnerability_component/invulnerability_component.tscn" id="5_d18rp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uyr0c"]
 resource_local_to_scene = true
-
-[sub_resource type="GDScript" id="GDScript_nau0q"]
-script/source = "extends Area2D
-
-
-"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nfx6h"]
 resource_local_to_scene = true
@@ -33,13 +31,32 @@ script = ExtResource("2_56gro")
 [node name="HealthHandler" type="Node" parent="."]
 script = ExtResource("3_avrhj")
 
+[node name="HealthComponent" parent="HealthHandler" node_paths=PackedStringArray("health_refresh_timer") instance=ExtResource("4_fv0vu")]
+health_refresh_timer = NodePath("../HealthRefreshmentTimer")
+
+[node name="HealthRefreshmentTimer" type="Timer" parent="HealthHandler"]
+wait_time = 4.0
+
+[node name="InvulnerableHandler" type="Node" parent="."]
+script = ExtResource("4_8tcmj")
+
+[node name="InvulnerabilityComponent" parent="InvulnerableHandler" node_paths=PackedStringArray("invulnerable_timer") instance=ExtResource("5_d18rp")]
+invulnerable_timer = NodePath("InvulnerableTimer")
+
+[node name="InvulnerableTimer" type="Timer" parent="InvulnerableHandler/InvulnerabilityComponent"]
+one_shot = true
+
+[node name="AnimationsHandler" type="Node2D" parent="."]
+script = ExtResource("4_m4jp3")
+
+[node name="Animations" type="AnimatedSprite2D" parent="AnimationsHandler"]
+
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_uyr0c")
 
 [node name="HitArea" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 2
-script = SubResource("GDScript_nau0q")
 
 [node name="HitBox" type="CollisionShape2D" parent="HitArea"]
 shape = SubResource("RectangleShape2D_nfx6h")

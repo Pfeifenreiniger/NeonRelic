@@ -1,42 +1,25 @@
 extends Node
 class_name BaseEnemyHealthHandler
 
+
 ###----------SCENE REFERENCES----------###
 
-@onready var enemy_scene:BaseEnemy = $'../' as BaseEnemy
+@onready var base_enemy_root_node:BaseEnemy = $".." as BaseEnemy
 
 
-###----------PROPERTIES----------###
+###----------NODE REFERENCES----------###
 
-@export var health:int = 100
-
-var is_invulnerable:bool = false
+@onready var health_component:HealthComponent = $HealthComponent as HealthComponent
 
 
-###----------METHODS----------###
+###----------METHODS: AT INITIATION CALLED----------###
 
-func get_damage(amount:int) -> void:
-	if !is_invulnerable:
-		health -= amount
-		
-		# some enemies do have an extra damage_animation AnimatedSprite2D node for damage animations
-		if "damage_animation" in enemy_scene:
-			enemy_scene.damage_animation.visible = true
-			enemy_scene.damage_animation.play("damage")
-			enemy_scene.damage_animation.animation_finished.connect(
-				func(): enemy_scene.damage_animation.visible = false
-			)
-			await enemy_scene.damage_animation.animation_finished
-		
-		if health <= 0:
-			enemy_scene.death_animation()
-		else:
-			_become_invulnerable(0.3)
+func _ready() -> void:
+	health_component.entity = base_enemy_root_node
+	health_component.died.connect(_on_died)
 
 
-func _become_invulnerable(timer_value:float) -> void:
-	enemy_scene.animations.material.set_shader_parameter("doBlink", true)
-	is_invulnerable = true
-	await get_tree().create_timer(timer_value).timeout
-	enemy_scene.animations.material.set_shader_parameter("doBlink", false)
-	is_invulnerable = false
+###----------CONNECTED SIGNALS----------###
+
+func _on_died():
+	base_enemy_root_node.do_die()

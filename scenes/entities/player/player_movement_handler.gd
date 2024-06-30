@@ -289,8 +289,8 @@ func action_input_side_roll_x_axis(side:String) -> void:
 				player.stamina_handler.stamina_can_refresh = false
 				player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["side_roll"])
 				player.animations_handler.side_roll_animation.do_side_roll("right")
-				if !player.invulnerable_handler.is_invulnerable:
-					player.invulnerable_handler.become_invulnerable(0.5, false)
+				if !player.invulnerable_handler.invulnerability_component.is_invulnerable:
+					player.invulnerable_handler.invulnerability_component.become_invulnerable(0.5, false)
 			else:
 				player.controls_handler.player_roll_action_inputs["right"] = button_move_right_press_timestamp
 	else:
@@ -306,8 +306,8 @@ func action_input_side_roll_x_axis(side:String) -> void:
 				player.stamina_handler.stamina_can_refresh = false
 				player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["side_roll"])
 				player.animations_handler.side_roll_animation.do_side_roll("left")
-				if !player.invulnerable_handler.is_invulnerable:
-					player.invulnerable_handler.become_invulnerable(0.5, false)
+				if !player.invulnerable_handler.invulnerability_component.is_invulnerable:
+					player.invulnerable_handler.invulnerability_component.become_invulnerable(0.5, false)
 			else:
 				player.controls_handler.player_roll_action_inputs["left"] = button_move_left_press_timestamp
 
@@ -556,7 +556,7 @@ func action_input_block() -> void:
 	
 	# activate shield hitbox
 	var shield_hitbox_name:String = start_animation_name.split("_")[0] + "_" + start_animation_name.split("_")[-1]
-	player.animations_handler.block_animation.activate_hitbox(shield_hitbox_name)
+	player.block_shield_handler.activate_hitbox(shield_hitbox_name)
 
 
 func action_input_block_release() -> void:

@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqm10ek4xk314"]
+
+[ext_resource type="Script" path="res://scenes/entities/player/player_block_shield_handler.gd" id="1_cbjg4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i5mos"]
+size = Vector2(11, 58)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gu6hn"]
+size = Vector2(11, 58)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tb05u"]
+size = Vector2(11, 65)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xnk0t"]
+size = Vector2(11, 65)
+
+[node name="PlayerBlockShieldHandler" type="Node"]
+script = ExtResource("1_cbjg4")
+
+[node name="ShieldHitboxes" type="Node2D" parent="."]
+
+[node name="StandLeftArea2D" type="Area2D" parent="ShieldHitboxes"]
+position = Vector2(-19, -26)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShieldHitboxes/StandLeftArea2D"]
+position = Vector2(-0.5, 16)
+shape = SubResource("RectangleShape2D_i5mos")
+disabled = true
+
+[node name="StandRightArea2D" type="Area2D" parent="ShieldHitboxes"]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShieldHitboxes/StandRightArea2D"]
+position = Vector2(19.5, -10)
+shape = SubResource("RectangleShape2D_gu6hn")
+disabled = true
+
+[node name="DuckLeftArea2D" type="Area2D" parent="ShieldHitboxes"]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShieldHitboxes/DuckLeftArea2D"]
+position = Vector2(-19.5, 8.5)
+shape = SubResource("RectangleShape2D_tb05u")
+disabled = true
+
+[node name="DuckRightArea2D" type="Area2D" parent="ShieldHitboxes"]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShieldHitboxes/DuckRightArea2D"]
+position = Vector2(19.5, 8.5)
+shape = SubResource("RectangleShape2D_xnk0t")
+disabled = true

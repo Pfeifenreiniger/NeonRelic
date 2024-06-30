@@ -13,6 +13,7 @@ class_name Player
 @onready var hitbox_handler:PlayerHitboxHandler = $PlayerHitboxHandler as PlayerHitboxHandler
 @onready var side_collision_boxes_handler:PlayerSideCollisionBoxesHandler = $PlayerSideCollisionBoxesHandler as PlayerSideCollisionBoxesHandler
 @onready var weapon_handler:PlayerWeaponHandler = $PlayerWeaponHandler as PlayerWeaponHandler
+@onready var block_shield_handler:PlayerBlockShieldHandler = $PlayerBlockShieldHandler as PlayerBlockShieldHandler
 
 
 ###------NODE REFERENCES------###
