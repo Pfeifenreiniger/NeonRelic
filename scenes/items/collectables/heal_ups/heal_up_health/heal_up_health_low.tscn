@@ -11,3 +11,4 @@ script = ExtResource("3_fnj62")
 
 [node name="CollectableComponent" parent="." index="0"]
 collectable_resource_stats = ExtResource("3_gjx58")
+collect_effect_particles_color = Color(0.839216, 0.403922, 0.403922, 0.745098)
