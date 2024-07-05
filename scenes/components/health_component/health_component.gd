@@ -64,7 +64,15 @@ func get_damage(amount:int) -> void:
 		else:
 			current_health -= amount
 			got_damage.emit()
-			entity.invulnerable_handler.invulnerability_component.become_invulnerable(1, true)
+			
+			# invulnerability-time depends on if entity is player or enemy
+			var invulnerability_time:float
+			if "IS_PLAYER" in entity:
+				invulnerability_time = 1
+			else:
+				invulnerability_time = .5
+			
+			entity.invulnerable_handler.invulnerability_component.become_invulnerable(invulnerability_time, true)
 			health_refresh_timer.start()
 
 

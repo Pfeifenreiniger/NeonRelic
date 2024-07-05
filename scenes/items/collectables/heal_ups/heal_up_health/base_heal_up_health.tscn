@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c87nhvngjaipd"]
+
+[ext_resource type="PackedScene" uid="uid://ctwcb1vohcywh" path="res://scenes/items/collectables/heal_ups/base_heal_up.tscn" id="1_e0fkv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7cjyu"]
+radius = 15.0
+
+[node name="BaseHealUpHealth" instance=ExtResource("1_e0fkv")]
+script = null
+
+[node name="CollectableComponent" parent="." index="0"]
+collectable_type = "heal_up"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectableComponent" index="0"]
+shape = SubResource("CircleShape2D_7cjyu")

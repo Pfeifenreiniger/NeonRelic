@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="HealUpStats" load_steps=2 format=3 uid="uid://bpf631c6t1p6a"]
+
+[ext_resource type="Script" path="res://resources/heal_up_stats/heal_up_stats.gd" id="1_cgko5"]
+
+[resource]
+script = ExtResource("1_cgko5")
+heal_category = "health"
+heal_percentage = 0.15

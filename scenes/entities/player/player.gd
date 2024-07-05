@@ -14,6 +14,7 @@ class_name Player
 @onready var side_collision_boxes_handler:PlayerSideCollisionBoxesHandler = $PlayerSideCollisionBoxesHandler as PlayerSideCollisionBoxesHandler
 @onready var weapon_handler:PlayerWeaponHandler = $PlayerWeaponHandler as PlayerWeaponHandler
 @onready var block_shield_handler:PlayerBlockShieldHandler = $PlayerBlockShieldHandler as PlayerBlockShieldHandler
+@onready var collectables_handler:PlayerCollectablesHandler = $PlayerCollectablesHandler as PlayerCollectablesHandler
 
 
 ###------NODE REFERENCES------###

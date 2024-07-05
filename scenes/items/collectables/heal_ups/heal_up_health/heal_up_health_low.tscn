@@ -1,0 +1,13 @@
+[gd_scene load_steps=5 format=3 uid="uid://bv3gdi5cxv510"]
+
+[ext_resource type="PackedScene" uid="uid://c87nhvngjaipd" path="res://scenes/items/collectables/heal_ups/heal_up_health/base_heal_up_health.tscn" id="1_erlso"]
+[ext_resource type="Texture2D" uid="uid://ddcv4tkqma6kv" path="res://scenes/items/collectables/heal_ups/heal_up_health/sprites/heal_up_health_low.png" id="2_wd3yu"]
+[ext_resource type="Script" path="res://scenes/items/collectables/heal_ups/heal_up_health/heal_up_health_low.gd" id="3_fnj62"]
+[ext_resource type="Resource" uid="uid://bli8vwu1tph4m" path="res://resources/heal_up_stats/heal_up_health_low_stats.tres" id="3_gjx58"]
+
+[node name="HealUpHealthLow" instance=ExtResource("1_erlso")]
+texture = ExtResource("2_wd3yu")
+script = ExtResource("3_fnj62")
+
+[node name="CollectableComponent" parent="." index="0"]
+collectable_resource_stats = ExtResource("3_gjx58")
