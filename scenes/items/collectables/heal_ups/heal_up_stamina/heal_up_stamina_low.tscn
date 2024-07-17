@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://ci5bo2epic4t"]
+
+[ext_resource type="PackedScene" uid="uid://d0fpmiw7k2spb" path="res://scenes/items/collectables/heal_ups/heal_up_stamina/base_heal_up_stamina.tscn" id="1_alvdt"]
+[ext_resource type="Texture2D" uid="uid://b4txhbdoy8yp6" path="res://scenes/items/collectables/heal_ups/heal_up_stamina/sprites/heal_up_stamina_low.png" id="2_chaul"]
+[ext_resource type="Script" path="res://scenes/items/collectables/heal_ups/heal_up_stamina/heal_up_stamina_low.gd" id="3_hi3et"]
+[ext_resource type="Resource" uid="uid://cnotebraqam1d" path="res://resources/heal_up_stats/heal_up_stamina_low_stats.tres" id="4_nukom"]
+
+[node name="HealUpStaminaLow" instance=ExtResource("1_alvdt")]
+texture = ExtResource("2_chaul")
+script = ExtResource("3_hi3et")
+
+[node name="CollectableComponent" parent="." index="0"]
+collectable_resource_stats = ExtResource("4_nukom")
+collect_effect_particles_color = Color(0.372549, 0.839216, 0.556863, 1)

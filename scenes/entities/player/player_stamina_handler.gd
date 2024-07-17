@@ -1,6 +1,12 @@
 extends Node
 class_name PlayerStaminaHandler
 
+
+###----------SCENE REFERENCES----------###
+
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
+
+
 ###----------NODE REFERENCES----------###
 
 @onready var stamina_refresh_timer:Timer = $StaminaRefreshTimer as Timer
@@ -40,6 +46,9 @@ var stamina_costs:Dictionary = {
 func _ready() -> void:
 	current_stamina = max_stamina
 	stamina_refresh_timer.timeout.connect(_on_stamina_refresh_timer_timeout)
+	
+	await player.ready
+	player.collectables_handler.got_heal_up.connect(_on_got_heal_up)
 
 
 ###----------METHODS----------###
@@ -71,3 +80,9 @@ func refresh_player_stamina() -> void:
 
 func _on_stamina_refresh_timer_timeout() -> void:
 	refresh_player_stamina()
+
+
+func _on_got_heal_up(heal_category:String, heal_percentage:float) -> void:
+	if heal_category == "stamina":
+		var amount_to_heal:int = roundi(float(max_stamina) * heal_percentage)
+		current_stamina = min(current_stamina + amount_to_heal, max_stamina)

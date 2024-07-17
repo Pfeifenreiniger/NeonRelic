@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PowerUpStats" load_steps=2 format=3 uid="uid://cqphymbqk0rai"]
+
+[ext_resource type="Script" path="res://resources/power_up_stats/power_up_stats.gd" id="1_wd2lh"]
+
+[resource]
+script = ExtResource("1_wd2lh")
+buff_type = "unlimited_stamina"
+buff_duration = 15

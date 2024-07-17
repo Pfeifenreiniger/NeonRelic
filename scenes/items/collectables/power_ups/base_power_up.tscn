@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0b10aw7b68v2"]
+
+[ext_resource type="Script" path="res://scenes/items/collectables/power_ups/base_power_up.gd" id="1_v67nt"]
+[ext_resource type="PackedScene" uid="uid://dgfamoasmhwre" path="res://scenes/components/collectable_component/collectable_component.tscn" id="2_e5008"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rc3f3"]
+radius = 16.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ckw4"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 12.94
+angle_min = -33.0
+angle_max = 33.0
+inherit_velocity_ratio = 0.026
+gravity = Vector3(0, -60, 0)
+scale_min = 0.5
+scale_max = 1.5
+
+[sub_resource type="Animation" id="Animation_ot0vq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_osw6d"]
+resource_name = "default"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(4, 1), Vector2(0, -1), Vector2(-4, 1), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lkbhw"]
+_data = {
+"RESET": SubResource("Animation_ot0vq"),
+"default": SubResource("Animation_osw6d")
+}
+
+[node name="BasePowerUp" type="Sprite2D"]
+script = ExtResource("1_v67nt")
+color_screen_flash = Color(0.705882, 0, 0.737255, 1)
+
+[node name="CollectableComponent" parent="." instance=ExtResource("2_e5008")]
+collectable_type = "power_up"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectableComponent"]
+visible = false
+shape = SubResource("CircleShape2D_rc3f3")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 14
+process_material = SubResource("ParticleProcessMaterial_8ckw4")
+lifetime = 1.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lkbhw")
+}
+autoplay = "default"

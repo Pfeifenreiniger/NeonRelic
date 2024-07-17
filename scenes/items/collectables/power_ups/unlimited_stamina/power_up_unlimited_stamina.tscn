@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bof0dy80c15vu"]
+
+[ext_resource type="PackedScene" uid="uid://c0b10aw7b68v2" path="res://scenes/items/collectables/power_ups/base_power_up.tscn" id="1_po0oy"]
+[ext_resource type="Texture2D" uid="uid://xenedhk6l3ai" path="res://scenes/items/collectables/power_ups/unlimited_stamina/power_up_unlimited_stamina.png" id="2_t2k1p"]
+[ext_resource type="Resource" uid="uid://cqphymbqk0rai" path="res://resources/power_up_stats/power_up_unlimited_stamina_stats.tres" id="3_ab7rx"]
+
+[node name="PowerUpUnlimitedStamina" instance=ExtResource("1_po0oy")]
+texture = ExtResource("2_t2k1p")
+color_screen_flash = Color(0.0196078, 0.819608, 0.352941, 1)
+
+[node name="CollectableComponent" parent="." index="0"]
+collectable_resource_stats = ExtResource("3_ab7rx")
+collect_effect_particles_color = Color(0.0196078, 0.819608, 0.352941, 1)

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PowerUpStats" load_steps=2 format=3 uid="uid://bqb081vr33v46"]
+
+[ext_resource type="Script" path="res://resources/power_up_stats/power_up_stats.gd" id="1_ewjx4"]
+
+[resource]
+script = ExtResource("1_ewjx4")
+buff_type = "whip_damage_increase"
+buff_duration = 30

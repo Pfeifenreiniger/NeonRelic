@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bh14raqiukbli"]
+[gd_scene load_steps=15 format=3 uid="uid://bh14raqiukbli"]
 
 [ext_resource type="Texture2D" uid="uid://dda8fl86os1gc" path="res://assets/graphics/backgrounds/test_level/bg.png" id="1_5khsy"]
 [ext_resource type="TileSet" uid="uid://doa8hk636pn7x" path="res://tilesets/base_grounds/concrete_ground.tres" id="2_51ah8"]
@@ -10,9 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://melnki4ihouy" path="res://scenes/levels/enemy_platform_border/enemy_platform_border.tscn" id="6_8cbdo"]
 [ext_resource type="PackedScene" uid="uid://gv0yr3oidbtn" path="res://scenes/entities/enemies/enemy_drone.tscn" id="7_ja5a7"]
 [ext_resource type="PackedScene" uid="uid://drfpdpqmnxnkm" path="res://scenes/ui/ingame/ui.tscn" id="8_ot175"]
-[ext_resource type="PackedScene" uid="uid://bv3gdi5cxv510" path="res://scenes/items/collectables/heal_ups/heal_up_health/heal_up_health_low.tscn" id="10_a853f"]
-[ext_resource type="PackedScene" uid="uid://ct7wtr5dy7xxw" path="res://scenes/items/collectables/heal_ups/heal_up_health/heal_up_health_medium.tscn" id="11_rgugo"]
-[ext_resource type="PackedScene" uid="uid://b5w3rr08bpux1" path="res://scenes/items/collectables/heal_ups/heal_up_health/heal_up_health_high.tscn" id="12_xicwv"]
+[ext_resource type="PackedScene" uid="uid://rpv1gpbvbi6j" path="res://scenes/items/collectables/power_ups/whip_damage_increase/power_up_whip_damage_increase.tscn" id="11_jsweu"]
+[ext_resource type="PackedScene" uid="uid://s1dfpcknn3s4" path="res://scenes/items/collectables/power_ups/sword_damage_increase/power_up_sword_damage_increase.tscn" id="12_olpwo"]
+[ext_resource type="PackedScene" uid="uid://cy5661u4ypxc4" path="res://scenes/items/collectables/power_ups/movement_speed_increase/power_up_movement_speed_increase.tscn" id="13_kfowd"]
+[ext_resource type="PackedScene" uid="uid://bof0dy80c15vu" path="res://scenes/items/collectables/power_ups/unlimited_stamina/power_up_unlimited_stamina.tscn" id="17_q2ku0"]
 
 [node name="TestLevel" type="Node2D"]
 
@@ -133,7 +134,7 @@ border_side = "right"
 [node name="Enemies" type="Node" parent="Entities"]
 
 [node name="EnemyDrone" parent="Entities/Enemies" instance=ExtResource("7_ja5a7")]
-position = Vector2(324, 500)
+position = Vector2(457, 508)
 collision_layer = 4
 
 [node name="Player" parent="Entities" instance=ExtResource("3_p12wi")]
@@ -141,20 +142,21 @@ position = Vector2(-207, 503)
 
 [node name="Collectables" type="Node" parent="."]
 
-[node name="HealUpHealthLow" parent="Collectables" instance=ExtResource("10_a853f")]
-position = Vector2(89, 544)
+[node name="PowerUpUnlimitedStamina" parent="Collectables" instance=ExtResource("17_q2ku0")]
+position = Vector2(41, 539)
+color_screen_flash = Color(0.706, 0, 0.737, 1)
 
-[node name="HealUpHealthMedium" parent="Collectables" instance=ExtResource("11_rgugo")]
-position = Vector2(-108, 545)
+[node name="PowerUpWhipDamageIncrease" parent="Collectables" instance=ExtResource("11_jsweu")]
+position = Vector2(-98, 541)
+color_screen_flash = Color(0.706, 0, 0.737, 1)
 
-[node name="HealUpHealthHigh" parent="Collectables" instance=ExtResource("12_xicwv")]
-position = Vector2(644, 509)
+[node name="PowerUpSwordDamageIncrease" parent="Collectables" instance=ExtResource("12_olpwo")]
+position = Vector2(149, 546)
+color_screen_flash = Color(0.706, 0, 0.737, 1)
 
-[node name="HealUpHealthHigh2" parent="Collectables" instance=ExtResource("12_xicwv")]
-position = Vector2(-155, 543)
-
-[node name="HealUpHealthLow2" parent="Collectables" instance=ExtResource("10_a853f")]
-position = Vector2(34, 543)
+[node name="PowerUpMovementSpeedIncrease" parent="Collectables" instance=ExtResource("13_kfowd")]
+position = Vector2(212, 546)
+color_screen_flash = Color(0.706, 0, 0.737, 1)
 
 [node name="FloorEffects" type="Node" parent="."]
 

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PowerUpStats" load_steps=2 format=3 uid="uid://chcfestro25ry"]
+
+[ext_resource type="Script" path="res://resources/power_up_stats/power_up_stats.gd" id="1_fok0o"]
+
+[resource]
+script = ExtResource("1_fok0o")
+buff_type = "sword_damage_increase"
+buff_duration = 20

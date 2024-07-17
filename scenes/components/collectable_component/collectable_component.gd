@@ -1,6 +1,11 @@
 extends Area2D
 
 
+###----------CUSTOM SIGNAL----------###
+
+signal got_collected
+
+
 ###----------PROPERTIES----------###
 
 @export_enum("power_up", "heal_up") var collectable_type:String
@@ -33,6 +38,8 @@ func _on_body_entered(body:Node2D) -> void:
 			
 		else:
 			printerr("No valid value of variable collectable_type")
+		
+		got_collected.emit()
 		
 		# disconnect custom signal to avoid another collect-action with this node
 		# while particle animation is playing
