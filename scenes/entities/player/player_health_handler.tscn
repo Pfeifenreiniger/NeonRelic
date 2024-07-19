@@ -5,6 +5,7 @@
 
 [node name="PlayerHealthHandler" type="Node"]
 script = ExtResource("1_1ipvs")
+color_screen_flash = Color(0.505882, 0, 0, 1)
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("health_refresh_timer") instance=ExtResource("2_hp3ja")]
 health_refresh_timer = NodePath("../HealthRefreshTimer")

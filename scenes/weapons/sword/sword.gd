@@ -22,6 +22,10 @@ extends Node2D
 
 const IS_SWORD:bool = true
 
+@export_range(1, 50) var damage_combo_1:float = 10
+@export_range(1, 100) var damage_combo_2:float = 20
+@export_range(1, 30) var damage_combo_3:float = 5
+
 const hitbox_positions:Dictionary = {
 	1 as int : {
 		"right" as String : Vector2i(19, -21) as Vector2i,
@@ -113,7 +117,7 @@ func _calculate_enemy_x_axis_recoil_side(enemy_scene:Node2D, pixels_amount:int) 
 
 func _on_hitbox_zone_combo_1_body_entered(body:Node2D) -> void:
 	if 'IS_ENEMY' in body && body.IS_ENEMY:
-		body.health_handler.health_component.get_damage(10)
+		body.health_handler.health_component.get_damage(int(damage_combo_1))
 		# enemy knockback (lowest)
 		body.movement_handler.recoil_on_x_axis(
 			_calculate_enemy_x_axis_recoil_side(body, 10)
@@ -122,7 +126,7 @@ func _on_hitbox_zone_combo_1_body_entered(body:Node2D) -> void:
 
 func _on_hitbox_zone_combo_2_body_entered(body:Node2D) -> void:
 	if 'IS_ENEMY' in body && body.IS_ENEMY:
-		body.health_handler.health_component.get_damage(20)
+		body.health_handler.health_component.get_damage(int(damage_combo_2))
 		# enemy knockback (mid)
 		body.movement_handler.recoil_on_x_axis(
 			_calculate_enemy_x_axis_recoil_side(body, 20)
@@ -131,7 +135,7 @@ func _on_hitbox_zone_combo_2_body_entered(body:Node2D) -> void:
 
 func _on_hitbox_zone_combo_3_body_entered(body:Node2D) -> void:
 	if 'IS_ENEMY' in body && body.IS_ENEMY:
-		body.health_handler.health_component.get_damage(5)
+		body.health_handler.health_component.get_damage(int(damage_combo_3))
 		# enemy knockback (farest)
 		body.movement_handler.recoil_on_x_axis(
 			_calculate_enemy_x_axis_recoil_side(body, 30)

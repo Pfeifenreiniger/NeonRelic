@@ -26,10 +26,10 @@ const IS_WHIP:bool = true
 
 # attack damage
 # OPT: Spaeter im Entwicklungsprozess schauen, wie die Stats der Schadenserhoehung sein sollen
-const WHIP_ATTACK_INIT_DAMAGE:int = 15
-const WHIP_ATTACK_MAX_DAMAGE:int = 60
-const WHIP_ATTACK_DAMAGE_INCREASE:int = 4
-var current_whip_attack_damage:int
+var whip_attack_init_damage:float = 15
+var whip_attack_max_damage:float = 60
+var whip_attack_damage_increase:float = 4
+var current_whip_attack_damage:float
 
 # attack charge
 var can_whip_attack_charge:bool = true
@@ -79,15 +79,15 @@ func do_attack_charge() -> void:
 
 
 func increase_whip_attack_damage() -> void:
-	current_whip_attack_damage += WHIP_ATTACK_DAMAGE_INCREASE
-	if current_whip_attack_damage > WHIP_ATTACK_MAX_DAMAGE:
-		current_whip_attack_damage = WHIP_ATTACK_MAX_DAMAGE
+	current_whip_attack_damage += whip_attack_damage_increase
+	if current_whip_attack_damage > whip_attack_max_damage:
+		current_whip_attack_damage = whip_attack_max_damage
 	# TEMP: Den print() kann man spaeter hier rausnehmen, sobald die Stats finalisiert werden (game balance)
 	print("CHARGE! MEIN DAMAGE LAUTET %s" % current_whip_attack_damage)
 
 
 func reset_whip_attack_damage() -> void:
-	current_whip_attack_damage = WHIP_ATTACK_INIT_DAMAGE
+	current_whip_attack_damage = whip_attack_init_damage
 
 
 ###----------METHODS: WHIP'S ANIMATIONS----------###
@@ -159,7 +159,7 @@ func set_attack_particles_pos_to_whips_end() -> void:
 ###----------CONNECTED SIGNALS----------###
 
 func _on_charge_timer_timeout():
-	if current_whip_attack_damage < WHIP_ATTACK_MAX_DAMAGE:
+	if current_whip_attack_damage < whip_attack_max_damage:
 		increase_whip_attack_damage()
 	else:
 		charges_whip_attack = false

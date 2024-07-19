@@ -29,6 +29,8 @@ var current_weapon:Node
 	"grenade" as String : preload("res://scenes/weapons/grenade/grenade.tscn") as PackedScene
 }
 
+var active_power_up_buffs:Dictionary = {}
+
 
 ###----------METHODS: AT INITIATION CALLED----------###
 
@@ -53,6 +55,19 @@ func select_current_weapon(weapon_name:String) -> void:
 			primary_weapons.remove_child(primary_weapon_child)
 			primary_weapon_child.queue_free()
 	primary_weapons.add_child(primary_weapon)
+	
+	# check for active power ups
+	if !(active_power_up_buffs.is_empty()):
+		for active_power_up_buff in active_power_up_buffs:
+			if active_power_up_buff == weapon_name:
+				if weapon_name == "whip":
+					primary_weapon.whip_attack_init_damage *= active_power_up_buffs[weapon_name]
+					primary_weapon.whip_attack_max_damage *= active_power_up_buffs[weapon_name]
+					primary_weapon.whip_attack_damage_increase *= active_power_up_buffs[weapon_name]
+				elif weapon_name == "sword":
+					primary_weapon.damage_combo_1 *= active_power_up_buffs[weapon_name]
+					primary_weapon.damage_combo_2 *= active_power_up_buffs[weapon_name]
+					primary_weapon.damage_combo_3 *= active_power_up_buffs[weapon_name]
 	
 	current_weapon = primary_weapon
 

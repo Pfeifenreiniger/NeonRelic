@@ -6,7 +6,7 @@
 
 [node name="PowerUpWhipDamageIncrease" instance=ExtResource("1_k8c3r")]
 texture = ExtResource("2_fc5dg")
-color_screen_flash = Color(0.890196, 0.447059, 0.713726, 1)
+color_screen_flash = Color(0.706, 0, 0.737, 1)
 
 [node name="CollectableComponent" parent="." index="0"]
 collectable_resource_stats = ExtResource("3_6qt5j")

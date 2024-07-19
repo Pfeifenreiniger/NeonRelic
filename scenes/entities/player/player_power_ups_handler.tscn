@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://84ignarb8bfb"]
+
+[ext_resource type="Script" path="res://scenes/entities/player/player_power_ups_handler.gd" id="1_iv71f"]
+
+[node name="PlayerPowerUpsHandler" type="Node"]
+script = ExtResource("1_iv71f")

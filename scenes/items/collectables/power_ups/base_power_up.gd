@@ -36,9 +36,7 @@ func _on_got_collected() -> void:
 	gpu_particles_2d.emitting = false
 	
 	var screen_flash_effect_component_instance:ScreenFlashComponent = screen_flash_effect_component_scene.instantiate() as ScreenFlashComponent
-	
 	screen_flash_effect_component_instance.color = color_screen_flash
-	
+	screen_flash_effect_component_instance.layer = 999
 	add_child(screen_flash_effect_component_instance)
-	
 	screen_flash_effect_component_instance.play_flash_animation()
