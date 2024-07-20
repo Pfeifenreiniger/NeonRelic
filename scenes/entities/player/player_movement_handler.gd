@@ -41,7 +41,7 @@ var is_climbing_ledge:bool = false
 var is_blocking:bool = false
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	current_speed = BASE_SPEED

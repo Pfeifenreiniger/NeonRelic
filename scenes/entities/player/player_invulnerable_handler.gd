@@ -7,7 +7,7 @@ class_name PlayerInvulnerableHandler
 @onready var invulnerability_component:InvulnerabilityComponent = $InvulnerabilityComponent as InvulnerabilityComponent
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	invulnerability_component.entity = player

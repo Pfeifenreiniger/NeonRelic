@@ -40,7 +40,8 @@ var current_health:int:
 
 @export var health_refreshment_rate:int
 
-###----------METHODS: AT INITIATION CALLED----------###
+
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	health_refresh_timer.timeout.connect(_on_health_refresh_timer_timeout)

@@ -12,7 +12,7 @@ class_name BaseEnemyInvulnerableHandler
 @onready var invulnerability_component:InvulnerabilityComponent = $InvulnerabilityComponent as InvulnerabilityComponent
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	invulnerability_component.entity = base_enemy_root_node

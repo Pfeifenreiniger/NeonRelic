@@ -16,7 +16,7 @@ extends BaseEnemy
 var face_player_to_side:String = ""
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	super._ready()

@@ -32,7 +32,7 @@ var current_weapon:Node
 var active_power_up_buffs:Dictionary = {}
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	# at start -> select a primary weapon

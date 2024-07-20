@@ -26,7 +26,7 @@ var BASE_GRAVITY:int = int(ProjectSettings.get_setting("physics/2d/default_gravi
 var current_gravity:int
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	current_speed = base_speed

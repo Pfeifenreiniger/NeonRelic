@@ -19,7 +19,7 @@ var damage:int
 var can_do_damage:bool = true
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	life_timer.timeout.connect(_on_life_timer_timeout)

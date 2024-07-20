@@ -35,7 +35,7 @@ var is_at_platform_border:bool = false
 @export_enum("left", "right") var x_axis_direction:String = "left"
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	aggro_area.body_entered.connect(_on_aggro_area_body_entered)

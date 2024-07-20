@@ -17,7 +17,7 @@ var desc_camera_y_axis:bool = false
 var asc_camera_y_axis:bool = false
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	current_camera_y_pos_padding = BASE_CAMERA_Y_POS_PADDING

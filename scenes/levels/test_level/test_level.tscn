@@ -148,7 +148,6 @@ color_screen_flash = Color(0.706, 0, 0.737, 1)
 
 [node name="PowerUpWhipDamageIncrease" parent="Collectables" instance=ExtResource("11_jsweu")]
 position = Vector2(-98, 541)
-color_screen_flash = Color(0.706, 0, 0.737, 1)
 
 [node name="PowerUpSwordDamageIncrease" parent="Collectables" instance=ExtResource("12_olpwo")]
 position = Vector2(149, 546)

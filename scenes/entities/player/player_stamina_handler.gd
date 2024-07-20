@@ -41,7 +41,7 @@ var stamina_costs:Dictionary = {
 }
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	current_stamina = max_stamina

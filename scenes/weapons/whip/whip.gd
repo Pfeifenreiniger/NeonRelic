@@ -49,7 +49,7 @@ const WHIP_HANDLE_POS_X_OFFSET:int = 65
 const WHIP_HANDLE_POS_Y_OFFSET:int = 4
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	reset_whip_attack_damage()

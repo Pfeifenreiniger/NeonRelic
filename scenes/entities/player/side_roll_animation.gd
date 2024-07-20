@@ -15,7 +15,7 @@ const BASE_ANIMATION_DURATION:float = 0.9
 var current_animation_duration:float
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	current_player_x_offset = BASE_PLAYER_X_OFFSET

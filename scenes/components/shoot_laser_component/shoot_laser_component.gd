@@ -22,7 +22,7 @@ var laser_shot:bool = false
 var can_shoot:bool = true
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	cannot_shoot_timer.timeout.connect(_on_cannot_shoot_timer_timeout)

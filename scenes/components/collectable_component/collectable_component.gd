@@ -18,7 +18,7 @@ signal got_collected
 @onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D as GPUParticles2D
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)

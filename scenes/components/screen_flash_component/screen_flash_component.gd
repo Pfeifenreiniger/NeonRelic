@@ -14,7 +14,7 @@ var color_no_alpha:Color
 var color_medium_alpha:Color
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	color_no_alpha = color

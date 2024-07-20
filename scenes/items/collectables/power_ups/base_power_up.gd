@@ -22,7 +22,7 @@ var screen_flash_effect_component_scene:PackedScene = preload("res://scenes/comp
 # TEMP - deshalb hier, solange der Bug in der Engine noch vorliegt, hard coded ein Standardwert... schade!
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	collectable_component.got_collected.connect(_on_got_collected)

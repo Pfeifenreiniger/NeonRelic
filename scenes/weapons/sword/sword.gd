@@ -42,7 +42,7 @@ const hitbox_positions:Dictionary = {
 }
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	hitbox_zone_combo_1.body_entered.connect(_on_hitbox_zone_combo_1_body_entered)

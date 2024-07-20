@@ -16,7 +16,7 @@ class_name PlayerBlockShieldHandler
 }
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	shield_hitboxes["stand_left"].area_entered.connect(

@@ -33,7 +33,7 @@ var can_select_secondary_weapon:bool = true
 var is_selecting_primary_weapon:bool = false
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	jump_button_press_timer.timeout.connect(on_jump_button_press_timer_timeout)

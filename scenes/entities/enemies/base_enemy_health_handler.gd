@@ -12,7 +12,7 @@ class_name BaseEnemyHealthHandler
 @onready var health_component:HealthComponent = $HealthComponent as HealthComponent
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	health_component.entity = base_enemy_root_node

@@ -22,7 +22,7 @@ var currently_used_secondary_weapon:String = "fire_grenade" # at first start-up 
 
 # others #
 
-# ToDo - andere ingame Variablen fuer den Global Scope finden
+# TODO - andere ingame Variablen fuer den Global Scope finden
 
 
 ###----------METHODS: SCREEN PROPERTIES----------###
@@ -35,12 +35,8 @@ func input_toggle_full_screen() -> void:
 			# set mode to full screen
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 			is_full_screen = true
-			# hide mouse cursor
-			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_HIDDEN)
 		else:
 			# set mode to windowed
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			is_full_screen = false
-			# make mouse cursor visible
-			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)

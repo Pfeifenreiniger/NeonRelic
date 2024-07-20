@@ -30,7 +30,7 @@ var animation_frames_forwards:bool = true
 signal throw_secondary_weapon_frame
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	

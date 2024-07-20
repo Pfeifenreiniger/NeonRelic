@@ -17,7 +17,8 @@ var screen_flash_effect_component_scene:PackedScene = preload("res://scenes/comp
 ## Color for flash effect on received damage
 @export var color_screen_flash:Color
 
-###----------METHODS: AT INITIATION CALLED----------###
+
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	health_component.got_damage.connect(_on_got_damage)

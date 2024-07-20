@@ -20,16 +20,16 @@ func get_power_up(power_up_stats:PowerUpStats) -> void:
 	print(power_up_stats.buff_duration)
 	
 	if "whip" in power_up_stats.buff_type:
-		player_power_ups_handler.get_power_up_whip_damage_increase(power_up_stats.buff_duration)
+		player_power_ups_handler.get_power_up_whip_damage_increase(power_up_stats.buff_type, power_up_stats.buff_duration)
 	
 	if "sword" in power_up_stats.buff_type:
-		player_power_ups_handler.get_power_up_sword_damage_increase(power_up_stats.buff_duration)
+		player_power_ups_handler.get_power_up_sword_damage_increase(power_up_stats.buff_type, power_up_stats.buff_duration)
 	
 	if "movement_speed" in power_up_stats.buff_type:
-		player_power_ups_handler.get_power_up_movement_speed_increase(power_up_stats.buff_duration)
+		player_power_ups_handler.get_power_up_movement_speed_increase(power_up_stats.buff_type, power_up_stats.buff_duration)
 	
 	if "stamina" in power_up_stats.buff_type:
-		player_power_ups_handler.get_power_up_unlimited_stamina(power_up_stats.buff_duration)
+		player_power_ups_handler.get_power_up_unlimited_stamina(power_up_stats.buff_type, power_up_stats.buff_duration)
 
 
 func get_heal_up(heal_up_stats:HealUpStats) -> void:

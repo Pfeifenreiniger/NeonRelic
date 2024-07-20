@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://drfpdpqmnxnkm"]
+[gd_scene load_steps=7 format=3 uid="uid://drfpdpqmnxnkm"]
 
 [ext_resource type="Script" path="res://scenes/ui/ingame/ui.gd" id="1_v22wa"]
 [ext_resource type="PackedScene" uid="uid://ds5y6kivffnc5" path="res://scenes/ui/ingame/player_status_bars/player_life_bar.tscn" id="2_awgxc"]
 [ext_resource type="PackedScene" uid="uid://b11gpv72ljnf5" path="res://scenes/ui/ingame/player_status_bars/player_stamina_bar.tscn" id="3_71ivn"]
 [ext_resource type="PackedScene" uid="uid://cj67s3kdnlkko" path="res://scenes/ui/ingame/weapon_selections/primary_weapon_selection.tscn" id="4_a48y4"]
 [ext_resource type="PackedScene" uid="uid://cgfj8r2flvql3" path="res://scenes/ui/ingame/weapon_selections/secondary_weapon_selection.tscn" id="5_cxmwp"]
+[ext_resource type="PackedScene" uid="uid://btiwlkkwwmdi8" path="res://scenes/ui/ingame/buffs/buff_display.tscn" id="6_sdtby"]
 
 [node name="Ui" type="CanvasLayer"]
 script = ExtResource("1_v22wa")
@@ -16,3 +17,5 @@ script = ExtResource("1_v22wa")
 [node name="PrimaryWeaponSelection" parent="." instance=ExtResource("4_a48y4")]
 
 [node name="SecondaryWeaponSelection" parent="." instance=ExtResource("5_cxmwp")]
+
+[node name="BuffDisplay" parent="." instance=ExtResource("6_sdtby")]

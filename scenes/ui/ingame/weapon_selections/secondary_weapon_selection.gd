@@ -22,7 +22,7 @@ var weapon_icon_images:Dictionary = {
 }
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	player.controls_handler.select_secondary_weapon.connect(_on_select_secondary_weapon)
