@@ -6,3 +6,4 @@
 script = ExtResource("1_fok0o")
 buff_type = "sword_damage_increase"
 buff_duration = 20
+buff_description = "Your sword's damage is increased"

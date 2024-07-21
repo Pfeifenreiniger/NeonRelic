@@ -6,3 +6,4 @@
 script = ExtResource("1_ewjx4")
 buff_type = "whip_damage_increase"
 buff_duration = 30
+buff_description = "Your whip's damage is increased"

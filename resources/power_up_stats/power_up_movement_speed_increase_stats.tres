@@ -6,3 +6,4 @@
 script = ExtResource("1_42kpp")
 buff_type = "movement_speed_increase"
 buff_duration = 60
+buff_description = "Your movement speed is increased"

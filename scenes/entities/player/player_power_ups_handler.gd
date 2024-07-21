@@ -4,13 +4,18 @@ class_name PlayerPowerUpsHandler
 
 ###----------CUSTOM SIGNALS----------###
 
-signal got_power_up(buff_type:String, time_in_s:int)
-signal refresh_power_up(buff_type:String, time_in_s:int)
+signal got_power_up(buff_type:String)
+signal refresh_power_up(buff_type:String)
 
 
 ###----------SCENE REFERENCES----------###
 
 @onready var player:Player = get_tree().get_first_node_in_group('player') as Player
+
+
+###----------SCENE REFERENCES----------###
+
+@onready var buff_timers: Node = $BuffTimers as Node
 
 
 ###----------PROPERTIES----------###
@@ -26,22 +31,35 @@ signal refresh_power_up(buff_type:String, time_in_s:int)
 
 var currently_active_power_ups:Dictionary = {}
 
+var build_buff_timers:Array[Timer] = []
 
-###----------METHODS----------###
+
+###----------METHODS: APPLY AND REMOVE POWER UPS TO PLAYER----------###
 
 func get_power_up_whip_damage_increase(buff_type:String, time_duration_in_s:int) -> void:
 	if time_duration_in_s == null:
 		return
+	
+	var timer:Timer
 	
 	var power_up_buff_name = "whip"
 	
 	# if buff is already active -> remove buff before applying again
 	if currently_active_power_ups.has(buff_type):
 		_remove_power_up_whip_damage_increase(power_up_buff_name)
-		refresh_power_up.emit(buff_type, time_duration_in_s)
+		refresh_power_up.emit(buff_type)
+		
+		if !(_check_for_active_buff_timer(buff_type)):
+			timer = _build_timer_for_buff(time_duration_in_s)
+		else:
+			timer = _get_timer_for_buff(buff_type, time_duration_in_s)
+			_remove_buff_timer_for_buff(timer)
+			timer = _build_timer_for_buff(time_duration_in_s)
 	else:
 		currently_active_power_ups[buff_type] = true
-		got_power_up.emit(buff_type, time_duration_in_s)
+		got_power_up.emit(buff_type)
+		
+		timer = _build_timer_for_buff(time_duration_in_s)
 	
 	# add power up to weapons handler only if power up is not already present
 	if !(player.weapon_handler.active_power_up_buffs.has(power_up_buff_name)):
@@ -54,11 +72,13 @@ func get_power_up_whip_damage_increase(buff_type:String, time_duration_in_s:int)
 			player.weapon_handler.current_weapon.whip_attack_max_damage *= whip_damage_increase_multiplicator
 			player.weapon_handler.current_weapon.whip_attack_damage_increase *= whip_damage_increase_multiplicator
 	
-	await get_tree().create_timer(time_duration_in_s).timeout
+	timer.start()
+	await timer.timeout
 	
 	currently_active_power_ups.erase(buff_type)
 	
 	_remove_power_up_whip_damage_increase(power_up_buff_name)
+	_remove_buff_timer_for_buff(timer)
 
 
 func _remove_power_up_whip_damage_increase(power_up_buff_name:String) -> void:
@@ -79,15 +99,26 @@ func get_power_up_sword_damage_increase(buff_type:String, time_duration_in_s:int
 	if time_duration_in_s == null:
 		return
 	
+	var timer:Timer
+	
 	var power_up_buff_name = "sword"
 	
 	# if buff is already active -> remove buff before applying again
 	if currently_active_power_ups.has(buff_type):
 		_remove_power_up_sword_damage_increase(power_up_buff_name)
-		refresh_power_up.emit(buff_type, time_duration_in_s)
+		refresh_power_up.emit(buff_type)
+		
+		if !(_check_for_active_buff_timer(buff_type)):
+			timer = _build_timer_for_buff(time_duration_in_s)
+		else:
+			timer = _get_timer_for_buff(buff_type, time_duration_in_s)
+			_remove_buff_timer_for_buff(timer)
+			timer = _build_timer_for_buff(time_duration_in_s)
 	else:
 		currently_active_power_ups[buff_type] = true
-		got_power_up.emit(buff_type, time_duration_in_s)
+		got_power_up.emit(buff_type)
+		
+		timer = _build_timer_for_buff(time_duration_in_s)
 	
 	# add power up to weapons handler only if power up is not already present
 	if !(player.weapon_handler.active_power_up_buffs.has(power_up_buff_name)):
@@ -100,11 +131,13 @@ func get_power_up_sword_damage_increase(buff_type:String, time_duration_in_s:int
 			player.weapon_handler.current_weapon.damage_combo_2 *= sword_damage_increase_multiplicator
 			player.weapon_handler.current_weapon.damage_combo_3 *= sword_damage_increase_multiplicator
 	
-	await get_tree().create_timer(time_duration_in_s).timeout
+	timer.start()
+	await timer.timeout
 	
 	currently_active_power_ups.erase(buff_type)
 	
 	_remove_power_up_sword_damage_increase(power_up_buff_name)
+	_remove_buff_timer_for_buff(timer)
 
 
 func _remove_power_up_sword_damage_increase(power_up_buff_name) -> void:
@@ -124,22 +157,35 @@ func get_power_up_movement_speed_increase(buff_type:String, time_duration_in_s:i
 	if time_duration_in_s == null:
 		return
 	
+	var timer:Timer
+	
 	# if buff is already active -> remove buff before applying again
 	if currently_active_power_ups.has(buff_type):
 		_remove_power_up_movement_speed_increase()
-		refresh_power_up.emit(buff_type, time_duration_in_s)
+		refresh_power_up.emit(buff_type)
+		
+		if !(_check_for_active_buff_timer(buff_type)):
+			timer = _build_timer_for_buff(time_duration_in_s)
+		else:
+			timer = _get_timer_for_buff(buff_type, time_duration_in_s)
+			_remove_buff_timer_for_buff(timer)
+			timer = _build_timer_for_buff(time_duration_in_s)
 	else:
 		currently_active_power_ups[buff_type] = true
-		got_power_up.emit(buff_type, time_duration_in_s)
+		got_power_up.emit(buff_type)
+		
+		timer = _build_timer_for_buff(time_duration_in_s)
 	
 	player.movement_handler.current_speed = int(round(player.movement_handler.BASE_SPEED * player_movement_speed_increase_multiplicator))
 	player.animations_handler.animations.speed_scale = 1 * player_movement_speed_increase_multiplicator
 	
-	await get_tree().create_timer(time_duration_in_s).timeout
+	timer.start()
+	await timer.timeout
 	
 	currently_active_power_ups.erase(buff_type)
 	
 	_remove_power_up_movement_speed_increase()
+	_remove_buff_timer_for_buff(timer)
 
 
 func _remove_power_up_movement_speed_increase() -> void:
@@ -151,22 +197,90 @@ func get_power_up_unlimited_stamina(buff_type:String, time_duration_in_s:int) ->
 	if time_duration_in_s == null:
 		return
 	
+	var timer:Timer
+	
 	# if buff is already active -> remove buff before applying again
 	if currently_active_power_ups.has(buff_type):
 		_remove_power_up_unlimited_stamina()
-		refresh_power_up.emit(buff_type, time_duration_in_s)
+		refresh_power_up.emit(buff_type)
+		
+		if !(_check_for_active_buff_timer(buff_type)):
+			timer = _build_timer_for_buff(time_duration_in_s)
+		else:
+			timer = _get_timer_for_buff(buff_type, time_duration_in_s)
+			_remove_buff_timer_for_buff(timer)
+			timer = _build_timer_for_buff(time_duration_in_s)
 	else:
 		currently_active_power_ups[buff_type] = true
-		got_power_up.emit(buff_type, time_duration_in_s)
+		got_power_up.emit(buff_type)
+		
+		timer = _build_timer_for_buff(time_duration_in_s)
 	
 	player.stamina_handler.stamina_cost_multiplier = 0
 	
-	await get_tree().create_timer(time_duration_in_s).timeout
+	timer.start()
+	await timer.timeout
 	
 	currently_active_power_ups.erase(buff_type)
 	
 	_remove_power_up_unlimited_stamina()
+	_remove_buff_timer_for_buff(timer)
 
 
 func _remove_power_up_unlimited_stamina() -> void:
 	player.stamina_handler.stamina_cost_multiplier = 1 # TODO: ggnf hier Aenderungen vornehmen, sollte sich der Kosten-Multiplier durch dauerhafte Upgrades veraendern
+
+
+###----------METHODS: POWER UP TIMERS----------###
+
+func _build_timer_for_buff(time_duration_in_s:int) -> Timer:
+	# build new timer node
+	var timer:Timer = Timer.new()
+	timer.one_shot = true
+	timer.wait_time = time_duration_in_s
+	
+	# append node to array and node in scene tree
+	build_buff_timers.append(timer)
+	buff_timers.add_child(timer)
+	
+	# return newly build timer node
+	return timer
+
+
+func _remove_buff_timer_for_buff(timer:Timer) -> void:
+	
+	for i in (build_buff_timers.size()):
+		if build_buff_timers[i] == timer:
+			build_buff_timers.remove_at(i)
+			break
+	
+	buff_timers.remove_child(timer)
+	
+	timer.queue_free()
+
+
+func _get_timer_for_buff(buff_type:String, time_duration_in_s:int) -> Timer:
+	
+	for buff_timer in buff_timers.get_children():
+		for build_buff_timer in build_buff_timers:
+			if build_buff_timer == buff_timer:
+				return build_buff_timer
+	
+	# in case the timer could not be found -> build a new one
+	return _build_timer_for_buff(time_duration_in_s)
+
+
+func _check_for_active_buff_timer(buff_type:String) -> bool:
+	## checks if a timer is currently active for the given buff_type
+	
+	if build_buff_timers.size() == 0:
+		return false
+	if buff_timers.get_children().size() == 0:
+		return false
+	
+	for buff_timer in buff_timers.get_children():
+		for build_buff_timer in build_buff_timers:
+			if build_buff_timer == buff_timer:
+				return true
+	
+	return false

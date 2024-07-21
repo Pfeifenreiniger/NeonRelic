@@ -6,3 +6,4 @@
 script = ExtResource("1_wd2lh")
 buff_type = "unlimited_stamina"
 buff_duration = 15
+buff_description = "You don't consume any of your stamina"

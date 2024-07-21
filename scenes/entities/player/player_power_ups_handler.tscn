@@ -4,3 +4,5 @@
 
 [node name="PlayerPowerUpsHandler" type="Node"]
 script = ExtResource("1_iv71f")
+
+[node name="BuffTimers" type="Node" parent="."]

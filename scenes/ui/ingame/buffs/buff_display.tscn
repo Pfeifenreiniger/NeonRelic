@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://btiwlkkwwmdi8"]
+[gd_scene load_steps=6 format=3 uid="uid://btiwlkkwwmdi8"]
 
 [ext_resource type="Script" path="res://scenes/ui/ingame/buffs/buff_display.gd" id="1_h1a1c"]
+[ext_resource type="Resource" uid="uid://bqb081vr33v46" path="res://resources/power_up_stats/power_up_whip_damage_increase_stats.tres" id="2_yii4d"]
+[ext_resource type="Resource" uid="uid://chcfestro25ry" path="res://resources/power_up_stats/power_up_sword_damage_increase_stats.tres" id="3_k56m3"]
+[ext_resource type="Resource" uid="uid://msjqqcul0siy" path="res://resources/power_up_stats/power_up_movement_speed_increase_stats.tres" id="4_hobom"]
+[ext_resource type="Resource" uid="uid://cqphymbqk0rai" path="res://resources/power_up_stats/power_up_unlimited_stamina_stats.tres" id="5_c83hk"]
 
 [node name="BuffDisplay" type="MarginContainer"]
 anchors_preset = 15
@@ -13,8 +17,11 @@ size_flags_vertical = 0
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 script = ExtResource("1_h1a1c")
+resources_power_up_stats = Array[Resource("res://resources/power_up_stats/power_up_stats.gd")]([ExtResource("2_yii4d"), ExtResource("3_k56m3"), ExtResource("4_hobom"), ExtResource("5_c83hk")])
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+
+[node name="BuffDurationTimers" type="Node" parent="."]
