@@ -91,6 +91,7 @@ func do_die() -> void:
 	is_aggro = false
 	is_attacking = false
 	explosion_animation_player.play('explosion')
+	drop_collectable_component.drop_collectable(self)
 
 
 ###----------METHODS: CONNECTED SIGNALS----------###

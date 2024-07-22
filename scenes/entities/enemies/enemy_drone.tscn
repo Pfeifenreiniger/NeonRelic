@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://gv0yr3oidbtn"]
+[gd_scene load_steps=52 format=3 uid="uid://gv0yr3oidbtn"]
 
 [ext_resource type="PackedScene" uid="uid://buxj1tjw810ml" path="res://scenes/entities/enemies/base_enemy.tscn" id="1_fbaba"]
 [ext_resource type="Script" path="res://scenes/entities/enemies/enemy_drone.gd" id="2_hitk0"]
@@ -17,14 +17,24 @@
 [ext_resource type="Texture2D" uid="uid://crd6nd4pi3ebe" path="res://assets/graphics/brushes/brush_10x10_px.png" id="13_2b7gj"]
 [ext_resource type="Texture2D" uid="uid://cqg3sfgexlk3x" path="res://scenes/entities/enemies/sprites/enemy_drone/damage/drone_damage_f1.png" id="14_rcx4p"]
 [ext_resource type="Texture2D" uid="uid://bx1671w5qd64k" path="res://scenes/entities/enemies/sprites/enemy_drone/damage/drone_damage_f2.png" id="15_7w333"]
+[ext_resource type="PackedScene" uid="uid://cy5661u4ypxc4" path="res://scenes/items/collectables/power_ups/movement_speed_increase/power_up_movement_speed_increase.tscn" id="15_7yi4a"]
+[ext_resource type="PackedScene" uid="uid://s1dfpcknn3s4" path="res://scenes/items/collectables/power_ups/sword_damage_increase/power_up_sword_damage_increase.tscn" id="16_1c6rh"]
 [ext_resource type="Texture2D" uid="uid://c6obwtr0tt5jf" path="res://scenes/entities/enemies/sprites/enemy_drone/damage/drone_damage_f3.png" id="16_bhlki"]
+[ext_resource type="PackedScene" uid="uid://bof0dy80c15vu" path="res://scenes/items/collectables/power_ups/unlimited_stamina/power_up_unlimited_stamina.tscn" id="17_ha0qr"]
 [ext_resource type="Texture2D" uid="uid://cxdi0q5lpjq3u" path="res://scenes/entities/enemies/sprites/enemy_drone/damage/drone_damage_f4.png" id="17_paof6"]
+[ext_resource type="PackedScene" uid="uid://rpv1gpbvbi6j" path="res://scenes/items/collectables/power_ups/whip_damage_increase/power_up_whip_damage_increase.tscn" id="18_iv74a"]
 [ext_resource type="Texture2D" uid="uid://b45jls0wk28k1" path="res://scenes/entities/enemies/sprites/enemy_drone/explosion/drone_explosion_f1.png" id="18_jtxki"]
+[ext_resource type="PackedScene" uid="uid://cl5hm28krsqxp" path="res://scenes/items/collectables/heal_ups/heal_up_stamina/heal_up_stamina_heigh.tscn" id="19_d0fdl"]
 [ext_resource type="Texture2D" uid="uid://bxrjq2brjp7yv" path="res://scenes/entities/enemies/sprites/enemy_drone/explosion/drone_explosion_f2.png" id="19_ierd6"]
 [ext_resource type="Texture2D" uid="uid://cfu5e3gamfjnh" path="res://scenes/entities/enemies/sprites/enemy_drone/explosion/drone_explosion_f3.png" id="20_grh71"]
+[ext_resource type="PackedScene" uid="uid://bbobiugij3bsb" path="res://scenes/items/collectables/heal_ups/heal_up_stamina/heal_up_stamina_medium.tscn" id="20_vuyhb"]
+[ext_resource type="PackedScene" uid="uid://ci5bo2epic4t" path="res://scenes/items/collectables/heal_ups/heal_up_stamina/heal_up_stamina_low.tscn" id="21_45kua"]
 [ext_resource type="Texture2D" uid="uid://cfoiic2kmmuuf" path="res://scenes/entities/enemies/sprites/enemy_drone/explosion/drone_explosion_f4.png" id="21_54b23"]
 [ext_resource type="Texture2D" uid="uid://bk1oo4nglohal" path="res://scenes/entities/enemies/sprites/enemy_drone/explosion/drone_explosion_f5.png" id="22_8dann"]
+[ext_resource type="PackedScene" uid="uid://b5w3rr08bpux1" path="res://scenes/items/collectables/heal_ups/heal_up_health/heal_up_health_high.tscn" id="22_ntqxf"]
+[ext_resource type="PackedScene" uid="uid://ct7wtr5dy7xxw" path="res://scenes/items/collectables/heal_ups/heal_up_health/heal_up_health_medium.tscn" id="23_fvjq1"]
 [ext_resource type="Texture2D" uid="uid://bnsexkhf45tn5" path="res://scenes/entities/enemies/sprites/enemy_drone/explosion/drone_explosion_f6.png" id="23_lynef"]
+[ext_resource type="PackedScene" uid="uid://bv3gdi5cxv510" path="res://scenes/items/collectables/heal_ups/heal_up_health/heal_up_health_low.tscn" id="24_8cxw6"]
 [ext_resource type="Texture2D" uid="uid://bkc4gd3npn03j" path="res://scenes/entities/enemies/sprites/enemy_drone/explosion/drone_explosion_f7.png" id="24_r74nv"]
 [ext_resource type="Texture2D" uid="uid://dcx2v7t32asjx" path="res://scenes/entities/enemies/sprites/enemy_drone/explosion/drone_explosion_f8.png" id="25_d81y5"]
 [ext_resource type="Texture2D" uid="uid://bl0tl40s57iys" path="res://scenes/entities/enemies/sprites/enemy_drone/explosion/drone_explosion_f9.png" id="26_vhfsg"]
@@ -77,10 +87,6 @@ animations = [{
 "speed": 1.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kerse"]
-resource_local_to_scene = true
-size = Vector2(28, 79)
-
 [sub_resource type="Gradient" id="Gradient_tysvj"]
 offsets = PackedFloat32Array(0.363636, 1)
 colors = PackedColorArray(0.882353, 0.882353, 0.882353, 0.713726, 1, 1, 1, 0)
@@ -102,9 +108,9 @@ scale_min = 0.8
 scale_max = 1.2
 color_ramp = SubResource("GradientTexture1D_boe2s")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2t1sg"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kerse"]
 resource_local_to_scene = true
-size = Vector2(28, 38)
+size = Vector2(28, 79)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qswui"]
 animations = [{
@@ -234,6 +240,10 @@ _data = {
 "explosion": SubResource("Animation_5qmvj")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2t1sg"]
+resource_local_to_scene = true
+size = Vector2(28, 38)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_rhu8j"]
 resource_local_to_scene = true
 radius = 408.005
@@ -257,9 +267,10 @@ material = SubResource("ShaderMaterial_rcdfj")
 sprite_frames = SubResource("SpriteFrames_ba4bt")
 animation = &"alarm_right"
 
-[node name="CollisionBox" parent="." index="5"]
-position = Vector2(0, 22.5)
-shape = SubResource("RectangleShape2D_kerse")
+[node name="DropCollectableComponent" parent="." index="5"]
+power_up_scenes = Array[PackedScene]([ExtResource("15_7yi4a"), ExtResource("16_1c6rh"), ExtResource("17_ha0qr"), ExtResource("18_iv74a")])
+heal_up_scenes = Array[PackedScene]([ExtResource("19_d0fdl"), ExtResource("20_vuyhb"), ExtResource("21_45kua"), ExtResource("21_45kua"), ExtResource("22_ntqxf"), ExtResource("23_fvjq1"), ExtResource("24_8cxw6"), ExtResource("24_8cxw6")])
+drop_chance = 33.33
 
 [node name="LiftParticles" type="GPUParticles2D" parent="." index="6"]
 position = Vector2(2, 15)
@@ -268,13 +279,9 @@ process_material = SubResource("ParticleProcessMaterial_ng8wq")
 texture = ExtResource("13_2b7gj")
 lifetime = 0.6
 
-[node name="HitArea" parent="." index="7"]
-collision_layer = 0
-collision_mask = 0
-
-[node name="HitBox" parent="HitArea" index="0"]
-position = Vector2(0, 2)
-shape = SubResource("RectangleShape2D_2t1sg")
+[node name="CollisionBox" parent="." index="7"]
+position = Vector2(0, 22.5)
+shape = SubResource("RectangleShape2D_kerse")
 
 [node name="DamageAnimation" type="AnimatedSprite2D" parent="." index="8"]
 position = Vector2(0, 4)
@@ -297,8 +304,16 @@ speed_scale = 1.5
 [node name="LaserBeamStartPosition" type="Marker2D" parent="." index="11"]
 position = Vector2(13, 6)
 
+[node name="HitArea" parent="." index="12"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="HitBox" parent="HitArea" index="0"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_2t1sg")
+
 [node name="AggroCircle" parent="AggroArea" index="0"]
 shape = SubResource("CircleShape2D_rhu8j")
 
-[node name="AttackArea" parent="." index="13"]
+[node name="AttackArea" parent="." index="14"]
 collision_layer = 0

@@ -15,6 +15,7 @@ class_name BaseEnemy
 @onready var animations_handler: BaseEnemyAnimationsHandler = $AnimationsHandler as BaseEnemyAnimationsHandler
 @onready var aggro_area:Area2D = $AggroArea as Area2D
 @onready var attack_area:Area2D = $AttackArea as Area2D
+@onready var drop_collectable_component: DropCollectableComponent = $DropCollectableComponent as DropCollectableComponent
 
 
 ###----------PROPERTIES----------###

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://buxj1tjw810ml"]
+[gd_scene load_steps=13 format=3 uid="uid://buxj1tjw810ml"]
 
 [ext_resource type="Script" path="res://scenes/entities/enemies/base_enemy.gd" id="1_adxmx"]
 [ext_resource type="Script" path="res://scenes/entities/enemies/base_enemy_movement_handler.gd" id="2_56gro"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://r285wcnxtavl" path="res://scenes/components/health_component/health_component.tscn" id="4_fv0vu"]
 [ext_resource type="Script" path="res://scenes/entities/enemies/base_enemy_animations_handler.gd" id="4_m4jp3"]
 [ext_resource type="PackedScene" uid="uid://dt8ut7kl3bw7s" path="res://scenes/components/invulnerability_component/invulnerability_component.tscn" id="5_d18rp"]
+[ext_resource type="PackedScene" uid="uid://cie3ptpwy32x7" path="res://scenes/components/drop_collectable_component/drop_collectable_component.tscn" id="8_uw243"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uyr0c"]
 resource_local_to_scene = true
@@ -50,6 +51,8 @@ one_shot = true
 script = ExtResource("4_m4jp3")
 
 [node name="Animations" type="AnimatedSprite2D" parent="AnimationsHandler"]
+
+[node name="DropCollectableComponent" parent="." instance=ExtResource("8_uw243")]
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_uyr0c")
