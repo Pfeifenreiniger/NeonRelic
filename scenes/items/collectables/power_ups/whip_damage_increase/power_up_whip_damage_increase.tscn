@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://rpv1gpbvbi6j"]
+[gd_scene load_steps=5 format=3 uid="uid://rpv1gpbvbi6j"]
 
 [ext_resource type="PackedScene" uid="uid://c0b10aw7b68v2" path="res://scenes/items/collectables/power_ups/base_power_up.tscn" id="1_k8c3r"]
 [ext_resource type="Texture2D" uid="uid://c8qmkmk2e77ex" path="res://scenes/items/collectables/power_ups/whip_damage_increase/power_up_whip_damage_increase.png" id="2_fc5dg"]
 [ext_resource type="Resource" uid="uid://bqb081vr33v46" path="res://resources/power_up_stats/power_up_whip_damage_increase_stats.tres" id="3_6qt5j"]
+[ext_resource type="Script" path="res://scenes/items/collectables/power_ups/whip_damage_increase/power_up_whip_damage_increase.gd" id="3_bsggp"]
 
 [node name="PowerUpWhipDamageIncrease" instance=ExtResource("1_k8c3r")]
 texture = ExtResource("2_fc5dg")
+script = ExtResource("3_bsggp")
 color_screen_flash = Color(0.706, 0, 0.737, 1)
 
 [node name="CollectableComponent" parent="." index="0"]

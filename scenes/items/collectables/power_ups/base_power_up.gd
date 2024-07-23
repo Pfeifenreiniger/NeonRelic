@@ -5,6 +5,7 @@ class_name BasePowerUp
 ###----------SCENE REFERENCES----------###
 
 @onready var collectable_component: Area2D = $CollectableComponent as Area2D
+@onready var despawn_collectable_component: DespawnCollectableComponent = $DespawnCollectableComponent as DespawnCollectableComponent
 
 var screen_flash_effect_component_scene:PackedScene = preload("res://scenes/components/screen_flash_component/screen_flash_component.tscn")
 
@@ -27,6 +28,8 @@ var screen_flash_effect_component_scene:PackedScene = preload("res://scenes/comp
 func _ready() -> void:
 	collectable_component.got_collected.connect(_on_got_collected)
 	
+	despawn_collectable_component.despawn_animation_done.connect(_on_despawn_animation_done)
+	
 	gpu_particles_2d.modulate = collectable_component.collect_effect_particles_color
 
 
@@ -40,3 +43,7 @@ func _on_got_collected() -> void:
 	screen_flash_effect_component_instance.layer = 999
 	add_child(screen_flash_effect_component_instance)
 	screen_flash_effect_component_instance.play_flash_animation()
+
+
+func _on_despawn_animation_done() -> void:
+	queue_free()

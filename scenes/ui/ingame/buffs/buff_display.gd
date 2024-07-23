@@ -37,7 +37,7 @@ func _ready() -> void:
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_update_buff_duration_labels()
 
 

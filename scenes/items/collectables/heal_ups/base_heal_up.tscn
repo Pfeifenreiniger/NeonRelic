@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctwcb1vohcywh"]
+[gd_scene load_steps=7 format=3 uid="uid://ctwcb1vohcywh"]
 
 [ext_resource type="PackedScene" uid="uid://dgfamoasmhwre" path="res://scenes/components/collectable_component/collectable_component.tscn" id="1_kjbqq"]
 [ext_resource type="Script" path="res://scenes/items/collectables/heal_ups/base_heal_up.gd" id="1_opt1t"]
+[ext_resource type="PackedScene" uid="uid://dtnhsno45q704" path="res://scenes/components/despawn_collectable_component/despawn_collectable_component.tscn" id="3_mpfwr"]
 
 [sub_resource type="Animation" id="Animation_umc74"]
 length = 0.001
@@ -45,6 +46,8 @@ _data = {
 script = ExtResource("1_opt1t")
 
 [node name="CollectableComponent" parent="." instance=ExtResource("1_kjbqq")]
+
+[node name="DespawnCollectableComponent" parent="." instance=ExtResource("3_mpfwr")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
