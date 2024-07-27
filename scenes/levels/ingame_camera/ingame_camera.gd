@@ -10,11 +10,11 @@ class_name IngameCamera
 
 var target_position = Vector2.ZERO
 const BASE_CAMERA_Y_POS_PADDING:int = 200
-const MAX_CAMERA_Y_POS_PADDING:int = 140
-const CAMERA_Y_POS_PADDING_INCREMENT_STEP:int = 2
 var current_camera_y_pos_padding:int
-var desc_camera_y_axis:bool = false
-var asc_camera_y_axis:bool = false
+
+# tweens
+var tween_camera_y_axis_descending:Tween
+var tween_camera_zoom:Tween
 
 
 ###----------METHODS: AT SCENE TREE ENTER CALLED----------###
@@ -29,9 +29,6 @@ func _ready() -> void:
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(delta:float) -> void:
-	# check if game camera y axis position has to be modified for current frame.
-	do_desc_y_camera_axis()
-	do_asc_y_camera_axis()
 	# get current frame's target position for game camera.
 	acquire_target()
 	# set global_position to target_position with an addition of a slight delay.
@@ -41,24 +38,54 @@ func _process(delta:float) -> void:
 ###----------METHODS: CALCULATE CAMERA POSITION----------###
 
 func acquire_target() -> void:
-	"""
-	Calculate target position of camera for current frame.
-	Position is based on player's position with y-axis padding.
-	"""
+	## Calculate target position of camera for current frame
+	
 	target_position = player.global_position - Vector2(0, current_camera_y_pos_padding)
 
 
+###----------METHODS: ALTER CAMERA Y-AXIS POSITION----------###
+
 func do_desc_y_camera_axis() -> void:
-	"""
-	lower camera y axis position by the amoung of padding increment step
-	"""
-	if desc_camera_y_axis and current_camera_y_pos_padding > MAX_CAMERA_Y_POS_PADDING:
-		current_camera_y_pos_padding -= CAMERA_Y_POS_PADDING_INCREMENT_STEP
+	## lower camera y axis position
+	
+	if tween_camera_y_axis_descending != null:
+		tween_camera_y_axis_descending.kill()
+	tween_camera_y_axis_descending = get_tree().create_tween()
+	
+	tween_camera_y_axis_descending.tween_property($".", "current_camera_y_pos_padding", 40, 1)\
+	.set_ease(Tween.EASE_OUT)\
+	.set_trans(Tween.TRANS_SINE)
 
 
 func do_asc_y_camera_axis() -> void:
-	"""
-	raise camera y axis position by the amoung of padding increment step
-	"""
-	if asc_camera_y_axis and current_camera_y_pos_padding < BASE_CAMERA_Y_POS_PADDING:
-		current_camera_y_pos_padding += CAMERA_Y_POS_PADDING_INCREMENT_STEP
+	## araise camera y axis position
+	
+	if tween_camera_y_axis_descending != null:
+		tween_camera_y_axis_descending.kill()
+	tween_camera_y_axis_descending = get_tree().create_tween()
+	
+	tween_camera_y_axis_descending.tween_property($".", "current_camera_y_pos_padding", 200, .5)\
+	.set_ease(Tween.EASE_IN)\
+	.set_trans(Tween.TRANS_SINE)
+
+
+###----------METHODS: ALTER CAMERA ZOOM FACTOR----------###
+
+func do_zoom_in(zoom_in_factor:Vector2 = Vector2(1.2, 1.2)) -> void:
+	if tween_camera_zoom != null:
+		tween_camera_zoom.kill()
+	tween_camera_zoom = get_tree().create_tween()
+	
+	tween_camera_zoom.tween_property($".", "zoom", zoom_in_factor, 1.2)\
+	.set_ease(Tween.EASE_OUT)\
+	.set_trans(Tween.TRANS_SINE)
+
+
+func do_zoom_out() -> void:
+	if tween_camera_zoom != null:
+		tween_camera_zoom.kill()
+	tween_camera_zoom = get_tree().create_tween()
+	
+	tween_camera_zoom.tween_property($".", "zoom", Vector2(1, 1), .6)\
+	.set_ease(Tween.EASE_IN)\
+	.set_trans(Tween.TRANS_SINE)

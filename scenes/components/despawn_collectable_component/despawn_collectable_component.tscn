@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" path="res://scenes/components/despawn_collectable_component/despawn_collectable_component.gd" id="1_da1xk"]
 
+[sub_resource type="Animation" id="Animation_7eyfr"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_c0xs6"]
 resource_name = "default"
 length = 0.5
@@ -20,9 +23,6 @@ tracks/0/keys = {
 "method": &"do_despawn_blink_animation"
 }]
 }
-
-[sub_resource type="Animation" id="Animation_7eyfr"]
-length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_age4w"]
 _data = {

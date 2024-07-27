@@ -345,8 +345,8 @@ func action_input_duck() -> void:
 			player.animations_handler.current_animation = "to_duck_right"
 		player.animations_handler.loop_animation = false
 		player.animations_handler.animation_to_change = true
-		ingame_camera.asc_camera_y_axis = false
-		ingame_camera.desc_camera_y_axis = true
+		ingame_camera.do_desc_y_camera_axis()
+		ingame_camera.do_zoom_in()
 
 
 func action_input_duck_release() -> void:
@@ -364,8 +364,8 @@ func action_input_duck_release() -> void:
 	
 	will_duck = false
 	player.animations_handler.loop_animation = false
-	ingame_camera.desc_camera_y_axis = false
-	ingame_camera.asc_camera_y_axis = true
+	ingame_camera.do_asc_y_camera_axis()
+	ingame_camera.do_zoom_out()
 	
 	if "left" in player.animations_handler.current_animation:
 		player.animations_handler.current_animation = "to_duck_left"
