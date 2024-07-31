@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bh14raqiukbli"]
+[gd_scene load_steps=24 format=3 uid="uid://bh14raqiukbli"]
 
 [ext_resource type="Texture2D" uid="uid://dda8fl86os1gc" path="res://assets/graphics/backgrounds/test_level/bg.png" id="1_5khsy"]
 [ext_resource type="TileSet" uid="uid://doa8hk636pn7x" path="res://tilesets/base_grounds/concrete_ground.tres" id="2_51ah8"]
@@ -9,7 +9,190 @@
 [ext_resource type="TileSet" uid="uid://bo8g5h58b3055" path="res://tilesets/base_grounds/desert_ground.tres" id="4_dnr8s"]
 [ext_resource type="PackedScene" uid="uid://melnki4ihouy" path="res://scenes/levels/enemy_platform_border/enemy_platform_border.tscn" id="6_8cbdo"]
 [ext_resource type="PackedScene" uid="uid://gv0yr3oidbtn" path="res://scenes/entities/enemies/enemy_drone.tscn" id="7_ja5a7"]
+[ext_resource type="PackedScene" uid="uid://boowknwfi1vid" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/wooden_crate_collectables_container.tscn" id="8_dwmga"]
 [ext_resource type="PackedScene" uid="uid://drfpdpqmnxnkm" path="res://scenes/ui/ingame/ui.tscn" id="8_ot175"]
+[ext_resource type="Texture2D" uid="uid://cs6ceyfontprv" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f1.png" id="9_2xxbc"]
+[ext_resource type="Texture2D" uid="uid://dd8gaae232n2c" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f2.png" id="10_degjm"]
+[ext_resource type="Texture2D" uid="uid://blbg04wrqhg7f" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f3.png" id="11_x5w6t"]
+[ext_resource type="Texture2D" uid="uid://dn2ad5bnjedbe" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f4.png" id="12_ksuya"]
+[ext_resource type="Texture2D" uid="uid://dpxt8h0troltk" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f5.png" id="13_s3j86"]
+[ext_resource type="Texture2D" uid="uid://dl66or1cny2ev" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f6.png" id="14_pw0og"]
+[ext_resource type="Texture2D" uid="uid://co8xun4pkeu5l" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate.png" id="15_x13hk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b6c2d"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_2xxbc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_degjm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_x5w6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ksuya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_s3j86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_pw0og")
+}],
+"loop": true,
+"name": &"collapsing",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_x13hk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jmkbh"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_2xxbc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_degjm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_x5w6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ksuya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_s3j86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_pw0og")
+}],
+"loop": true,
+"name": &"collapsing",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_x13hk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1wo7w"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_2xxbc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_degjm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_x5w6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ksuya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_s3j86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_pw0og")
+}],
+"loop": true,
+"name": &"collapsing",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_x13hk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lb6nt"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_2xxbc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_degjm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_x5w6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ksuya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_s3j86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_pw0og")
+}],
+"loop": false,
+"name": &"collapsing",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_x13hk")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xxq36"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_2xxbc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_degjm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_x5w6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ksuya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_s3j86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_pw0og")
+}],
+"loop": false,
+"name": &"collapsing",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_x13hk")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="TestLevel" type="Node2D"]
 
@@ -124,6 +307,30 @@ position = Vector2(522, 485)
 border_side = "right"
 
 [node name="IngameCamera" parent="." instance=ExtResource("3_iy0gs")]
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="CollectablesContainers" type="Node" parent="Environment"]
+
+[node name="WoodenCrateCollectablesContainer" parent="Environment/CollectablesContainers" instance=ExtResource("8_dwmga")]
+position = Vector2(346, 556)
+sprite_frames = SubResource("SpriteFrames_b6c2d")
+
+[node name="WoodenCrateCollectablesContainer2" parent="Environment/CollectablesContainers" instance=ExtResource("8_dwmga")]
+position = Vector2(652, 513)
+sprite_frames = SubResource("SpriteFrames_jmkbh")
+
+[node name="WoodenCrateCollectablesContainer3" parent="Environment/CollectablesContainers" instance=ExtResource("8_dwmga")]
+position = Vector2(1029, 993)
+sprite_frames = SubResource("SpriteFrames_1wo7w")
+
+[node name="WoodenCrateCollectablesContainer4" parent="Environment/CollectablesContainers" instance=ExtResource("8_dwmga")]
+position = Vector2(-111, 556)
+sprite_frames = SubResource("SpriteFrames_lb6nt")
+
+[node name="WoodenCrateCollectablesContainer5" parent="Environment/CollectablesContainers" instance=ExtResource("8_dwmga")]
+position = Vector2(62, 555)
+sprite_frames = SubResource("SpriteFrames_xxq36")
 
 [node name="Entities" type="Node" parent="."]
 

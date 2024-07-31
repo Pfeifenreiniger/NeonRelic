@@ -56,4 +56,3 @@ func drop_collectable(drop_from_instance:Node2D) -> void:
 		
 		# add to level-scene-tree
 		collectables_node.call_deferred("add_child", randomly_picked_scene_instance)
-		#collectables_node.add_child(randomly_picked_scene_instance)

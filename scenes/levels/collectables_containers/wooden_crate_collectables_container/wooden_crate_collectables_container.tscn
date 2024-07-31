@@ -1,0 +1,74 @@
+[gd_scene load_steps=22 format=3 uid="uid://boowknwfi1vid"]
+
+[ext_resource type="PackedScene" uid="uid://cxjo5nf2f7c81" path="res://scenes/levels/collectables_containers/base_collectables_container.tscn" id="1_e0la4"]
+[ext_resource type="Texture2D" uid="uid://cs6ceyfontprv" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f1.png" id="2_1xx5e"]
+[ext_resource type="Texture2D" uid="uid://dd8gaae232n2c" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f2.png" id="3_afndj"]
+[ext_resource type="Texture2D" uid="uid://blbg04wrqhg7f" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f3.png" id="4_6g8xn"]
+[ext_resource type="Texture2D" uid="uid://dn2ad5bnjedbe" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f4.png" id="5_8kcbi"]
+[ext_resource type="Texture2D" uid="uid://dpxt8h0troltk" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f5.png" id="6_whhi4"]
+[ext_resource type="Texture2D" uid="uid://dl66or1cny2ev" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f6.png" id="7_gaeu0"]
+[ext_resource type="Texture2D" uid="uid://co8xun4pkeu5l" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate.png" id="8_gjm1o"]
+[ext_resource type="Script" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/wooden_crate_collectables_container.gd" id="9_7i5dc"]
+[ext_resource type="PackedScene" uid="uid://cy5661u4ypxc4" path="res://scenes/items/collectables/power_ups/movement_speed_increase/power_up_movement_speed_increase.tscn" id="10_ehpw4"]
+[ext_resource type="PackedScene" uid="uid://s1dfpcknn3s4" path="res://scenes/items/collectables/power_ups/sword_damage_increase/power_up_sword_damage_increase.tscn" id="11_42x6q"]
+[ext_resource type="PackedScene" uid="uid://bof0dy80c15vu" path="res://scenes/items/collectables/power_ups/unlimited_stamina/power_up_unlimited_stamina.tscn" id="12_3efi1"]
+[ext_resource type="PackedScene" uid="uid://rpv1gpbvbi6j" path="res://scenes/items/collectables/power_ups/whip_damage_increase/power_up_whip_damage_increase.tscn" id="13_bin5w"]
+[ext_resource type="PackedScene" uid="uid://bbobiugij3bsb" path="res://scenes/items/collectables/heal_ups/heal_up_stamina/heal_up_stamina_medium.tscn" id="14_acr31"]
+[ext_resource type="PackedScene" uid="uid://ci5bo2epic4t" path="res://scenes/items/collectables/heal_ups/heal_up_stamina/heal_up_stamina_low.tscn" id="15_qg8ca"]
+[ext_resource type="PackedScene" uid="uid://cl5hm28krsqxp" path="res://scenes/items/collectables/heal_ups/heal_up_stamina/heal_up_stamina_heigh.tscn" id="16_1e70h"]
+[ext_resource type="PackedScene" uid="uid://ct7wtr5dy7xxw" path="res://scenes/items/collectables/heal_ups/heal_up_health/heal_up_health_medium.tscn" id="17_pec4w"]
+[ext_resource type="PackedScene" uid="uid://bv3gdi5cxv510" path="res://scenes/items/collectables/heal_ups/heal_up_health/heal_up_health_low.tscn" id="18_da3v8"]
+[ext_resource type="PackedScene" uid="uid://b5w3rr08bpux1" path="res://scenes/items/collectables/heal_ups/heal_up_health/heal_up_health_high.tscn" id="19_0eliw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nuc8a"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1xx5e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_afndj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6g8xn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8kcbi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_whhi4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gaeu0")
+}],
+"loop": false,
+"name": &"collapsing",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_gjm1o")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v4kk8"]
+size = Vector2(55, 57)
+
+[node name="WoodenCrateCollectablesContainer" instance=ExtResource("1_e0la4")]
+sprite_frames = SubResource("SpriteFrames_nuc8a")
+animation = &"default"
+script = ExtResource("9_7i5dc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(8, -1.5)
+shape = SubResource("RectangleShape2D_v4kk8")
+
+[node name="DropCollectableComponent" parent="." index="1"]
+power_up_scenes = Array[PackedScene]([ExtResource("10_ehpw4"), ExtResource("11_42x6q"), ExtResource("11_42x6q"), ExtResource("12_3efi1"), ExtResource("13_bin5w")])
+heal_up_scenes = Array[PackedScene]([ExtResource("14_acr31"), ExtResource("14_acr31"), ExtResource("15_qg8ca"), ExtResource("16_1e70h"), ExtResource("16_1e70h"), ExtResource("17_pec4w"), ExtResource("18_da3v8"), ExtResource("19_0eliw")])
+drop_chance = 97.0
+amount_of_drops = 3

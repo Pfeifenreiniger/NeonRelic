@@ -16,7 +16,7 @@ script = ExtResource("1_bap7n")
 
 [node name="HitboxZoneCombo1" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 12
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxZoneCombo1"]
 position = Vector2(-17, -21)
@@ -25,7 +25,7 @@ disabled = true
 
 [node name="HitboxZoneCombo2" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 12
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxZoneCombo2"]
 position = Vector2(-14, -11)
@@ -34,7 +34,7 @@ disabled = true
 
 [node name="HitboxZoneCombo3" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 12
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxZoneCombo3"]
 position = Vector2(-35, 6)

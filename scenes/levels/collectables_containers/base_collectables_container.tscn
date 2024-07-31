@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxjo5nf2f7c81"]
+
+[ext_resource type="Script" path="res://scenes/levels/collectables_containers/base_collectables_container.gd" id="1_iyd1h"]
+[ext_resource type="PackedScene" uid="uid://cie3ptpwy32x7" path="res://scenes/components/drop_collectable_component/drop_collectable_component.tscn" id="2_bjp5n"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p6dk6"]
+resource_local_to_scene = true
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"collapsing",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BaseCollectablesContainer" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_p6dk6")
+animation = &"collapsing"
+script = ExtResource("1_iyd1h")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="DropCollectableComponent" parent="." instance=ExtResource("2_bjp5n")]
