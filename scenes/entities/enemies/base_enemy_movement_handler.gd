@@ -1,6 +1,12 @@
 extends Node
 class_name BaseEnemyMovementHandler
 
+
+###----------CUSTOM SIGNALS----------###
+
+signal did_fall(pixels_on_y_axis:int)
+
+
 ###----------SCENE REFERENCES----------###
 
 @onready var enemy_scene:CharacterBody2D = $'../' as CharacterBody2D
@@ -24,6 +30,10 @@ var current_jump_velocity:int
 # gravity
 var BASE_GRAVITY:int = int(ProjectSettings.get_setting("physics/2d/default_gravity"))
 var current_gravity:int
+
+# track falling height
+var do_fall:bool = false
+var y_axis_position_on_falling_start:int
 
 
 ###----------METHODS: AT SCENE TREE ENTER CALLED----------###
@@ -49,12 +59,21 @@ func _move_x() -> void:
 
 func _move_y(delta:float) -> void:
 	if !enemy_scene.is_on_floor():
+		if !do_fall:
+			y_axis_position_on_falling_start = int(enemy_scene.global_position.y)
+			do_fall = true
 		if x_axis_recoil_tween != null:
 			x_axis_recoil_tween.stop()
 			x_axis_recoil_tween = null
 		enemy_scene.velocity.y += current_gravity * delta
 	else:
 		enemy_scene.velocity.y = 0
+		if do_fall:
+			var y_axis_pixels_distance_fall:int = int(
+				enemy_scene.global_position.y - y_axis_position_on_falling_start
+			)
+			did_fall.emit(y_axis_pixels_distance_fall)
+			do_fall = false
 
 
 func _move() -> void:

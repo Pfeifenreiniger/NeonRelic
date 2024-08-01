@@ -1,6 +1,11 @@
 extends Node
 class_name PlayerMovementHandler
 
+###----------CUSTOM SIGNALS----------###
+
+signal did_fall(pixels_on_y_axis:int)
+
+
 ###----------SCENE REFERENCES----------###
 
 @onready var player:Player = get_tree().get_first_node_in_group('player') as Player
@@ -27,6 +32,9 @@ var can_coyote_jump:bool = false
 # gravity
 var BASE_GRAVITY:int = int(ProjectSettings.get_setting("physics/2d/default_gravity"))
 var current_gravity:int
+
+# track falling height
+var y_axis_position_on_falling_start:int
 
 # movement states
 var to_duck:bool = false
@@ -109,6 +117,7 @@ func _move_y_player_not_on_floor(delta:float) -> void:
 				player.animations_handler.sword_attack_animation.sword_attack_combo_time_window_rectangle.rect_to_draw = false
 			is_falling = true
 			direction.y = 1
+			y_axis_position_on_falling_start = int(player.global_position.y)
 			if "left" in player.animations_handler.current_animation:
 				player.animations_handler.current_animation = "fall_down_left"
 			else:
@@ -124,6 +133,9 @@ func _move_y_player_on_floor() -> void:
 	if is_falling:
 		is_falling = false
 		direction.y = 0
+		if y_axis_position_on_falling_start != null:
+			var fallen_distance_y_axis = abs(int(player.global_position.y) - y_axis_position_on_falling_start)
+			did_fall.emit(fallen_distance_y_axis)
 	# ground-y-movement only possible when player's not currently climbing up a ledge, is attacking or is rolling
 	if !is_climbing_ledge\
 	&& !is_attacking\

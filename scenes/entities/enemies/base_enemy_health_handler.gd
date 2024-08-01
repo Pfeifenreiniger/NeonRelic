@@ -17,6 +17,9 @@ class_name BaseEnemyHealthHandler
 func _ready() -> void:
 	health_component.entity = base_enemy_root_node
 	health_component.died.connect(_on_died)
+	
+	await base_enemy_root_node.ready
+	base_enemy_root_node.movement_handler.did_fall.connect(health_component._on_enitity_did_fall)
 
 
 ###----------CONNECTED SIGNALS----------###

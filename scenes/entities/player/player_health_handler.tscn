@@ -10,6 +10,7 @@ color_screen_flash = Color(0.505882, 0, 0, 1)
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("health_refresh_timer") instance=ExtResource("2_hp3ja")]
 health_refresh_timer = NodePath("../HealthRefreshTimer")
 health_refreshment_rate = 1
+minimum_amount_of_pixels_for_fallen_damage = 300
 
 [node name="HealthRefreshTimer" type="Timer" parent="."]
 wait_time = 4.0

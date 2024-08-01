@@ -34,6 +34,7 @@ script = ExtResource("3_avrhj")
 
 [node name="HealthComponent" parent="HealthHandler" node_paths=PackedStringArray("health_refresh_timer") instance=ExtResource("4_fv0vu")]
 health_refresh_timer = NodePath("../HealthRefreshmentTimer")
+max_health = 5
 
 [node name="HealthRefreshmentTimer" type="Timer" parent="HealthHandler"]
 wait_time = 4.0

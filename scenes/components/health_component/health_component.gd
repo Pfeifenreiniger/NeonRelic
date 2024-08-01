@@ -40,6 +40,8 @@ var current_health:int:
 
 @export var health_refreshment_rate:int
 
+@export var minimum_amount_of_pixels_for_fallen_damage:int = 200
+
 
 ###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
@@ -104,3 +106,21 @@ func refresh_health() -> void:
 
 func _on_health_refresh_timer_timeout() -> void:
 	refresh_health()
+
+
+func _on_enitity_did_fall(pixels:int) -> void:
+	
+	if pixels < minimum_amount_of_pixels_for_fallen_damage:
+		return
+	
+	var percentage_for_fallen_damage:float = float((pixels - minimum_amount_of_pixels_for_fallen_damage)) / float(minimum_amount_of_pixels_for_fallen_damage) * 100
+	
+	# reduce fallen damage percentage to 1/4 of its value
+	percentage_for_fallen_damage = percentage_for_fallen_damage / 4
+	
+	var amount_of_damage:int = int(
+		round((percentage_for_fallen_damage / 100) * max_health)
+	)
+	
+	get_damage(amount_of_damage)
+

@@ -26,6 +26,7 @@ func _ready() -> void:
 	
 	await player.ready
 	player.collectables_handler.got_heal_up.connect(_on_got_heal_up)
+	player.movement_handler.did_fall.connect(health_component._on_enitity_did_fall)
 
 
 ###----------CONNECTED SIGNALS----------###
