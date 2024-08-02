@@ -15,9 +15,6 @@ signal got_heal_up(heal_category:String, heal_percentage:float)
 ###----------METHODS----------###
 
 func get_power_up(power_up_stats:PowerUpStats) -> void:
-	print("Spieler erhaelt Power Up!!")
-	print(power_up_stats.buff_type)
-	print(power_up_stats.buff_duration)
 	
 	if "whip" in power_up_stats.buff_type:
 		player_power_ups_handler.get_power_up_whip_damage_increase(power_up_stats.buff_type, power_up_stats.buff_duration)

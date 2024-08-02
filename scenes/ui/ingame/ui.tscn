@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cgfj8r2flvql3" path="res://scenes/ui/ingame/weapon_selections/secondary_weapon_selection.tscn" id="5_cxmwp"]
 [ext_resource type="PackedScene" uid="uid://btiwlkkwwmdi8" path="res://scenes/ui/ingame/buffs/buff_display.tscn" id="6_sdtby"]
 
-[node name="Ui" type="CanvasLayer"]
+[node name="Ui" type="CanvasLayer" groups=["ingame_ui"]]
 script = ExtResource("1_v22wa")
 
 [node name="PlayerLifeBar" parent="." instance=ExtResource("2_awgxc")]
@@ -19,3 +19,5 @@ script = ExtResource("1_v22wa")
 [node name="SecondaryWeaponSelection" parent="." instance=ExtResource("5_cxmwp")]
 
 [node name="BuffDisplay" parent="." instance=ExtResource("6_sdtby")]
+
+[node name="Effects" type="Node" parent="."]

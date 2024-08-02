@@ -1,12 +1,20 @@
 extends BasePlayerStatus
 
 
+###----------SCENE REFERENCES----------###
+
+@onready var ingame_ui:IngameUi = get_tree().get_first_node_in_group('ingame_ui') as IngameUi
+
+var player_low_health_overlay_scene:PackedScene = preload("res://scenes/ui/ingame/effects/player_low_health_overlay/player_low_health_overlay.tscn") as PackedScene
+var player_low_health_overlay_instance:TextureRect = null
+
+
 ###----------NODE REFERENCES----------###
 
 @onready var heart_animation:AnimatedSprite2D = $MarginContainer/HeartAnimation as AnimatedSprite2D
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	super._ready()
@@ -16,18 +24,18 @@ func _ready() -> void:
 	tint_progress_color = Color(1, 0, 0, 1)
 	progress_bar = $MarginContainer/LifeProgressBar as TextureProgressBar
 	
-	start_heart_animation()
+	_start_heart_animation()
 
 
 ###----------METHODS: PER FRAME CALLED----------###
 
 func _process(_delta:float) -> void:
-	check_current_player_health()
+	_check_current_player_health()
 
 
 ###----------METHODS: CHECK CURRENT HEALTH PROPERTY----------###
 
-func check_current_player_health() -> void:
+func _check_current_player_health() -> void:
 	
 	# check for life progress bar
 	var max_player_health:float = Globals.player_max_health
@@ -48,14 +56,19 @@ func check_current_player_health() -> void:
 	
 	if current_player_health_in_percent < 10:
 		do_speed_scale = 5
+		_start_player_low_health_overlay_animation()
 	elif current_player_health_in_percent < 20:
 		do_speed_scale = 4
+		_start_player_low_health_overlay_animation()
 	elif current_player_health_in_percent < 40:
 		do_speed_scale = 3
+		_end_player_low_health_overlay_animation()
 	elif current_player_health_in_percent < 70:
 		do_speed_scale = 2
+		_end_player_low_health_overlay_animation()
 	else:
 		do_speed_scale = 1
+		_end_player_low_health_overlay_animation()
 
 	if heart_animation.speed_scale != do_speed_scale:
 		heart_animation.set_speed_scale(do_speed_scale)
@@ -63,5 +76,22 @@ func check_current_player_health() -> void:
 
 ###----------METHODS: UI ANIMATIONS----------###
 
-func start_heart_animation() -> void:
+func _start_heart_animation() -> void:
 	heart_animation.play("heartbeat")
+
+
+func _start_player_low_health_overlay_animation() -> void:
+	if player_low_health_overlay_instance != null:
+		return
+	
+	player_low_health_overlay_instance = player_low_health_overlay_scene.instantiate() as TextureRect
+	
+	ingame_ui.get_node("Effects").add_child(player_low_health_overlay_instance)
+
+
+func _end_player_low_health_overlay_animation() -> void:
+	if player_low_health_overlay_instance == null:
+		return
+
+	player_low_health_overlay_instance.queue_free()
+	player_low_health_overlay_instance = null
