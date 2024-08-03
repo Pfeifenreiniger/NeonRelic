@@ -92,6 +92,6 @@ func _start_player_low_health_overlay_animation() -> void:
 func _end_player_low_health_overlay_animation() -> void:
 	if player_low_health_overlay_instance == null:
 		return
-
+	
 	player_low_health_overlay_instance.queue_free()
 	player_low_health_overlay_instance = null

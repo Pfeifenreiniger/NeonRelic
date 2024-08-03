@@ -325,11 +325,11 @@ position = Vector2(1029, 993)
 sprite_frames = SubResource("SpriteFrames_1wo7w")
 
 [node name="WoodenCrateCollectablesContainer4" parent="Environment/CollectablesContainers" instance=ExtResource("8_dwmga")]
-position = Vector2(-111, 556)
+position = Vector2(-111, 555)
 sprite_frames = SubResource("SpriteFrames_lb6nt")
 
 [node name="WoodenCrateCollectablesContainer5" parent="Environment/CollectablesContainers" instance=ExtResource("8_dwmga")]
-position = Vector2(62, 555)
+position = Vector2(62, 554)
 sprite_frames = SubResource("SpriteFrames_xxq36")
 
 [node name="Entities" type="Node" parent="."]

@@ -19,7 +19,6 @@ animations = [{
 
 [node name="BaseCollectablesContainer" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_p6dk6")
-animation = &"collapsing"
 script = ExtResource("1_iyd1h")
 
 [node name="Hitbox" type="Area2D" parent="."]

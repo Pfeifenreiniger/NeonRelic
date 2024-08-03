@@ -60,7 +60,6 @@ size = Vector2(55, 57)
 
 [node name="WoodenCrateCollectablesContainer" instance=ExtResource("1_e0la4")]
 sprite_frames = SubResource("SpriteFrames_nuc8a")
-animation = &"default"
 script = ExtResource("9_7i5dc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
@@ -70,5 +69,5 @@ shape = SubResource("RectangleShape2D_v4kk8")
 [node name="DropCollectableComponent" parent="." index="1"]
 power_up_scenes = Array[PackedScene]([ExtResource("10_ehpw4"), ExtResource("11_42x6q"), ExtResource("11_42x6q"), ExtResource("12_3efi1"), ExtResource("13_bin5w")])
 heal_up_scenes = Array[PackedScene]([ExtResource("14_acr31"), ExtResource("14_acr31"), ExtResource("15_qg8ca"), ExtResource("16_1e70h"), ExtResource("16_1e70h"), ExtResource("17_pec4w"), ExtResource("18_da3v8"), ExtResource("19_0eliw")])
-drop_chance = 97.0
+drop_chance = 100.0
 amount_of_drops = 3
