@@ -257,7 +257,9 @@ laser_beam_scene = ExtResource("4_m7ha8")
 laser_beam_start_position = NodePath("../LaserBeamStartPosition")
 
 [node name="MovementHandler" parent="." index="1"]
-base_speed = 20
+BASE_SPEED = 50
+BASE_ACCELERATION_SMOOTHING = 40
+BASE_DECELERATION_SMOOTHING = 35
 
 [node name="HealthComponent" parent="HealthHandler" index="0"]
 max_health = 40

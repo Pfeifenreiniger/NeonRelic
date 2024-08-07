@@ -4,3 +4,4 @@
 
 [node name="PlayerMovementHandler" type="Node"]
 script = ExtResource("1_2xei2")
+BASE_DECELERATION_SMOOTHING = 1100

@@ -18,15 +18,19 @@ signal did_fall(pixels_on_y_axis:int)
 var direction:Vector2 = Vector2.ZERO
 
 # run speed
-const BASE_SPEED:int = 200
+@export_group('x-axis movement')
+@export var BASE_SPEED:int = 200
 var current_speed:int
-const BASE_ACCELERATION_SMOOTHING:int = 55
+@export var BASE_ACCELERATION_SMOOTHING:int = 900
 var current_acceleration_smoothing:int
+@export var BASE_DECELERATION_SMOOTHING:int = 1000
+var current_deceleration_smoothing:int
 
 # jumping
-const BASE_JUMP_VELOCITY:int = -275
+@export_group('y-axis movement')
+@export var BASE_JUMP_VELOCITY:int = -275
 var current_jump_velocity:int
-const LARGE_JUMP_VELOCITY_ADDITION_MULTIPLIER:float = 0.3
+@export var LARGE_JUMP_VELOCITY_ADDITION_MULTIPLIER:float = 0.3
 var can_coyote_jump:bool = false
 
 # gravity
@@ -54,6 +58,7 @@ var is_blocking:bool = false
 func _ready() -> void:
 	current_speed = BASE_SPEED
 	current_acceleration_smoothing = BASE_ACCELERATION_SMOOTHING
+	current_deceleration_smoothing = BASE_DECELERATION_SMOOTHING
 	current_jump_velocity = BASE_JUMP_VELOCITY
 	current_gravity = BASE_GRAVITY
 
@@ -75,10 +80,21 @@ func _move_x(delta:float) -> void:
 		player.controls_handler.check_input_side_roll_x_axis_key()
 
 		# apply movement to player's velocity (and apply current acceleration smoothing to x-axis movement)
-		var target_velocity:Vector2 = direction * current_speed
-		target_velocity = player.velocity.lerp(target_velocity, 1 - exp(-delta * current_acceleration_smoothing))
-		
-		player.velocity.x = target_velocity.x
+		var target_x_distance:int
+		if direction.x:
+			target_x_distance = direction.x * current_speed
+			player.velocity.x = move_toward(
+				player.velocity.x,
+				target_x_distance,
+				current_acceleration_smoothing * delta
+			)
+		else:
+			target_x_distance = 0
+			player.velocity.x = move_toward(
+				player.velocity.x,
+				target_x_distance,
+				current_deceleration_smoothing * delta
+			)
 
 
 func _move_y(delta:float) -> void:
@@ -596,6 +612,7 @@ func effect_get_slow_down(time:float) -> void:
 	
 	current_speed = int(round(BASE_SPEED / 2))
 	current_acceleration_smoothing = int(round(BASE_ACCELERATION_SMOOTHING / 10)) # for slippery movement on floor
+	current_deceleration_smoothing = int(round(BASE_DECELERATION_SMOOTHING / 10))
 	player.animations_handler.animations.speed_scale = 0.5
 	player.animations_handler.animations.material.set_shader_parameter("doFrozenSlowedDown", true)
 	player.animations_handler.side_roll_animation.current_player_x_offset = int(player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET / 2)
@@ -603,6 +620,7 @@ func effect_get_slow_down(time:float) -> void:
 	await get_tree().create_timer(time).timeout
 	current_speed = BASE_SPEED
 	current_acceleration_smoothing = BASE_ACCELERATION_SMOOTHING
+	current_deceleration_smoothing = BASE_DECELERATION_SMOOTHING
 	player.animations_handler.animations.speed_scale = 1
 	player.animations_handler.animations.material.set_shader_parameter("doFrozenSlowedDown", false)
 	player.animations_handler.side_roll_animation.current_player_x_offset = player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET

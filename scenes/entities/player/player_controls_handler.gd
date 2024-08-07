@@ -26,6 +26,8 @@ var player_roll_action_inputs:Dictionary = {
 	"left" as String : 0 as int
 }
 
+
+# states
 var secondary_weapon_used:bool = false
 
 var can_select_primary_weapon:bool = true
@@ -154,7 +156,7 @@ func check_input_environment_action_key() -> void:
 		# climb up ledges
 		if player.movement_handler.check_if_player_can_climb_up_ledge():
 			player.movement_handler.action_input_climb_up_ledge()
-		# ToDo - noch andere environment actions via elifs einfuegen (wie Automaten benutzen oder sowas)
+		# TODO - noch andere environment actions via elifs einfuegen (wie Automaten benutzen oder sowas)
 
 
 func check_input_primary_weapon_usage_key() -> void:
@@ -170,15 +172,18 @@ func check_input_primary_weapon_usage_key() -> void:
 		if 'IS_WHIP' in player.weapon_handler.current_weapon:
 			if !player.movement_handler.is_attacking:
 				# initial input
+				player.velocity.x = 0
 				player.movement_handler.action_input_init_whip_attack()
 			else:
 				if !player.weapon_handler.current_weapon.charges_whip_attack\
 				&& player.weapon_handler.current_weapon.can_whip_attack_charge:
 					player.weapon_handler.current_weapon.charges_whip_attack = true
 					player.weapon_handler.current_weapon.can_whip_attack_charge = false
-		
+		# primary weapon is sword
 		elif 'IS_SWORD' in player.weapon_handler.current_weapon:
 			if !player.movement_handler.is_attacking:
+				# init input
+				player.velocity.x = 0
 				player.movement_handler.action_input_init_sword_attack()
 	else:
 		# if player charges whip weapon and releases attack key -> start attack

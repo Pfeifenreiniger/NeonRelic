@@ -18,12 +18,18 @@ signal did_fall(pixels_on_y_axis:int)
 var direction:Vector2 = Vector2.ZERO
 
 # x-axis movement
-@export var base_speed:int = 100
+@export_group('x-axis movement')
+@export var BASE_SPEED:int = 100
 var current_speed:int
+@export var BASE_ACCELERATION_SMOOTHING:int = 900
+var current_acceleration_smoothing:int
+@export var BASE_DECELERATION_SMOOTHING:int = 1000
+var current_deceleration_smoothing:int
 
 var x_axis_recoil_tween:Tween
 
 # jumping
+@export_group('y-axis movement')
 @export var base_jump_velocity:int = -275
 var current_jump_velocity:int
 
@@ -39,22 +45,38 @@ var y_axis_position_on_falling_start:int
 ###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
-	current_speed = base_speed
+	current_speed = BASE_SPEED
 	current_jump_velocity = base_jump_velocity
 	current_gravity = BASE_GRAVITY
+	current_acceleration_smoothing = BASE_ACCELERATION_SMOOTHING
+	current_deceleration_smoothing = BASE_DECELERATION_SMOOTHING
 
 
 ###----------METHODS----------###
 
 func apply_movement(delta:float) -> void:
 	_do_patrol()
-	_move_x()
+	_move_x(delta)
 	_move_y(delta)
 	_move()
 
 
-func _move_x() -> void:
-	enemy_scene.velocity.x = direction.x * current_speed
+func _move_x(delta:float) -> void:
+	var target_x_distance:int
+	if direction.x:
+		target_x_distance = direction.x * current_speed
+		enemy_scene.velocity.x = move_toward(
+			enemy_scene.velocity.x,
+			target_x_distance,
+			current_acceleration_smoothing * delta
+		)
+	else:
+		target_x_distance = 0
+		enemy_scene.velocity.x = move_toward(
+			enemy_scene.velocity.x,
+			target_x_distance,
+			current_deceleration_smoothing * delta
+		)
 
 
 func _move_y(delta:float) -> void:
@@ -105,7 +127,7 @@ func _do_patrol() -> void:
 ###----------METHODS: MOVEMENT EFFECTS (CAUSED BY OTHER SCENES)----------###
 
 func recoil_on_x_axis(pixels:int) -> void:
-	# Get pushed back by amount of pixels on x-axis
+	## Get pushed back by amount of pixels on x-axis
 	
 	if x_axis_recoil_tween != null:
 		x_axis_recoil_tween.stop()
@@ -119,13 +141,17 @@ func recoil_on_x_axis(pixels:int) -> void:
 
 
 func effect_get_slow_down(time:float) -> void:
-	# Movement (and animation) speed of player get reduced by half for the amount
-	# of time passed as argument.
+	## Movement (and animation) speed of player get reduced by half for the amount
+	## of time passed as argument.
 	
-	current_speed = int(round(base_speed / 2))
+	current_speed = int(round(BASE_SPEED / 2))
+	current_acceleration_smoothing = int(round(BASE_ACCELERATION_SMOOTHING / 10)) # for slippery movement on floor
+	current_deceleration_smoothing = int(round(BASE_DECELERATION_SMOOTHING / 10))
 	enemy_scene.animations.speed_scale = 0.5
 	enemy_scene.animations.material.set_shader_parameter("doFrozenSlowedDown", true)
 	await get_tree().create_timer(time).timeout
-	current_speed = base_speed
+	current_speed = BASE_SPEED
+	current_acceleration_smoothing = BASE_ACCELERATION_SMOOTHING
+	current_deceleration_smoothing = BASE_DECELERATION_SMOOTHING
 	enemy_scene.animations.speed_scale = 1
 	enemy_scene.animations.material.set_shader_parameter("doFrozenSlowedDown", false)

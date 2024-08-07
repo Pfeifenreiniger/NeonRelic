@@ -22,7 +22,6 @@ func _ready() -> void:
 	super._ready()
 	animations.animation_finished.connect(_on_animations_animation_finished)
 	health_handler.health_component.got_damage.connect(_on_got_damage)
-	movement_handler.current_speed = movement_handler.base_speed
 	damage_animation.visible = false
 
 
