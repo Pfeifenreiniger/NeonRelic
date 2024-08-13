@@ -16,6 +16,7 @@ signal did_fall(pixels_on_y_axis:int)
 
 # movement direction
 var direction:Vector2 = Vector2.ZERO
+var direction_former_frame:Vector2 = Vector2.ZERO # memory of player's direction one frame before
 
 # run speed
 @export_group('x-axis movement')
@@ -36,6 +37,8 @@ var can_coyote_jump:bool = false
 # gravity
 var BASE_GRAVITY:int = int(ProjectSettings.get_setting("physics/2d/default_gravity"))
 var current_gravity:int
+## Maximum velocity for y-axis the player can fall
+@export var MAX_FALLING_VELOCITY:int = 700
 
 # track falling height
 var y_axis_position_on_falling_start:int
@@ -67,6 +70,8 @@ func _ready() -> void:
 
 func _process(delta:float) -> void:
 	_apply_movement(delta)
+	
+	direction_former_frame = direction
 
 
 ###----------METHODS: 2-DIMENSIONAL MOVEMENT----------###
@@ -111,6 +116,7 @@ func _move_y_player_not_on_floor(delta:float) -> void:
 	if !check_if_player_is_ducking()\
 	&& !is_climbing_ledge:
 		player.velocity.y += current_gravity * delta
+		player.velocity.y = min(MAX_FALLING_VELOCITY, player.velocity.y) # never exceed max falling velocity
 	
 	# checks for short jump input (via jump-key release)
 	if !is_climbing_ledge:
@@ -278,14 +284,26 @@ func check_if_player_can_block() -> bool:
 func action_input_run_x_axis(side:String) -> void:
 	if side == 'right':
 		direction.x = 1
+		if direction_former_frame.x < 0:
+			player.animations_handler.current_animation = "run_trans_left_to_right"
+			player.animations_handler.animation_to_change = true
+			player.animations_handler.loop_animation = false
 		if player.animations_handler.current_animation != "run_right":
+			if player.velocity.x < 0:
+				return
 			player.animations_handler.current_animation = "run_right"
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = true
 			player.animations_handler.start_run_animation = true
 	elif side == 'left':
 		direction.x = -1
+		if direction_former_frame.x > 0:
+			player.animations_handler.current_animation = "run_trans_right_to_left"
+			player.animations_handler.animation_to_change = true
+			player.animations_handler.loop_animation = false
 		if player.animations_handler.current_animation != "run_left":
+			if player.velocity.x > 0:
+				return
 			player.animations_handler.current_animation = "run_left"
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = true

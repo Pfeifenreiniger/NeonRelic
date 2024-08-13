@@ -36,6 +36,8 @@ var current_jump_velocity:int
 # gravity
 var BASE_GRAVITY:int = int(ProjectSettings.get_setting("physics/2d/default_gravity"))
 var current_gravity:int
+## Maximum velocity for y-axis the enemy can fall
+@export var MAX_FALLING_VELOCITY:int = 700
 
 # track falling height
 var do_fall:bool = false
@@ -88,6 +90,7 @@ func _move_y(delta:float) -> void:
 			x_axis_recoil_tween.stop()
 			x_axis_recoil_tween = null
 		enemy_scene.velocity.y += current_gravity * delta
+		enemy_scene.velocity.y = min(MAX_FALLING_VELOCITY, enemy_scene.velocity.y) # never exceed max falling velocity speed
 	else:
 		enemy_scene.velocity.y = 0
 		if do_fall:

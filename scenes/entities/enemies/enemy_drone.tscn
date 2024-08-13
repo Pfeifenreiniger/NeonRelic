@@ -260,6 +260,7 @@ laser_beam_start_position = NodePath("../LaserBeamStartPosition")
 BASE_SPEED = 50
 BASE_ACCELERATION_SMOOTHING = 40
 BASE_DECELERATION_SMOOTHING = 35
+MAX_FALLING_VELOCITY = 300
 
 [node name="HealthComponent" parent="HealthHandler" index="0"]
 max_health = 40
@@ -272,6 +273,7 @@ animation = &"alarm_right"
 [node name="DropCollectableComponent" parent="." index="5"]
 power_up_scenes = Array[PackedScene]([ExtResource("15_7yi4a"), ExtResource("16_1c6rh"), ExtResource("17_ha0qr"), ExtResource("18_iv74a")])
 heal_up_scenes = Array[PackedScene]([ExtResource("19_d0fdl"), ExtResource("20_vuyhb"), ExtResource("21_45kua"), ExtResource("21_45kua"), ExtResource("22_ntqxf"), ExtResource("23_fvjq1"), ExtResource("24_8cxw6"), ExtResource("24_8cxw6")])
+drop_chance = 100.0
 
 [node name="LiftParticles" type="GPUParticles2D" parent="." index="6"]
 position = Vector2(2, 15)

@@ -41,6 +41,7 @@ func drop_collectable(drop_from_instance:Node2D) -> void:
 	
 	# spawn position's x-axis offset in pixels
 	var x_axis_offsets:Array[int] = [0, -25, 25]
+	var y_axis_offset:int = -10
 	
 	for i in amount_of_drops:
 		# randomly pick a scene
@@ -49,9 +50,10 @@ func drop_collectable(drop_from_instance:Node2D) -> void:
 		# instantiate randomly picked scene
 		var randomly_picked_scene_instance:Sprite2D = randomly_picked_scene.instantiate() as Sprite2D
 		
-		# move position to the drop-from-instance's position (which droped the power-/heal-up instance), apply x-axis-offset
+		# move position to the drop-from-instance's position (which droped the power-/heal-up instance), apply x- and y-axis-offset
 		var spawn_position:Vector2 = drop_from_instance.global_position
 		spawn_position.x += x_axis_offsets[i]
+		spawn_position.y += y_axis_offset
 		randomly_picked_scene_instance.global_position = spawn_position
 		
 		# add to level-scene-tree

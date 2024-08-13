@@ -1,4 +1,4 @@
-[gd_scene load_steps=304 format=3 uid="uid://ckecmw1wq155q"]
+[gd_scene load_steps=312 format=3 uid="uid://ckecmw1wq155q"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player_animations_handler.gd" id="1_6sm3f"]
 [ext_resource type="Script" path="res://scenes/entities/player/climb_up_ledge_animation.gd" id="2_0vqk3"]
@@ -287,14 +287,22 @@
 [ext_resource type="Texture2D" uid="uid://xdqekibs1qm8" path="res://scenes/entities/player/sprites/stand_sword_attack_right_3/stand_sword_attack_right_3_f2.png" id="154_swkdc"]
 [ext_resource type="Texture2D" uid="uid://t14412sifdx4" path="res://scenes/entities/player/sprites/stand_sword_attack_left_3/stand_sword_attack_left_3_f3.png" id="155_5ka4y"]
 [ext_resource type="Texture2D" uid="uid://2nfn8ghyu564" path="res://scenes/entities/player/sprites/stand_sword_attack_right_3/stand_sword_attack_right_3_f3.png" id="155_lo7t3"]
+[ext_resource type="Texture2D" uid="uid://dx4mo4h1c0xny" path="res://scenes/entities/player/sprites/run_trans_left_to_right/run_trans_left_to_right_f1.png" id="155_vngap"]
 [ext_resource type="Texture2D" uid="uid://b72t1stkfc21b" path="res://scenes/entities/player/sprites/stand_sword_attack_left_3/stand_sword_attack_left_3_f4.png" id="156_evonr"]
 [ext_resource type="Texture2D" uid="uid://bn47wv5gsowvg" path="res://scenes/entities/player/sprites/stand_sword_attack_right_3/stand_sword_attack_right_3_f4.png" id="156_jvt5t"]
+[ext_resource type="Texture2D" uid="uid://g112gwya8edv" path="res://scenes/entities/player/sprites/run_trans_left_to_right/run_trans_left_to_right_f2.png" id="156_yln0e"]
 [ext_resource type="Texture2D" uid="uid://bq05locvhk7sy" path="res://scenes/entities/player/sprites/stand_sword_attack_right_3/stand_sword_attack_right_3_f5.png" id="157_76mhv"]
 [ext_resource type="Texture2D" uid="uid://ciy75tstat6rl" path="res://scenes/entities/player/sprites/stand_sword_attack_left_3/stand_sword_attack_left_3_f5.png" id="157_qla7l"]
+[ext_resource type="Texture2D" uid="uid://cntyhiw3q3vr4" path="res://scenes/entities/player/sprites/run_trans_left_to_right/run_trans_left_to_right_f3.png" id="157_yiadj"]
+[ext_resource type="Texture2D" uid="uid://cojt23ros4t3d" path="res://scenes/entities/player/sprites/run_trans_left_to_right/run_trans_left_to_right_f4.png" id="158_eygbm"]
 [ext_resource type="Texture2D" uid="uid://cjodgyblt37md" path="res://scenes/entities/player/sprites/stand_sword_attack_right_3/stand_sword_attack_right_3_f6.png" id="158_j5gtf"]
 [ext_resource type="Texture2D" uid="uid://dhud2kuqdpy18" path="res://scenes/entities/player/sprites/stand_sword_attack_left_3/stand_sword_attack_left_3_f6.png" id="158_li4vv"]
 [ext_resource type="Texture2D" uid="uid://c3oi8p2orqijh" path="res://scenes/entities/player/sprites/stand_sword_attack_left_3/stand_sword_attack_left_3_f7.png" id="159_gh0mh"]
 [ext_resource type="Texture2D" uid="uid://bqgodtp46xbnb" path="res://scenes/entities/player/sprites/stand_sword_attack_right_3/stand_sword_attack_right_3_f7.png" id="159_giemo"]
+[ext_resource type="Texture2D" uid="uid://cbqw05y056pki" path="res://scenes/entities/player/sprites/run_trans_right_to_left/run_trans_right_to_left_f1.png" id="159_ouhvn"]
+[ext_resource type="Texture2D" uid="uid://dmnsyr8eop81f" path="res://scenes/entities/player/sprites/run_trans_right_to_left/run_trans_right_to_left_f2.png" id="160_7kglm"]
+[ext_resource type="Texture2D" uid="uid://d2h5dvkiw5ghx" path="res://scenes/entities/player/sprites/run_trans_right_to_left/run_trans_right_to_left_f3.png" id="161_715hj"]
+[ext_resource type="Texture2D" uid="uid://xg31p72poqrh" path="res://scenes/entities/player/sprites/run_trans_right_to_left/run_trans_right_to_left_f4.png" id="162_in67m"]
 [ext_resource type="Script" path="res://scenes/entities/player/block_animation.gd" id="292_shqg4"]
 
 [sub_resource type="Gradient" id="Gradient_rd8pc"]
@@ -909,6 +917,40 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("155_vngap")
+}, {
+"duration": 1.0,
+"texture": ExtResource("156_yln0e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("157_yiadj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("158_eygbm")
+}],
+"loop": false,
+"name": &"run_trans_left_to_right",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("159_ouhvn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("160_7kglm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("161_715hj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("162_in67m")
+}],
+"loop": false,
+"name": &"run_trans_right_to_left",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("129_r5ay8")
 }, {
 "duration": 1.0,
@@ -1493,5 +1535,5 @@ randomness = 0.5
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_g2dfq")
 sprite_frames = SubResource("SpriteFrames_25tp4")
-animation = &"stand_do_block_right"
+animation = &"run_trans_right_to_left"
 metadata/_edit_lock_ = true

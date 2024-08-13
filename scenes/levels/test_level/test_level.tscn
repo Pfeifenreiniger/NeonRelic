@@ -337,7 +337,7 @@ sprite_frames = SubResource("SpriteFrames_xxq36")
 [node name="Enemies" type="Node" parent="Entities"]
 
 [node name="EnemyDrone" parent="Entities/Enemies" instance=ExtResource("7_ja5a7")]
-position = Vector2(457, 508)
+position = Vector2(449, 513)
 collision_layer = 4
 
 [node name="Player" parent="Entities" instance=ExtResource("3_p12wi")]
