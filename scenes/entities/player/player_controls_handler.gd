@@ -35,6 +35,7 @@ var can_select_secondary_weapon:bool = true
 var is_selecting_primary_weapon:bool = false
 
 var jump_input_buffer_timer_active:bool = false
+var block_input_buffer_timer_active:bool = false
 
 
 ###----------METHODS: AT SCENE TREE ENTER CALLED----------###
@@ -103,6 +104,8 @@ func check_input_side_roll_x_axis_key() -> void:
 
 
 func _do_jump_input_buffer() -> void:
+	## input buffer for player jumps when falling
+	
 	if !jump_input_buffer_timer_active\
 	&& !player.is_on_floor()\
 	&& Input.is_action_just_pressed("up"):
@@ -287,7 +290,25 @@ func check_input_secondary_weapon_selection_keys() -> void:
 			can_select_secondary_weapon = true
 
 
+func _do_block_input_buffer() -> void:
+	## input buffer for player's blocking when falling or side-rolling
+	
+	if !block_input_buffer_timer_active\
+	&& (player.movement_handler.is_falling || player.movement_handler.is_rolling)\
+	&& Input.is_action_just_pressed("ingame_block"):
+		block_input_buffer_timer_active = true
+		await get_tree().create_timer(.25).timeout # OPT: die Buffer-Zeit kann spaeter noch optimiert werden
+		if player.is_on_floor()\
+		&& player.movement_handler.check_if_player_can_block()\
+		&& Input.is_action_pressed("ingame_block"):
+			player.movement_handler.action_input_block()
+		block_input_buffer_timer_active = false
+
+
 func check_input_block() -> void:
+	
+	_do_block_input_buffer()
+	
 	if Input.is_action_just_pressed("ingame_block"):
 		player.movement_handler.action_input_block()
 

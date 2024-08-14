@@ -23,6 +23,6 @@ script = ExtResource("1_iyd1h")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 2
+collision_mask = 3
 
 [node name="DropCollectableComponent" parent="." instance=ExtResource("2_bjp5n")]
