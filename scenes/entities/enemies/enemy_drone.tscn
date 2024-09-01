@@ -246,7 +246,7 @@ size = Vector2(28, 38)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rhu8j"]
 resource_local_to_scene = true
-radius = 408.005
+radius = 181.025
 
 [node name="EnemyDrone" instance=ExtResource("1_fbaba")]
 script = ExtResource("2_hitk0")
@@ -268,7 +268,7 @@ max_health = 40
 [node name="Animations" parent="AnimationsHandler" index="0"]
 material = SubResource("ShaderMaterial_rcdfj")
 sprite_frames = SubResource("SpriteFrames_ba4bt")
-animation = &"alarm_right"
+animation = &"right"
 
 [node name="DropCollectableComponent" parent="." index="5"]
 power_up_scenes = Array[PackedScene]([ExtResource("15_7yi4a"), ExtResource("16_1c6rh"), ExtResource("17_ha0qr"), ExtResource("18_iv74a")])

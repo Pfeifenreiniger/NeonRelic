@@ -18,7 +18,7 @@ func _ready() -> void:
 func _on_body_entered(body:Node2D) -> void:
 	if "IS_ENEMY" in body:
 		body.movement_handler.direction.x = 0
-		body.is_at_platform_border = true
+		body.movement_handler.is_at_platform_border = true
 		if body.x_axis_direction == "left" && border_side == "left":
 			body.x_axis_direction = "right"
 		elif body.x_axis_direction == "right" && border_side == "right":
@@ -27,4 +27,4 @@ func _on_body_entered(body:Node2D) -> void:
 
 func _on_body_exited(body:Node2D) -> void:
 	if "IS_ENEMY" in body:
-		body.is_at_platform_border = false
+		body.movement_handler.is_at_platform_border = false

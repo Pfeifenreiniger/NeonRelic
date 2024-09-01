@@ -28,10 +28,6 @@ var is_aggro:bool = false
 # attacking state - if true, enemy performs attack actions
 var is_attacking:bool = false
 
-# state if enemy is at platform border -> if yes and enemy is aggro, he will not go further to player as border
-var is_at_platform_border:bool = false
-
-
 # x-axis movement direction
 @export_enum("left", "right") var x_axis_direction:String = "left"
 

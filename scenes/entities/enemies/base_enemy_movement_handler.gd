@@ -26,6 +26,9 @@ var current_acceleration_smoothing:int
 @export var BASE_DECELERATION_SMOOTHING:int = 1000
 var current_deceleration_smoothing:int
 
+# state if enemy is at platform border -> if yes and enemy is aggro, he will not go further to player as border
+var is_at_platform_border:bool = false
+
 var x_axis_recoil_tween:Tween
 
 # jumping
@@ -116,11 +119,17 @@ func _do_patrol() -> void:
 	
 	# else - if is aggro but is not attacking - move to player
 	elif enemy_scene.is_aggro && !enemy_scene.is_attacking:
-		if enemy_scene.player != null && !enemy_scene.is_at_platform_border:
+		
+		if enemy_scene.is_aggro && is_at_platform_border:
+			direction.x = 0
+		
+		if enemy_scene.player != null && !is_at_platform_border:
 			if enemy_scene.player.global_position.x < enemy_scene.global_position.x:
 				direction.x = -1
+				enemy_scene.x_axis_direction = 'left'
 			else:
 				direction.x = 1
+				enemy_scene.x_axis_direction = 'right'
 	
 	# else if enemy is in attacking range of player -> stop moving on x-axis
 	elif enemy_scene.is_aggro && enemy_scene.is_attacking:

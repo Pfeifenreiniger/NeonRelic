@@ -78,12 +78,7 @@ func _process(delta:float) -> void:
 
 func _move_x(delta:float) -> void:
 	if check_if_player_can_horizontally_move():
-		# run right / left or stand idle
-		player.controls_handler.check_input_run_x_axis_key()
-
-		# check roll-action to right / left
-		player.controls_handler.check_input_side_roll_x_axis_key()
-
+		
 		# apply movement to player's velocity (and apply current acceleration smoothing to x-axis movement)
 		var target_x_distance:int
 		if direction.x:
@@ -281,9 +276,15 @@ func check_if_player_can_block() -> bool:
 
 ###----------METHODS: CONTROL INPUTS BASED MOVEMENT ACTIONS----------###
 
-func action_input_run_x_axis(side:String) -> void:
-	if side == 'right':
+func action_input_move_x_axis(side:String) -> void:
+	if !check_if_player_can_horizontally_move():
+		return
+	
+	if 'right' in side:
 		direction.x = 1
+		if 'side_roll' in side:
+			action_input_side_roll_x_axis('right')
+			return
 		if direction_former_frame.x < 0:
 			player.animations_handler.current_animation = "run_trans_left_to_right"
 			player.animations_handler.animation_to_change = true
@@ -295,8 +296,11 @@ func action_input_run_x_axis(side:String) -> void:
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = true
 			player.animations_handler.start_run_animation = true
-	elif side == 'left':
+	elif 'left' in side:
 		direction.x = -1
+		if 'side_roll' in side:
+			action_input_side_roll_x_axis('left')
+			return
 		if direction_former_frame.x > 0:
 			player.animations_handler.current_animation = "run_trans_right_to_left"
 			player.animations_handler.animation_to_change = true
@@ -324,10 +328,8 @@ func action_input_run_x_axis(side:String) -> void:
 
 func action_input_side_roll_x_axis(side:String) -> void:
 	if side == 'right':
-		var button_move_right_press_timestamp:int = round(Time.get_ticks_msec() / 10.0)
 		if !is_rolling:
-			if button_move_right_press_timestamp - player.controls_handler.player_roll_action_inputs["right"] <= 50\
-			&& player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
+			if player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
 				player.animations_handler.current_animation = "roll_right"
 				player.animations_handler.loop_animation = false
 				player.animations_handler.animation_to_change = true
@@ -337,14 +339,10 @@ func action_input_side_roll_x_axis(side:String) -> void:
 				player.animations_handler.side_roll_animation.do_side_roll("right")
 				if !player.invulnerable_handler.invulnerability_component.is_invulnerable:
 					player.invulnerable_handler.invulnerability_component.become_invulnerable(0.5, false)
-			else:
-				player.controls_handler.player_roll_action_inputs["right"] = button_move_right_press_timestamp
 	else:
 		# left
-		var button_move_left_press_timestamp:int = round(Time.get_ticks_msec() / 10.0)
 		if !is_rolling:
-			if button_move_left_press_timestamp - player.controls_handler.player_roll_action_inputs["left"] <= 50\
-			&& player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
+			if player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
 				player.animations_handler.current_animation = "roll_left"
 				player.animations_handler.loop_animation = false
 				player.animations_handler.animation_to_change = true
@@ -354,8 +352,6 @@ func action_input_side_roll_x_axis(side:String) -> void:
 				player.animations_handler.side_roll_animation.do_side_roll("left")
 				if !player.invulnerable_handler.invulnerability_component.is_invulnerable:
 					player.invulnerable_handler.invulnerability_component.become_invulnerable(0.5, false)
-			else:
-				player.controls_handler.player_roll_action_inputs["left"] = button_move_left_press_timestamp
 
 
 func action_input_jump() -> void:

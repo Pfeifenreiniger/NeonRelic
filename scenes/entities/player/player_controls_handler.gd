@@ -10,6 +10,8 @@ class_name PlayerControlsHandler
 
 @onready var jump_button_press_timer:Timer = $ButtonPressTimers/JumpButtonPressTimer as Timer
 @onready var secondary_weapon_used_timer:Timer = $ButtonPressTimers/SecondaryWeaponUsedTimer as Timer
+@onready var side_roll_right_timer: Timer = $ButtonPressTimers/SideRollRightTimer as Timer
+@onready var side_roll_left_timer: Timer = $ButtonPressTimers/SideRollLeftTimer as Timer
 
 
 ###----------CUSTOM SIGNALS----------###
@@ -19,6 +21,10 @@ signal select_secondary_weapon(direction:String)
 
 
 ###----------PROPERTIES----------###
+
+const MINIMUM_INPUT_STRENGTH:float = .9
+
+@export_range(.1, .4) var side_roll_buffer_time:float = .2
 
 # dictionary map for side-roll action input timestamps (for checking double key presses for left/right)
 var player_roll_action_inputs:Dictionary = {
@@ -41,6 +47,8 @@ var block_input_buffer_timer_active:bool = false
 ###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
+	side_roll_left_timer.wait_time = side_roll_buffer_time
+	side_roll_right_timer.wait_time = side_roll_buffer_time
 	jump_button_press_timer.timeout.connect(on_jump_button_press_timer_timeout)
 	secondary_weapon_used_timer.timeout.connect(on_secondary_weapon_used_timer_timeout)
 
@@ -62,6 +70,7 @@ func test_player_damage() -> void:
 ###----------METHODS: CONTROL KEY INPUT CHECKS----------###
 
 func check_ingame_control_key_inputs() -> void:
+	check_input_move_x_axis_key()
 	check_input_duck_key_release()
 	check_input_environment_action_key()
 	check_input_primary_weapon_usage_key()
@@ -77,30 +86,45 @@ func check_ingame_control_key_inputs() -> void:
 	test_player_damage()
 
 
-func check_input_run_x_axis_key() -> void:
+func check_input_move_x_axis_key() -> void:
 	## Checks if either key for movement to right or left was pressed.
 	
 	var direction:String
-	if Input.is_action_pressed("right")\
-	&& !Input.is_action_pressed("ingame_weapon_select"):
-		direction = "right"
-	elif Input.is_action_pressed("left")\
-	&& !Input.is_action_pressed("ingame_weapon_select"):
-		direction = "left"
-	else:
-		direction = "idle"
-	player.movement_handler.action_input_run_x_axis(direction)
-
-
-func check_input_side_roll_x_axis_key() -> void:
-	## Check roll-action to the right / left.
+	var input_strong_enough:bool = true
 	
-	if Input.is_action_just_released("right")\
-	&& !Input.is_action_pressed("ingame_weapon_select"):
-		player.movement_handler.action_input_side_roll_x_axis('right')
-	elif Input.is_action_just_released("left")\
-	&& !Input.is_action_pressed("ingame_weapon_select"):
-		player.movement_handler.action_input_side_roll_x_axis('left')
+	if Input.get_action_strength("right") < MINIMUM_INPUT_STRENGTH\
+	&& Input.get_action_strength("left") < MINIMUM_INPUT_STRENGTH:
+		input_strong_enough = false
+		direction = 'idle'
+
+	if input_strong_enough:
+		# just pressed action inputs
+		if Input.is_action_just_pressed("right")\
+		&& !Input.is_action_pressed("ingame_weapon_select"):
+			if side_roll_right_timer.time_left:
+				direction = "side_roll_right"
+			else:
+				side_roll_right_timer.start()
+				direction = "right"
+		
+		elif Input.is_action_just_pressed("left")\
+		&& !Input.is_action_pressed("ingame_weapon_select"):
+			if side_roll_left_timer.time_left:
+				direction = "side_roll_left"
+			else:
+				side_roll_left_timer.start()
+				direction = "left"
+		
+		# continously pressed action inputs
+		elif Input.is_action_pressed("right")\
+		&& !Input.is_action_pressed("ingame_weapon_select"):
+			direction = "right"
+		
+		elif Input.is_action_pressed("left")\
+		&& !Input.is_action_pressed("ingame_weapon_select"):
+			direction = "left"
+	
+	player.movement_handler.action_input_move_x_axis(direction)
 
 
 func _do_jump_input_buffer() -> void:
@@ -118,11 +142,13 @@ func _do_jump_input_buffer() -> void:
 
 
 func check_input_jump_key() -> void:
+	
 	if !is_selecting_primary_weapon:
 		
 		_do_jump_input_buffer()
 		
 		if Input.is_action_pressed("up")\
+		&& Input.get_action_strength("up") > MINIMUM_INPUT_STRENGTH\
 		&& !player.movement_handler.check_if_player_is_ducking():
 			player.movement_handler.action_input_jump()
 		
@@ -134,6 +160,10 @@ func check_input_jump_key() -> void:
 
 
 func check_input_duck_key() -> void:
+	
+	if Input.get_action_strength("down") < MINIMUM_INPUT_STRENGTH:
+		return
+	
 	if !is_selecting_primary_weapon:
 		if Input.is_action_pressed("down")\
 		&& !player.movement_handler.check_if_player_is_vertically_moving():
@@ -142,6 +172,9 @@ func check_input_duck_key() -> void:
 
 func check_input_duck_key_release() -> void:
 	## Check if player does not want to duck anymore -> go back to stand idle animation
+	
+	if !(player.movement_handler.is_duck || player.movement_handler.will_duck || player.movement_handler.to_duck):
+		return
 	
 	if !is_selecting_primary_weapon:
 		if player.movement_handler.direction.x == 0\

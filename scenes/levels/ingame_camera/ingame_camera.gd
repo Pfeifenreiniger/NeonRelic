@@ -8,6 +8,7 @@ class_name IngameCamera
 
 ###----------PROPERTIES----------###
 
+const DEAD_ZONE_X_AXIS:int = 20
 var target_position = Vector2.ZERO
 const BASE_CAMERA_Y_POS_PADDING:int = 200
 var current_camera_y_pos_padding:int
@@ -30,17 +31,30 @@ func _ready() -> void:
 
 func _process(delta:float) -> void:
 	# get current frame's target position for game camera.
-	acquire_target()
+	_acquire_target()
 	# set global_position to target_position with an addition of a slight delay.
-	global_position = global_position.lerp(target_position, 1.0 - exp(-delta * 20))
+	global_position = global_position.lerp(target_position, 1.0 - exp(-delta * 10))
 
 
 ###----------METHODS: CALCULATE CAMERA POSITION----------###
 
-func acquire_target() -> void:
+func _acquire_target() -> void:
 	## Calculate target position of camera for current frame
 	
-	target_position = player.global_position - Vector2(0, current_camera_y_pos_padding)
+	if _check_if_camera_dead_zone():
+		target_position = player.global_position - Vector2(0, current_camera_y_pos_padding)
+
+
+func _check_if_camera_dead_zone() -> bool:
+	## Checks if player is outside of camera dead-zones -> returns true is yes, otherwise false
+	
+	var next_target_position:Vector2 = player.global_position - Vector2(0, current_camera_y_pos_padding)
+	
+	if abs(next_target_position.x - global_position.x) >= DEAD_ZONE_X_AXIS\
+	|| abs(next_target_position.y - global_position.y) > 1:
+		return true
+	else:
+		return false
 
 
 ###----------METHODS: ALTER CAMERA Y-AXIS POSITION----------###

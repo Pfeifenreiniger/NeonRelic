@@ -299,11 +299,11 @@ ledge_side = "right"
 [node name="EnemyPlatformBorders" type="Node2D" parent="Foreground"]
 
 [node name="EnemyPlatformBorder" parent="Foreground/EnemyPlatformBorders" instance=ExtResource("6_8cbdo")]
-position = Vector2(1, 485)
+position = Vector2(40, 484)
 border_side = "left"
 
 [node name="EnemyPlatformBorder2" parent="Foreground/EnemyPlatformBorders" instance=ExtResource("6_8cbdo")]
-position = Vector2(522, 485)
+position = Vector2(480, 485)
 border_side = "right"
 
 [node name="IngameCamera" parent="." instance=ExtResource("3_iy0gs")]
@@ -341,7 +341,7 @@ position = Vector2(449, 513)
 collision_layer = 4
 
 [node name="Player" parent="Entities" instance=ExtResource("3_p12wi")]
-position = Vector2(-207, 503)
+position = Vector2(-220, 510)
 
 [node name="Collectables" type="Node" parent="."]
 
