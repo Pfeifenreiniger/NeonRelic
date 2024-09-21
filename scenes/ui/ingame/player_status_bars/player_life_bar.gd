@@ -3,6 +3,7 @@ extends BasePlayerStatus
 
 ###----------SCENE REFERENCES----------###
 
+@onready var player:Player = get_tree().get_first_node_in_group('player') as Player
 @onready var ingame_ui:IngameUi = get_tree().get_first_node_in_group('ingame_ui') as IngameUi
 
 var player_low_health_overlay_scene:PackedScene = preload("res://scenes/ui/ingame/effects/player_low_health_overlay/player_low_health_overlay.tscn") as PackedScene
@@ -14,10 +15,18 @@ var player_low_health_overlay_instance:TextureRect = null
 @onready var heart_animation:AnimatedSprite2D = $MarginContainer/HeartAnimation as AnimatedSprite2D
 
 
+###----------PROPERTIES----------###
+
+var current_player_health_in_percent:float = 100
+
+
 ###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	super._ready()
+	
+	player.health_handler.update_current_player_health_in_percent.connect(_on_update_current_player_health_in_percent)
+	
 	# overrides properties of base scene
 	tint_under_color = Color(0.871, 0.267, 0, 1)
 	tint_over_color = Color(1, 0, 0, 1)
@@ -52,18 +61,17 @@ func _check_current_player_health() -> void:
 
 	# check for heart beat animation
 	var do_speed_scale:int
-	var current_player_health_in_percent:int = round((current_player_health / max_player_health) * 100)
 	
-	if current_player_health_in_percent < 10:
+	if current_player_health_in_percent < 10.:
 		do_speed_scale = 5
 		_start_player_low_health_overlay_animation()
-	elif current_player_health_in_percent < 20:
+	elif current_player_health_in_percent < 20.:
 		do_speed_scale = 4
 		_start_player_low_health_overlay_animation()
-	elif current_player_health_in_percent < 40:
+	elif current_player_health_in_percent < 40.:
 		do_speed_scale = 3
 		_end_player_low_health_overlay_animation()
-	elif current_player_health_in_percent < 70:
+	elif current_player_health_in_percent < 70.:
 		do_speed_scale = 2
 		_end_player_low_health_overlay_animation()
 	else:
@@ -95,3 +103,9 @@ func _end_player_low_health_overlay_animation() -> void:
 	
 	player_low_health_overlay_instance.queue_free()
 	player_low_health_overlay_instance = null
+
+
+###----------CONNECTED SIGNALS----------###
+
+func _on_update_current_player_health_in_percent(percentage:float) -> void:
+	current_player_health_in_percent = percentage

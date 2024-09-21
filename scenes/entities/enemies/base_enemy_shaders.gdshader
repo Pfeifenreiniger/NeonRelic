@@ -2,6 +2,7 @@ shader_type canvas_item;
 
 // uniform attribute to control blink status
 uniform bool doBlink = false;
+uniform float blinkProgress : hint_range(0.0, 1.0);
 const vec3 whiteColor = vec3(1.0, 1.0, 1.0);
 
 // uniform attribute to control frozen status
@@ -21,7 +22,7 @@ void fragment() {
 		if (currentAlpha >= 0.5) {
 			currentAlpha -= 0.3;
 		}
-		targetColor = mix(originalColor, vec4(whiteColor, currentAlpha), 0.6);
+		targetColor = mix(originalColor, vec4(whiteColor, currentAlpha), blinkProgress);
 		
 	} else if (doFrozenSlowedDown) {
 		targetColor = mix(originalColor, vec4(iceBlueColor, currentAlpha), 0.4);

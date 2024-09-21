@@ -1,5 +1,6 @@
-[gd_scene load_steps=25 format=3 uid="uid://bh14raqiukbli"]
+[gd_scene load_steps=26 format=3 uid="uid://bh14raqiukbli"]
 
+[ext_resource type="Texture2D" uid="uid://dda8fl86os1gc" path="res://assets/graphics/backgrounds/test_level/bg.png" id="1_5khsy"]
 [ext_resource type="TileSet" uid="uid://doa8hk636pn7x" path="res://tilesets/base_grounds/concrete_ground.tres" id="2_51ah8"]
 [ext_resource type="PackedScene" uid="uid://cp2amer4vclrf" path="res://scenes/levels/background_wallpaper/background_wallpaper.tscn" id="2_lmd2j"]
 [ext_resource type="Texture2D" uid="uid://degwfdb1vicq3" path="res://assets/graphics/backgrounds/wallpaper/orange_sunset.png" id="3_0wwde"]
@@ -197,13 +198,18 @@ animations = [{
 
 [node name="TestLevel" type="Node2D"]
 
-[node name="Background" type="CanvasLayer" parent="."]
-layer = -1
+[node name="BackgroundSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(628, 360)
+scale = Vector2(4.75, 2.26)
+texture = ExtResource("1_5khsy")
+metadata/_edit_lock_ = true
 
-[node name="BackgroundWallpaper" parent="Background" node_paths=PackedStringArray("player") instance=ExtResource("2_lmd2j")]
+[node name="Background" type="CanvasLayer" parent="."]
+
+[node name="BackgroundWallpaper" parent="Background" instance=ExtResource("2_lmd2j")]
 texture = ExtResource("3_0wwde")
 image_file = "res://assets/graphics/backgrounds/wallpaper/orange_sunset.png"
-player = NodePath("../../Entities/Player")
 
 [node name="Foreground" type="Node2D" parent="."]
 

@@ -4,6 +4,7 @@ class_name HealthComponent
 
 ###----------CUSTOM SIGNALS----------###
 
+signal got_healed
 signal got_damage
 signal died
 
@@ -33,10 +34,15 @@ var current_health:int:
 	get:
 		return current_health
 	set(value):
-		current_health = value
 		if entity != null:
 			if "IS_PLAYER" in entity:
 				Globals.player_current_health = value
+			if value > current_health:
+				got_healed.emit()
+			elif value < current_health:
+				got_damage.emit()
+			current_health = value
+
 
 @export var health_refreshment_rate:int
 
@@ -66,7 +72,6 @@ func get_damage(amount:int) -> void:
 			died.emit()
 		else:
 			current_health -= amount
-			got_damage.emit()
 			
 			# invulnerability-time depends on if entity is player or enemy
 			var invulnerability_time:float

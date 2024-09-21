@@ -3,6 +3,7 @@ class_name PlayerMovementHandler
 
 ###----------CUSTOM SIGNALS----------###
 
+## signal for calculating fall damage
 signal did_fall(pixels_on_y_axis:int)
 
 
@@ -26,6 +27,7 @@ var current_speed:int
 var current_acceleration_smoothing:int
 @export var BASE_DECELERATION_SMOOTHING:int = 1000
 var current_deceleration_smoothing:int
+var injured_walking:bool = false
 
 # jumping
 @export_group('y-axis movement')
@@ -64,6 +66,9 @@ func _ready() -> void:
 	current_deceleration_smoothing = BASE_DECELERATION_SMOOTHING
 	current_jump_velocity = BASE_JUMP_VELOCITY
 	current_gravity = BASE_GRAVITY
+	
+	await player.ready
+	player.health_handler.update_current_player_health_in_percent.connect(_on_update_current_player_health_in_percent)
 
 
 ###----------METHODS: PER FRAME CALLED----------###
@@ -105,7 +110,7 @@ func _move_y(delta:float) -> void:
 
 
 func _move_y_player_not_on_floor(delta:float) -> void:
-	# Player's y-axis movement when he's not on the floor.
+	## Player's y-axis movement when he's not on floor
 	
 	# apply gravity when player is not ducking nor climbing a ledge
 	if !check_if_player_is_ducking()\
@@ -144,7 +149,7 @@ func _move_y_player_not_on_floor(delta:float) -> void:
 
 
 func _move_y_player_on_floor() -> void:
-	# Player's y-axis movement when he's on the floor.
+	## Player's y-axis movement when he's on floor
 	
 	# player got onto the floor last frame from a falling movement state -> he's not falling anymore
 	if is_falling:
@@ -289,10 +294,10 @@ func action_input_move_x_axis(side:String) -> void:
 			player.animations_handler.current_animation = "run_trans_left_to_right"
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = false
-		if player.animations_handler.current_animation != "run_right":
+		if player.animations_handler.current_animation != "run_right" && player.animations_handler.current_animation != "walk_right":
 			if player.velocity.x < 0:
 				return
-			player.animations_handler.current_animation = "run_right"
+			player.animations_handler.current_animation = "run_right" if not player.animations_handler.injured_animation else "walk_right"
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = true
 			player.animations_handler.start_run_animation = true
@@ -305,10 +310,10 @@ func action_input_move_x_axis(side:String) -> void:
 			player.animations_handler.current_animation = "run_trans_right_to_left"
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = false
-		if player.animations_handler.current_animation != "run_left":
+		if player.animations_handler.current_animation != "run_left" && player.animations_handler.current_animation != "walk_left":
 			if player.velocity.x > 0:
 				return
-			player.animations_handler.current_animation = "run_left"
+			player.animations_handler.current_animation = "run_left" if not player.animations_handler.injured_animation else "walk_left"
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = true
 			player.animations_handler.start_run_animation = true
@@ -618,24 +623,44 @@ func action_input_block_release() -> void:
 		player.animations_handler.animation_to_change = true
 
 
-###----------METHODS: MOVEMENT EFFECTS (CAUSED BY OTHER SCENES)----------###
+###----------METHODS: MOVEMENT EFFECTS----------###
+
+func apply_x_axis_movement_stat_changes() -> void:
+	
+	current_speed = BASE_SPEED if not injured_walking else int(round(BASE_SPEED / 2))
+	current_acceleration_smoothing = BASE_ACCELERATION_SMOOTHING if not injured_walking else int(round(BASE_ACCELERATION_SMOOTHING * 2))
+	current_deceleration_smoothing = BASE_DECELERATION_SMOOTHING if not injured_walking else int(round(BASE_DECELERATION_SMOOTHING * 2))
+	player.animations_handler.side_roll_animation.current_player_x_offset = player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET if not injured_walking else int(player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET / 2)
+	player.animations_handler.side_roll_animation.current_animation_duration = player.animations_handler.side_roll_animation.BASE_ANIMATION_DURATION if not injured_walking else int(player.animations_handler.side_roll_animation.BASE_ANIMATION_DURATION * 2)
+
 
 func effect_get_slow_down(time:float) -> void:
 	# Movement (and animation) speed of player get reduced by half for the amount
 	# of time passed as argument.
 	
-	current_speed = int(round(BASE_SPEED / 2))
-	current_acceleration_smoothing = int(round(BASE_ACCELERATION_SMOOTHING / 10)) # for slippery movement on floor
-	current_deceleration_smoothing = int(round(BASE_DECELERATION_SMOOTHING / 10))
+	current_speed = int(round(BASE_SPEED / 2)) if not injured_walking else int(round(BASE_SPEED / 4))
+	current_acceleration_smoothing = int(round(BASE_ACCELERATION_SMOOTHING / 10)) if not injured_walking else int(round(BASE_ACCELERATION_SMOOTHING / 5))
+	current_deceleration_smoothing = int(round(BASE_DECELERATION_SMOOTHING / 10)) if not injured_walking else int(round(BASE_DECELERATION_SMOOTHING / 5))
 	player.animations_handler.animations.speed_scale = 0.5
 	player.animations_handler.animations.material.set_shader_parameter("doFrozenSlowedDown", true)
-	player.animations_handler.side_roll_animation.current_player_x_offset = int(player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET / 2)
-	player.animations_handler.side_roll_animation.current_animation_duration = int(player.animations_handler.side_roll_animation.BASE_ANIMATION_DURATION * 2)
+	player.animations_handler.side_roll_animation.current_player_x_offset = int(player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET / 2) if not injured_walking else int(player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET / 4)
+	player.animations_handler.side_roll_animation.current_animation_duration = int(player.animations_handler.side_roll_animation.BASE_ANIMATION_DURATION * 2) if not injured_walking else int(player.animations_handler.side_roll_animation.BASE_ANIMATION_DURATION * 4)
 	await get_tree().create_timer(time).timeout
-	current_speed = BASE_SPEED
-	current_acceleration_smoothing = BASE_ACCELERATION_SMOOTHING
-	current_deceleration_smoothing = BASE_DECELERATION_SMOOTHING
+	current_speed = BASE_SPEED if not injured_walking else int(round(BASE_SPEED / 2))
+	current_acceleration_smoothing = BASE_ACCELERATION_SMOOTHING if not injured_walking else int(round(BASE_ACCELERATION_SMOOTHING * 2))
+	current_deceleration_smoothing = BASE_DECELERATION_SMOOTHING if not injured_walking else int(round(BASE_DECELERATION_SMOOTHING * 2))
 	player.animations_handler.animations.speed_scale = 1
 	player.animations_handler.animations.material.set_shader_parameter("doFrozenSlowedDown", false)
-	player.animations_handler.side_roll_animation.current_player_x_offset = player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET
-	player.animations_handler.side_roll_animation.current_animation_duration = player.animations_handler.side_roll_animation.BASE_ANIMATION_DURATION
+	player.animations_handler.side_roll_animation.current_player_x_offset = player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET if not injured_walking else int(player.animations_handler.side_roll_animation.BASE_PLAYER_X_OFFSET / 2)
+	player.animations_handler.side_roll_animation.current_animation_duration = player.animations_handler.side_roll_animation.BASE_ANIMATION_DURATION if not injured_walking else int(player.animations_handler.side_roll_animation.BASE_ANIMATION_DURATION * 2)
+
+
+###----------CONNECTED SIGNALS----------###
+
+func _on_update_current_player_health_in_percent(percentage:float) -> void:
+	if percentage < Globals.percentage_for_injured_walking:
+		injured_walking = true
+	else:
+		injured_walking = false
+	apply_x_axis_movement_stat_changes()
+

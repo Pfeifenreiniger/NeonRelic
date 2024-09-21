@@ -13,6 +13,7 @@ const BASE_PLAYER_X_OFFSET:float = 250
 var current_player_x_offset:float
 const BASE_ANIMATION_DURATION:float = 0.9
 var current_animation_duration:float
+var direction:String = ""
 
 
 ###----------METHODS: AT SCENE TREE ENTER CALLED----------###
@@ -31,6 +32,9 @@ func _process(_delta:float) -> void:
 ###----------METHODS----------###
 
 func do_side_roll(direction:String) -> void:
+	
+	self.direction = direction
+	
 	# tween config
 	side_roll_tween = get_tree().create_tween()
 	
@@ -45,11 +49,16 @@ func do_side_roll(direction:String) -> void:
 	side_roll_tween.tween_property(player, "global_position", Vector2(to_pos_x, to_pos_y), current_animation_duration)\
 	.set_ease(Tween.EASE_OUT)\
 	.set_trans(Tween.TRANS_QUAD)
+	
+	await side_roll_tween.finished
+	self.direction = ""
 
 
 func check_side_roll_environment_collision() -> void:
-	if player.side_collision_boxes_handler.is_environment_collision_left\
-	|| player.side_collision_boxes_handler.is_environment_collision_right:
+	if (player.side_collision_boxes_handler.is_environment_collision_left\
+	&& direction == 'left')\
+	|| (player.side_collision_boxes_handler.is_environment_collision_right\
+	&& direction == 'right'):
 		if side_roll_tween != null:
 			side_roll_tween.stop()
 

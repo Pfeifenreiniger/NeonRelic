@@ -23,6 +23,7 @@ var animation_to_change:bool = false
 var start_run_animation:bool = false
 var loop_animation:bool = false
 var animation_frames_forwards:bool = true
+var injured_animation:bool = false
 
 
 ###----------PROPERTIES: CUSTOM SIGNALS----------###
@@ -33,12 +34,14 @@ signal throw_secondary_weapon_frame
 ###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
-	
 	# set up animations
 	animations.animation_finished.connect(on_animation_finished)
 	animations.frame_changed.connect(on_frame_changed)
 	current_animation = "run_right"
 	loop_animation = true
+	
+	await player.ready
+	player.health_handler.update_current_player_health_in_percent.connect(_on_update_current_player_health_in_percent)
 
 
 ###----------METHODS: PER FRAME CALLED----------###
@@ -57,8 +60,10 @@ func place_animations_sprites_at_players_position() -> void:
 
 func select_animation() -> void:
 	animations.stop()
+	if injured_animation && "run" in current_animation:
+		current_animation = current_animation.replace("run", "walk")
 	animations.play(current_animation)
-	if start_run_animation:
+	if start_run_animation && !injured_animation:
 		animations.set_frame(4)
 		start_run_animation = false
 	animation_to_change = false
@@ -84,10 +89,21 @@ func _after_attack_change_to_idle_animation(side:String) -> void:
 
 ###----------CONNECTED SIGNALS----------###
 
+func _on_update_current_player_health_in_percent(percentage:float) -> void:
+	if percentage < Globals.percentage_for_injured_walking:
+		injured_animation = true
+	else:
+		injured_animation = false
+		if "walk" in current_animation:
+			current_animation = current_animation.replace("walk", "run")
+
+
 func on_animation_finished() -> void:
 	if loop_animation:
 		animations.stop()
-		if animation_frames_forwards:
+		if injured_animation and "walk" in current_animation:
+			animations.play(current_animation)
+		elif animation_frames_forwards:
 			animations.play_backwards(current_animation)
 			animation_frames_forwards = false
 		else:

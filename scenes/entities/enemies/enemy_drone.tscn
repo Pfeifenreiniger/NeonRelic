@@ -44,6 +44,7 @@
 resource_local_to_scene = true
 shader = ExtResource("3_rkx8b")
 shader_parameter/doBlink = false
+shader_parameter/blinkProgress = null
 shader_parameter/doFrozenSlowedDown = false
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ba4bt"]
