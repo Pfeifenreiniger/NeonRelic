@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4e8askxcp1t1"]
+
+[ext_resource type="Texture2D" uid="uid://crd6nd4pi3ebe" path="res://assets/graphics/brushes/brush_10x10_px.png" id="1_mw8ro"]
+[ext_resource type="Script" path="res://scenes/components/steam_particles_component/steam_particles_component.gd" id="2_3235e"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gdpt2"]
+resource_local_to_scene = true
+lifetime_randomness = 0.4
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.61
+direction = Vector3(0, -1, 0)
+spread = 22.5
+initial_velocity_min = 17.0
+initial_velocity_max = 17.0
+angular_velocity_min = 25.71
+angular_velocity_max = 77.14
+orbit_velocity_min = 0.119
+orbit_velocity_max = 0.143
+radial_velocity_min = 2.0
+radial_velocity_max = 3.0
+gravity = Vector3(0, -105, 0)
+linear_accel_min = 8.32
+linear_accel_max = 41.66
+radial_accel_min = 23.8
+radial_accel_max = 27.38
+tangential_accel_min = 46.42
+tangential_accel_max = 64.28
+damping_min = 83.334
+damping_max = 84.525
+scale_min = 0.8
+scale_max = 2.0
+color = Color(1, 1, 1, 0.2)
+turbulence_noise_scale = 2.57
+
+[node name="SteamParticlesComponent" type="GPUParticles2D"]
+amount = 28
+process_material = SubResource("ParticleProcessMaterial_gdpt2")
+texture = ExtResource("1_mw8ro")
+lifetime = 1.2
+script = ExtResource("2_3235e")
+type = "mid"

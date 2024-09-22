@@ -48,6 +48,7 @@ func _ready() -> void:
 
 func _process(_delta:float) -> void:
 	place_animations_sprites_at_players_position()
+	_check_if_stand_injured_idle_animation()
 	if animation_to_change:
 		select_animation()
 
@@ -60,8 +61,11 @@ func place_animations_sprites_at_players_position() -> void:
 
 func select_animation() -> void:
 	animations.stop()
-	if injured_animation && "run" in current_animation:
-		current_animation = current_animation.replace("run", "walk")
+	if injured_animation:
+		if "run" in current_animation:
+			current_animation = current_animation.replace("run", "walk_injured")
+		elif current_animation == "stand_left" || current_animation == 'stand_right':
+			current_animation = current_animation.replace("stand", "stand_injured")
 	animations.play(current_animation)
 	if start_run_animation && !injured_animation:
 		animations.set_frame(4)
@@ -71,13 +75,23 @@ func select_animation() -> void:
 		animation_frames_forwards = true
 
 
+func _check_if_stand_injured_idle_animation() -> void:
+	if injured_animation:
+		if current_animation == "stand_left" || current_animation == 'stand_right':
+			animation_to_change = true
+
+
 func _after_attack_change_to_idle_animation(side:String) -> void:
 	loop_animation = true
 	animation_to_change = true
 	player.movement_handler.is_attacking = false
 	player.stamina_handler.stamina_can_refresh = true
 	if "stand" in current_animation:
-		current_animation = "stand_%s" % side
+		if injured_animation:
+			current_animation = "stand_injured_%s" % side
+		else:
+			current_animation = "stand_%s" % side
+	
 	else:
 		current_animation = "duck_%s" % side
 		if !Input.is_action_pressed("down"):
@@ -94,14 +108,16 @@ func _on_update_current_player_health_in_percent(percentage:float) -> void:
 		injured_animation = true
 	else:
 		injured_animation = false
-		if "walk" in current_animation:
-			current_animation = current_animation.replace("walk", "run")
+		if "walk_injured" in current_animation:
+			current_animation = current_animation.replace("walk_injured", "run")
+		elif "stand_injured" in current_animation:
+			current_animation = current_animation.replace("_injured", '')
 
 
 func on_animation_finished() -> void:
 	if loop_animation:
 		animations.stop()
-		if injured_animation and "walk" in current_animation:
+		if injured_animation and "walk_injured" in current_animation:
 			animations.play(current_animation)
 		elif animation_frames_forwards:
 			animations.play_backwards(current_animation)
@@ -124,9 +140,9 @@ func on_animation_finished() -> void:
 				current_animation = "duck_right"
 		else:
 			if "left" in current_animation:
-				current_animation = "stand_left"
+				current_animation = "stand_left" if not injured_animation else "stand_injured_left"
 			else:
-				current_animation = "stand_right"
+				current_animation = "stand_right" if not injured_animation else "stand_injured_right"
 		
 		loop_animation = true
 		animation_to_change = true
@@ -136,9 +152,9 @@ func on_animation_finished() -> void:
 		loop_animation = true
 		animation_to_change = true
 		if "left" in current_animation:
-			current_animation = "stand_left"
+			current_animation = "stand_left" if not injured_animation else "stand_injured_left"
 		else:
-			current_animation = "stand_right"
+			current_animation = "stand_right" if not injured_animation else "stand_injured_right"
 	
 	elif player.movement_handler.is_rolling:
 		player.movement_handler.is_rolling = false

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7cjvyhlnu6ff"
-path="res://.godot/imported/walk_right_f1.png-3da9275b823094c4019d565352a6cee4.ctex"
+uid="uid://cp1n3mr6350he"
+path="res://.godot/imported/walk_injured_left_f4.png-ef3f3a5984f47b40ec511fcfa92a94ba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/entities/player/sprites/walk_right/walk_right_f1.png"
-dest_files=["res://.godot/imported/walk_right_f1.png-3da9275b823094c4019d565352a6cee4.ctex"]
+source_file="res://scenes/entities/player/sprites/walk_injured_left/walk_injured_left_f4.png"
+dest_files=["res://.godot/imported/walk_injured_left_f4.png-ef3f3a5984f47b40ec511fcfa92a94ba.ctex"]
 
 [params]
 

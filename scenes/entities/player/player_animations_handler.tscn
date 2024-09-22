@@ -1,4 +1,4 @@
-[gd_scene load_steps=332 format=3 uid="uid://ckecmw1wq155q"]
+[gd_scene load_steps=336 format=3 uid="uid://ckecmw1wq155q"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player_animations_handler.gd" id="1_6sm3f"]
 [ext_resource type="Script" path="res://scenes/entities/player/climb_up_ledge_animation.gd" id="2_0vqk3"]
@@ -303,27 +303,31 @@
 [ext_resource type="Texture2D" uid="uid://dmnsyr8eop81f" path="res://scenes/entities/player/sprites/run_trans_right_to_left/run_trans_right_to_left_f2.png" id="160_7kglm"]
 [ext_resource type="Texture2D" uid="uid://d2h5dvkiw5ghx" path="res://scenes/entities/player/sprites/run_trans_right_to_left/run_trans_right_to_left_f3.png" id="161_715hj"]
 [ext_resource type="Texture2D" uid="uid://xg31p72poqrh" path="res://scenes/entities/player/sprites/run_trans_right_to_left/run_trans_right_to_left_f4.png" id="162_in67m"]
+[ext_resource type="Texture2D" uid="uid://cr1vkwywtfmyb" path="res://scenes/entities/player/sprites/stand_injured_left/stand_injured_left_f1.png" id="187_hh2ax"]
+[ext_resource type="Texture2D" uid="uid://bl1lpo2kcoybx" path="res://scenes/entities/player/sprites/stand_injured_left/stand_injured_left_f2.png" id="188_flewn"]
+[ext_resource type="Texture2D" uid="uid://besyw8w2s18s" path="res://scenes/entities/player/sprites/stand_injured_right/stand_injured_right_f1.png" id="189_i5ik4"]
+[ext_resource type="Texture2D" uid="uid://bv83vqvw5rvo2" path="res://scenes/entities/player/sprites/stand_injured_right/stand_injured_right_f2.png" id="190_0ypo0"]
 [ext_resource type="Script" path="res://scenes/entities/player/block_animation.gd" id="292_shqg4"]
-[ext_resource type="Texture2D" uid="uid://c7cjvyhlnu6ff" path="res://scenes/entities/player/sprites/walk_right/walk_right_f1.png" id="305_0f3wr"]
-[ext_resource type="Texture2D" uid="uid://cym28alre23m7" path="res://scenes/entities/player/sprites/walk_left/walk_left_f1.png" id="305_yapxk"]
-[ext_resource type="Texture2D" uid="uid://6e7sd2oc83q4" path="res://scenes/entities/player/sprites/walk_right/walk_right_f2.png" id="306_70wgt"]
-[ext_resource type="Texture2D" uid="uid://dhiauxpho4ad2" path="res://scenes/entities/player/sprites/walk_left/walk_left_f2.png" id="306_uqw1c"]
-[ext_resource type="Texture2D" uid="uid://bt68a1ylxfopy" path="res://scenes/entities/player/sprites/walk_right/walk_right_f3.png" id="307_08ckv"]
-[ext_resource type="Texture2D" uid="uid://d2g4fdoditw8k" path="res://scenes/entities/player/sprites/walk_left/walk_left_f3.png" id="307_mvtiv"]
-[ext_resource type="Texture2D" uid="uid://c64g8tgrma2mc" path="res://scenes/entities/player/sprites/walk_left/walk_left_f4.png" id="308_sg75w"]
-[ext_resource type="Texture2D" uid="uid://br77iujkskp6y" path="res://scenes/entities/player/sprites/walk_right/walk_right_f4.png" id="308_wkeud"]
-[ext_resource type="Texture2D" uid="uid://c8xus2oe303tp" path="res://scenes/entities/player/sprites/walk_left/walk_left_f5.png" id="309_5fuj1"]
-[ext_resource type="Texture2D" uid="uid://crfk8bwllc232" path="res://scenes/entities/player/sprites/walk_right/walk_right_f5.png" id="309_k2cwn"]
-[ext_resource type="Texture2D" uid="uid://djk3e1c7ult3m" path="res://scenes/entities/player/sprites/walk_right/walk_right_f6.png" id="310_htg7r"]
-[ext_resource type="Texture2D" uid="uid://ydcetutomq2" path="res://scenes/entities/player/sprites/walk_left/walk_left_f6.png" id="310_jekfe"]
-[ext_resource type="Texture2D" uid="uid://ch1hondbistrm" path="res://scenes/entities/player/sprites/walk_right/walk_right_f7.png" id="311_iytix"]
-[ext_resource type="Texture2D" uid="uid://ivqib7df4jlc" path="res://scenes/entities/player/sprites/walk_left/walk_left_f7.png" id="311_l6qle"]
-[ext_resource type="Texture2D" uid="uid://ctmed61ouknjq" path="res://scenes/entities/player/sprites/walk_right/walk_right_f8.png" id="312_asvhl"]
-[ext_resource type="Texture2D" uid="uid://bhdbqxii7kbu8" path="res://scenes/entities/player/sprites/walk_left/walk_left_f8.png" id="312_ekls4"]
-[ext_resource type="Texture2D" uid="uid://x4xo3skwnuvx" path="res://scenes/entities/player/sprites/walk_right/walk_right_f9.png" id="313_ca5f8"]
-[ext_resource type="Texture2D" uid="uid://qyisckclp0u2" path="res://scenes/entities/player/sprites/walk_left/walk_left_f9.png" id="313_o1gef"]
-[ext_resource type="Texture2D" uid="uid://dwwjwke26hvhj" path="res://scenes/entities/player/sprites/walk_right/walk_right_f10.png" id="314_87ilw"]
-[ext_resource type="Texture2D" uid="uid://o5tio6pjgkj5" path="res://scenes/entities/player/sprites/walk_left/walk_left_f10.png" id="314_n5p6b"]
+[ext_resource type="Texture2D" uid="uid://bmfel7q7gbpng" path="res://scenes/entities/player/sprites/walk_injured_left/walk_injured_left_f1.png" id="305_qyoix"]
+[ext_resource type="Texture2D" uid="uid://cvhtug8rtt5qm" path="res://scenes/entities/player/sprites/walk_injured_left/walk_injured_left_f2.png" id="306_s1iy6"]
+[ext_resource type="Texture2D" uid="uid://bvtrqxygg05yr" path="res://scenes/entities/player/sprites/walk_injured_left/walk_injured_left_f3.png" id="307_rppw5"]
+[ext_resource type="Texture2D" uid="uid://cp1n3mr6350he" path="res://scenes/entities/player/sprites/walk_injured_left/walk_injured_left_f4.png" id="308_0qdmt"]
+[ext_resource type="Texture2D" uid="uid://bx3m4hd6m0u6n" path="res://scenes/entities/player/sprites/walk_injured_left/walk_injured_left_f5.png" id="309_w6mog"]
+[ext_resource type="Texture2D" uid="uid://62g2cy75wmle" path="res://scenes/entities/player/sprites/walk_injured_left/walk_injured_left_f6.png" id="310_cykji"]
+[ext_resource type="Texture2D" uid="uid://ctht8ttx0kesl" path="res://scenes/entities/player/sprites/walk_injured_left/walk_injured_left_f7.png" id="311_fca4b"]
+[ext_resource type="Texture2D" uid="uid://bfk6ruklb8ajg" path="res://scenes/entities/player/sprites/walk_injured_left/walk_injured_left_f8.png" id="312_h6dct"]
+[ext_resource type="Texture2D" uid="uid://dfuffxiga7noq" path="res://scenes/entities/player/sprites/walk_injured_left/walk_injured_left_f9.png" id="313_puu0g"]
+[ext_resource type="Texture2D" uid="uid://bu51r6r2hmkn3" path="res://scenes/entities/player/sprites/walk_injured_left/walk_injured_left_f10.png" id="314_mms6u"]
+[ext_resource type="Texture2D" uid="uid://3wy7uvrv80ow" path="res://scenes/entities/player/sprites/walk_injured_right/walk_injured_right_f1.png" id="315_5ppaf"]
+[ext_resource type="Texture2D" uid="uid://l3njsw7gr4nr" path="res://scenes/entities/player/sprites/walk_injured_right/walk_injured_right_f2.png" id="316_mcbyx"]
+[ext_resource type="Texture2D" uid="uid://bsm0mktqw4md7" path="res://scenes/entities/player/sprites/walk_injured_right/walk_injured_right_f3.png" id="317_rb6ey"]
+[ext_resource type="Texture2D" uid="uid://b0wwhg3wffc1q" path="res://scenes/entities/player/sprites/walk_injured_right/walk_injured_right_f4.png" id="318_3n3v0"]
+[ext_resource type="Texture2D" uid="uid://cnv1r0n82cx3g" path="res://scenes/entities/player/sprites/walk_injured_right/walk_injured_right_f5.png" id="319_8l7us"]
+[ext_resource type="Texture2D" uid="uid://hgbijgy0jpnr" path="res://scenes/entities/player/sprites/walk_injured_right/walk_injured_right_f6.png" id="320_gqnbn"]
+[ext_resource type="Texture2D" uid="uid://bqu23t3ru0jma" path="res://scenes/entities/player/sprites/walk_injured_right/walk_injured_right_f7.png" id="321_lsbug"]
+[ext_resource type="Texture2D" uid="uid://bmqami0tu0acv" path="res://scenes/entities/player/sprites/walk_injured_right/walk_injured_right_f8.png" id="322_hgtsn"]
+[ext_resource type="Texture2D" uid="uid://dbfw4yvshkf6m" path="res://scenes/entities/player/sprites/walk_injured_right/walk_injured_right_f9.png" id="323_icnqg"]
+[ext_resource type="Texture2D" uid="uid://dftmtajmctv2u" path="res://scenes/entities/player/sprites/walk_injured_right/walk_injured_right_f10.png" id="324_qv051"]
 
 [sub_resource type="Gradient" id="Gradient_rd8pc"]
 interpolation_mode = 2
@@ -1074,6 +1078,28 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("187_hh2ax")
+}, {
+"duration": 1.0,
+"texture": ExtResource("188_flewn")
+}],
+"loop": false,
+"name": &"stand_injured_left",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("189_i5ik4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("190_0ypo0")
+}],
+"loop": false,
+"name": &"stand_injured_right",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("83_jnqpy")
 }, {
 "duration": 1.0,
@@ -1518,72 +1544,72 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("305_yapxk")
+"texture": ExtResource("305_qyoix")
 }, {
 "duration": 1.0,
-"texture": ExtResource("306_uqw1c")
+"texture": ExtResource("306_s1iy6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("307_mvtiv")
+"texture": ExtResource("307_rppw5")
 }, {
 "duration": 1.0,
-"texture": ExtResource("308_sg75w")
+"texture": ExtResource("308_0qdmt")
 }, {
 "duration": 1.0,
-"texture": ExtResource("309_5fuj1")
+"texture": ExtResource("309_w6mog")
 }, {
 "duration": 1.0,
-"texture": ExtResource("310_jekfe")
+"texture": ExtResource("310_cykji")
 }, {
 "duration": 1.0,
-"texture": ExtResource("311_l6qle")
+"texture": ExtResource("311_fca4b")
 }, {
 "duration": 1.0,
-"texture": ExtResource("312_ekls4")
+"texture": ExtResource("312_h6dct")
 }, {
 "duration": 1.0,
-"texture": ExtResource("313_o1gef")
+"texture": ExtResource("313_puu0g")
 }, {
 "duration": 1.0,
-"texture": ExtResource("314_n5p6b")
+"texture": ExtResource("314_mms6u")
 }],
 "loop": false,
-"name": &"walk_left",
+"name": &"walk_injured_left",
 "speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("305_0f3wr")
+"texture": ExtResource("315_5ppaf")
 }, {
 "duration": 1.0,
-"texture": ExtResource("306_70wgt")
+"texture": ExtResource("316_mcbyx")
 }, {
 "duration": 1.0,
-"texture": ExtResource("307_08ckv")
+"texture": ExtResource("317_rb6ey")
 }, {
 "duration": 1.0,
-"texture": ExtResource("308_wkeud")
+"texture": ExtResource("318_3n3v0")
 }, {
 "duration": 1.0,
-"texture": ExtResource("309_k2cwn")
+"texture": ExtResource("319_8l7us")
 }, {
 "duration": 1.0,
-"texture": ExtResource("310_htg7r")
+"texture": ExtResource("320_gqnbn")
 }, {
 "duration": 1.0,
-"texture": ExtResource("311_iytix")
+"texture": ExtResource("321_lsbug")
 }, {
 "duration": 1.0,
-"texture": ExtResource("312_asvhl")
+"texture": ExtResource("322_hgtsn")
 }, {
 "duration": 1.0,
-"texture": ExtResource("313_ca5f8")
+"texture": ExtResource("323_icnqg")
 }, {
 "duration": 1.0,
-"texture": ExtResource("314_87ilw")
+"texture": ExtResource("324_qv051")
 }],
 "loop": false,
-"name": &"walk_right",
+"name": &"walk_injured_right",
 "speed": 8.0
 }]
 
@@ -1626,5 +1652,5 @@ randomness = 0.5
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_g2dfq")
 sprite_frames = SubResource("SpriteFrames_25tp4")
-animation = &"walk_left"
+animation = &"stand_injured_right"
 metadata/_edit_lock_ = true

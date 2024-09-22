@@ -294,10 +294,10 @@ func action_input_move_x_axis(side:String) -> void:
 			player.animations_handler.current_animation = "run_trans_left_to_right"
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = false
-		if player.animations_handler.current_animation != "run_right" && player.animations_handler.current_animation != "walk_right":
+		if player.animations_handler.current_animation != "run_right" && player.animations_handler.current_animation != "walk_injured_right":
 			if player.velocity.x < 0:
 				return
-			player.animations_handler.current_animation = "run_right" if not player.animations_handler.injured_animation else "walk_right"
+			player.animations_handler.current_animation = "run_right" if not player.animations_handler.injured_animation else "walk_injured_right"
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = true
 			player.animations_handler.start_run_animation = true
@@ -310,10 +310,10 @@ func action_input_move_x_axis(side:String) -> void:
 			player.animations_handler.current_animation = "run_trans_right_to_left"
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = false
-		if player.animations_handler.current_animation != "run_left" && player.animations_handler.current_animation != "walk_left":
+		if player.animations_handler.current_animation != "run_left" && player.animations_handler.current_animation != "walk_injured_left":
 			if player.velocity.x > 0:
 				return
-			player.animations_handler.current_animation = "run_left" if not player.animations_handler.injured_animation else "walk_left"
+			player.animations_handler.current_animation = "run_left" if not player.animations_handler.injured_animation else "walk_injured_left"
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = true
 			player.animations_handler.start_run_animation = true
