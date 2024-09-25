@@ -1,6 +1,12 @@
 extends Node
 class_name PlayerAnimationsHandler
 
+###----------CUSTOM SIGNALS----------###
+
+signal start_or_end_block_animation(start:bool, side:String, player_is_ducking:bool)
+signal change_block_animation_status(status:String, side:String, player_is_ducking:bool)
+
+
 ###----------SCENE REFERENCES----------###
 
 @onready var player:Player = get_tree().get_first_node_in_group('player') as Player
@@ -104,7 +110,7 @@ func _after_attack_change_to_idle_animation(side:String) -> void:
 ###----------CONNECTED SIGNALS----------###
 
 func _on_update_current_player_health_in_percent(percentage:float) -> void:
-	if percentage < Globals.percentage_for_injured_walking:
+	if percentage < Globals.percentage_for_injured:
 		injured_animation = true
 	else:
 		injured_animation = false
@@ -232,10 +238,17 @@ func on_animation_finished() -> void:
 			Input.action_release("down")
 	
 	elif player.movement_handler.is_blocking:
+		var side:String = ""
+		if "right" in current_animation:
+			side = "right"
+		else:
+			side = "left"
+		
 		if "go" in current_animation:
 			current_animation = current_animation.replace("go", "do")
 			loop_animation = true
 			animation_to_change = true
+			change_block_animation_status.emit("do", side, player.movement_handler.is_duck)
 		
 		elif "done" in current_animation:
 			current_animation = current_animation.replace("_done_block", "")
@@ -246,6 +259,7 @@ func on_animation_finished() -> void:
 			player.block_shield_handler.deactivate_hitbox(shield_hitbox_name)
 			
 			player.movement_handler.is_blocking = false
+			start_or_end_block_animation.emit(false, side, player.movement_handler.is_duck)
 
 
 func on_frame_changed() -> void:

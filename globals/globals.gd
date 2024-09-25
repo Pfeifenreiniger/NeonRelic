@@ -13,7 +13,7 @@ var is_full_screen:bool = false
 # ToDo - Player Stats spaeter in lokale DB schreiben und beim Start/Laden daraus lesen
 var player_max_health:int = 100
 var player_current_health:int = player_max_health
-var percentage_for_injured_walking:float = 20.
+var percentage_for_injured:float = 20.
 
 var player_max_stamina:int = 100
 var player_current_stamina:int = player_max_stamina

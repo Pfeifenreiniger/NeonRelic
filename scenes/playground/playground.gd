@@ -1,18 +1,15 @@
 extends Node2D
 
 
-var tolle_variable:float = 1
+const FARBEN:Dictionary = {
+	'SCHWARZ' : '#00000',
+	'WEISS' : '#11111',
+	'ROT' : '#1f3f6'
+}
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
-	var tween:Tween = create_tween()
 	
-	print("Es geht los...")
-	
-	tween.tween_method(
-		func(value): print(value), 0.0, 100.0, 3
+	print(
+		FARBEN.SCHWARZ
 	)
-	
-	await tween.finished
-	
-	print("Fertig :)")

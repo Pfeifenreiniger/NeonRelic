@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://boowknwfi1vid" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/wooden_crate_collectables_container.tscn" id="8_dwmga"]
 [ext_resource type="PackedScene" uid="uid://drfpdpqmnxnkm" path="res://scenes/ui/ingame/ui.tscn" id="8_ot175"]
 [ext_resource type="Texture2D" uid="uid://cs6ceyfontprv" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f1.png" id="9_2xxbc"]
-[ext_resource type="PackedScene" uid="uid://d4e8askxcp1t1" path="res://scenes/components/steam_particles_component/steam_particles_component.tscn" id="9_pwofj"]
+[ext_resource type="PackedScene" uid="uid://dclr5d172s0a2" path="res://scenes/levels/steam_particles/steam_particles.tscn" id="9_sv5lv"]
 [ext_resource type="Texture2D" uid="uid://dd8gaae232n2c" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f2.png" id="10_degjm"]
 [ext_resource type="Texture2D" uid="uid://blbg04wrqhg7f" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f3.png" id="11_x5w6t"]
 [ext_resource type="Texture2D" uid="uid://dn2ad5bnjedbe" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f4.png" id="12_ksuya"]
@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://dl66or1cny2ev" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate_collapsing_f6.png" id="14_pw0og"]
 [ext_resource type="Texture2D" uid="uid://co8xun4pkeu5l" path="res://scenes/levels/collectables_containers/wooden_crate_collectables_container/sprites/wooden_crate.png" id="15_x13hk"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gryhn"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hepye"]
 resource_local_to_scene = true
 lifetime_randomness = 0.4
 particle_flag_disable_z = true
@@ -51,32 +51,33 @@ scale_max = 2.0
 color = Color(1, 1, 1, 0.2)
 turbulence_noise_scale = 2.57
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q116r"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qy0oe"]
 resource_local_to_scene = true
-lifetime_randomness = 0.2
+lifetime_randomness = 0.4
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 5.56
+emission_sphere_radius = 8.61
 direction = Vector3(0, -1, 0)
-initial_velocity_min = 11.91
+spread = 22.5
+initial_velocity_min = 17.0
 initial_velocity_max = 17.0
 angular_velocity_min = 25.71
 angular_velocity_max = 77.14
-orbit_velocity_min = 0.048
-orbit_velocity_max = 0.096
+orbit_velocity_min = 0.119
+orbit_velocity_max = 0.143
 radial_velocity_min = 2.0
-radial_velocity_max = 6.0
-gravity = Vector3(0, -65, 0)
-linear_accel_min = 19.04
-linear_accel_max = 48.81
-radial_accel_min = 11.9
-radial_accel_max = 15.47
-tangential_accel_min = 5.95
-tangential_accel_max = 7.14
-damping_min = 45.239
-damping_max = 51.191
-scale_min = 0.5
-scale_max = 1.5
+radial_velocity_max = 3.0
+gravity = Vector3(0, -105, 0)
+linear_accel_min = 8.32
+linear_accel_max = 41.66
+radial_accel_min = 23.8
+radial_accel_max = 27.38
+tangential_accel_min = 46.42
+tangential_accel_max = 64.28
+damping_min = 83.334
+damping_max = 84.525
+scale_min = 0.8
+scale_max = 2.0
 color = Color(1, 1, 1, 0.2)
 turbulence_noise_scale = 2.57
 
@@ -260,6 +261,13 @@ animations = [{
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
 
+[node name="Darkener" type="ColorRect" parent="Background"]
+offset_left = -1173.0
+offset_top = -341.0
+offset_right = 2023.0
+offset_bottom = 1454.0
+color = Color(0, 0, 0, 0.313726)
+
 [node name="BackgroundWallpaper" parent="Background" node_paths=PackedStringArray("player") instance=ExtResource("2_lmd2j")]
 texture = ExtResource("3_0wwde")
 image_file = "res://assets/graphics/backgrounds/wallpaper/orange_sunset.png"
@@ -376,18 +384,17 @@ border_side = "right"
 
 [node name="ParticleEffects" type="Node2D" parent="Environment"]
 z_index = 999
+metadata/_edit_lock_ = true
 
-[node name="SteamParticlesComponent" parent="Environment/ParticleEffects" instance=ExtResource("9_pwofj")]
-position = Vector2(598, 547)
-process_material = SubResource("ParticleProcessMaterial_gryhn")
+[node name="SteamParticles" parent="Environment/ParticleEffects" instance=ExtResource("9_sv5lv")]
+position = Vector2(598, 550)
+process_material = SubResource("ParticleProcessMaterial_hepye")
 type = "large"
 metadata/_edit_lock_ = true
 
-[node name="SteamParticlesComponent2" parent="Environment/ParticleEffects" instance=ExtResource("9_pwofj")]
-position = Vector2(1242, 730)
-process_material = SubResource("ParticleProcessMaterial_q116r")
-lifetime = 0.8
-type = "short"
+[node name="SteamParticles2" parent="Environment/ParticleEffects" instance=ExtResource("9_sv5lv")]
+position = Vector2(1242, 729)
+process_material = SubResource("ParticleProcessMaterial_qy0oe")
 metadata/_edit_lock_ = true
 
 [node name="CollectablesContainers" type="Node" parent="Environment"]
@@ -428,3 +435,7 @@ position = Vector2(-220, 510)
 [node name="FloorEffects" type="Node" parent="."]
 
 [node name="Ui" parent="." instance=ExtResource("8_ot175")]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(0.501961, 0.501961, 0.501961, 1)
+blend_mode = 1

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://rg8qmipjt1mm"]
+[gd_scene load_steps=6 format=3 uid="uid://rg8qmipjt1mm"]
 
 [ext_resource type="Texture2D" uid="uid://b4tcnkdq302g7" path="res://scenes/entities/enemies/sprites/enemy_drone/laser_beam/drone_laser_beam.png" id="1_gkjg4"]
 [ext_resource type="Script" path="res://scenes/projectiles/laser_beams/drone_laser_beam.gd" id="2_4drhu"]
 [ext_resource type="Script" path="res://scenes/projectiles/laser_beams/hit_area.gd" id="3_h32tm"]
+[ext_resource type="Texture2D" uid="uid://dj1colr3pe88x" path="res://assets/graphics/light_textures/round_200x200px.png" id="4_i8kwm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m30t5"]
 size = Vector2(44, 4)
@@ -17,3 +18,10 @@ script = ExtResource("3_h32tm")
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitArea"]
 shape = SubResource("RectangleShape2D_m30t5")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-1.90735e-06, 1.66893e-06)
+scale = Vector2(0.51, 0.2)
+color = Color(0.615686, 0.0470588, 0.619608, 1)
+energy = 4.73
+texture = ExtResource("4_i8kwm")

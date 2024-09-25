@@ -1,4 +1,4 @@
-[gd_scene load_steps=336 format=3 uid="uid://ckecmw1wq155q"]
+[gd_scene load_steps=337 format=3 uid="uid://ckecmw1wq155q"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player_animations_handler.gd" id="1_6sm3f"]
 [ext_resource type="Script" path="res://scenes/entities/player/climb_up_ledge_animation.gd" id="2_0vqk3"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dwfnrulsc6tqc" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f1.png" id="7_vhije"]
 [ext_resource type="Texture2D" uid="uid://b8jjd03gpgmtw" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f2.png" id="8_cqstg"]
 [ext_resource type="Texture2D" uid="uid://crd6nd4pi3ebe" path="res://assets/graphics/brushes/brush_10x10_px.png" id="9_65trl"]
+[ext_resource type="Texture2D" uid="uid://dj1colr3pe88x" path="res://assets/graphics/light_textures/round_200x200px.png" id="9_880f1"]
 [ext_resource type="Texture2D" uid="uid://d0m2mrtklbruo" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f3.png" id="9_r6emh"]
 [ext_resource type="Texture2D" uid="uid://cor08r3gavsxt" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f4.png" id="10_m7l2g"]
 [ext_resource type="Texture2D" uid="uid://3w0lxc5bffxe" path="res://scenes/entities/player/sprites/climb_up_ledge_left/climb_up_ledge_left_f5.png" id="11_ku6mu"]
@@ -1639,6 +1640,38 @@ script = ExtResource("7_iu84p")
 [node name="BlockAnimation" type="Node" parent="."]
 script = ExtResource("292_shqg4")
 
+[node name="GlowStandRight" type="PointLight2D" parent="BlockAnimation"]
+position = Vector2(19, -13.5)
+scale = Vector2(0.33, 0.395)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 1)
+energy = 3.26
+texture = ExtResource("9_880f1")
+
+[node name="GlowStandLeft" type="PointLight2D" parent="BlockAnimation"]
+position = Vector2(-19, -13.5)
+scale = Vector2(0.33, 0.395)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 1)
+energy = 3.26
+texture = ExtResource("9_880f1")
+
+[node name="GlowDuckRight" type="PointLight2D" parent="BlockAnimation"]
+position = Vector2(19, 6.5)
+scale = Vector2(0.33, 0.395)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 1)
+energy = 3.26
+texture = ExtResource("9_880f1")
+
+[node name="GlowDuckLeft" type="PointLight2D" parent="BlockAnimation"]
+position = Vector2(-19, 6.5)
+scale = Vector2(0.33, 0.395)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 1)
+energy = 1.43
+texture = ExtResource("9_880f1")
+
 [node name="LaserBeamSteamParticles" type="GPUParticles2D" parent="BlockAnimation"]
 position = Vector2(20, -6)
 emitting = false
@@ -1652,5 +1685,5 @@ randomness = 0.5
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_g2dfq")
 sprite_frames = SubResource("SpriteFrames_25tp4")
-animation = &"stand_injured_right"
+animation = &"stand_do_block_right"
 metadata/_edit_lock_ = true

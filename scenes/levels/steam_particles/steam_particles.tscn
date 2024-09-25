@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d4e8askxcp1t1"]
+[gd_scene load_steps=4 format=3 uid="uid://dclr5d172s0a2"]
 
-[ext_resource type="Texture2D" uid="uid://crd6nd4pi3ebe" path="res://assets/graphics/brushes/brush_10x10_px.png" id="1_mw8ro"]
-[ext_resource type="Script" path="res://scenes/components/steam_particles_component/steam_particles_component.gd" id="2_3235e"]
+[ext_resource type="Texture2D" uid="uid://crd6nd4pi3ebe" path="res://assets/graphics/brushes/brush_10x10_px.png" id="1_ns43w"]
+[ext_resource type="Script" path="res://scenes/levels/steam_particles/steam_particles.gd" id="2_58spj"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gdpt2"]
 resource_local_to_scene = true
@@ -33,10 +33,9 @@ scale_max = 2.0
 color = Color(1, 1, 1, 0.2)
 turbulence_noise_scale = 2.57
 
-[node name="SteamParticlesComponent" type="GPUParticles2D"]
+[node name="SteamParticles" type="GPUParticles2D"]
 amount = 28
 process_material = SubResource("ParticleProcessMaterial_gdpt2")
-texture = ExtResource("1_mw8ro")
+texture = ExtResource("1_ns43w")
 lifetime = 1.2
-script = ExtResource("2_3235e")
-type = "mid"
+script = ExtResource("2_58spj")
