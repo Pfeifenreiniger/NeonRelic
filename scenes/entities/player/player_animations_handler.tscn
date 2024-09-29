@@ -1634,45 +1634,466 @@ progress_speed = 2.3
 script = ExtResource("6_yov1c")
 
 [node name="SwordAttackComboTimeWindowRectangle" type="Node2D" parent="SwordAttackAnimation"]
+light_mask = 2
 rotation = 0.785398
 script = ExtResource("7_iu84p")
+
+[node name="PointLight2D" type="PointLight2D" parent="SwordAttackAnimation/SwordAttackComboTimeWindowRectangle"]
+position = Vector2(-26.1011, -26.4547)
+scale = Vector2(1.13051, 1.13227)
+energy = 4.0
+range_item_cull_mask = 2
+texture = ExtResource("9_880f1")
+texture_scale = 2.0
+
+[node name="GlowRights" type="Node2D" parent="SwordAttackAnimation"]
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_1_4" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(16, -3)
+scale = Vector2(0.355, 0.35)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 0.9
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_1_5" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(10, -14)
+scale = Vector2(0.355, 0.35)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 0.9
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_1_6" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(14.5, -29)
+scale = Vector2(0.355, 0.35)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_1_7" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(32.5, -24)
+scale = Vector2(0.435, 0.315)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_1_8" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(32.5, -24)
+scale = Vector2(0.435, 0.315)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.8
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_2_0" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(6, -31)
+scale = Vector2(0.32, 0.24)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_2_1" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(-5, -31)
+scale = Vector2(0.32, 0.24)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_2_2" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(-14, -26)
+scale = Vector2(0.32, 0.24)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_2_3" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(-9, -29)
+scale = Vector2(0.32, 0.24)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_2_4" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(10, -30)
+scale = Vector2(0.39, 0.27)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.92
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_2_5" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(29, -9.5)
+scale = Vector2(0.53, 0.335)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_2_6" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(27.5, 3)
+scale = Vector2(0.518651, 0.553047)
+skew = -0.441568
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_2_7" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(25.5, 12.5)
+scale = Vector2(0.518651, 0.422912)
+skew = 0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_2_8" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(25.5, 12.5)
+scale = Vector2(0.518651, 0.422912)
+skew = 0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.35
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_3_0" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(26, 11)
+scale = Vector2(0.518651, 0.422912)
+skew = 0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.87
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_3_1" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(15, 10)
+scale = Vector2(0.518651, 0.422912)
+skew = 0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.87
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_3_2" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(12, 8)
+scale = Vector2(0.518651, 0.422912)
+skew = 0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.44
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_3_3" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(43, 0)
+scale = Vector2(0.518651, 0.422912)
+skew = 0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_3_4" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(43, 0)
+scale = Vector2(0.518651, 0.422912)
+skew = 0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.66
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_3_5" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(30, 4)
+scale = Vector2(0.518651, 0.422912)
+skew = 0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.66
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowRight_3_6" type="PointLight2D" parent="SwordAttackAnimation/GlowRights"]
+position = Vector2(20, 25)
+scale = Vector2(0.518651, 0.422912)
+skew = 0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.66
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLefts" type="Node2D" parent="SwordAttackAnimation"]
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_1_4" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-12, 5)
+scale = Vector2(0.355, 0.35)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 0.9
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_1_5" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-10, -8)
+scale = Vector2(0.355, 0.35)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 0.9
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_1_6" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-16, -30)
+scale = Vector2(0.355, 0.35)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_1_7" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-34, -24)
+scale = Vector2(0.435, 0.315)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_1_8" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-35, -26)
+scale = Vector2(0.435, 0.315)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.8
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_2_0" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-11, -29)
+scale = Vector2(0.32, 0.24)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_2_1" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(7, -30)
+scale = Vector2(0.32, 0.24)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_2_2" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(14, -20)
+scale = Vector2(0.32, 0.24)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_2_3" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(10, -30)
+scale = Vector2(0.32, 0.24)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_2_4" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-12, -32)
+scale = Vector2(0.39, 0.27)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.92
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_2_5" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-30, -4.5)
+scale = Vector2(0.53, 0.335)
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_2_6" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-27.5, 11)
+scale = Vector2(0.518651, 0.553047)
+skew = 0.441568
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_2_7" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-21.5, 18.5)
+scale = Vector2(0.518651, 0.422912)
+skew = -0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_2_8" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-21.5, 18.5)
+scale = Vector2(0.518651, 0.422912)
+skew = -0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.35
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_3_0" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-26, 13)
+scale = Vector2(0.518651, 0.422912)
+skew = -0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.87
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_3_1" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-15, 14)
+scale = Vector2(0.518651, 0.422912)
+skew = -0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.87
+shadow_enabled = true
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_3_2" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-12, 14)
+scale = Vector2(0.518651, 0.422912)
+skew = -0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.44
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_3_3" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-43, -4)
+scale = Vector2(0.518651, 0.422912)
+skew = -0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 2.22
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_3_4" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-43, -4)
+scale = Vector2(0.518651, 0.422912)
+skew = -0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.66
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_3_5" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-34, 2)
+scale = Vector2(0.518651, 0.422912)
+skew = -0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.66
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
+
+[node name="GlowLeft_3_6" type="PointLight2D" parent="SwordAttackAnimation/GlowLefts"]
+position = Vector2(-20, 20)
+scale = Vector2(0.518651, 0.422912)
+skew = -0.193732
+enabled = false
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 1.66
+texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
 
 [node name="BlockAnimation" type="Node" parent="."]
 script = ExtResource("292_shqg4")
 
-[node name="GlowStandRight" type="PointLight2D" parent="BlockAnimation"]
+[node name="Glows" type="Node2D" parent="BlockAnimation"]
+
+[node name="GlowStandRight" type="PointLight2D" parent="BlockAnimation/Glows"]
 position = Vector2(19, -13.5)
 scale = Vector2(0.33, 0.395)
 enabled = false
-color = Color(0.588235, 0.172549, 0.486275, 1)
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
 energy = 3.26
 texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
 
-[node name="GlowStandLeft" type="PointLight2D" parent="BlockAnimation"]
+[node name="GlowStandLeft" type="PointLight2D" parent="BlockAnimation/Glows"]
 position = Vector2(-19, -13.5)
 scale = Vector2(0.33, 0.395)
 enabled = false
-color = Color(0.588235, 0.172549, 0.486275, 1)
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
 energy = 3.26
 texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
 
-[node name="GlowDuckRight" type="PointLight2D" parent="BlockAnimation"]
+[node name="GlowDuckRight" type="PointLight2D" parent="BlockAnimation/Glows"]
 position = Vector2(19, 6.5)
 scale = Vector2(0.33, 0.395)
 enabled = false
-color = Color(0.588235, 0.172549, 0.486275, 1)
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
 energy = 3.26
 texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
 
-[node name="GlowDuckLeft" type="PointLight2D" parent="BlockAnimation"]
+[node name="GlowDuckLeft" type="PointLight2D" parent="BlockAnimation/Glows"]
 position = Vector2(-19, 6.5)
 scale = Vector2(0.33, 0.395)
 enabled = false
-color = Color(0.588235, 0.172549, 0.486275, 1)
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
 energy = 1.43
 texture = ExtResource("9_880f1")
+metadata/_edit_lock_ = true
 
 [node name="LaserBeamSteamParticles" type="GPUParticles2D" parent="BlockAnimation"]
+light_mask = 2
 position = Vector2(20, -6)
 emitting = false
 amount = 20
@@ -1681,9 +2102,16 @@ texture = ExtResource("9_65trl")
 lifetime = 1.2
 one_shot = true
 randomness = 0.5
+metadata/_edit_lock_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="BlockAnimation/LaserBeamSteamParticles"]
+enabled = false
+range_item_cull_mask = 2
+texture = ExtResource("9_880f1")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_g2dfq")
 sprite_frames = SubResource("SpriteFrames_25tp4")
-animation = &"stand_do_block_right"
+animation = &"stand_sword_attack_left_1"
+frame = 8
 metadata/_edit_lock_ = true

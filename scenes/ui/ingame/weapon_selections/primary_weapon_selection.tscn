@@ -54,6 +54,7 @@ texture = ExtResource("4_3nut7")
 texture = ExtResource("5_17wih")
 
 [node name="WhipParticles" type="GPUParticles2D" parent="." index="4"]
+light_mask = 2
 position = Vector2(1230, 630)
 emitting = false
 amount = 12
@@ -61,6 +62,7 @@ process_material = SubResource("ParticleProcessMaterial_y4bby")
 lifetime = 1.4
 
 [node name="SwordParticles" type="GPUParticles2D" parent="." index="5"]
+light_mask = 2
 position = Vector2(1235, 624)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_rjjov")

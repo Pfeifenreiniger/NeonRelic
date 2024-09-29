@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://db8f531m7stmm"]
+[gd_scene load_steps=4 format=3 uid="uid://db8f531m7stmm"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player_weapon_handler.gd" id="1_x4kyb"]
 [ext_resource type="Script" path="res://scenes/entities/player/secondary_weapons.gd" id="3_lne5o"]
+[ext_resource type="Texture2D" uid="uid://dj1colr3pe88x" path="res://assets/graphics/light_textures/round_200x200px.png" id="3_uavfs"]
 
 [node name="PlayerWeaponHandler" type="Node"]
 script = ExtResource("1_x4kyb")
@@ -9,4 +10,10 @@ script = ExtResource("1_x4kyb")
 [node name="PrimaryWeapons" type="Node2D" parent="."]
 
 [node name="SecondaryWeapons" type="Node2D" parent="."]
+light_mask = 64
 script = ExtResource("3_lne5o")
+
+[node name="PointLight2D" type="PointLight2D" parent="SecondaryWeapons"]
+range_item_cull_mask = 64
+texture = ExtResource("3_uavfs")
+texture_scale = 2.0

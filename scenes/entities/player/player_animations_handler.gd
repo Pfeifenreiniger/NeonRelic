@@ -218,10 +218,7 @@ func on_animation_finished() -> void:
 				_after_attack_change_to_idle_animation(side)
 				
 		elif "sword_attack" in current_animation:
-			player.animations_handler.sword_attack_animation.is_combo_time_window = false
-			player.animations_handler.sword_attack_animation.sword_attack_combo_time_window_rectangle.rect_to_draw = false
-			player.animations_handler.sword_attack_animation.sword_attack_combo_time_window_rectangle.reset_rect_color()
-			player.animations_handler.sword_attack_animation.x_movement_tween = null
+			player.animations_handler.sword_attack_animation.stop_attack()
 			for i in 3:
 				player.weapon_handler.current_weapon.deactivate_hitbox(i + 1)
 			_after_attack_change_to_idle_animation(side)

@@ -30,6 +30,7 @@ func _ready() -> void:
 	
 	despawn_collectable_component.despawn_animation_done.connect(_on_despawn_animation_done)
 	
+	gpu_particles_2d.emitting = true
 	gpu_particles_2d.modulate = collectable_component.collect_effect_particles_color
 
 

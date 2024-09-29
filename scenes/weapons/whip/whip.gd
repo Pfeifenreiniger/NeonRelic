@@ -1,6 +1,11 @@
 extends AnimatedSprite2D
 class_name Whip
 
+###----------CUSTOM SIGNALS----------###
+
+signal attack_animation_done
+
+
 ###----------SCENE REFERENCES----------###
 
 @onready var player:Player = get_tree().get_first_node_in_group('player') as Player
@@ -169,6 +174,7 @@ func _on_animation_finished():
 	visible = false
 	done_attack_animation = true
 	whip_attack_particles.emitting = false
+	attack_animation_done.emit()
 
 
 func _on_hitbox_zone_gone_entered():

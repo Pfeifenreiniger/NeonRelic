@@ -26,7 +26,7 @@ var x_sizes:Array[int] = [
 ]
 
 
-###----------METHODS: AT INITIATION CALLED----------###
+###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
 	body_entered.connect(_on_hitbox_zone_body_entered)

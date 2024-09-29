@@ -9,6 +9,11 @@ extends Node2D
 @onready var player:Player = get_tree().get_first_node_in_group('player') as Player
 
 
+###----------NODE REFERENCES----------###
+
+@onready var point_light_2d: PointLight2D = $PointLight2D as PointLight2D
+
+
 ###----------PROPERTIES----------###
 
 var to_draw:bool = false
@@ -41,6 +46,7 @@ func _process(_delta:float) -> void:
 func _draw() -> void:
 	if to_draw:
 		draw_line(start_pos, to_pos, color, line_width)
+		point_light_2d.global_position = start_pos
 
 
 ###----------METHODS----------###

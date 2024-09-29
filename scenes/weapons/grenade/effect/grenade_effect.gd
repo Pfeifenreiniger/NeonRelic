@@ -6,6 +6,7 @@ extends Area2D
 @onready var life_timer:Timer = $LifeTimer as Timer
 @onready var particles:GPUParticles2D = $Particles as GPUParticles2D
 @onready var animation_player:AnimationPlayer = $AnimationPlayer as AnimationPlayer
+@onready var point_light_2d: PointLight2D = $Particles/PointLight2D as PointLight2D
 
 
 ###----------PROPERTIES----------###
@@ -52,6 +53,8 @@ func _set_color_based_on_grenade_type() -> void:
 		color = Color('#6cd7f3c5')
 	else:
 		color = Color('#ffffff')
+	
+	point_light_2d.color = color
 	particles.process_material.color = color
 
 

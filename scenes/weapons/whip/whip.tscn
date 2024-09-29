@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cxdgx3ybjqixq"]
+[gd_scene load_steps=32 format=3 uid="uid://cxdgx3ybjqixq"]
 
 [ext_resource type="Script" path="res://scenes/weapons/whip/whip.gd" id="1_74wq3"]
 [ext_resource type="Texture2D" uid="uid://dpyvu1sp4ngem" path="res://scenes/weapons/whip/sprites/attack_left/attack_left_f1.png" id="1_lqffe"]
@@ -26,6 +26,8 @@
 [ext_resource type="Texture2D" uid="uid://c11rrst8d0usp" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f11.png" id="23_umnky"]
 [ext_resource type="Texture2D" uid="uid://ccdutbnskto1o" path="res://scenes/weapons/whip/sprites/attack_right/attack_right_f12.png" id="24_awyhj"]
 [ext_resource type="Script" path="res://scenes/weapons/whip/hitbox_zone.gd" id="26_tm7ji"]
+[ext_resource type="Script" path="res://scenes/weapons/whip/point_light2D.gd" id="27_qu7qh"]
+[ext_resource type="Texture2D" uid="uid://dj1colr3pe88x" path="res://assets/graphics/light_textures/round_200x200px.png" id="27_r13wa"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e6udn"]
 animations = [{
@@ -130,11 +132,22 @@ hue_variation_max = 0.05
 
 [node name="Whip" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_e6udn")
-animation = &"attack_left"
+animation = &"attack_right"
 script = ExtResource("1_74wq3")
+metadata/_edit_lock_ = true
 
 [node name="ChargeTimer" type="Timer" parent="."]
 wait_time = 0.25
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(20.5, -1)
+scale = Vector2(0.60625, 0.1)
+color = Color(0.588235, 0.172549, 0.486275, 0.784314)
+energy = 10.62
+texture = ExtResource("27_r13wa")
+texture_scale = 2.0
+height = 10.0
+script = ExtResource("27_qu7qh")
 
 [node name="HitboxZone" type="Area2D" parent="."]
 collision_layer = 2
@@ -145,8 +158,10 @@ script = ExtResource("26_tm7ji")
 position = Vector2(-58, -1.5)
 shape = SubResource("RectangleShape2D_w8ro0")
 disabled = true
+metadata/_edit_lock_ = true
 
 [node name="WhipAttackParticles" type="GPUParticles2D" parent="."]
+light_mask = 32
 position = Vector2(52, -2)
 emitting = false
 amount = 12
@@ -154,9 +169,11 @@ process_material = SubResource("ParticleProcessMaterial_1jo83")
 lifetime = 1.5
 speed_scale = 4.0
 visibility_rect = Rect2(-10, -10, 20, 20)
+metadata/_edit_lock_ = true
 
 [node name="AttackLeftParticleMarkers" type="Node2D" parent="WhipAttackParticles"]
 position = Vector2(-52, 2)
+metadata/_edit_lock_ = true
 
 [node name="PositionFrame1" type="Marker2D" parent="WhipAttackParticles/AttackLeftParticleMarkers"]
 position = Vector2(52, -2)
@@ -192,6 +209,7 @@ position = Vector2(-45, -2)
 position = Vector2(-55, 0)
 
 [node name="AttackRightParticleMarkers" type="Node2D" parent="WhipAttackParticles"]
+metadata/_edit_lock_ = true
 
 [node name="PositionFrame1" type="Marker2D" parent="WhipAttackParticles/AttackRightParticleMarkers"]
 position = Vector2(-105, 0)
@@ -225,3 +243,11 @@ position = Vector2(-7, 0)
 
 [node name="PositionFrame11" type="Marker2D" parent="WhipAttackParticles/AttackRightParticleMarkers"]
 position = Vector2(2, 2)
+
+[node name="WhipAttackParticlesPointLight2D" type="PointLight2D" parent="WhipAttackParticles"]
+position = Vector2(-52, 1.50001)
+scale = Vector2(1, 0.1875)
+energy = 3.0
+range_item_cull_mask = 32
+texture = ExtResource("27_r13wa")
+texture_scale = 2.0

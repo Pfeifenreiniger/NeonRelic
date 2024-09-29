@@ -2,10 +2,10 @@ extends Node
 
 ###----------NODE REFERENCES----------###
 
-@onready var glow_stand_right: PointLight2D = $GlowStandRight as PointLight2D
-@onready var glow_stand_left: PointLight2D = $GlowStandLeft as PointLight2D
-@onready var glow_duck_right: PointLight2D = $GlowDuckRight as PointLight2D
-@onready var glow_duck_left: PointLight2D = $GlowDuckLeft as PointLight2D
+@onready var glow_stand_right: PointLight2D = $Glows/GlowStandRight as PointLight2D
+@onready var glow_stand_left: PointLight2D = $Glows/GlowStandLeft as PointLight2D
+@onready var glow_duck_right: PointLight2D = $Glows/GlowDuckRight as PointLight2D
+@onready var glow_duck_left: PointLight2D = $Glows/GlowDuckLeft as PointLight2D
 @onready var glow_nodes:Array[PointLight2D] = [
 	glow_stand_right, glow_stand_left, glow_duck_right, glow_duck_left
 ]
@@ -104,6 +104,8 @@ func play_laser_beam_steam_animation(
 	) -> void:
 	
 	var laser_beam_steam_particles:GPUParticles2D = $LaserBeamSteamParticles as GPUParticles2D
+	var laser_beam_steam_particles_point_light_2d:PointLight2D = laser_beam_steam_particles.get_node('PointLight2D')
+	laser_beam_steam_particles_point_light_2d.enabled = true
 	
 	# duplicate original particles node for individual particles effect for every blocked laser beam
 	laser_beam_steam_particles = laser_beam_steam_particles.duplicate() as GPUParticles2D
@@ -128,6 +130,7 @@ func play_laser_beam_steam_animation(
 	# and wait for one-shot to be done -> eventually, get rid of particles node
 	await laser_beam_steam_particles.finished
 	laser_beam_steam_particles.queue_free()
+	laser_beam_steam_particles_point_light_2d.enabled = false
 
 
 ###----------CONNECTED SIGNALS----------###

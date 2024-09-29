@@ -1,15 +1,14 @@
 extends Node2D
 
 
-const FARBEN:Dictionary = {
-	'SCHWARZ' : '#00000',
-	'WEISS' : '#11111',
-	'ROT' : '#1f3f6'
-}
+
 
 
 func _ready() -> void:
 	
-	print(
-		FARBEN.SCHWARZ
-	)
+	print("hallo du".capitalize())
+	print("HALLO DU".to_lower())
+	print("hallo du".to_upper())
+	print("Hallo du".to_pascal_case())
+	print("Hallo du".to_camel_case())
+	print("Hallo du".to_snake_case())

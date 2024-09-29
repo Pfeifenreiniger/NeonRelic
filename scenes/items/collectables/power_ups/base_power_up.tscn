@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0b10aw7b68v2"]
+[gd_scene load_steps=10 format=3 uid="uid://c0b10aw7b68v2"]
 
 [ext_resource type="Script" path="res://scenes/items/collectables/power_ups/base_power_up.gd" id="1_v67nt"]
 [ext_resource type="PackedScene" uid="uid://dgfamoasmhwre" path="res://scenes/components/collectable_component/collectable_component.tscn" id="2_e5008"]
 [ext_resource type="PackedScene" uid="uid://dtnhsno45q704" path="res://scenes/components/despawn_collectable_component/despawn_collectable_component.tscn" id="3_8wl2b"]
+[ext_resource type="Texture2D" uid="uid://dj1colr3pe88x" path="res://assets/graphics/light_textures/round_200x200px.png" id="4_msx1t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc3f3"]
 radius = 16.0
@@ -58,6 +59,7 @@ _data = {
 }
 
 [node name="BasePowerUp" type="Sprite2D"]
+light_mask = 8
 script = ExtResource("1_v67nt")
 color_screen_flash = Color(0.705882, 0, 0.737255, 1)
 
@@ -71,12 +73,26 @@ shape = SubResource("CircleShape2D_rc3f3")
 [node name="DespawnCollectableComponent" parent="." instance=ExtResource("3_8wl2b")]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+light_mask = 16
+emitting = false
 amount = 14
 process_material = SubResource("ParticleProcessMaterial_8ckw4")
 lifetime = 1.5
+
+[node name="PointLight2D" type="PointLight2D" parent="GPUParticles2D"]
+energy = 0.5
+range_item_cull_mask = 16
+texture = ExtResource("4_msx1t")
+texture_scale = 0.7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_lkbhw")
 }
 autoplay = "default"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.5
+range_item_cull_mask = 8
+texture = ExtResource("4_msx1t")
+texture_scale = 0.5

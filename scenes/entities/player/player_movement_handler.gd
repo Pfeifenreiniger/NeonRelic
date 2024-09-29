@@ -513,6 +513,7 @@ func action_input_init_sword_attack() -> void:
 	player.weapon_handler.current_weapon.adjust_hitbox_position(1)
 	player.animations_handler.sword_attack_animation.attack_combo(1, position)
 	player.animations_handler.sword_attack_animation.sword_attack_combo_time_window_rectangle.rect_to_draw = true
+	player.animations_handler.sword_attack_animation.start_attack()
 
 
 func action_input_combo_sword_attack(last_combo_phase:int) -> void:

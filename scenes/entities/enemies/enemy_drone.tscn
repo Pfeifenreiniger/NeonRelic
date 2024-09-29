@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://gv0yr3oidbtn"]
+[gd_scene load_steps=53 format=3 uid="uid://gv0yr3oidbtn"]
 
 [ext_resource type="PackedScene" uid="uid://buxj1tjw810ml" path="res://scenes/entities/enemies/base_enemy.tscn" id="1_fbaba"]
 [ext_resource type="Script" path="res://scenes/entities/enemies/enemy_drone.gd" id="2_hitk0"]
@@ -37,6 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://bv3gdi5cxv510" path="res://scenes/items/collectables/heal_ups/heal_up_health/heal_up_health_low.tscn" id="24_8cxw6"]
 [ext_resource type="Texture2D" uid="uid://bkc4gd3npn03j" path="res://scenes/entities/enemies/sprites/enemy_drone/explosion/drone_explosion_f7.png" id="24_r74nv"]
 [ext_resource type="Texture2D" uid="uid://dcx2v7t32asjx" path="res://scenes/entities/enemies/sprites/enemy_drone/explosion/drone_explosion_f8.png" id="25_d81y5"]
+[ext_resource type="Texture2D" uid="uid://dj1colr3pe88x" path="res://assets/graphics/light_textures/round_200x200px.png" id="26_tvmyg"]
 [ext_resource type="Texture2D" uid="uid://bl0tl40s57iys" path="res://scenes/entities/enemies/sprites/enemy_drone/explosion/drone_explosion_f9.png" id="26_vhfsg"]
 [ext_resource type="Texture2D" uid="uid://b70x6ko0e6qum" path="res://scenes/entities/enemies/sprites/enemy_drone/explosion/drone_explosion_f10.png" id="27_a1vhm"]
 
@@ -271,33 +272,57 @@ material = SubResource("ShaderMaterial_rcdfj")
 sprite_frames = SubResource("SpriteFrames_ba4bt")
 animation = &"right"
 
+[node name="PointLight2D" type="PointLight2D" parent="AnimationsHandler/Animations" index="0"]
+enabled = false
+color = Color(0.87451, 0.192157, 0.192157, 0.784314)
+energy = 1.5
+texture = ExtResource("26_tvmyg")
+
 [node name="DropCollectableComponent" parent="." index="5"]
 power_up_scenes = Array[PackedScene]([ExtResource("15_7yi4a"), ExtResource("16_1c6rh"), ExtResource("17_ha0qr"), ExtResource("18_iv74a")])
 heal_up_scenes = Array[PackedScene]([ExtResource("19_d0fdl"), ExtResource("20_vuyhb"), ExtResource("21_45kua"), ExtResource("21_45kua"), ExtResource("22_ntqxf"), ExtResource("23_fvjq1"), ExtResource("24_8cxw6"), ExtResource("24_8cxw6")])
 drop_chance = 100.0
 
 [node name="LiftParticles" type="GPUParticles2D" parent="." index="6"]
+light_mask = 128
 position = Vector2(2, 15)
 amount = 30
 process_material = SubResource("ParticleProcessMaterial_ng8wq")
 texture = ExtResource("13_2b7gj")
 lifetime = 0.6
 
+[node name="PointLight2D" type="PointLight2D" parent="LiftParticles" index="0"]
+energy = 0.2
+range_item_cull_mask = 128
+texture = ExtResource("26_tvmyg")
+
 [node name="CollisionBox" parent="." index="7"]
 position = Vector2(0, 22.5)
 shape = SubResource("RectangleShape2D_kerse")
 
 [node name="DamageAnimation" type="AnimatedSprite2D" parent="." index="8"]
+light_mask = 256
 position = Vector2(0, 4)
 sprite_frames = SubResource("SpriteFrames_qswui")
 animation = &"damage"
 frame = 3
 frame_progress = 1.0
 
+[node name="PointLight2D" type="PointLight2D" parent="DamageAnimation" index="0"]
+energy = 0.5
+range_item_cull_mask = 256
+texture = ExtResource("26_tvmyg")
+
 [node name="ExplosionAnimation" type="AnimatedSprite2D" parent="." index="9"]
 visible = false
+light_mask = 256
 sprite_frames = SubResource("SpriteFrames_fmelp")
 animation = &"explosion"
+
+[node name="PointLight2D" type="PointLight2D" parent="ExplosionAnimation" index="0"]
+energy = 0.5
+range_item_cull_mask = 256
+texture = ExtResource("26_tvmyg")
 
 [node name="ExplosionAnimationPlayer" type="AnimationPlayer" parent="." index="10"]
 libraries = {

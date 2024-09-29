@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctwcb1vohcywh"]
+[gd_scene load_steps=8 format=3 uid="uid://ctwcb1vohcywh"]
 
 [ext_resource type="PackedScene" uid="uid://dgfamoasmhwre" path="res://scenes/components/collectable_component/collectable_component.tscn" id="1_kjbqq"]
 [ext_resource type="Script" path="res://scenes/items/collectables/heal_ups/base_heal_up.gd" id="1_opt1t"]
 [ext_resource type="PackedScene" uid="uid://dtnhsno45q704" path="res://scenes/components/despawn_collectable_component/despawn_collectable_component.tscn" id="3_mpfwr"]
+[ext_resource type="Texture2D" uid="uid://dj1colr3pe88x" path="res://assets/graphics/light_textures/round_200x200px.png" id="4_ksa6h"]
 
 [sub_resource type="Animation" id="Animation_umc74"]
 length = 0.001
@@ -43,6 +44,7 @@ _data = {
 }
 
 [node name="BaseHealUp" type="Sprite2D"]
+light_mask = 8
 script = ExtResource("1_opt1t")
 
 [node name="CollectableComponent" parent="." instance=ExtResource("1_kjbqq")]
@@ -53,3 +55,9 @@ script = ExtResource("1_opt1t")
 libraries = {
 "": SubResource("AnimationLibrary_hik6k")
 }
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.5
+range_item_cull_mask = 8
+texture = ExtResource("4_ksa6h")
+texture_scale = 0.5

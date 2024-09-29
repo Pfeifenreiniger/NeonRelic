@@ -8,7 +8,8 @@ extends BaseEnemy
 @onready var damage_animation:AnimatedSprite2D = $DamageAnimation as AnimatedSprite2D
 @onready var explosion_animation_player:AnimationPlayer = $ExplosionAnimationPlayer as AnimationPlayer
 @onready var laser_beam_start_position:Marker2D = $LaserBeamStartPosition as Marker2D
-@onready var animations: AnimatedSprite2D = $AnimationsHandler/Animations
+@onready var animations: AnimatedSprite2D = $AnimationsHandler/Animations as AnimatedSprite2D
+@onready var point_light_2d: PointLight2D = $AnimationsHandler/Animations/PointLight2D as PointLight2D
 
 
 ###----------PROPERTIES----------###
@@ -99,6 +100,7 @@ func _on_aggro_area_body_entered(body:Node2D) -> void:
 	if !is_aggro:
 		animations.stop()
 		animations.play("alarm_right")
+		point_light_2d.enabled = true
 	super._on_aggro_area_body_entered(body)
 
 
@@ -106,6 +108,7 @@ func _on_aggro_area_body_exited(body:Node2D) -> void:
 	if is_aggro:
 		animations.stop()
 		animations.play("right")
+		point_light_2d.enabled = false
 	super._on_aggro_area_body_exited(body)
 	face_player_to_side = ""
 
