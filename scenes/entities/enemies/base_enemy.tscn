@@ -52,6 +52,7 @@ one_shot = true
 script = ExtResource("4_m4jp3")
 
 [node name="Animations" type="AnimatedSprite2D" parent="AnimationsHandler"]
+light_mask = 524289
 
 [node name="DropCollectableComponent" parent="." instance=ExtResource("8_uw243")]
 

@@ -18,6 +18,7 @@ class_name PlayerControlsHandler
 
 signal select_primary_weapon(direction:String)
 signal select_secondary_weapon(direction:String)
+signal select_special_ability(side:int)
 
 
 ###----------PROPERTIES----------###
@@ -75,8 +76,10 @@ func check_ingame_control_key_inputs() -> void:
 	check_input_environment_action_key()
 	check_input_primary_weapon_usage_key()
 	check_input_secondary_weapon_usage_key()
+	check_input_special_ability_usage_key()
 	check_input_primary_weapon_selection_keys()
 	check_input_secondary_weapon_selection_keys()
+	check_input_special_ability_selection_keys()
 	check_input_block()
 	check_input_block_release()
 	
@@ -276,6 +279,11 @@ func check_input_secondary_weapon_usage_key() -> void:
 		player.weapon_handler.use_secondary_weapon(Globals.currently_used_secondary_weapon, Vector2(extra_velocity_x, -extra_velocity_y))
 
 
+func check_input_special_ability_usage_key() -> void:
+	if Input.is_action_just_pressed("ingame_special_ability_usage"):
+		player.special_abilities_handler.use_currently_active_ability()
+
+
 func check_input_primary_weapon_selection_keys() -> void:
 	## emits signal to primary weapon selection ui scene if up or down and prim-weapon-select key (currently shift) is pressed
 	
@@ -321,6 +329,19 @@ func check_input_secondary_weapon_selection_keys() -> void:
 			select_secondary_weapon.emit("right")
 			await get_tree().create_timer(0.25).timeout
 			can_select_secondary_weapon = true
+
+
+func check_input_special_ability_selection_keys() -> void:
+	var side:int
+	
+	if Input.is_action_just_pressed("ingame_special_ability_select_left"):
+		side = -1
+	
+	elif Input.is_action_just_pressed("ingame_special_ability_select_right"):
+		side = 1
+	
+	if side != 0:
+		select_special_ability.emit(side)
 
 
 func _do_block_input_buffer() -> void:

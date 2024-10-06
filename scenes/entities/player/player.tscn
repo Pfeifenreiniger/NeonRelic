@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ddawbfdgq2114"]
+[gd_scene load_steps=17 format=3 uid="uid://ddawbfdgq2114"]
 
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_bej2y"]
 [ext_resource type="PackedScene" uid="uid://mc3h7sd000hq" path="res://scenes/entities/player/player_movement_handler.tscn" id="2_1xfcl"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://crm1ml21cib0l" path="res://scenes/entities/player/player_invulnerable_handler.tscn" id="8_chmwa"]
 [ext_resource type="PackedScene" uid="uid://dqm10ek4xk314" path="res://scenes/entities/player/player_block_shield_handler.tscn" id="11_qxpdg"]
 [ext_resource type="PackedScene" uid="uid://cvesikgvk3dph" path="res://scenes/entities/player/player_collectables_handler.tscn" id="13_rtsn4"]
+[ext_resource type="PackedScene" uid="uid://c45jqju35tsab" path="res://scenes/entities/player/special_abilities/player_special_abilities_handler.tscn" id="14_2f8qs"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fxymx"]
 radius = 6.0
@@ -48,6 +49,8 @@ script = ExtResource("1_bej2y")
 [node name="PlayerInvulnerableHandler" parent="." instance=ExtResource("8_chmwa")]
 
 [node name="PlayerCollectablesHandler" parent="." instance=ExtResource("13_rtsn4")]
+
+[node name="PlayerSpecialAbilitiesHandler" parent="." instance=ExtResource("14_2f8qs")]
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)

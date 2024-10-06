@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c45jqju35tsab"]
+
+[ext_resource type="Script" path="res://scenes/entities/player/special_abilities/player_special_abilities_handler.gd" id="1_8foqf"]
+[ext_resource type="Script" path="res://scenes/entities/player/special_abilities/all_or_nothing_ability.gd" id="2_0d5si"]
+[ext_resource type="Script" path="res://scenes/entities/player/special_abilities/platzhalter_ability.gd" id="3_gg0bx"]
+
+[node name="PlayerSpecialAbilitiesHandler" type="Node"]
+script = ExtResource("1_8foqf")
+
+[node name="AllOrNothingAbility" type="Node" parent="."]
+script = ExtResource("2_0d5si")
+
+[node name="CooldownTimer" type="Timer" parent="AllOrNothingAbility"]
+wait_time = 90.0
+one_shot = true
+
+[node name="PlatzhalterAbility" type="Node" parent="."]
+script = ExtResource("3_gg0bx")

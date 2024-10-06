@@ -1,9 +1,10 @@
 extends Node
 
 
-###----------SCENE REFERENCES----------###
+###----------NODE REFERENCES----------###
 
-@onready var animations_handler:PlayerAnimationsHandler = $"../.." as PlayerAnimationsHandler
+@onready var animations:AnimatedSprite2D = $"../../Animations" as AnimatedSprite2D
+@onready var point_light_2d: PointLight2D = $PointLight2D as PointLight2D
 
 
 ###----------PROPERTIES----------###
@@ -25,7 +26,7 @@ func _process(delta:float) -> void:
 
 func play_whip_attack_shader_animation(delta:float) -> void:
 	if do_whip_attack_shader_animation:
-		var shader_material:ShaderMaterial = animations_handler.animations.material as ShaderMaterial
+		var shader_material:ShaderMaterial = animations.material as ShaderMaterial
 		var current_strech_progress:float = shader_material.get_shader_parameter("stretchProgress") as float
 		
 		var progress:float = progress_speed * delta
@@ -42,13 +43,16 @@ func play_whip_attack_shader_animation(delta:float) -> void:
 func start_whip_attack_shader_animation() -> void:
 	is_currently_stretching = true
 	do_whip_attack_shader_animation = true
-	animations_handler.animations.material.set_shader_parameter("doStretch", do_whip_attack_shader_animation)
-	animations_handler.animations.material.set_shader_parameter("widenX", is_currently_stretching)
+	(animations.material as ShaderMaterial).set_shader_parameter("doStretch", do_whip_attack_shader_animation)
+	(animations.material as ShaderMaterial).set_shader_parameter("widenX", is_currently_stretching)
+	point_light_2d.global_position = animations.global_position
+	point_light_2d.enabled = true
 
 
 func stop_whip_attack_shader_animation() -> void:
 	is_currently_stretching = false
 	do_whip_attack_shader_animation = false
-	animations_handler.animations.material.set_shader_parameter("stretchProgress", 0)
-	animations_handler.animations.material.set_shader_parameter("doStretch", do_whip_attack_shader_animation)
-	animations_handler.animations.material.set_shader_parameter("widenX", is_currently_stretching)
+	(animations.material as ShaderMaterial).set_shader_parameter("stretchProgress", 0)
+	(animations.material as ShaderMaterial).set_shader_parameter("doStretch", do_whip_attack_shader_animation)
+	(animations.material as ShaderMaterial).set_shader_parameter("widenX", is_currently_stretching)
+	point_light_2d.enabled = false

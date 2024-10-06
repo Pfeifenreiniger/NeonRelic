@@ -236,6 +236,20 @@ tracks/4/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"turn_explosion_point_light2d_on"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kch1u"]
 _data = {
@@ -309,9 +323,12 @@ frame = 3
 frame_progress = 1.0
 
 [node name="PointLight2D" type="PointLight2D" parent="DamageAnimation" index="0"]
+enabled = false
+color = Color(0.956863, 0.980392, 0.45098, 0.784314)
 energy = 0.5
-range_item_cull_mask = 256
+range_item_cull_mask = 257
 texture = ExtResource("26_tvmyg")
+texture_scale = 1.5
 
 [node name="ExplosionAnimation" type="AnimatedSprite2D" parent="." index="9"]
 visible = false
@@ -320,9 +337,12 @@ sprite_frames = SubResource("SpriteFrames_fmelp")
 animation = &"explosion"
 
 [node name="PointLight2D" type="PointLight2D" parent="ExplosionAnimation" index="0"]
+enabled = false
+color = Color(0.835294, 0.101961, 0.101961, 0.784314)
 energy = 0.5
-range_item_cull_mask = 256
+range_item_cull_mask = 257
 texture = ExtResource("26_tvmyg")
+texture_scale = 1.5
 
 [node name="ExplosionAnimationPlayer" type="AnimationPlayer" parent="." index="10"]
 libraries = {

@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://ds04u3rr6cknn"]
+
+[ext_resource type="Texture2D" uid="uid://hfp3aqtngdj6" path="res://assets/graphics/ui/ingame/special_ability_icons/all_or_nothing_icon.png" id="1_aqcb6"]
+[ext_resource type="Script" path="res://scenes/ui/ingame/special_abilities_selection/special_abilities_selection.gd" id="1_lmfnj"]
+[ext_resource type="Shader" path="res://scenes/ui/ingame/special_abilities_selection/special_abilities_selection.gdshader" id="2_4kh6o"]
+[ext_resource type="Script" path="res://scenes/ui/ingame/special_abilities_selection/all_or_nothing.gd" id="4_5uyul"]
+[ext_resource type="Texture2D" uid="uid://ck0avuif7lha1" path="res://assets/graphics/ui/ingame/special_ability_icons/platzhalter.png" id="4_060sf"]
+[ext_resource type="Script" path="res://scenes/ui/ingame/special_abilities_selection/platzhalter.gd" id="6_kmnjm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o45ft"]
+resource_local_to_scene = true
+shader = ExtResource("2_4kh6o")
+shader_parameter/active = false
+shader_parameter/outline_color = Color(0.8, 0, 0.1, 1)
+shader_parameter/outline_width = 4.0
+shader_parameter/pulse_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qfpm5"]
+resource_local_to_scene = true
+shader = ExtResource("2_4kh6o")
+shader_parameter/active = false
+shader_parameter/outline_color = Color(0.8, 0, 0.1, 1)
+shader_parameter/outline_width = 4.0
+shader_parameter/pulse_speed = 3.0
+
+[node name="SpecialAbilitiesSelection" type="Node"]
+script = ExtResource("1_lmfnj")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AllOrNothing" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_o45ft")
+position = Vector2(80, 137)
+texture = ExtResource("1_aqcb6")
+script = ExtResource("4_5uyul")
+
+[node name="Label" type="Label" parent="AllOrNothing"]
+offset_left = -20.0
+offset_top = 20.0
+offset_right = 21.0
+offset_bottom = 43.0
+text = "99"
+horizontal_alignment = 1
+
+[node name="GrayOff" type="ColorRect" parent="AllOrNothing"]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0, 0, 0, 0.498039)
+
+[node name="Platzhalter" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_qfpm5")
+position = Vector2(135, 137)
+texture = ExtResource("4_060sf")
+script = ExtResource("6_kmnjm")

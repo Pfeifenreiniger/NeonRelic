@@ -15,6 +15,7 @@ class_name Player
 @onready var weapon_handler:PlayerWeaponHandler = $PlayerWeaponHandler as PlayerWeaponHandler
 @onready var block_shield_handler:PlayerBlockShieldHandler = $PlayerBlockShieldHandler as PlayerBlockShieldHandler
 @onready var collectables_handler:PlayerCollectablesHandler = $PlayerCollectablesHandler as PlayerCollectablesHandler
+@onready var special_abilities_handler: PlayerSpecialAbilitiesHandler = $PlayerSpecialAbilitiesHandler as PlayerSpecialAbilitiesHandler
 
 
 ###------NODE REFERENCES------###

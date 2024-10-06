@@ -1,14 +1,6 @@
 extends Node2D
 
-
-
-
-
 func _ready() -> void:
+	var tolles_bool:bool
 	
-	print("hallo du".capitalize())
-	print("HALLO DU".to_lower())
-	print("hallo du".to_upper())
-	print("Hallo du".to_pascal_case())
-	print("Hallo du".to_camel_case())
-	print("Hallo du".to_snake_case())
+	print(tolles_bool)

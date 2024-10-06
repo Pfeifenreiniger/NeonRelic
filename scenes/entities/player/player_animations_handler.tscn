@@ -1630,6 +1630,12 @@ script = ExtResource("4_dndmp")
 script = ExtResource("5_3n4f3")
 progress_speed = 2.3
 
+[node name="PointLight2D" type="PointLight2D" parent="WhipAttackAnimation/WhipAttackChargeShaderAnimation"]
+enabled = false
+energy = 0.5
+range_item_cull_mask = 524288
+texture = ExtResource("9_880f1")
+
 [node name="SwordAttackAnimation" type="Node" parent="."]
 script = ExtResource("6_yov1c")
 
@@ -2110,6 +2116,7 @@ range_item_cull_mask = 2
 texture = ExtResource("9_880f1")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
+light_mask = 524289
 material = SubResource("ShaderMaterial_g2dfq")
 sprite_frames = SubResource("SpriteFrames_25tp4")
 animation = &"stand_sword_attack_left_1"

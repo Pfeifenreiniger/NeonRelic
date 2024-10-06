@@ -37,6 +37,15 @@ func _ready() -> void:
 
 ###----------METHODS----------###
 
+func get_real_number_of_percentage_max_health(percentage:float) -> int:
+	if percentage <= 0:
+		percentage = 1
+	
+	var perc:float = snapped(percentage / 100, 0.01) # rounded to two digits (e.g. 0.52)
+	
+	return round(Globals.player_max_health * perc)
+
+
 func calc_players_health_in_percent() -> void:
 	## errechnet die derzeitige Spieler HP in % (mit zwei Nachkommastellen),
 	## also z.B. 31.01

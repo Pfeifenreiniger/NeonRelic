@@ -6,7 +6,10 @@ extends BaseEnemy
 @onready var shoot_laser_component:ShootLaserComponent = $ShootLaserComponent as ShootLaserComponent
 @onready var lift_particles:GPUParticles2D = $LiftParticles as GPUParticles2D
 @onready var damage_animation:AnimatedSprite2D = $DamageAnimation as AnimatedSprite2D
+@onready var damage_animation_point_light2d = $DamageAnimation/PointLight2D as PointLight2D
+@onready var explosion_animation: AnimatedSprite2D = $ExplosionAnimation as AnimatedSprite2D
 @onready var explosion_animation_player:AnimationPlayer = $ExplosionAnimationPlayer as AnimationPlayer
+@onready var explosion_animation_point_light_2d = $ExplosionAnimation/PointLight2D as PointLight2D
 @onready var laser_beam_start_position:Marker2D = $LaserBeamStartPosition as Marker2D
 @onready var animations: AnimatedSprite2D = $AnimationsHandler/Animations as AnimatedSprite2D
 @onready var point_light_2d: PointLight2D = $AnimationsHandler/Animations/PointLight2D as PointLight2D
@@ -24,6 +27,9 @@ func _ready() -> void:
 	animations.animation_finished.connect(_on_animations_animation_finished)
 	health_handler.health_component.got_damage.connect(_on_got_damage)
 	damage_animation.visible = false
+	damage_animation_point_light2d.enabled = false
+	explosion_animation.visible = false
+	explosion_animation_point_light_2d.enabled = false
 
 
 ###----------METHODS: PER FRAME CALLED----------###
@@ -84,12 +90,16 @@ func _face_to_right() -> void:
 
 ###----------METHODS----------###
 
+func turn_explosion_point_light2d_on() -> void:
+	explosion_animation_point_light_2d.enabled = true
+
 
 func do_die() -> void:
 	IS_ENEMY = false
 	movement_handler.current_speed = 0
 	is_aggro = false
 	is_attacking = false
+	explosion_animation.visible = true
 	explosion_animation_player.play('explosion')
 	drop_collectable_component.drop_collectable(self)
 
@@ -127,9 +137,12 @@ func _on_animations_animation_finished() -> void:
 
 func _on_got_damage() -> void:
 	damage_animation.visible = true
+	damage_animation_point_light2d.enabled = true
 	damage_animation.play("damage")
 	damage_animation.animation_finished.connect(
-		func(): damage_animation.visible = false
+		func():
+			damage_animation.visible = false
+			damage_animation_point_light2d.enabled = false
 	)
 	await damage_animation.animation_finished
 	

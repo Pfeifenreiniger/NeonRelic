@@ -24,13 +24,13 @@ func _ready() -> void:
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(delta:float) -> void:
-	_let_follow_players_position_with_position_smoothing(delta)
+func _process(_delta:float) -> void:
+	_let_follow_players_position_with_position_smoothing()
 
 
 ###----------METHODS: POSITIONING----------###
 
-func _let_follow_players_position_with_position_smoothing(delta:float) -> void:
+func _let_follow_players_position_with_position_smoothing() -> void:
 	
 	if player == null:
 		return
