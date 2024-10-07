@@ -145,7 +145,7 @@ func _ready() -> void:
 
 ###----------METHODS: PER FRAME CALLED----------###
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if whip.do_attack_animation && !whip.done_attack_animation:
 		_adjust_size()
 

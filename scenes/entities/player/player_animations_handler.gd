@@ -69,6 +69,8 @@ func select_animation() -> void:
 	animations.stop()
 	if injured_animation:
 		if "run" in current_animation:
+			if "trans" in current_animation:
+				current_animation = "run_" + current_animation.split('_')[-1]
 			current_animation = current_animation.replace("run", "walk_injured")
 		elif current_animation == "stand_left" || current_animation == 'stand_right':
 			current_animation = current_animation.replace("stand", "stand_injured")

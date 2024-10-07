@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ds04u3rr6cknn"]
+[gd_scene load_steps=12 format=3 uid="uid://ds04u3rr6cknn"]
 
 [ext_resource type="Texture2D" uid="uid://hfp3aqtngdj6" path="res://assets/graphics/ui/ingame/special_ability_icons/all_or_nothing_icon.png" id="1_aqcb6"]
 [ext_resource type="Script" path="res://scenes/ui/ingame/special_abilities_selection/special_abilities_selection.gd" id="1_lmfnj"]
@@ -11,9 +11,39 @@
 resource_local_to_scene = true
 shader = ExtResource("2_4kh6o")
 shader_parameter/active = false
-shader_parameter/outline_color = Color(0.8, 0, 0.1, 1)
+shader_parameter/outline_color = Color(0.8, 0, 0.101961, 1)
 shader_parameter/outline_width = 4.0
 shader_parameter/pulse_speed = 3.0
+
+[sub_resource type="Gradient" id="Gradient_g4r2e"]
+offsets = PackedFloat32Array(0.579288, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_notdc"]
+gradient = SubResource("Gradient_g4r2e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bjdvf"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(20, 20, 1)
+angle_min = -23.7
+angle_max = 71.2
+inherit_velocity_ratio = 0.115
+direction = Vector3(0, 0, 0)
+angular_velocity_min = -118.68
+angular_velocity_max = 245.28
+orbit_velocity_min = 0.505
+orbit_velocity_max = 0.923
+radial_velocity_min = 142.86
+radial_velocity_max = 153.85
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 2.2
+radial_accel_max = 8.79
+scale_min = 3.0
+scale_max = 6.0
+color = Color(0.8, 0, 0.101961, 1)
+color_ramp = SubResource("GradientTexture1D_notdc")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qfpm5"]
 resource_local_to_scene = true
@@ -51,8 +81,22 @@ offset_right = 20.0
 offset_bottom = 20.0
 color = Color(0, 0, 0, 0.498039)
 
+[node name="ParticlesEffectOnUsage" type="GPUParticles2D" parent="AllOrNothing"]
+emitting = false
+amount = 240
+process_material = SubResource("ParticleProcessMaterial_bjdvf")
+lifetime = 0.5
+one_shot = true
+
 [node name="Platzhalter" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_qfpm5")
 position = Vector2(135, 137)
 texture = ExtResource("4_060sf")
 script = ExtResource("6_kmnjm")
+
+[node name="ParticlesEffectOnUsage" type="GPUParticles2D" parent="Platzhalter"]
+emitting = false
+amount = 240
+process_material = SubResource("ParticleProcessMaterial_bjdvf")
+lifetime = 0.5
+one_shot = true

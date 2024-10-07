@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://ddawbfdgq2114"]
 
-[ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_bej2y"]
+[ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_k3q3h"]
 [ext_resource type="PackedScene" uid="uid://mc3h7sd000hq" path="res://scenes/entities/player/player_movement_handler.tscn" id="2_1xfcl"]
 [ext_resource type="PackedScene" uid="uid://qvaqmqgo70op" path="res://scenes/entities/player/player_hitbox_handler.tscn" id="2_4gkyc"]
 [ext_resource type="PackedScene" uid="uid://ckuywxwyjps68" path="res://scenes/entities/player/player_controls_handler.tscn" id="2_lh736"]
@@ -24,7 +24,7 @@ size = Vector2(20, 1)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 60
-script = ExtResource("1_bej2y")
+script = ExtResource("1_k3q3h")
 
 [node name="PlayerMovementHandler" parent="." instance=ExtResource("2_1xfcl")]
 

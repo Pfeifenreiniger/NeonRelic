@@ -16,7 +16,10 @@ var all_abilities:Dictionary
 ###----------METHODS: AT SCENE TREE ENTER CALLED----------###
 
 func _ready() -> void:
+	all_or_nothing_ability.is_active = true # all or nothing is the selection at start-up
 	all_abilities['all_or_nothing'] = all_or_nothing_ability
+	
+	all_abilities['platzhalter'] = platzhalter_ability
 
 
 ###----------METHODS----------###

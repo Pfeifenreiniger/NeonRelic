@@ -50,7 +50,7 @@ func _select_ability(side:int) -> void:
 	var available_abilities:Array = all_abilities.keys()
 	
 	var i_of_currently_active_ability:int
-	var i:int
+	var i:int = 0
 	for ability in all_abilities:
 		if (all_abilities[ability] as Sprite2D).material.get('shader_parameter/active'):
 			i_of_currently_active_ability = i

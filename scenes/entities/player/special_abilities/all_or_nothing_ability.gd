@@ -3,6 +3,7 @@ extends Node
 
 ###----------CUSTOM SIGNALS----------###
 
+signal ability_used
 signal update_remaining_cooldown_time(time_left_in_secs:int)
 
 
@@ -53,6 +54,8 @@ func use_ability() -> void:
 		return
 	if player_current_stamina_in_percent < 50:
 		return
+	
+	ability_used.emit()
 	
 	cooldown_timer.start()
 	

@@ -14,6 +14,7 @@ signal toggle_active(active:bool)
 
 @onready var label: Label = $Label as Label
 @onready var gray_off: ColorRect = $GrayOff as ColorRect
+@onready var particles_effect_on_usage: GPUParticles2D = $ParticlesEffectOnUsage as GPUParticles2D
 
 
 ###----------PROPERTIES----------###
@@ -25,6 +26,7 @@ var cooldown_time_left:int
 
 func _ready() -> void:
 	player.special_abilities_handler.all_or_nothing_ability.update_remaining_cooldown_time.connect(_on_update_remaining_cooldown_time)
+	player.special_abilities_handler.all_or_nothing_ability.ability_used.connect(_on_ability_used)
 	gray_off.visible = false
 	label.text = ''
 
@@ -47,6 +49,10 @@ func _gray_off_when_cooldown() -> void:
 
 
 ###----------CONNECTED SIGNALS----------###
+
+func _on_ability_used() -> void:
+	particles_effect_on_usage.emitting = true
+
 
 func _on_update_remaining_cooldown_time(time_left:int) -> void:
 	cooldown_time_left = time_left

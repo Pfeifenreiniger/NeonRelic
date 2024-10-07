@@ -268,10 +268,9 @@ offset_right = 2023.0
 offset_bottom = 1454.0
 color = Color(0, 0, 0, 0.313726)
 
-[node name="BackgroundWallpaper" parent="Background" node_paths=PackedStringArray("player") instance=ExtResource("2_lmd2j")]
+[node name="BackgroundWallpaper" parent="Background" instance=ExtResource("2_lmd2j")]
 texture = ExtResource("3_0wwde")
 image_file = "res://assets/graphics/backgrounds/wallpaper/orange_sunset.png"
-player = NodePath("../../Entities/Player")
 metadata/_edit_lock_ = true
 
 [node name="Foreground" type="Node2D" parent="."]
