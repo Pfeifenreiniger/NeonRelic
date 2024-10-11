@@ -1,6 +1,8 @@
 extends Node2D
 
 func _ready() -> void:
-	var tolles_bool:bool
+	var irgendwas:Variant
 	
-	print(tolles_bool)
+	for elem in ["Hallo", "Du", 111, true, 1.2]:
+		irgendwas = elem
+		print(irgendwas)

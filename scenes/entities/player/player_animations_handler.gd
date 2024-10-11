@@ -43,7 +43,7 @@ func _ready() -> void:
 	# set up animations
 	animations.animation_finished.connect(on_animation_finished)
 	animations.frame_changed.connect(on_frame_changed)
-	current_animation = "run_right"
+	current_animation = EnumPlayerAnimations.RUN_RIGHT
 	loop_animation = true
 	
 	await player.ready
@@ -72,7 +72,7 @@ func select_animation() -> void:
 			if "trans" in current_animation:
 				current_animation = "run_" + current_animation.split('_')[-1]
 			current_animation = current_animation.replace("run", "walk_injured")
-		elif current_animation == "stand_left" || current_animation == 'stand_right':
+		elif current_animation == EnumPlayerAnimations.STAND_LEFT || current_animation == EnumPlayerAnimations.STAND_RIGHT:
 			current_animation = current_animation.replace("stand", "stand_injured")
 	animations.play(current_animation)
 	if start_run_animation && !injured_animation:
@@ -85,7 +85,7 @@ func select_animation() -> void:
 
 func _check_if_stand_injured_idle_animation() -> void:
 	if injured_animation:
-		if current_animation == "stand_left" || current_animation == 'stand_right':
+		if current_animation == EnumPlayerAnimations.STAND_LEFT || current_animation == EnumPlayerAnimations.STAND_RIGHT:
 			animation_to_change = true
 
 
@@ -143,14 +143,14 @@ func on_animation_finished() -> void:
 			player.hitbox_handler.resize_hitbox(false, true)
 			player.weapon_handler.secondary_weapons.adjust_secondary_weapon_start_position('duck')
 			if "left" in current_animation:
-				current_animation = "duck_left"
+				current_animation = EnumPlayerAnimations.DUCK_LEFT
 			else:
-				current_animation = "duck_right"
+				current_animation = EnumPlayerAnimations.DUCK_RIGHT
 		else:
 			if "left" in current_animation:
-				current_animation = "stand_left" if not injured_animation else "stand_injured_left"
+				current_animation = EnumPlayerAnimations.STAND_LEFT if not injured_animation else EnumPlayerAnimations.STAND_INJURED_LEFT
 			else:
-				current_animation = "stand_right" if not injured_animation else "stand_injured_right"
+				current_animation = EnumPlayerAnimations.STAND_RIGHT if not injured_animation else EnumPlayerAnimations.STAND_INJURED_RIGHT
 		
 		loop_animation = true
 		animation_to_change = true
@@ -160,9 +160,9 @@ func on_animation_finished() -> void:
 		loop_animation = true
 		animation_to_change = true
 		if "left" in current_animation:
-			current_animation = "stand_left" if not injured_animation else "stand_injured_left"
+			current_animation = EnumPlayerAnimations.STAND_LEFT if not injured_animation else EnumPlayerAnimations.STAND_INJURED_LEFT
 		else:
-			current_animation = "stand_right" if not injured_animation else "stand_injured_right"
+			current_animation = EnumPlayerAnimations.STAND_RIGHT if not injured_animation else EnumPlayerAnimations.STAND_INJURED_RIGHT
 	
 	elif player.movement_handler.is_rolling:
 		player.movement_handler.is_rolling = false

@@ -141,9 +141,9 @@ func _move_y_player_not_on_floor(delta:float) -> void:
 			direction.y = 1
 			y_axis_position_on_falling_start = int(player.global_position.y)
 			if "left" in player.animations_handler.current_animation:
-				player.animations_handler.current_animation = "fall_down_left"
+				player.animations_handler.current_animation = EnumPlayerAnimations.FALL_DOWN_LEFT
 			else:
-				player.animations_handler.current_animation = "fall_down_right"
+				player.animations_handler.current_animation = EnumPlayerAnimations.FALL_DOWN_RIGHT
 			player.animations_handler.loop_animation = false
 			player.animations_handler.animation_to_change = true
 
@@ -291,13 +291,13 @@ func action_input_move_x_axis(side:String) -> void:
 			action_input_side_roll_x_axis('right')
 			return
 		if direction_former_frame.x < 0:
-			player.animations_handler.current_animation = "run_trans_left_to_right"
+			player.animations_handler.current_animation = EnumPlayerAnimations.RUN_TRANS_LEFT_TO_RIGHT
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = false
-		if player.animations_handler.current_animation != "run_right" && player.animations_handler.current_animation != "walk_injured_right":
+		if player.animations_handler.current_animation != EnumPlayerAnimations.RUN_RIGHT && player.animations_handler.current_animation != EnumPlayerAnimations.WALK_INJURED_RIGHT:
 			if player.velocity.x < 0:
 				return
-			player.animations_handler.current_animation = "run_right" if not player.animations_handler.injured_animation else "walk_injured_right"
+			player.animations_handler.current_animation = EnumPlayerAnimations.RUN_RIGHT if not player.animations_handler.injured_animation else EnumPlayerAnimations.WALK_INJURED_RIGHT
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = true
 			player.animations_handler.start_run_animation = true
@@ -307,13 +307,13 @@ func action_input_move_x_axis(side:String) -> void:
 			action_input_side_roll_x_axis('left')
 			return
 		if direction_former_frame.x > 0:
-			player.animations_handler.current_animation = "run_trans_right_to_left"
+			player.animations_handler.current_animation = EnumPlayerAnimations.RUN_TRANS_RIGHT_TO_LEFT
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = false
-		if player.animations_handler.current_animation != "run_left" && player.animations_handler.current_animation != "walk_injured_left":
+		if player.animations_handler.current_animation != EnumPlayerAnimations.RUN_LEFT && player.animations_handler.current_animation != EnumPlayerAnimations.WALK_INJURED_LEFT:
 			if player.velocity.x > 0:
 				return
-			player.animations_handler.current_animation = "run_left" if not player.animations_handler.injured_animation else "walk_injured_left"
+			player.animations_handler.current_animation = EnumPlayerAnimations.RUN_LEFT if not player.animations_handler.injured_animation else EnumPlayerAnimations.WALK_INJURED_LEFT
 			player.animations_handler.animation_to_change = true
 			player.animations_handler.loop_animation = true
 			player.animations_handler.start_run_animation = true
@@ -323,10 +323,10 @@ func action_input_move_x_axis(side:String) -> void:
 		if !"stand" in player.animations_handler.current_animation\
 		&& check_if_player_can_horizontally_move():
 			if "right" in player.animations_handler.current_animation:
-				player.animations_handler.current_animation = "stand_right"
+				player.animations_handler.current_animation = EnumPlayerAnimations.STAND_RIGHT
 				player.animations_handler.loop_animation = true
 			else:
-				player.animations_handler.current_animation = "stand_left"
+				player.animations_handler.current_animation = EnumPlayerAnimations.STAND_LEFT
 				player.animations_handler.loop_animation = true
 			player.animations_handler.animation_to_change = true
 
@@ -335,26 +335,26 @@ func action_input_side_roll_x_axis(side:String) -> void:
 	if side == 'right':
 		if !is_rolling:
 			if player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
-				player.animations_handler.current_animation = "roll_right"
+				player.animations_handler.current_animation = EnumPlayerAnimations.ROLL_RIGHT
 				player.animations_handler.loop_animation = false
 				player.animations_handler.animation_to_change = true
 				is_rolling = true
 				player.stamina_handler.stamina_can_refresh = false
 				player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["side_roll"])
-				player.animations_handler.side_roll_animation.do_side_roll("right")
+				player.animations_handler.side_roll_animation.do_side_roll(side)
 				if !player.invulnerable_handler.invulnerability_component.is_invulnerable:
 					player.invulnerable_handler.invulnerability_component.become_invulnerable(0.5, false)
 	else:
 		# left
 		if !is_rolling:
 			if player.stamina_handler.check_player_has_enough_stamina(player.stamina_handler.stamina_costs["side_roll"]):
-				player.animations_handler.current_animation = "roll_left"
+				player.animations_handler.current_animation = EnumPlayerAnimations.ROLL_LEFT
 				player.animations_handler.loop_animation = false
 				player.animations_handler.animation_to_change = true
 				is_rolling = true
 				player.stamina_handler.stamina_can_refresh = false
 				player.stamina_handler.cost_player_stamina(player.stamina_handler.stamina_costs["side_roll"])
-				player.animations_handler.side_roll_animation.do_side_roll("left")
+				player.animations_handler.side_roll_animation.do_side_roll(side)
 				if !player.invulnerable_handler.invulnerability_component.is_invulnerable:
 					player.invulnerable_handler.invulnerability_component.become_invulnerable(0.5, false)
 
@@ -369,9 +369,9 @@ func action_input_jump() -> void:
 			player.velocity.y = 0
 			can_coyote_jump = false
 		if "left" in player.animations_handler.current_animation:
-			player.animations_handler.current_animation = "jump_up_left"
+			player.animations_handler.current_animation = EnumPlayerAnimations.JUMP_UP_LEFT
 		else:
-			player.animations_handler.current_animation = "jump_up_right"
+			player.animations_handler.current_animation = EnumPlayerAnimations.JUMP_UP_RIGHT
 		player.animations_handler.loop_animation = false
 		player.animations_handler.animation_to_change = true
 		player.velocity.y += current_jump_velocity
@@ -387,9 +387,9 @@ func action_input_duck() -> void:
 		will_duck = true
 		player.velocity.x = 0
 		if "left" in player.animations_handler.current_animation:
-			player.animations_handler.current_animation = "to_duck_left"
+			player.animations_handler.current_animation = EnumPlayerAnimations.TO_DUCK_LEFT
 		else:
-			player.animations_handler.current_animation = "to_duck_right"
+			player.animations_handler.current_animation = EnumPlayerAnimations.TO_DUCK_RIGHT
 		player.animations_handler.loop_animation = false
 		player.animations_handler.animation_to_change = true
 		ingame_camera.do_desc_y_camera_axis()
@@ -415,10 +415,10 @@ func action_input_duck_release() -> void:
 	ingame_camera.do_zoom_out()
 	
 	if "left" in player.animations_handler.current_animation:
-		player.animations_handler.current_animation = "to_duck_left"
+		player.animations_handler.current_animation = EnumPlayerAnimations.TO_DUCK_LEFT
 		player.animations_handler.animations.play_backwards(player.animations_handler.current_animation)
 	else:
-		player.animations_handler.current_animation = "to_duck_right"
+		player.animations_handler.current_animation = EnumPlayerAnimations.TO_DUCK_RIGHT
 		player.animations_handler.animations.play_backwards(player.animations_handler.current_animation)
 
 
@@ -433,10 +433,10 @@ func action_input_climb_up_ledge() -> void:
 	player.animations_handler.animation_to_change = true
 	player.animations_handler.loop_animation = false
 	if "right" in player.animations_handler.current_animation:
-		player.animations_handler.current_animation = "climb_up_ledge_right"
+		player.animations_handler.current_animation = EnumPlayerAnimations.CLIMB_UP_LEDGE_RIGHT
 		player.animations_handler.climb_up_ledge_animation.climb_up_ledge("right")
 	else:
-		player.animations_handler.current_animation = "climb_up_ledge_left"
+		player.animations_handler.current_animation = EnumPlayerAnimations.CLIMB_UP_LEDGE_LEFT
 		player.animations_handler.climb_up_ledge_animation.climb_up_ledge("left")
 
 
