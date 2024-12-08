@@ -93,6 +93,7 @@ func _move_x(delta:float) -> void:
 				target_x_distance,
 				current_acceleration_smoothing * delta
 			)
+		
 		else:
 			target_x_distance = 0
 			player.velocity.x = move_toward(

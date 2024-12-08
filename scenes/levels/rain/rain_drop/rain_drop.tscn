@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://b3xkgut20yrok"]
+
+[ext_resource type="Script" path="res://scenes/levels/rain/rain_drop/rain_drop.gd" id="1_cbb8m"]
+[ext_resource type="Texture2D" uid="uid://rvodpce50xl4" path="res://scenes/levels/rain/rain_drop/sprites/rain_drop.png" id="1_vncnv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cuerk"]
+radius = 3.60555
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pyvwl"]
+radius = 2.0
+height = 8.0
+
+[sub_resource type="Gradient" id="Gradient_st3dp"]
+offsets = PackedFloat32Array(0, 0.717822, 0.992574)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.852868, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_54s1v"]
+gradient = SubResource("Gradient_st3dp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8kc7a"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+angle_min = -31.3
+angle_max = 50.1
+flatness = 0.67
+radial_velocity_min = 8.69
+radial_velocity_max = 60.86
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 6.95
+radial_accel_max = 13.91
+scale_min = 0.2
+color_ramp = SubResource("GradientTexture1D_54s1v")
+turbulence_noise_strength = 4.56
+
+[node name="RainDrop" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_cbb8m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_cuerk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_vncnv")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 29
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+visible = false
+shape = SubResource("CapsuleShape2D_pyvwl")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(0.372549, 0.396078, 0.756863, 1)
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_8kc7a")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.44
+
+[node name="DespawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true

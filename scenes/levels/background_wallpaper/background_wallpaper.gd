@@ -37,7 +37,6 @@ func _let_follow_players_position_with_position_smoothing() -> void:
 	
 	# nur ausfuehren, wenn tatsaechlich im Spiel und nicht im Editor (da tool)
 	if !Engine.is_editor_hint():
-		
 		# x-axis
 		if player.velocity.x > 0:
 			# player moves to the right side
@@ -123,4 +122,3 @@ func _let_follow_players_position_with_position_smoothing() -> void:
 					$".", "offset:y", -Y_AXIS_OFFSET, .6
 				)\
 				.set_ease(Tween.EASE_IN)
-

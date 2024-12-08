@@ -40,7 +40,7 @@ void fragment() {
 		if (currentAlpha >= 0.5) {
 			currentAlpha -= 0.3;
 		}
-		targetColor = mix(originalColor, vec4(whiteColor, currentAlpha), blinkProgress);
+		targetColor = mix(originalColor, vec4(vec3(1.0, 1.0, 1.0), currentAlpha), blinkProgress);
 		
 	} else if (doFrozenSlowedDown) {
 		
